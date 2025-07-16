@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ismael Sallami - Web Personal</title>
+
+  <!-- 
+    - favicon
+  -->
+  <link rel="shortcut icon" href="./id-insignia.svg" type="image/svg+xml">
+
+  <!-- 
+    - custom css link
+  -->
+  <link rel="stylesheet" href="./assets/css/style.css">
+
+  <!-- 
+    - google font link
+  -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Barlow:wght@600;700&family=Open+Sans:wght@400;500;700&family=Poppins:wght@400;600&display=swap"
+    rel="stylesheet">
+
+  <!-- cookie -->
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Barlow:wght@600;700&family=Cookie&family=Open+Sans:wght@400;500;700&family=Poppins:wght@400;600&display=swap"
+    rel="stylesheet">
+    
+</head>
+
+<body id="top">
+
+  <!-- 
+    - #HEADER
+  -->
+
+  <header class="header" data-header>
+    <div class="container">
+
+      <a href="#">
+        <h1 class="logo">Ismael Sallami Moreno</h1>
+      </a>
+
+      <button class="nav-toggle-btn" aria-label="Toggle Menu" data-nav-toggle-btn>
+        <ion-icon name="menu-outline" class="menu-icon"></ion-icon>
+        <ion-icon name="close-outline" class="close-icon"></ion-icon>
+      </button>
+
+      <nav class="navbar container">
+        <ul class="navbar-list">
+
+          <li>
+            <a href="#home" class="navbar-link" data-nav-link>Inicio</a>
+          </li>
+
+          <li>
+            <a href="#about" class="navbar-link" data-nav-link>Sobre mí</a>
+          </li>
+
+          <li>
+            <a href="#projects" class="navbar-link" data-nav-link>Proyectos</a>
+          </li>
+
+          <li>
+            <a href="#skills" class="navbar-link" data-nav-link>Habilidades</a>
+          </li>
+
+          <li>
+            <a href="#contact" class="navbar-link" data-nav-link>Contacto</a>
+          </li>
+
+          <li>
+            <a href="./documentos/CV.pdf" class="btn btn-primary">Download CV</a>
+          </li>
+
+        </ul>
+      </nav>
+
+    <!-- Menú desplegable para seleccionar idioma -->
+    <select id="language-select" class="language-select">
+      <option value="es">Español</option>
+      <option value="en">English</option>
+    </select>
+
+
+    </div>
+  </header>
+
+
+
+
+
+  <main>
+    <article>
+
+      <!-- 
+        - #HERO
+      -->
+
+      <section class="hero" id="home">
+        <div class="container">
+
+          <div class="hero-banner">
+
+            <img src="./assets/images/ismael-sallami.png" width="800" height="864" loading="lazy" alt="Ismael's Photo"
+              class="img-cover">
+
+
+            <div class="elem elem-2">
+              <p class="elem-title">10+</p>
+
+              <p class="elem-text">Proyectos</p>
+            </div>
+
+            <div class="elem elem-3">
+              <ion-icon name="trophy"></ion-icon>
+            </div>
+
+            <img src="./assets/images/rotate_infoade.png" width="169" height="172" alt="I'm developer from New York"
+              class="rotate-img">
+
+          </div>
+
+          <div class="hero-content">
+
+            <h2 class="hero-title">
+              <span>Hola soy</span>
+                <strong><em>Ismael</em></strong> Estudiante del doble grado en Ingeniería Informática y Administración y Dirección de Empresas
+            </h2>
+
+            <p class="hero-text">
+              En este momento estoy estudiando el doble grado en Ingeniería Informática y Administración y Dirección de Empresas en la Universidad de Granada. Me apasiona la programación, el desarrollo web y la creación de aplicaciones que mejoren la vida de las personas, así como las inversiones y lo que se esconde detrás de estas.  Me gustaría contribuir a proyectos relacionados con la investigación del cáncer, así como otros campos relacionados con la física, matematicas y la informática. Estoy siempre en busca de nuevos desafíos y oportunidades para aprender y crecer profesionalmente.
+            </p>
+
+            <div class="btn-group">
+              <a href="#contact" class="btn btn-primary blue">Contactame</a>
+
+              <a href="#about" class="btn">Sobre mí</a>
+            </div>
+
+          </div>
+
+        </div>
+      </section>
+
+
+
+
+
+      <!-- 
+        - #ABOUT
+      -->
+
+      <section class="section about" id="about">
+        <div class="container">
+
+          <figure class="about-banner">
+
+            <img src="./assets/images/ia_medicina.jpg" width="800" height="652" loading="lazy" alt="Ia Medicina"
+              class="img-cover">
+
+            <img src="./assets/images/inversiones.png" width="800" height="717" loading="lazy" alt="IA Inversiones"
+              class="abs-img">
+
+            <div class="abs-icon abs-icon-1">
+              <ion-icon name="logo-python"></ion-icon>
+            </div>
+
+            <div class="abs-icon abs-icon-2">
+              <ion-icon name="flask-outline"></ion-icon>
+            </div>
+
+            <div class="abs-icon abs-icon-3">
+              <ion-icon name="trending-up-outline"></ion-icon>
+            </div>
+
+          </figure>
+
+          <div class="about-content">
+
+            <p class="section-subtitle">Mejoras en campos como la medicina</p>
+
+            <h2 class="h2 section-title">Me gustaría contribuir al campo médico aprovechando la Inteligencia Artifical, así como las inversiones y gestión del patrimonio, entre otros campos.</h2>
+
+            <p class="section-text">
+              Actualmente, la inteligencia artificial está revolucionando el sector sanitario, permitiendo diagnósticos más precisos, tratamientos personalizados y una gestión más eficiente de los recursos médicos. Me motiva la idea de aplicar mis conocimientos en informática para desarrollar soluciones innovadoras que ayuden a mejorar la calidad de vida de las personas.
+            </p>
+
+            <p class="section-text">
+              Además, me interesa el mundo de las inversiones y la gestión del patrimonio, donde la tecnología puede aportar transparencia y eficiencia. Mi objetivo es seguir aprendiendo y contribuir en proyectos que generen un impacto positivo en la sociedad, combinando mis habilidades técnicas con mi pasión por el crecimiento personal y profesional.
+            </p>
+
+            <a href="#projects" class="btn btn-primary blue">Ver Proyectos</a>
+
+          </div>
+
+        </div>
+      </section>
+
+
+
+
+
+      <!-- 
+        - #PORTFOLIO
+      -->
+
+      <section class="section projects" id="projects">
+        <div class="container">
+
+          <p class="section-subtitle">Proyectos</p>
+
+          <h2 class="h2 section-title">Mis trabajos</h2>
+          <br>
+
+          <p class="section-text">
+            En esta sección puedes encontrar una selección de mis proyectos más destacados. Cada uno de ellos refleja mi pasión por la programación y mi compromiso con la excelencia.
+          </p>
+          <br>
+
+          <ul class="portfolio-list">
+
+            <!-- <li>
+              <a href="#" class="portfolio-card" style="background-image: url('./assets/images/portfolio-1.jpg')">
+                <div class="card-content">
+
+                  <p class="card-subtitle">Youtube</p>
+
+                  <h3 class="h3 card-title">Web Application for Desiverse</h3>
+
+                  <span class="btn-link">
+                    <span>View Project</span>
+
+                    <ion-icon name="arrow-forward"></ion-icon>
+                  </span>
+
+                </div>
+              </a>
+            </li> -->
+
+            <li>
+              <a href="https://elblogdeismael.github.io/" class="portfolio-card" style="background-image: url('./assets/images/libros_apilados.jpg')">
+                <div class="card-content">
+
+                  <p class="card-subtitle">Web</p>
+
+                  <h3 class="h3 card-title">Web con contenido del doble grado de Ingeniería Informática + ADE</h3>
+
+                  <span class="btn-link">
+                    <span >View Project</span>
+
+                    <ion-icon name="arrow-forward"></ion-icon>
+                  </span>
+
+                </div>
+              </a>
+            </li>
+
+            
+
+            
+
+            
+
+          </ul>
+
+        </div>
+      </section>
+
+
+
+
+
+      <!-- 
+        - #SKILLS
+      -->
+
+      <section class="section skills" id="skills">
+        <div class="container">
+
+          <p class="section-subtitle">Mis habilidades</p>
+
+          <h2 class="h2 section-title">Buscando el desarrollo o mejora de habilidades</h2>
+
+          <p class="section-text">
+            A lo largo de mi carrera, he adquirido una variedad de habilidades técnicas y blandas que me permiten abordar proyectos complejos y colaborar eficazmente en equipos multidisciplinarios. Estoy comprometido con el aprendizaje continuo y la mejora constante, buscando siempre nuevas oportunidades para crecer profesionalmente. Aún me queda mucho por aprender.
+          </p>
+
+          <ul class="skills-list">
+
+            <li class="skills-item">
+              <div class="wrapper" style="width: 95%">
+                <h3 class="skills-title">
+                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt="HTML" width="24" height="24" style="vertical-align:middle; margin-right:8px;">
+                  HTML
+                </h3>
+                <data class="skills-data" value="95">95%</data>
+              </div>
+              <div class="skills-progress-box">
+                <div class="skills-progress" style="width: 95%"></div>
+              </div>
+            </li>
+
+            <li class="skills-item">
+              <div class="wrapper" style="width: 95%">
+                <h3 class="skills-title">
+                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" alt="CSS" width="24" height="24" style="vertical-align:middle; margin-right:8px;">
+                  CSS
+                </h3>
+                <data class="skills-data" value="70">70%</data>
+              </div>
+              <div class="skills-progress-box">
+                <div class="skills-progress" style="width: 70%"></div>
+              </div>
+            </li>
+
+            <li class="skills-item">
+              <div class="wrapper" style="width: 90%">
+                <h3 class="skills-title">
+                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="JavaScript" width="24" height="24" style="vertical-align:middle; margin-right:8px;">
+                  JavaScript
+                </h3>
+                <data class="skills-data" value="70">70%</data>
+              </div>
+              <div class="skills-progress-box">
+                <div class="skills-progress" style="width: 70%"></div>
+              </div>
+            </li>
+
+            <li class="skills-item">
+              <div class="wrapper" style="width: 80%">
+                <h3 class="skills-title">
+                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" alt="SQL" width="24" height="24" style="vertical-align:middle; margin-right:8px;">
+                  SQL
+                </h3>
+                <data class="skills-data" value="80">80%</data>
+              </div>
+              <div class="skills-progress-box">
+                <div class="skills-progress" style="width: 80%"></div>
+              </div>
+            </li>
+
+            <li class="skills-item">
+              <div class="wrapper" style="width: 100%">
+                <h3 class="skills-title">
+                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg" alt="C++" width="24" height="24" style="vertical-align:middle; margin-right:8px;">
+                  C++
+                </h3>
+                <data class="skills-data" value="100">100%</data>
+              </div>
+              <div class="skills-progress-box">
+                <div class="skills-progress" style="width: 100%"></div>
+              </div>
+            </li>
+
+            <li class="skills-item">
+              <div class="wrapper" style="width: 85%">
+                <h3 class="skills-title">
+                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python" width="24" height="24" style="vertical-align:middle; margin-right:8px;">
+                  Python
+                </h3>
+                <data class="skills-data" value="85">85%</data>
+              </div>
+              <div class="skills-progress-box">
+                <div class="skills-progress" style="width: 85%"></div>
+              </div>
+            </li>
+
+            <li class="skills-item">
+              <div class="wrapper" style="width: 70%">
+                <h3 class="skills-title">
+                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/grafana/grafana-original.svg" alt="Grafana" width="24" height="24" style="vertical-align:middle; margin-right:8px;">
+                  Grafana
+                </h3>
+                <data class="skills-data" value="70">70%</data>
+              </div>
+              <div class="skills-progress-box">
+                <div class="skills-progress" style="width: 70%"></div>
+              </div>
+            </li>
+
+            <li class="skills-item">
+              <div class="wrapper" style="width: 65%">
+                <h3 class="skills-title">
+                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/prometheus/prometheus-original.svg" alt="Prometheus" width="24" height="24" style="vertical-align:middle; margin-right:8px;">
+                  Prometheus
+                </h3>
+                <data class="skills-data" value="65">65%</data>
+              </div>
+              <div class="skills-progress-box">
+                <div class="skills-progress" style="width: 65%"></div>
+              </div>
+            </li>
+
+            <li class="skills-item">
+              <div class="wrapper" style="width: 80%">
+                <h3 class="skills-title">
+                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/yaml/yaml-original.svg" alt="YAML" width="24" height="24" style="vertical-align:middle; margin-right:8px;">
+                  YAML
+                </h3>
+                <data class="skills-data" value="80">80%</data>
+              </div>
+              <div class="skills-progress-box">
+                <div class="skills-progress" style="width: 80%"></div>
+              </div>
+            </li>
+
+            <li class="skills-item">
+              <div class="wrapper" style="width: 90%">
+                <h3 class="skills-title">
+                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/markdown/markdown-original.svg" alt="Markdown" width="24" height="24" style="vertical-align:middle; margin-right:8px;">
+                  Markdown
+                </h3>
+                <data class="skills-data" value="90">90%</data>
+              </div>
+              <div class="skills-progress-box">
+                <div class="skills-progress" style="width: 90%"></div>
+              </div>
+            </li>
+
+            <li class="skills-item">
+              <div class="wrapper" style="width: 85%">
+                <h3 class="skills-title">
+                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/latex/latex-original.svg" alt="LaTeX" width="24" height="24" style="vertical-align:middle; margin-right:8px;">
+                  LaTeX
+                </h3>
+                <data class="skills-data" value="90">90%</data>
+              </div>
+              <div class="skills-progress-box">
+                <div class="skills-progress" style="width: 90%"></div>
+              </div>
+            </li>
+
+            <li class="skills-item">
+              <div class="wrapper" style="width: 60%">
+                <h3 class="skills-title">
+                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/ruby/ruby-original.svg" alt="Ruby" width="24" height="24" style="vertical-align:middle; margin-right:8px;">
+                  Ruby
+                </h3>
+                <data class="skills-data" value="60">60%</data>
+              </div>
+              <div class="skills-progress-box">
+                <div class="skills-progress" style="width: 60%"></div>
+              </div>
+            </li>
+
+            <li class="skills-item">
+              <div class="wrapper" style="width: 70%">
+                <h3 class="skills-title">
+                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" alt="Java" width="24" height="24" style="vertical-align:middle; margin-right:8px;">
+                  Java
+                </h3>
+                <data class="skills-data" value="70">70%</data>
+              </div>
+              <div class="skills-progress-box">
+                <div class="skills-progress" style="width: 70%"></div>
+              </div>
+            </li>
+
+            <li class="skills-item">
+              <div class="wrapper" style="width: 85%">
+                <h3 class="skills-title">
+                  <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@latest/assets/svg/1f1ec-1f1e7.svg" alt="English" width="24" height="24" style="vertical-align:middle; margin-right:8px;">
+                  Inglés 
+                </h3>
+                <data class="skills-data" value="85">C1</data>
+              </div>
+              <div class="skills-progress-box">
+                <div class="skills-progress" style="width: 85%"></div>
+              </div>
+            </li>
+
+          </ul>
+
+        </div>
+      </section>
+
+
+
+
+
+      <!-- 
+        - #CONTACT
+      -->
+
+      <section class="section contact" id="contact">
+        <div class="container">
+      
+          <div class="contact-card">
+      
+            <p class="card-subtitle">Formulario de Contacto</p>
+      
+            <h2 class="h2 section-title">Página de Contacto</h2>
+      
+            <p class="small-text">
+              Si tiene alguna duda, desea comunicar algún tipo de error o algo por el estilo que requiera conectarse conmigo, rellena el formulario de contacto y te responderé lo antes posible.
+            </p>
+            <br>
+      
+            <div class="wrapper">
+              <form class="form" action="https://formsubmit.co/ismEngineer23@gmail.com" method="POST">
+                <input type="text" class="name entry contact-input" name="name" required placeholder="Your Name">
+                <input type="email" class="email entry contact-input" name="email" required placeholder="Email">
+                <textarea class="message entry contact-input" name="message" required placeholder="Message"></textarea>
+                <button type="submit" class="submit entry btn-submit">Enviar</button>
+              </form>
+              <div class="shadow"></div>
+            </div>
+      
+          </div>
+      
+        </div>
+      </section>
+
+
+
+
+
+      
+
+    </article>
+  </main>
+
+
+
+
+
+  <!-- 
+    - #FOOTER
+  -->
+
+  <footer class="footer">
+    <div class="container">
+
+      <p class="copyright">
+        &copy; 2025 <a href="#" class="copyright-link">Ismael Sallami Moreno</a>. Todos los derechos reservados.
+      </p>
+
+      <ul class="footer-list">
+        <li>
+          <a href="https://www.termsfeed.com/live/83259c50-7f6f-4565-b0d8-b43deaf7e92c" class="footer-link" target="_blank" rel="noopener">Términos y Condiciones</a>
+        </li>
+        <li>
+          <a href="https://www.freeprivacypolicy.com/live/b5f07469-9f8f-4e3e-be2e-9d2f9977cad4" class="footer-link" target="_blank" rel="noopener">Política de Privacidad</a>
+        </li>
+      </ul>
+
+    </div>
+  </footer>
+
+
+
+
+
+  <!-- 
+    - #BACK TO TOP
+  -->
+
+  <a href="#top" class="back-to-top" data-back-to-top>BACK TOP</a>
+
+
+
+
+
+  <!-- 
+    - custom js link
+  -->
+  <script src="./assets/js/script.js"></script>
+
+  <!-- 
+    - ionicon link
+  -->
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+</body>
+
+</html>
