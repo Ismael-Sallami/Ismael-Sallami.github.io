@@ -1115,3 +1115,68 @@ textarea.contact-input {
   vertical-align: middle;
   filter: invert(1); /* Hace que los íconos sean blancos */
 }
+
+/* Custom Button to see more */
+
+/* Lato font import */
+@import url('https://fonts.googleapis.com/css?family=Lato:400,700');
+
+/* Custom Button to see more - converted to CSS */
+
+
+.container {
+  width: auto;
+  margin: auto;
+}
+
+/* Example split button style in CSS */
+.btn.custom-split {
+  position: relative;
+  letter-spacing: 0.25em;
+  margin: 0 auto;
+  padding: 1rem 2.5rem;
+  background: transparent;
+  outline: none;
+  font-size: 28px;
+  color: #333333;
+  border: none;
+  overflow: hidden;
+}
+
+.btn.custom-split::before,
+.btn.custom-split::after {
+  content: "";
+  position: absolute;
+  height: 100%;
+  width: 50%;
+  transform: skewX(30deg);
+  transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  z-index: -2;
+}
+
+.btn.custom-split::before {
+  background-color: #ffff00;
+  top: -1rem;
+  left: 0rem;
+}
+
+.btn.custom-split::after {
+  background-color: #8a19ff;
+  top: 1rem;
+  left: 8rem;
+}
+
+.btn.custom-split:hover::before,
+.btn.custom-split:hover::after {
+  top: 0;
+  transform: skewX(0deg);
+}
+
+.btn.custom-split:hover::after {
+  left: 0rem;
+  width: 100%;
+}
+
+.btn.custom-split:hover::before {
+  left: 8.75rem;
+}

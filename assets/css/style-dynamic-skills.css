@@ -1,0 +1,128 @@
+:root {
+    --bar-color: #2a7fe9;
+    --background-color: #f0f0f0;
+    --animation-duration: 2s;
+    --animation-delay: 0.2s;
+}
+
+/* Estilos generales de la sección */
+.skills {
+    padding: 60px 0;
+    background-color: #fff;
+}
+
+.skills .container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+.skills-list {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.skills-item {
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.skills-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15);
+}
+
+.skills-title {
+    display: flex;
+    align-items: center;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #444;
+    margin-bottom: 10px;
+}
+
+.skills-title img {
+    margin-right: 12px;
+    width: 28px;
+    height: 28px;
+}
+
+/* Estilos de la barra de progreso */
+.skills-progress-box {
+    background-color: var(--background-color);
+    border-radius: 10px;
+    height: 10px;
+    width: 100%;
+    overflow: hidden;
+}
+
+.skills-progress {
+    height: 100%;
+    background-color: var(--bar-color);
+    border-radius: 10px;
+    width: 0;
+    transition: width var(--animation-duration) ease-in-out;
+}
+
+/* Animación de la barra de progreso */
+.skills-item.animate .skills-progress {
+    animation: fill-progress var(--animation-duration) ease-in-out forwards;
+}
+
+@keyframes fill-progress {
+    from {
+        width: 0;
+    }
+}
+
+/* Aplicar el ancho final usando el atributo data */
+.skills-item[data-skill-level="60"] .skills-progress {
+    width: 60%;
+}
+
+.skills-item[data-skill-level="65"] .skills-progress {
+    width: 65%;
+}
+
+.skills-item[data-skill-level="70"] .skills-progress {
+    width: 70%;
+}
+
+.skills-item[data-skill-level="75"] .skills-progress {
+    width: 75%;
+}
+
+.skills-item[data-skill-level="80"] .skills-progress {
+    width: 80%;
+}
+
+.skills-item[data-skill-level="85"] .skills-progress {
+    width: 85%;
+}
+
+.skills-item[data-skill-level="90"] .skills-progress {
+    width: 90%;
+}
+
+.skills-item[data-skill-level="95"] .skills-progress {
+    width: 95%;
+}
+
+.skills-item[data-skill-level="100"] .skills-progress {
+    width: 100%;
+}
+
+/* Opcional: si quieres un diseño más responsivo */
+@media (max-width: 600px) {
+    .skills-list {
+        grid-template-columns: 1fr;
+    }
+}
