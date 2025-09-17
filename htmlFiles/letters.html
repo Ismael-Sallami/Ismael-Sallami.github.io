@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Visor de Documentos PDF</title>
+  <style>
+    body {
+      font-family: "Segoe UI", sans-serif;
+      background: #f5f7fa;
+      margin: 0;
+      padding: 30px;
+      color: #333;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 40px;
+      font-size: 3rem;
+      color: #007bff;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+      letter-spacing: 1px;
+      transform: perspective(500px) rotateX(10deg);
+    }
+
+    .pdf-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+      gap: 25px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .pdf-box {
+      background: #fff;
+      border-radius: 15px;
+      border: 3px solid #007bff;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+      padding: 20px;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .pdf-box:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 18px rgba(0,0,0,0.15);
+    }
+
+    .pdf-title {
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: #007bff;
+      margin-bottom: 15px;
+      text-align: center;
+    }
+
+    iframe {
+      width: 100%;
+      height: 500px;
+      border: none;
+      border-radius: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Cartas de Recomendación</h1>
+
+  <div class="pdf-container">
+    <!-- Primer PDF -->
+    <div class="pdf-box">
+      <div class="pdf-title">Carta de Recomendación 1</div>
+      <iframe src="../docs/letter1.pdf"></iframe>
+    </div>
+
+    <!-- Segundo PDF -->
+    <div class="pdf-box">
+      <div class="pdf-title">Carta de Recomendación 2</div>
+      <iframe src="../docs/letter2.pdf"></iframe>
+    </div>
+  </div>
+</body>
+</html>
