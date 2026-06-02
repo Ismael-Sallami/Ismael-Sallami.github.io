@@ -1,0 +1,181 @@
+/* Variables y estilos generales */
+:root {
+    --primary-color: #2a7fe9;
+    --text-light: #f5f5f5;
+    --text-dark: #333;
+    --bg-light: #fff;
+    --bg-dark: #f0f0f0;
+    --shadow-color: rgba(0, 0, 0, 0.1);
+    --transition-speed: 0.3s;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: lightblue;
+    color: var(--text-dark);
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Estilos de la sección de proyectos */
+.section.projects {
+    padding: 60px 0;
+}
+
+.section-subtitle {
+    font-size: 1.2rem;
+    color: #777;
+    text-align: center;
+    margin-bottom: 5px;
+}
+
+.section-title {
+    font-size: 2.5rem;
+    color: var(--text-dark);
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.section-text {
+    font-size: 1rem;
+    color: #555;
+    text-align: center;
+    margin-bottom: 40px;
+    line-height: 1.6;
+}
+
+.portfolio-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 25px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.portfolio-card {
+    position: relative;
+    display: block;
+    height: 250px;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 8px 15px var(--shadow-color);
+    transition: transform var(--transition-speed) ease-in-out, box-shadow var(--transition-speed) ease-in-out;
+    background-size: cover;
+    background-position: center;
+    text-decoration: none;
+}
+
+/* Efecto de brillo al pasar el mouse */
+.portfolio-card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 12px;
+    border: 2px solid transparent;
+    transition: border-color var(--transition-speed) ease-in-out;
+}
+
+.portfolio-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 20px rgba(0, 0, 0, 0.2);
+}
+
+.portfolio-card:hover::after {
+    border-color: var(--primary-color);
+}
+
+/* Efecto de superposición (overlay) */
+.portfolio-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.4);
+    transition: background-color var(--transition-speed) ease-in-out;
+}
+
+.portfolio-card:hover::before {
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+.card-content {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 20px;
+    color: var(--text-light);
+    z-index: 1;
+    transform: translateY(10px);
+    opacity: 0;
+    transition: transform var(--transition-speed) ease-in-out, opacity var(--transition-speed) ease-in-out;
+}
+
+.portfolio-card:hover .card-content {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.card-subtitle {
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 500;
+    margin-bottom: 5px;
+}
+
+.h3 {
+    margin: 0;
+    font-size: 1.3rem;
+}
+
+.h3.card-title {
+    color: var(--text-light);
+}
+
+.h3.card-title-black {
+    color: var(--text-light);
+}
+
+.btn-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 1rem;
+    font-weight: bold;
+    color: var(--text-light);
+    margin-top: 15px;
+    transition: transform var(--transition-speed) ease-in-out;
+}
+
+.btn-link:hover {
+    transform: translateX(5px);
+}
+
+/* Estilos de los iconos de Ionicon */
+ion-icon {
+    font-size: 1.2rem;
+}
+
+/* Media Queries para responsividad */
+@media (max-width: 768px) {
+    .section-title {
+        font-size: 2rem;
+    }
+    .portfolio-list {
+        grid-template-columns: 1fr;
+    }
+}
+

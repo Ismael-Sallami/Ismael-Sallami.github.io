@@ -1,0 +1,100 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --void: #05060a;
+  --abyss: #0a0d16;
+  --accent: hsl(160, 95%, 55%);
+  --accent2: hsl(190, 95%, 60%);
+  --ivory: hsl(40, 30%, 94%);
+  --cool: hsl(225, 14%, 62%);
+}
+
+* { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  margin: 0;
+  background: var(--void);
+  color: var(--ivory);
+  font-family: 'Manrope', sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* Fraunces optical sizing for display */
+.font-display {
+  font-optical-sizing: auto;
+  font-variation-settings: 'SOFT' 0, 'WONK' 1;
+}
+
+/* ---- gradient mesh background (fixed, behind everything) ---- */
+.mesh-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  background:
+    radial-gradient(60% 50% at 18% 12%, hsla(190, 95%, 50%, 0.16), transparent 70%),
+    radial-gradient(55% 50% at 85% 18%, hsla(265, 90%, 60%, 0.16), transparent 70%),
+    radial-gradient(70% 60% at 50% 100%, hsla(160, 95%, 50%, 0.12), transparent 70%),
+    var(--void);
+}
+
+/* ---- film grain overlay ---- */
+.grain {
+  position: fixed;
+  inset: -50%;
+  z-index: 50;
+  pointer-events: none;
+  opacity: 0.05;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  animation: grain 8s steps(6) infinite;
+}
+@keyframes grain {
+  0%, 100% { transform: translate(0, 0); }
+  10% { transform: translate(-5%, -8%); }
+  30% { transform: translate(3%, -12%); }
+  50% { transform: translate(-7%, 4%); }
+  70% { transform: translate(9%, -3%); }
+  90% { transform: translate(-2%, 7%); }
+}
+
+::-webkit-scrollbar { width: 10px; }
+::-webkit-scrollbar-track { background: var(--void); }
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(var(--accent), var(--accent2));
+  border-radius: 99px;
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--void);
+}
+
+a { color: inherit; text-decoration: none; }
+
+.glass {
+  background: hsla(225, 30%, 12%, 0.45);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid hsla(0, 0%, 100%, 0.08);
+}
+
+.accent-text {
+  background: linear-gradient(100deg, var(--accent), var(--accent2));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .grain { animation: none; }
+  html { scroll-behavior: auto; }
+}

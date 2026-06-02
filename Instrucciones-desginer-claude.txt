@@ -1,0 +1,6 @@
+1. Usa una libreria de componentes en lugar de código crudo
+2. añade fondos con gradientes personalizados
+3. mete animaciones y efectos hover
+4. incorpora grñaficos 3d
+5. elige dos fuentes de google una para titulos y otra para el cuerpo
+
