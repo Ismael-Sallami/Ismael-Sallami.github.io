@@ -1,3 +1,6 @@
+import aaPractices from '../../assets/images/aa_practices.jpg'
+import mhPractices from '../../assets/images/mh_practices.jpg'
+import modDinamicos from '../../assets/images/modelos_dinamicos.jpg'
 import libros from '../../assets/images/libros_apilados.jpg'
 import testGen from '../../assets/images/test-generator.svg'
 import saveImage from '../../assets/images/save-image.png'
@@ -10,6 +13,32 @@ import rutas from '../../assets/images/rutas.png'
 import eco from '../../assets/images/eco.jpg'
 
 export const projects = [
+  {
+    title: 'AA Practices',
+    desc: 'Prácticas de Aprendizaje Automático (Machine Learning) desarrolladas durante el curso.',
+    tag: 'Machine Learning',
+    url: 'https://github.com/Ismael-Sallami/AA-practices',
+    img: aaPractices,
+    featured: true,
+    en: {
+      title: 'AA Practices',
+      desc: 'Machine Learning practices developed during the course.',
+      tag: 'Machine Learning',
+    },
+  },
+  {
+    title: 'MH Practices',
+    desc: 'Repositorio de prácticas de Metaheurísticas. Doble Grado en Ingeniería Informática y ADE.',
+    tag: 'Metaheurística',
+    url: 'https://github.com/Ismael-Sallami/MH-Practices',
+    img: mhPractices,
+    featured: true,
+    en: {
+      title: 'MH Practices',
+      desc: 'Repository for practices of metaheuristics. Double Degree in Computer Science and Business Administration.',
+      tag: 'Metaheuristics',
+    },
+  },
   {
     title: 'Blog del doble grado Informática + ADE',
     desc: 'Web con contenido y recursos del doble grado de Ingeniería Informática y Administración y Dirección de Empresas.',
@@ -130,6 +159,19 @@ export const projects = [
       title: 'Econometric Model · Obesity',
       desc: 'Analysis of economic and social factors through an econometric model.',
       tag: 'Econometrics',
+    },
+  },
+  {
+    title: 'Modelos Complejos y Dinámicos',
+    desc: 'Seminario de EM sobre modelos complejos y dinámicos.',
+    tag: 'Modelos',
+    url: 'https://github.com/Leonin04/ModelosComplejosModelosDinamicos',
+    img: modDinamicos,
+    featured: false,
+    en: {
+      title: 'Complex and Dynamic Models',
+      desc: 'EM Seminar on complex and dynamic models.',
+      tag: 'Models',
     },
   },
 ]
