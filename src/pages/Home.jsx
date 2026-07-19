@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { ArrowUpRight, Github, Linkedin, Sparkles } from 'lucide-react'
+import { ArrowUpRight, Github, GraduationCap, Linkedin } from 'lucide-react'
 
 import PageWrap from '../components/PageWrap.jsx'
 import ProjectCard from '../components/ProjectCard.jsx'
@@ -45,7 +45,7 @@ export default function Home() {
               variants={rise}
               className="mb-5 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-sm text-cool"
             >
-              <Sparkles size={15} className="text-accent" /> {t('hero.badge')}
+              <GraduationCap size={15} className="text-accent" /> {t('hero.badge')}
             </motion.p>
 
             <motion.h1 variants={rise} className="font-display text-5xl leading-[0.95] tracking-tightest md:text-7xl">
