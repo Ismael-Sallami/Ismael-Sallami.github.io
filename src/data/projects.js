@@ -40,6 +40,32 @@ export const projects = [
     },
   },
   {
+    title: 'SCD · Concurrencia y Sistemas Distribuidos (MPI)',
+    desc: 'Programación concurrente y distribuida desde primitivas: semáforos, monitores, paso de mensajes con MPI y planificadores de tiempo real (~8.500 líneas de C++).',
+    tag: 'C++ · MPI',
+    url: 'https://github.com/Ismael-Sallami/SCD-Concurrency-MPI',
+    img: tda,
+    featured: true,
+    en: {
+      title: 'SCD · Concurrency & Distributed Systems (MPI)',
+      desc: 'Concurrent and distributed programming from primitives: semaphores, monitors, MPI message passing and real-time schedulers (~8,500 lines of C++).',
+      tag: 'C++ · MPI',
+    },
+  },
+  {
+    title: '3-Partition · Demostración NP-completo',
+    desc: 'Prueba formal en LaTeX (16 páginas) de la NP-completitud fuerte del problema 3-Partition, reproduciendo la cadena de reducción de Garey & Johnson.',
+    tag: 'Complejidad',
+    url: 'https://github.com/Ismael-Sallami/3-Partition-NP-Completeness',
+    img: libros,
+    featured: true,
+    en: {
+      title: '3-Partition · NP-Completeness Proof',
+      desc: 'A 16-page formal LaTeX proof of the strong NP-completeness of 3-Partition, reproducing Garey & Johnson\'s reduction chain.',
+      tag: 'Complexity',
+    },
+  },
+  {
     title: 'Blog del doble grado Informática + ADE',
     desc: 'Web con contenido y recursos del doble grado de Ingeniería Informática y Administración y Dirección de Empresas.',
     tag: 'Web',
