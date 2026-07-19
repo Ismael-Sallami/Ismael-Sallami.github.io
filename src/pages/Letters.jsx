@@ -3,14 +3,12 @@ import PageWrap from '../components/PageWrap.jsx'
 import { useI18n } from '../i18n/LanguageContext.jsx'
 import letter1 from '../../docs/letter1.pdf?url'
 import letter2 from '../../docs/letter2.pdf?url'
-import eCert from '../../docs/eCertificate.pdf?url'
 
 export default function Letters() {
   const { t } = useI18n()
   const docs = [
     { title: t('lettersPage.letter1'), url: letter1 },
     { title: t('lettersPage.letter2'), url: letter2 },
-    { title: t('lettersPage.ecert'), url: eCert },
   ]
 
   return (
@@ -22,7 +20,7 @@ export default function Letters() {
         <h1 className="font-display text-5xl tracking-tightest md:text-6xl">{t('lettersPage.title')}</h1>
         <p className="mt-5 max-w-2xl text-lg text-cool">{t('lettersPage.intro')}</p>
 
-        <div className="mt-14 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-14 grid gap-6 md:grid-cols-2 max-w-4xl">
           {docs.map((d) => (
             <div key={d.url} className="glass flex flex-col overflow-hidden rounded-2xl">
               <div className="flex items-center justify-between border-b border-white/8 px-5 py-4">
