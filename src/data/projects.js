@@ -11,6 +11,8 @@ import irgarten from '../../assets/images/irgarten.jpg'
 import arch from '../../assets/images/arch.jpg'
 import rutas from '../../assets/images/rutas.png'
 import eco from '../../assets/images/eco.jpg'
+import scdCluster from '../../assets/images/scd_concurrency_mpi.jpg'
+import threePartition from '../../assets/images/three_partition_np.jpg'
 
 export const projects = [
   {
@@ -44,7 +46,7 @@ export const projects = [
     desc: 'Programación concurrente y distribuida desde primitivas: semáforos, monitores, paso de mensajes con MPI y planificadores de tiempo real (~8.500 líneas de C++).',
     tag: 'C++ · MPI',
     url: 'https://github.com/Ismael-Sallami/SCD-Concurrency-MPI',
-    img: tda,
+    img: scdCluster,
     featured: true,
     en: {
       title: 'SCD · Concurrency & Distributed Systems (MPI)',
@@ -57,7 +59,7 @@ export const projects = [
     desc: 'Prueba formal en LaTeX (16 páginas) de la NP-completitud fuerte del problema 3-Partition, reproduciendo la cadena de reducción de Garey & Johnson.',
     tag: 'Complejidad',
     url: 'https://github.com/Ismael-Sallami/3-Partition-NP-Completeness',
-    img: libros,
+    img: threePartition,
     featured: true,
     en: {
       title: '3-Partition · NP-Completeness Proof',
