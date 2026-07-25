@@ -3,7 +3,7 @@
 
 export const dict = {
   es: {
-    nav: { home: 'Inicio', projects: 'Proyectos', skills: 'Habilidades', letters: 'Cartas', cv: 'CV' },
+    nav: { home: 'Inicio', projects: 'Proyectos', skills: 'Habilidades', letters: 'Cartas y certificados', cv: 'CV' },
     hero: {
       badge: 'Doble grado Informática + ADE · UGR',
       titleParts: [
@@ -61,18 +61,18 @@ export const dict = {
     },
     lettersPage: {
       kicker: 'Documentos',
-      title: 'Cartas & certificados',
-      intro: 'Cartas de recomendación y certificados. Puedes previsualizarlos aquí o descargarlos.',
+      title: 'Cartas y certificados',
+      intro: 'Cartas de recomendación de profesores y profesionales, y certificaciones obtenidas. Puedes previsualizarlas aquí o descargarlas.',
       letter1: 'Carta de recomendación I',
       letter2: 'Carta de recomendación II',
-      ecert: 'eCertificate',
+      ecert: 'Oracle Cloud Infrastructure 2025 Certified AI Foundations Associate',
       download: 'Descargar',
     },
     common: { viewProject: 'Ver proyecto' },
   },
 
   en: {
-    nav: { home: 'Home', projects: 'Projects', skills: 'Skills', letters: 'Letters', cv: 'CV' },
+    nav: { home: 'Home', projects: 'Projects', skills: 'Skills', letters: 'Letters & Certificates', cv: 'CV' },
     hero: {
       badge: 'Double Degree in Computer Engineering + Business · UGR',
       titleParts: [
@@ -130,11 +130,11 @@ export const dict = {
     },
     lettersPage: {
       kicker: 'Documents',
-      title: 'Letters & certificates',
-      intro: 'Recommendation letters and certificates. You can preview them here or download them.',
+      title: 'Letters & Certificates',
+      intro: 'Recommendation letters from professors and professionals, plus the certifications I have earned. You can preview them here or download them.',
       letter1: 'Recommendation letter I',
       letter2: 'Recommendation letter II',
-      ecert: 'eCertificate',
+      ecert: 'Oracle Cloud Infrastructure 2025 Certified AI Foundations Associate',
       download: 'Download',
     },
     common: { viewProject: 'View project' },
