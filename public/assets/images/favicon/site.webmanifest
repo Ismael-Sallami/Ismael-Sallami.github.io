@@ -1,6 +1,6 @@
 {
-  "name": "ismael-sallami",
-  "short_name": "ismael",
+  "name": "Ismael Sallami",
+  "short_name": "Ismael",
   "icons": [
     {
       "src": "/assets/images/favicon/web-app-manifest-192x192.png",
@@ -15,7 +15,7 @@
       "purpose": "maskable"
     }
   ],
-  "theme_color": "#7f87bb",
-  "background_color": "#8daaeb",
+  "theme_color": "#05060a",
+  "background_color": "#05060a",
   "display": "standalone"
 }
