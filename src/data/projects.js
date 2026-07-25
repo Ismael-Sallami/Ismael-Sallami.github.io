@@ -1,5 +1,5 @@
-import aaPractices from '../../assets/images/aa_practices.jpg'
-import mhPractices from '../../assets/images/mh_practices.jpg'
+import aaPractices from '../../assets/images/aa_practices.svg'
+import mhPractices from '../../assets/images/mh_practices.svg'
 import modDinamicos from '../../assets/images/modelos_dinamicos.jpg'
 import libros from '../../assets/images/libros_apilados.jpg'
 import testGen from '../../assets/images/test-generator.svg'
