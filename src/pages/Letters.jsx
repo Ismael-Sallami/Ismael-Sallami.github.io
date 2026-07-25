@@ -3,12 +3,15 @@ import PageWrap from '../components/PageWrap.jsx'
 import { useI18n } from '../i18n/LanguageContext.jsx'
 import letter1 from '../../docs/letter1.pdf?url'
 import letter2 from '../../docs/letter2.pdf?url'
+import ecert from '../../docs/eCertificate.pdf?url'
 
 export default function Letters() {
   const { t } = useI18n()
   const docs = [
     { title: t('lettersPage.letter1'), url: letter1 },
     { title: t('lettersPage.letter2'), url: letter2 },
+    // Odd one out on the second row, so it spans the full width.
+    { title: t('lettersPage.ecert'), url: ecert, wide: true },
   ]
 
   return (
@@ -22,7 +25,10 @@ export default function Letters() {
 
         <div className="mt-14 grid gap-6 md:grid-cols-2 max-w-4xl">
           {docs.map((d) => (
-            <div key={d.url} className="glass flex flex-col overflow-hidden rounded-2xl">
+            <div
+              key={d.url}
+              className={`glass flex flex-col overflow-hidden rounded-2xl ${d.wide ? 'md:col-span-2' : ''}`}
+            >
               <div className="flex items-center justify-between border-b border-white/8 px-5 py-4">
                 <h3 className="flex items-center gap-2 font-display text-lg">
                   <FileText size={18} className="text-accent" /> {d.title}

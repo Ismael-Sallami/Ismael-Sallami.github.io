@@ -133,7 +133,7 @@ export const projects = [
     title: 'Parcherckers',
     desc: 'Juego inventado basado en el parchís, desarrollado como práctica universitaria.',
     tag: 'Game',
-    url: 'https://github.com/ElblogdeIsmael/ElblogdeIsmael.github.io/tree/main/Subjects/Third/IA/Practicas/Practicas/Practica3/practica3/practica3',
+    url: 'https://github.com/Ismael-Sallami/Parcherckers',
     img: parchis,
     en: {
       title: 'Parcherckers',
