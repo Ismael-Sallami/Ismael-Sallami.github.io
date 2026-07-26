@@ -51,7 +51,13 @@ export const dict = {
       kicker: 'Portfolio',
       title: 'Mis trabajos',
       intro:
-        'Una selección de proyectos que reflejan mi pasión por la programación y mi compromiso con la excelencia — de herramientas y videojuegos a análisis de datos y configuración de sistemas.',
+        'Lo que he construido, con lo que hay dentro de cada repositorio en lugar de la asignatura en la que salió: algoritmos y estructuras de datos, concurrencia, agentes de búsqueda, optimización, bases de datos y un servicio de finanzas en funcionamiento.',
+    },
+    contributions: {
+      title: 'Contribuciones a proyectos abiertos',
+      intro:
+        'Proyectos de otras personas a los que he aportado código. No son repositorios míos, así que van aparte: cada enlace abre la lista de commits del proyecto original filtrada por mi autoría, que es la parte comprobable.',
+      commits: 'commits',
     },
     skillsPage: {
       kicker: 'Stack',
@@ -120,7 +126,13 @@ export const dict = {
       kicker: 'Portfolio',
       title: 'My work',
       intro:
-        'A selection of projects that reflect my passion for programming and my commitment to excellence — from tools and games to data analysis and system configuration.',
+        'What I have built, described by what is inside each repository rather than the course it came out of: algorithms and data structures, concurrency, search agents, optimisation, databases and a finance service in use.',
+    },
+    contributions: {
+      title: 'Contributions to open source',
+      intro:
+        "Other people's projects I have contributed code to. They are not my repositories, so they sit apart: each link opens the upstream commit list filtered to my commits, which is the checkable part.",
+      commits: 'commits',
     },
     skillsPage: {
       kicker: 'Stack',
