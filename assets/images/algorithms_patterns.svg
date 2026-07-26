@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 560" width="1400" height="560">
+  <title>Arbol de busqueda con las ramas descartadas por la poda alfa-beta</title>
+  <rect width="1400" height="560" fill="#0a0d16"/>
+  <g stroke="#1b2436" stroke-width="1" opacity="0.55"><line x1="0" y1="0" x2="0" y2="560"/><line x1="50" y1="0" x2="50" y2="560"/><line x1="100" y1="0" x2="100" y2="560"/><line x1="150" y1="0" x2="150" y2="560"/><line x1="200" y1="0" x2="200" y2="560"/><line x1="250" y1="0" x2="250" y2="560"/><line x1="300" y1="0" x2="300" y2="560"/><line x1="350" y1="0" x2="350" y2="560"/><line x1="400" y1="0" x2="400" y2="560"/><line x1="450" y1="0" x2="450" y2="560"/><line x1="500" y1="0" x2="500" y2="560"/><line x1="550" y1="0" x2="550" y2="560"/><line x1="600" y1="0" x2="600" y2="560"/><line x1="650" y1="0" x2="650" y2="560"/><line x1="700" y1="0" x2="700" y2="560"/><line x1="750" y1="0" x2="750" y2="560"/><line x1="800" y1="0" x2="800" y2="560"/><line x1="850" y1="0" x2="850" y2="560"/><line x1="900" y1="0" x2="900" y2="560"/><line x1="950" y1="0" x2="950" y2="560"/><line x1="1000" y1="0" x2="1000" y2="560"/><line x1="1050" y1="0" x2="1050" y2="560"/><line x1="1100" y1="0" x2="1100" y2="560"/><line x1="1150" y1="0" x2="1150" y2="560"/><line x1="1200" y1="0" x2="1200" y2="560"/><line x1="1250" y1="0" x2="1250" y2="560"/><line x1="1300" y1="0" x2="1300" y2="560"/><line x1="1350" y1="0" x2="1350" y2="560"/><line x1="1400" y1="0" x2="1400" y2="560"/><line x1="0" y1="0" x2="1400" y2="0"/><line x1="0" y1="50" x2="1400" y2="50"/><line x1="0" y1="100" x2="1400" y2="100"/><line x1="0" y1="150" x2="1400" y2="150"/><line x1="0" y1="200" x2="1400" y2="200"/><line x1="0" y1="250" x2="1400" y2="250"/><line x1="0" y1="300" x2="1400" y2="300"/><line x1="0" y1="350" x2="1400" y2="350"/><line x1="0" y1="400" x2="1400" y2="400"/><line x1="0" y1="450" x2="1400" y2="450"/><line x1="0" y1="500" x2="1400" y2="500"/><line x1="0" y1="550" x2="1400" y2="550"/></g>
+  <line x1="700" y1="70" x2="280" y2="230" stroke="#2bf0a8" stroke-width="3" stroke-opacity="0.9"/>
+  <line x1="280" y1="230" x2="160" y2="420" stroke="#2bf0a8" stroke-width="2.5" stroke-opacity="0.9"/>
+  <line x1="280" y1="230" x2="280" y2="420" stroke="#2bf0a8" stroke-width="2.5" stroke-opacity="0.9"/>
+  <line x1="280" y1="230" x2="400" y2="420" stroke="#2bf0a8" stroke-width="2.5" stroke-opacity="0.9"/>
+  <line x1="700" y1="70" x2="700" y2="230" stroke="#2bf0a8" stroke-width="3" stroke-opacity="0.9"/>
+  <line x1="700" y1="230" x2="580" y2="420" stroke="#2bf0a8" stroke-width="2.5" stroke-opacity="0.9"/>
+  <line x1="700" y1="230" x2="700" y2="420" stroke="#243044" stroke-width="2.5" stroke-opacity="0.55"/>
+  <line x1="700" y1="230" x2="820" y2="420" stroke="#243044" stroke-width="2.5" stroke-opacity="0.55"/>
+  <line x1="700" y1="70" x2="1120" y2="230" stroke="#2bf0a8" stroke-width="3" stroke-opacity="0.9"/>
+  <line x1="1120" y1="230" x2="1000" y2="420" stroke="#2bf0a8" stroke-width="2.5" stroke-opacity="0.9"/>
+  <line x1="1120" y1="230" x2="1120" y2="420" stroke="#243044" stroke-width="2.5" stroke-opacity="0.55"/>
+  <line x1="1120" y1="230" x2="1240" y2="420" stroke="#243044" stroke-width="2.5" stroke-opacity="0.55"/>
+  <rect x="154" y="414" width="12" height="12" fill="#0a0d16" stroke="#36d3f7" stroke-width="2.5"/>
+  <rect x="274" y="414" width="12" height="12" fill="#0a0d16" stroke="#36d3f7" stroke-width="2.5"/>
+  <rect x="394" y="414" width="12" height="12" fill="#0a0d16" stroke="#36d3f7" stroke-width="2.5"/>
+  <rect x="574" y="414" width="12" height="12" fill="#0a0d16" stroke="#36d3f7" stroke-width="2.5"/>
+  <rect x="694" y="414" width="12" height="12" fill="#0a0d16" stroke="#243044" stroke-width="2.5"/>
+  <rect x="814" y="414" width="12" height="12" fill="#0a0d16" stroke="#243044" stroke-width="2.5"/>
+  <rect x="994" y="414" width="12" height="12" fill="#0a0d16" stroke="#36d3f7" stroke-width="2.5"/>
+  <rect x="1114" y="414" width="12" height="12" fill="#0a0d16" stroke="#243044" stroke-width="2.5"/>
+  <rect x="1234" y="414" width="12" height="12" fill="#0a0d16" stroke="#243044" stroke-width="2.5"/>
+  <circle cx="280" cy="230" r="15" fill="#0a0d16" stroke="#2bf0a8" stroke-width="2.5"/>
+  <circle cx="700" cy="230" r="15" fill="#0a0d16" stroke="#2bf0a8" stroke-width="2.5"/>
+  <circle cx="1120" cy="230" r="15" fill="#0a0d16" stroke="#2bf0a8" stroke-width="2.5"/>
+  <circle cx="700" cy="70" r="19" fill="#2bf0a8" fill-opacity="0.18" stroke="#2bf0a8" stroke-width="2.5"/>
+  <line x1="734" y1="290" x2="796" y2="352" stroke="#243044" stroke-width="4" stroke-opacity="0.8" stroke-dasharray="10 8"/>
+  <line x1="1154" y1="290" x2="1216" y2="352" stroke="#243044" stroke-width="4" stroke-opacity="0.8" stroke-dasharray="10 8"/>
+</svg>

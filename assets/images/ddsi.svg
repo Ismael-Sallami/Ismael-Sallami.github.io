@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 560" width="1400" height="560">
+  <title>Esquema relacional con un disparador y el limite de una transaccion</title>
+  <rect width="1400" height="560" fill="#0a0d16"/>
+  <g stroke="#1b2436" stroke-width="1" opacity="0.55"><line x1="0" y1="0" x2="0" y2="560"/><line x1="50" y1="0" x2="50" y2="560"/><line x1="100" y1="0" x2="100" y2="560"/><line x1="150" y1="0" x2="150" y2="560"/><line x1="200" y1="0" x2="200" y2="560"/><line x1="250" y1="0" x2="250" y2="560"/><line x1="300" y1="0" x2="300" y2="560"/><line x1="350" y1="0" x2="350" y2="560"/><line x1="400" y1="0" x2="400" y2="560"/><line x1="450" y1="0" x2="450" y2="560"/><line x1="500" y1="0" x2="500" y2="560"/><line x1="550" y1="0" x2="550" y2="560"/><line x1="600" y1="0" x2="600" y2="560"/><line x1="650" y1="0" x2="650" y2="560"/><line x1="700" y1="0" x2="700" y2="560"/><line x1="750" y1="0" x2="750" y2="560"/><line x1="800" y1="0" x2="800" y2="560"/><line x1="850" y1="0" x2="850" y2="560"/><line x1="900" y1="0" x2="900" y2="560"/><line x1="950" y1="0" x2="950" y2="560"/><line x1="1000" y1="0" x2="1000" y2="560"/><line x1="1050" y1="0" x2="1050" y2="560"/><line x1="1100" y1="0" x2="1100" y2="560"/><line x1="1150" y1="0" x2="1150" y2="560"/><line x1="1200" y1="0" x2="1200" y2="560"/><line x1="1250" y1="0" x2="1250" y2="560"/><line x1="1300" y1="0" x2="1300" y2="560"/><line x1="1350" y1="0" x2="1350" y2="560"/><line x1="1400" y1="0" x2="1400" y2="560"/><line x1="0" y1="0" x2="1400" y2="0"/><line x1="0" y1="50" x2="1400" y2="50"/><line x1="0" y1="100" x2="1400" y2="100"/><line x1="0" y1="150" x2="1400" y2="150"/><line x1="0" y1="200" x2="1400" y2="200"/><line x1="0" y1="250" x2="1400" y2="250"/><line x1="0" y1="300" x2="1400" y2="300"/><line x1="0" y1="350" x2="1400" y2="350"/><line x1="0" y1="400" x2="1400" y2="400"/><line x1="0" y1="450" x2="1400" y2="450"/><line x1="0" y1="500" x2="1400" y2="500"/><line x1="0" y1="550" x2="1400" y2="550"/></g>
+  <rect x="150" y="150" width="220" height="190" rx="8" fill="#2bf0a8" fill-opacity="0.05" stroke="#2bf0a8" stroke-width="2.5"/>
+  <rect x="150" y="150" width="220" height="34" rx="8" fill="#2bf0a8" fill-opacity="0.18" stroke="#2bf0a8" stroke-width="2.5"/>
+  <line x1="166" y1="210" x2="354" y2="210" stroke="#36d3f7" stroke-width="2" stroke-opacity="0.5"/>
+  <line x1="166" y1="236" x2="354" y2="236" stroke="#36d3f7" stroke-width="2" stroke-opacity="0.5"/>
+  <line x1="166" y1="262" x2="354" y2="262" stroke="#36d3f7" stroke-width="2" stroke-opacity="0.5"/>
+  <line x1="166" y1="288" x2="354" y2="288" stroke="#36d3f7" stroke-width="2" stroke-opacity="0.5"/>
+  <line x1="166" y1="314" x2="354" y2="314" stroke="#36d3f7" stroke-width="2" stroke-opacity="0.5"/>
+  <rect x="600" y="150" width="220" height="190" rx="8" fill="#2bf0a8" fill-opacity="0.05" stroke="#2bf0a8" stroke-width="2.5"/>
+  <rect x="600" y="150" width="220" height="34" rx="8" fill="#2bf0a8" fill-opacity="0.18" stroke="#2bf0a8" stroke-width="2.5"/>
+  <line x1="616" y1="210" x2="804" y2="210" stroke="#36d3f7" stroke-width="2" stroke-opacity="0.5"/>
+  <line x1="616" y1="236" x2="804" y2="236" stroke="#36d3f7" stroke-width="2" stroke-opacity="0.5"/>
+  <line x1="616" y1="262" x2="804" y2="262" stroke="#36d3f7" stroke-width="2" stroke-opacity="0.5"/>
+  <line x1="616" y1="288" x2="804" y2="288" stroke="#36d3f7" stroke-width="2" stroke-opacity="0.5"/>
+  <line x1="616" y1="314" x2="804" y2="314" stroke="#36d3f7" stroke-width="2" stroke-opacity="0.5"/>
+  <rect x="1050" y="150" width="220" height="190" rx="8" fill="#2bf0a8" fill-opacity="0.05" stroke="#2bf0a8" stroke-width="2.5"/>
+  <rect x="1050" y="150" width="220" height="34" rx="8" fill="#2bf0a8" fill-opacity="0.18" stroke="#2bf0a8" stroke-width="2.5"/>
+  <line x1="1066" y1="210" x2="1254" y2="210" stroke="#36d3f7" stroke-width="2" stroke-opacity="0.5"/>
+  <line x1="1066" y1="236" x2="1254" y2="236" stroke="#36d3f7" stroke-width="2" stroke-opacity="0.5"/>
+  <line x1="1066" y1="262" x2="1254" y2="262" stroke="#36d3f7" stroke-width="2" stroke-opacity="0.5"/>
+  <line x1="1066" y1="288" x2="1254" y2="288" stroke="#36d3f7" stroke-width="2" stroke-opacity="0.5"/>
+  <line x1="1066" y1="314" x2="1254" y2="314" stroke="#36d3f7" stroke-width="2" stroke-opacity="0.5"/>
+  <line x1="370" y1="245" x2="600" y2="245" stroke="#36d3f7" stroke-width="2.5" stroke-opacity="0.9"/>
+  <line x1="820" y1="245" x2="1050" y2="245" stroke="#36d3f7" stroke-width="2.5" stroke-opacity="0.9"/>
+  <circle cx="370" cy="245" r="5" fill="#36d3f7"/>
+  <circle cx="600" cy="245" r="5" fill="#36d3f7"/>
+  <circle cx="820" cy="245" r="5" fill="#36d3f7"/>
+  <circle cx="1050" cy="245" r="5" fill="#36d3f7"/>
+  <line x1="710" y1="340" x2="710" y2="430" stroke="#2bf0a8" stroke-width="3" stroke-opacity="0.95" stroke-dasharray="9 7"/>
+  <line x1="710" y1="430" x2="1160" y2="430" stroke="#2bf0a8" stroke-width="3" stroke-opacity="0.95" stroke-dasharray="9 7"/>
+  <line x1="1160" y1="430" x2="1160" y2="340" stroke="#2bf0a8" stroke-width="3" stroke-opacity="0.95" stroke-dasharray="9 7"/>
+  <polygon points="1160,332 1152,350 1168,350" fill="#2bf0a8"/>
+  <circle cx="710" cy="430" r="13" fill="#2bf0a8" fill-opacity="0.18" stroke="#2bf0a8" stroke-width="2.5"/>
+  <rect x="100" y="100" width="1200" height="380" rx="16" fill="none" stroke="#36d3f7" stroke-width="2.5" stroke-dasharray="16 10" stroke-opacity="0.7"/>
+</svg>
