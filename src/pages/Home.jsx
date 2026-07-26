@@ -31,6 +31,10 @@ function SectionTitle({ kicker, children }) {
   )
 }
 
+// Driven by the flag rather than by array position, so reordering the data cannot
+// silently change what the front page shows.
+const featuredProjects = projects.filter((p) => p.featured).slice(0, 4)
+
 export default function Home() {
   const { t, lang } = useI18n()
   const titleParts = t('hero.titleParts')
@@ -108,8 +112,10 @@ export default function Home() {
       <section className="mx-auto max-w-6xl px-5 py-24">
         <SectionTitle kicker={t('featured.kicker')}>{t('featured.title')}</SectionTitle>
         <div className="grid gap-5 md:grid-cols-2">
-          {projects.slice(0, 4).map((p, i) => (
-            <ProjectCard key={p.url} project={localizeProject(p, lang)} index={i} large={p.featured} />
+          {featuredProjects.map((p, i) => (
+            // Only the first gets the wide treatment: four full-width cards stacked
+            // reads worse than one hero above a row of three.
+            <ProjectCard key={p.url} project={localizeProject(p, lang)} index={i} large={i === 0} />
           ))}
         </div>
         <div className="mt-10">

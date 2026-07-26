@@ -88,7 +88,6 @@ export const projects = [
     tag: 'Machine Learning',
     url: 'https://github.com/Ismael-Sallami/AA-practices',
     img: aaPractices,
-    featured: true,
     en: {
       title: 'AA Practices',
       desc: 'Machine learning end to end: classifier comparison under cross-validation, clustering with the cluster count and neighbourhood radius chosen from the data, and regularised neural networks over text.',
@@ -101,7 +100,6 @@ export const projects = [
     tag: 'Metaheurística',
     url: 'https://github.com/Ismael-Sallami/MH-Practices',
     img: mhPractices,
-    featured: true,
     en: {
       title: 'MH Practices',
       desc: 'Sixteen optimisation algorithms on one portfolio problem, from greedy and local search to simulated annealing, genetic, memetic and differential evolution. Each is measured over repeated runs with a standard deviation, not a single run.',
@@ -127,7 +125,6 @@ export const projects = [
     tag: 'Complejidad',
     url: 'https://github.com/Ismael-Sallami/3-Partition-NP-Completeness',
     img: threePartition,
-    featured: true,
     en: {
       title: '3-Partition · NP-Completeness Proof',
       desc: 'A 16-page formal LaTeX proof of the strong NP-completeness of 3-Partition, reproducing Garey & Johnson\'s reduction chain.',
@@ -140,7 +137,6 @@ export const projects = [
     tag: 'Web',
     url: 'https://elblogdeismael.github.io/',
     img: libros,
-    featured: true,
     en: {
       title: 'Computer Engineering + Business Double Degree Blog',
       desc: 'Website with content and resources from the double degree in Computer Engineering and Business Administration.',
@@ -153,7 +149,6 @@ export const projects = [
     tag: 'Tooling',
     url: 'https://github.com/Ismael-Sallami/md2html-testGenerator',
     img: testGen,
-    featured: true,
     en: {
       title: 'md2html · Test Generator',
       desc: 'A tool that converts Markdown to HTML to generate multiple-choice test questions.',
@@ -263,7 +258,6 @@ export const projects = [
     tag: 'Modelos',
     url: 'https://github.com/Leonin04/ModelosComplejosModelosDinamicos',
     img: modDinamicos,
-    featured: false,
     en: {
       title: 'Complex and Dynamic Models',
       desc: 'Seminar on complex and dynamic models. Group work: the repository lives under a teammate\'s account and 29 of its 35 commits are mine.',
