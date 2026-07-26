@@ -47,6 +47,32 @@ export const projects = [
     },
   },
   {
+    title: 'SCD · Concurrencia y Sistemas Distribuidos (MPI)',
+    desc: 'Programación concurrente y distribuida desde primitivas: semáforos, monitores, paso de mensajes con MPI y planificadores de tiempo real (~8.500 líneas de C++).',
+    tag: 'C++ · MPI',
+    url: 'https://github.com/Ismael-Sallami/SCD-Concurrency-MPI',
+    img: scdCluster,
+    featured: true,
+    en: {
+      title: 'SCD · Concurrency & Distributed Systems (MPI)',
+      desc: 'Concurrent and distributed programming from primitives: semaphores, monitors, MPI message passing and real-time schedulers (~8,500 lines of C++).',
+      tag: 'C++ · MPI',
+    },
+  },
+  {
+    title: 'Parcherckers · IA con adversario',
+    desc: 'Agente para un parchís de cuatro jugadores con dados, así que el árbol tiene nodos de azar. Minimax, minimax con límite de profundidad, cuatro variantes de poda alfa-beta con ordenación de movimientos y corte probabilístico, búsqueda de quietud y cinco funciones de evaluación comparadas entre sí.',
+    tag: 'IA · C++',
+    url: 'https://github.com/Ismael-Sallami/Parcherckers',
+    img: parchis,
+    featured: true,
+    en: {
+      title: 'Parcherckers · Adversarial Search',
+      desc: 'An agent for a four-player dice game, so the tree has chance nodes. Minimax, depth-limited minimax, four alpha-beta variants with move ordering and probabilistic cutoff, quiescence search, and five evaluation functions played against each other.',
+      tag: 'AI · C++',
+    },
+  },
+  {
     title: 'DDSI · Diseño de bases de datos',
     desc: 'Esquema relacional en Oracle con la integridad dentro de la base de datos: disparadores para el estado derivado y la auditoría, procedimientos en el servidor y escrituras transaccionales que confirman o revierten como una unidad.',
     tag: 'Oracle · SQL',
@@ -104,19 +130,6 @@ export const projects = [
       title: 'MH Practices',
       desc: 'Sixteen optimisation algorithms on one portfolio problem, from greedy and local search to simulated annealing, genetic, memetic and differential evolution. Each is measured over repeated runs with a standard deviation, not a single run.',
       tag: 'Metaheuristics',
-    },
-  },
-  {
-    title: 'SCD · Concurrencia y Sistemas Distribuidos (MPI)',
-    desc: 'Programación concurrente y distribuida desde primitivas: semáforos, monitores, paso de mensajes con MPI y planificadores de tiempo real (~8.500 líneas de C++).',
-    tag: 'C++ · MPI',
-    url: 'https://github.com/Ismael-Sallami/SCD-Concurrency-MPI',
-    img: scdCluster,
-    featured: true,
-    en: {
-      title: 'SCD · Concurrency & Distributed Systems (MPI)',
-      desc: 'Concurrent and distributed programming from primitives: semaphores, monitors, MPI message passing and real-time schedulers (~8,500 lines of C++).',
-      tag: 'C++ · MPI',
     },
   },
   {
@@ -188,19 +201,6 @@ export const projects = [
     en: {
       title: 'Reactive and Deliberative Agents',
       desc: 'Agents exploring a map they do not know. With no map to plan over they act on rules; once there is one they plan with Dijkstra over a weighted grid with composite state, and with A* using a Manhattan heuristic. Projecting the sensor reading onto the global map is what joins the two layers.',
-      tag: 'AI · C++',
-    },
-  },
-  {
-    title: 'Parcherckers · IA con adversario',
-    desc: 'Agente para un parchís de cuatro jugadores con dados, así que el árbol tiene nodos de azar. Minimax, minimax con límite de profundidad, cuatro variantes de poda alfa-beta con ordenación de movimientos y corte probabilístico, búsqueda de quietud y cinco funciones de evaluación comparadas entre sí.',
-    tag: 'IA · C++',
-    url: 'https://github.com/Ismael-Sallami/Parcherckers',
-    img: parchis,
-    featured: true,
-    en: {
-      title: 'Parcherckers · Adversarial Search',
-      desc: 'An agent for a four-player dice game, so the tree has chance nodes. Minimax, depth-limited minimax, four alpha-beta variants with move ordering and probabilistic cutoff, quiescence search, and five evaluation functions played against each other.',
       tag: 'AI · C++',
     },
   },
