@@ -52,7 +52,8 @@ export default function Projects() {
                     </span>
                     <span className="min-w-[12rem] flex-1 text-sm text-cool">{c.desc}</span>
                     <span className="flex shrink-0 items-center gap-1 text-sm font-medium text-ivory">
-                      {c.commits} {t('contributions.commits')}
+                      {c.commits}{' '}
+                      {c.commits === 1 ? t('contributions.commit') : t('contributions.commits')}
                       <ArrowUpRight
                         size={15}
                         className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"

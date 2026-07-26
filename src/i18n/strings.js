@@ -57,6 +57,7 @@ export const dict = {
       title: 'Contribuciones a proyectos abiertos',
       intro:
         'Proyectos de otras personas a los que he aportado código. No son repositorios míos, así que van aparte: cada enlace abre la lista de commits del proyecto original filtrada por mi autoría, que es la parte comprobable.',
+      commit: 'commit',
       commits: 'commits',
     },
     skillsPage: {
@@ -132,6 +133,7 @@ export const dict = {
       title: 'Contributions to open source',
       intro:
         "Other people's projects I have contributed code to. They are not my repositories, so they sit apart: each link opens the upstream commit list filtered to my commits, which is the checkable part.",
+      commit: 'commit',
       commits: 'commits',
     },
     skillsPage: {

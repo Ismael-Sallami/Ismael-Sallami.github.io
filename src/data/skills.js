@@ -8,8 +8,10 @@ export const skills = [
   { name: 'C++', level: 90, icon: icon('cplusplus') },
   { name: 'Python', level: 85, icon: icon('python') },
   { name: 'React', level: 80, icon: icon('react') },
-  // Oracle rather than MySQL: the database work in DDSI is Oracle.
-  { name: 'SQL', level: 80, icon: icon('oracle') },
+  // Oracle rather than MySQL: the database coursework is Oracle. The oracle icon is a
+  // wide wordmark that turns into an illegible sliver at 24px, so this uses the SQL
+  // Developer one, which reads as a database at icon size.
+  { name: 'Oracle SQL', level: 80, icon: icon('sqldeveloper') },
   { name: 'Git', level: 85, icon: icon('git') },
   { name: 'Docker', level: 70, icon: icon('docker') },
 
