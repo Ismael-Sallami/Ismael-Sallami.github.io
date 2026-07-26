@@ -92,7 +92,8 @@ export default function Home() {
               <img src={portrait} alt="Ismael Sallami" className="rounded-[1.5rem] object-cover" />
             </div>
             <div className="glass absolute -bottom-5 -left-5 rounded-2xl px-5 py-3">
-              <p className="font-display text-3xl accent-text">10+</p>
+              {/* Counted from the data so it cannot go stale: it said 10+ with fifteen listed. */}
+              <p className="font-display text-3xl accent-text">{projects.length}</p>
               <p className="text-xs text-cool">{t('hero.proyectsCount')}</p>
             </div>
           </motion.div>
