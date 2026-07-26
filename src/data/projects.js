@@ -13,8 +13,75 @@ import rutas from '../../assets/images/rutas.png'
 import eco from '../../assets/images/eco.jpg'
 import scdCluster from '../../assets/images/scd_concurrency_mpi.jpg'
 import threePartition from '../../assets/images/three_partition_np.jpg'
+import algorithmsPatterns from '../../assets/images/algorithms_patterns.svg'
+import financeManager from '../../assets/images/inversiones.png'
+import ddsi from '../../assets/images/ddsi.svg'
+import pdfToMd from '../../assets/images/pdf_to_md.svg'
+import personalSite from '../../assets/images/personal_site.svg'
 
 export const projects = [
+  {
+    title: 'Algorithms and Patterns',
+    desc: '183 implementaciones organizadas por patrón. 126 son extractos de mi trabajo previo, cada uno con enlace al fichero y las líneas de las que sale; las otras 57 están escritas para el repositorio y se verifican solas al compilar.',
+    tag: 'Algoritmos · C++',
+    url: 'https://github.com/Ismael-Sallami/algorithms-and-patterns',
+    img: algorithmsPatterns,
+    featured: true,
+    en: {
+      title: 'Algorithms and Patterns',
+      desc: '183 implementations organised by pattern. 126 are extracts from my earlier work, each linking to the file and lines it came from; the other 57 were written for the repository and verify themselves when compiled.',
+      tag: 'Algorithms · C++',
+    },
+  },
+  {
+    title: 'Personal Finance Manager',
+    desc: 'Servicio de finanzas autoalojado: importa extractos de varios brókeres, calcula rentabilidad en aritmética decimal, agrega los informes y expone un bot de Telegram. FastAPI y PostgreSQL.',
+    tag: 'Full-stack',
+    url: 'https://github.com/Ismael-Sallami/personal-finance-manager',
+    img: financeManager,
+    featured: true,
+    en: {
+      title: 'Personal Finance Manager',
+      desc: 'Self-hosted finance service: imports statements from several brokers, computes returns in decimal arithmetic, aggregates the reports and exposes a Telegram bot. FastAPI and PostgreSQL.',
+      tag: 'Full-stack',
+    },
+  },
+  {
+    title: 'DDSI · Diseño de bases de datos',
+    desc: 'Esquema relacional en Oracle con la integridad dentro de la base de datos: disparadores para el estado derivado y la auditoría, procedimientos en el servidor y escrituras transaccionales que confirman o revierten como una unidad.',
+    tag: 'Oracle · SQL',
+    url: 'https://github.com/Ismael-Sallami/DDSI',
+    img: ddsi,
+    en: {
+      title: 'DDSI · Database Design',
+      desc: 'Relational schema in Oracle with the integrity kept inside the database: triggers for derived state and auditing, server-side procedures, and transactional writes that commit or roll back as one unit.',
+      tag: 'Oracle · SQL',
+    },
+  },
+  {
+    title: 'pdf-to-md',
+    desc: 'Conversor de PDF a Markdown por línea de órdenes. La extracción va en cascada: primero la capa de texto, luego el análisis de disposición y sólo al final OCR, que es órdenes de magnitud más lento y sobra en los documentos que no lo necesitan.',
+    tag: 'Python · CLI',
+    url: 'https://github.com/Ismael-Sallami/pdf-to-md',
+    img: pdfToMd,
+    en: {
+      title: 'pdf-to-md',
+      desc: 'A command-line PDF to Markdown converter. Extraction is layered: the text layer first, then layout analysis, and OCR only at the end, since it is orders of magnitude slower and wasted on documents that do not need it.',
+      tag: 'Python · CLI',
+    },
+  },
+  {
+    title: 'Esta web',
+    desc: 'El sitio que estás leyendo: Vite, React Router, Tailwind, framer-motion y una escena en three.js, con todo el contenido en español e inglés desde un único fichero de textos.',
+    tag: 'React',
+    url: 'https://github.com/Ismael-Sallami/Ismael-Sallami.github.io',
+    img: personalSite,
+    en: {
+      title: 'This website',
+      desc: 'The site you are reading: Vite, React Router, Tailwind, framer-motion and a three.js scene, with every string in Spanish and English from a single file.',
+      tag: 'React',
+    },
+  },
   {
     title: 'AA Practices',
     desc: 'Prácticas de Aprendizaje Automático (Machine Learning) desarrolladas durante el curso.',
