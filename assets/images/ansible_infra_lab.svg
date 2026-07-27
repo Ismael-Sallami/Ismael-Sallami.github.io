@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 560" width="1400" height="560">
+  <title>Un playbook aplicado sobre tres nodos, con sus metricas debajo</title>
+  <rect width="1400" height="560" fill="#0a0d16"/>
+  <g stroke="#1b2436" stroke-width="1" opacity="0.55">
+    <line x1="50" y1="0" x2="50" y2="560"/><line x1="150" y1="0" x2="150" y2="560"/>
+    <line x1="250" y1="0" x2="250" y2="560"/><line x1="350" y1="0" x2="350" y2="560"/>
+    <line x1="450" y1="0" x2="450" y2="560"/><line x1="550" y1="0" x2="550" y2="560"/>
+    <line x1="650" y1="0" x2="650" y2="560"/><line x1="750" y1="0" x2="750" y2="560"/>
+    <line x1="850" y1="0" x2="850" y2="560"/><line x1="950" y1="0" x2="950" y2="560"/>
+    <line x1="1050" y1="0" x2="1050" y2="560"/><line x1="1150" y1="0" x2="1150" y2="560"/>
+    <line x1="1250" y1="0" x2="1250" y2="560"/><line x1="1350" y1="0" x2="1350" y2="560"/>
+    <line x1="0" y1="50" x2="1400" y2="50"/><line x1="0" y1="150" x2="1400" y2="150"/>
+    <line x1="0" y1="250" x2="1400" y2="250"/><line x1="0" y1="350" x2="1400" y2="350"/>
+    <line x1="0" y1="450" x2="1400" y2="450"/><line x1="0" y1="550" x2="1400" y2="550"/>
+  </g>
+
+  <!-- El playbook, a la izquierda -->
+  <rect x="90" y="130" width="230" height="300" rx="10" fill="#0d1220" stroke="#2bf0a8" stroke-width="2.5"/>
+  <g fill="#2bf0a8" opacity="0.9">
+    <rect x="118" y="168" width="18" height="8" rx="2"/>
+    <rect x="118" y="212" width="18" height="8" rx="2"/>
+    <rect x="118" y="256" width="18" height="8" rx="2"/>
+    <rect x="118" y="300" width="18" height="8" rx="2"/>
+    <rect x="118" y="344" width="18" height="8" rx="2"/>
+  </g>
+  <g fill="#36d3f7" opacity="0.55">
+    <rect x="150" y="168" width="140" height="8" rx="4"/>
+    <rect x="150" y="212" width="112" height="8" rx="4"/>
+    <rect x="150" y="256" width="150" height="8" rx="4"/>
+    <rect x="150" y="300" width="96" height="8" rx="4"/>
+    <rect x="150" y="344" width="128" height="8" rx="4"/>
+  </g>
+
+  <!-- Se aplica sobre tres nodos -->
+  <g stroke="#2bf0a8" stroke-width="2.5" stroke-opacity="0.85" fill="none">
+    <path d="M320 280 C 430 280, 430 170, 560 170"/>
+    <path d="M320 280 L 560 280"/>
+    <path d="M320 280 C 430 280, 430 390, 560 390"/>
+  </g>
+  <g fill="#0d1220" stroke="#36d3f7" stroke-width="2.5">
+    <rect x="560" y="128" width="200" height="84" rx="8"/>
+    <rect x="560" y="238" width="200" height="84" rx="8"/>
+    <rect x="560" y="348" width="200" height="84" rx="8"/>
+  </g>
+  <g fill="#36d3f7" opacity="0.75">
+    <circle cx="592" cy="170" r="7"/><circle cx="592" cy="280" r="7"/><circle cx="592" cy="390" r="7"/>
+    <rect x="614" y="165" width="112" height="9" rx="4" opacity="0.6"/>
+    <rect x="614" y="275" width="90" height="9" rx="4" opacity="0.6"/>
+    <rect x="614" y="385" width="126" height="9" rx="4" opacity="0.6"/>
+  </g>
+
+  <!-- Y lo que miden Prometheus y Grafana -->
+  <rect x="850" y="128" width="460" height="304" rx="12" fill="#0d1220" stroke="#243044" stroke-width="2.5"/>
+  <g stroke="#1b2436" stroke-width="1">
+    <line x1="850" y1="204" x2="1310" y2="204"/><line x1="850" y1="280" x2="1310" y2="280"/>
+    <line x1="850" y1="356" x2="1310" y2="356"/>
+  </g>
+  <polyline points="880,370 940,330 1000,344 1060,258 1120,286 1180,196 1240,224 1290,178"
+            fill="none" stroke="#2bf0a8" stroke-width="3.5" stroke-linejoin="round" stroke-linecap="round"/>
+  <polyline points="880,404 940,392 1000,398 1060,362 1120,376 1180,330 1240,346 1290,318"
+            fill="none" stroke="#36d3f7" stroke-width="2.5" stroke-opacity="0.7" stroke-linejoin="round"/>
+  <g fill="#2bf0a8">
+    <circle cx="1060" cy="258" r="5"/><circle cx="1180" cy="196" r="5"/><circle cx="1290" cy="178" r="5"/>
+  </g>
+</svg>

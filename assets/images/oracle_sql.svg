@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 560" width="1400" height="560">
+  <title>Dos tablas unidas por una clave y el plan de la consulta que las recorre</title>
+  <rect width="1400" height="560" fill="#0a0d16"/>
+  <g stroke="#1b2436" stroke-width="1" opacity="0.5">
+    <line x1="100" y1="0" x2="100" y2="560"/><line x1="200" y1="0" x2="200" y2="560"/>
+    <line x1="300" y1="0" x2="300" y2="560"/><line x1="400" y1="0" x2="400" y2="560"/>
+    <line x1="500" y1="0" x2="500" y2="560"/><line x1="600" y1="0" x2="600" y2="560"/>
+    <line x1="700" y1="0" x2="700" y2="560"/><line x1="800" y1="0" x2="800" y2="560"/>
+    <line x1="900" y1="0" x2="900" y2="560"/><line x1="1000" y1="0" x2="1000" y2="560"/>
+    <line x1="1100" y1="0" x2="1100" y2="560"/><line x1="1200" y1="0" x2="1200" y2="560"/>
+    <line x1="1300" y1="0" x2="1300" y2="560"/>
+    <line x1="0" y1="100" x2="1400" y2="100"/><line x1="0" y1="200" x2="1400" y2="200"/>
+    <line x1="0" y1="300" x2="1400" y2="300"/><line x1="0" y1="400" x2="1400" y2="400"/>
+    <line x1="0" y1="500" x2="1400" y2="500"/>
+  </g>
+
+  <!-- Tabla izquierda -->
+  <rect x="90" y="120" width="330" height="320" rx="10" fill="#0d1220" stroke="#2bf0a8" stroke-width="2.5"/>
+  <rect x="90" y="120" width="330" height="52" rx="10" fill="#2bf0a8" fill-opacity="0.14"/>
+  <line x1="90" y1="172" x2="420" y2="172" stroke="#2bf0a8" stroke-width="2.5"/>
+  <g stroke="#1b2436" stroke-width="1.5">
+    <line x1="90" y1="226" x2="420" y2="226"/><line x1="90" y1="280" x2="420" y2="280"/>
+    <line x1="90" y1="334" x2="420" y2="334"/><line x1="90" y1="388" x2="420" y2="388"/>
+    <line x1="200" y1="172" x2="200" y2="440"/>
+  </g>
+  <g fill="#2bf0a8" opacity="0.85">
+    <rect x="116" y="140" width="60" height="10" rx="5"/>
+    <rect x="226" y="140" width="96" height="10" rx="5"/>
+  </g>
+  <g fill="#36d3f7" opacity="0.5">
+    <rect x="116" y="194" width="52" height="9" rx="4"/><rect x="226" y="194" width="132" height="9" rx="4"/>
+    <rect x="116" y="248" width="52" height="9" rx="4"/><rect x="226" y="248" width="108" height="9" rx="4"/>
+    <rect x="116" y="302" width="52" height="9" rx="4"/><rect x="226" y="302" width="146" height="9" rx="4"/>
+    <rect x="116" y="356" width="52" height="9" rx="4"/><rect x="226" y="356" width="118" height="9" rx="4"/>
+  </g>
+
+  <!-- Tabla derecha -->
+  <rect x="600" y="160" width="300" height="250" rx="10" fill="#0d1220" stroke="#36d3f7" stroke-width="2.5"/>
+  <rect x="600" y="160" width="300" height="48" rx="10" fill="#36d3f7" fill-opacity="0.12"/>
+  <line x1="600" y1="208" x2="900" y2="208" stroke="#36d3f7" stroke-width="2.5"/>
+  <g stroke="#1b2436" stroke-width="1.5">
+    <line x1="600" y1="258" x2="900" y2="258"/><line x1="600" y1="308" x2="900" y2="308"/>
+    <line x1="600" y1="358" x2="900" y2="358"/><line x1="700" y1="208" x2="700" y2="410"/>
+  </g>
+  <g fill="#36d3f7" opacity="0.8">
+    <rect x="624" y="178" width="52" height="10" rx="5"/>
+    <rect x="722" y="178" width="88" height="10" rx="5"/>
+  </g>
+  <g fill="#36d3f7" opacity="0.45">
+    <rect x="624" y="228" width="46" height="9" rx="4"/><rect x="722" y="228" width="120" height="9" rx="4"/>
+    <rect x="624" y="278" width="46" height="9" rx="4"/><rect x="722" y="278" width="96" height="9" rx="4"/>
+    <rect x="624" y="328" width="46" height="9" rx="4"/><rect x="722" y="328" width="134" height="9" rx="4"/>
+  </g>
+
+  <!-- La union por la clave -->
+  <path d="M420 240 C 500 240, 520 200, 600 200" fill="none" stroke="#b8ff3c" stroke-width="3"/>
+  <path d="M420 294 C 500 294, 520 250, 600 250" fill="none" stroke="#b8ff3c" stroke-width="3" stroke-opacity="0.55"/>
+  <circle cx="420" cy="240" r="7" fill="#b8ff3c"/>
+  <circle cx="600" cy="200" r="7" fill="#b8ff3c"/>
+
+  <!-- El plan de ejecucion -->
+  <g fill="#0d1220" stroke="#2bf0a8" stroke-width="2.4">
+    <rect x="1010" y="118" width="300" height="62" rx="8"/>
+    <rect x="1010" y="222" width="300" height="62" rx="8"/>
+    <rect x="1010" y="326" width="300" height="62" rx="8"/>
+    <rect x="1010" y="430" width="300" height="62" rx="8"/>
+  </g>
+  <g stroke="#2bf0a8" stroke-width="2.4" stroke-opacity="0.7">
+    <line x1="1160" y1="180" x2="1160" y2="222"/>
+    <line x1="1160" y1="284" x2="1160" y2="326"/>
+    <line x1="1160" y1="388" x2="1160" y2="430"/>
+  </g>
+  <g fill="#2bf0a8" opacity="0.75">
+    <rect x="1038" y="144" width="150" height="10" rx="5"/>
+    <rect x="1038" y="248" width="196" height="10" rx="5"/>
+    <rect x="1038" y="352" width="120" height="10" rx="5"/>
+    <rect x="1038" y="456" width="172" height="10" rx="5"/>
+  </g>
+</svg>

@@ -32,8 +32,9 @@ function SectionTitle({ kicker, children }) {
 }
 
 // Driven by the flag rather than by array position, so reordering the data cannot
-// silently change what the front page shows.
-const featuredProjects = projects.filter((p) => p.featured).slice(0, 4)
+// silently change what the front page shows. The flag marks the same six that are
+// pinned on the GitHub profile, so both places tell the same story.
+const featuredProjects = projects.filter((p) => p.featured)
 
 export default function Home() {
   const { t, lang } = useI18n()
@@ -114,9 +115,15 @@ export default function Home() {
         <SectionTitle kicker={t('featured.kicker')}>{t('featured.title')}</SectionTitle>
         <div className="grid gap-5 md:grid-cols-2">
           {featuredProjects.map((p, i) => (
-            // Only the first gets the wide treatment: four full-width cards stacked
-            // reads worse than one hero above a row of three.
-            <ProjectCard key={p.url} project={localizeProject(p, lang)} index={i} large={i === 0} />
+            // The first and the last go full width. With an even number of cards that
+            // closes both rows cleanly; making only the first one wide would leave the
+            // last card alone in its row.
+            <ProjectCard
+              key={p.url}
+              project={localizeProject(p, lang)}
+              index={i}
+              large={i === 0 || i === featuredProjects.length - 1}
+            />
           ))}
         </div>
         <div className="mt-10">

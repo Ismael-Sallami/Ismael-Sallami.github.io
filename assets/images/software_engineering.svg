@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 560" width="1400" height="560">
+  <title>Diagrama de casos de uso: dos actores frente a los casos de un sistema</title>
+  <rect width="1400" height="560" fill="#0a0d16"/>
+  <g stroke="#1b2436" stroke-width="1" opacity="0.5">
+    <line x1="100" y1="0" x2="100" y2="560"/><line x1="200" y1="0" x2="200" y2="560"/>
+    <line x1="300" y1="0" x2="300" y2="560"/><line x1="400" y1="0" x2="400" y2="560"/>
+    <line x1="500" y1="0" x2="500" y2="560"/><line x1="600" y1="0" x2="600" y2="560"/>
+    <line x1="700" y1="0" x2="700" y2="560"/><line x1="800" y1="0" x2="800" y2="560"/>
+    <line x1="900" y1="0" x2="900" y2="560"/><line x1="1000" y1="0" x2="1000" y2="560"/>
+    <line x1="1100" y1="0" x2="1100" y2="560"/><line x1="1200" y1="0" x2="1200" y2="560"/>
+    <line x1="1300" y1="0" x2="1300" y2="560"/>
+    <line x1="0" y1="100" x2="1400" y2="100"/><line x1="0" y1="200" x2="1400" y2="200"/>
+    <line x1="0" y1="300" x2="1400" y2="300"/><line x1="0" y1="400" x2="1400" y2="400"/>
+    <line x1="0" y1="500" x2="1400" y2="500"/>
+  </g>
+
+  <!-- Actor de la izquierda -->
+  <g stroke="#2bf0a8" stroke-width="3" fill="none" stroke-linecap="round">
+    <circle cx="180" cy="176" r="26"/>
+    <line x1="180" y1="202" x2="180" y2="278"/>
+    <line x1="134" y1="228" x2="226" y2="228"/>
+    <line x1="180" y1="278" x2="142" y2="336"/>
+    <line x1="180" y1="278" x2="218" y2="336"/>
+  </g>
+  <!-- Actor de la derecha -->
+  <g stroke="#36d3f7" stroke-width="3" fill="none" stroke-linecap="round">
+    <circle cx="1220" cy="300" r="26"/>
+    <line x1="1220" y1="326" x2="1220" y2="402"/>
+    <line x1="1174" y1="352" x2="1266" y2="352"/>
+    <line x1="1220" y1="402" x2="1182" y2="460"/>
+    <line x1="1220" y1="402" x2="1258" y2="460"/>
+  </g>
+
+  <!-- El sistema -->
+  <rect x="440" y="70" width="520" height="420" rx="14" fill="#0d1220" stroke="#243044" stroke-width="2.5"/>
+  <rect x="470" y="96" width="180" height="12" rx="6" fill="#243044"/>
+
+  <!-- Casos de uso -->
+  <g fill="#0a0d16" stroke="#2bf0a8" stroke-width="2.5">
+    <ellipse cx="700" cy="176" rx="150" ry="46"/>
+    <ellipse cx="700" cy="288" rx="150" ry="46"/>
+    <ellipse cx="700" cy="400" rx="150" ry="46"/>
+  </g>
+  <g fill="#2bf0a8" opacity="0.7">
+    <rect x="622" y="171" width="156" height="10" rx="5"/>
+    <rect x="640" y="283" width="120" height="10" rx="5"/>
+    <rect x="612" y="395" width="176" height="10" rx="5"/>
+  </g>
+
+  <!-- Asociaciones -->
+  <g stroke="#2bf0a8" stroke-width="2.4" stroke-opacity="0.8">
+    <line x1="226" y1="228" x2="550" y2="176"/>
+    <line x1="226" y1="240" x2="550" y2="288"/>
+  </g>
+  <g stroke="#36d3f7" stroke-width="2.4" stroke-opacity="0.8">
+    <line x1="1174" y1="340" x2="850" y2="288"/>
+    <line x1="1174" y1="352" x2="850" y2="400"/>
+  </g>
+
+  <!-- Un include entre dos casos -->
+  <line x1="700" y1="222" x2="700" y2="242" stroke="#b8ff3c" stroke-width="2.4" stroke-dasharray="9 7"/>
+  <path d="M700 242 L 692 228 L 708 228 Z" fill="#b8ff3c"/>
+</svg>

@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 560" width="1400" height="560">
+  <title>Malla de un solido en alambre, con su normal y el rayo que la interseca</title>
+  <rect width="1400" height="560" fill="#0a0d16"/>
+  <g stroke="#1b2436" stroke-width="1" opacity="0.5">
+    <line x1="100" y1="0" x2="100" y2="560"/><line x1="200" y1="0" x2="200" y2="560"/>
+    <line x1="300" y1="0" x2="300" y2="560"/><line x1="400" y1="0" x2="400" y2="560"/>
+    <line x1="500" y1="0" x2="500" y2="560"/><line x1="600" y1="0" x2="600" y2="560"/>
+    <line x1="700" y1="0" x2="700" y2="560"/><line x1="800" y1="0" x2="800" y2="560"/>
+    <line x1="900" y1="0" x2="900" y2="560"/><line x1="1000" y1="0" x2="1000" y2="560"/>
+    <line x1="1100" y1="0" x2="1100" y2="560"/><line x1="1200" y1="0" x2="1200" y2="560"/>
+    <line x1="1300" y1="0" x2="1300" y2="560"/>
+    <line x1="0" y1="100" x2="1400" y2="100"/><line x1="0" y1="200" x2="1400" y2="200"/>
+    <line x1="0" y1="300" x2="1400" y2="300"/><line x1="0" y1="400" x2="1400" y2="400"/>
+    <line x1="0" y1="500" x2="1400" y2="500"/>
+  </g>
+
+  <!-- Suelo en perspectiva -->
+  <g stroke="#243044" stroke-width="1.6" opacity="0.8">
+    <path d="M180 470 L 1220 470"/>
+    <path d="M320 420 L 1080 420"/>
+    <path d="M420 384 L 980 384"/>
+    <path d="M700 360 L 180 470"/><path d="M700 360 L 460 470"/>
+    <path d="M700 360 L 700 470"/><path d="M700 360 L 940 470"/>
+    <path d="M700 360 L 1220 470"/>
+  </g>
+
+  <!-- Solido en alambre -->
+  <g fill="none" stroke="#2bf0a8" stroke-width="2.6" stroke-linejoin="round">
+    <path d="M560 300 L 700 224 L 840 300 L 700 376 Z"/>
+    <path d="M560 300 L 560 176 L 700 100 L 700 224"/>
+    <path d="M840 300 L 840 176 L 700 100"/>
+    <path d="M700 376 L 700 252"/>
+    <path d="M560 176 L 700 252 L 840 176"/>
+  </g>
+  <g fill="#0a0d16" stroke="#36d3f7" stroke-width="2.4">
+    <circle cx="560" cy="300" r="7"/><circle cx="840" cy="300" r="7"/>
+    <circle cx="700" cy="100" r="7"/><circle cx="700" cy="376" r="7"/>
+    <circle cx="560" cy="176" r="7"/><circle cx="840" cy="176" r="7"/>
+    <circle cx="700" cy="224" r="7"/><circle cx="700" cy="252" r="7"/>
+  </g>
+
+  <!-- Normal en una cara -->
+  <line x1="770" y1="262" x2="900" y2="182" stroke="#b8ff3c" stroke-width="3" stroke-linecap="round"/>
+  <path d="M900 182 L 880 184 L 890 198 Z" fill="#b8ff3c"/>
+
+  <!-- Rayo que entra y golpea -->
+  <line x1="140" y1="120" x2="612" y2="268" stroke="#36d3f7" stroke-width="2.6" stroke-dasharray="12 9" stroke-opacity="0.9"/>
+  <circle cx="612" cy="268" r="10" fill="#36d3f7" fill-opacity="0.2" stroke="#36d3f7" stroke-width="2.4"/>
+  <circle cx="140" cy="120" r="14" fill="#0a0d16" stroke="#36d3f7" stroke-width="2.4"/>
+  <line x1="126" y1="106" x2="154" y2="134" stroke="#36d3f7" stroke-width="2"/>
+  <line x1="154" y1="106" x2="126" y2="134" stroke="#36d3f7" stroke-width="2"/>
+</svg>
