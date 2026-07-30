@@ -91,13 +91,13 @@ export const projects = [
   },
   {
     title: 'Sistema de información sobre Oracle',
-    desc: 'Esquema relacional en Oracle con la integridad dentro de la base de datos: disparadores para el estado derivado y la auditoría, procedimientos en el servidor y escrituras transaccionales que confirman o revierten como una unidad.',
+    desc: 'Esquema relacional en Oracle con la integridad dentro de la base de datos: disparadores para el estado derivado y la auditoría, procedimientos en el servidor y escrituras transaccionales que confirman o revierten como una unidad. Trabajo de un equipo de cinco, con un subsistema por persona.',
     tag: 'Oracle · SQL',
     url: 'https://github.com/Ismael-Sallami/oracle-dbms-project',
     img: ddsi,
     en: {
       title: 'Information system on Oracle',
-      desc: 'Relational schema in Oracle with the integrity kept inside the database: triggers for derived state and auditing, server-side procedures, and transactional writes that commit or roll back as one unit.',
+      desc: 'Relational schema in Oracle with the integrity kept inside the database: triggers for derived state and auditing, server-side procedures, and transactional writes that commit or roll back as one unit. Built by a team of five, one subsystem each.',
       tag: 'Oracle · SQL',
     },
   },
@@ -262,13 +262,13 @@ export const projects = [
   },
   {
     title: 'Modelo Econométrico · Obesidad',
-    desc: 'Modelo econométrico sobre series reales, con las pruebas de las que dependen los coeficientes: normalidad de los residuos, heterocedasticidad, multicolinealidad y autocorrelación. Sin ellas los errores estándar no significan nada.',
+    desc: 'Modelo econométrico sobre series reales, con las pruebas de las que dependen los coeficientes: normalidad de los residuos, heterocedasticidad, multicolinealidad y autocorrelación. Sin ellas los errores estándar no significan nada. Trabajo de un equipo de tres.',
     tag: 'Econometría',
     url: 'https://github.com/Ismael-Sallami/econometric-model',
     img: eco,
     en: {
       title: 'Econometric Model · Obesity',
-      desc: 'An econometric model on real series, with the tests its coefficients depend on: residual normality, heteroskedasticity, multicollinearity and autocorrelation. Without them the standard errors mean nothing.',
+      desc: 'An econometric model on real series, with the tests its coefficients depend on: residual normality, heteroskedasticity, multicollinearity and autocorrelation. Without them the standard errors mean nothing. Written by a team of three.',
       tag: 'Econometrics',
     },
   },
