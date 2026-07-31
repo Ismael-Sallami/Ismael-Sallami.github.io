@@ -188,13 +188,13 @@ export const projects = [
   },
   {
     title: 'Media Manager',
-    desc: 'Libera espacio en el móvil trasladando las fotos al ordenador y detecta las duplicadas por hash del contenido, no por nombre ni tamaño: al moverse entre dispositivos los nombres cambian y los bytes no.',
+    desc: 'Libera espacio en el móvil trasladando las fotos al ordenador y detecta las duplicadas por hash del contenido, no por nombre ni tamaño: al moverse entre dispositivos los nombres cambian y los bytes no. El archivo final se cifra con AES-256.',
     tag: 'App',
     url: 'https://github.com/Ismael-Sallami/media-manager',
     img: saveImage,
     en: {
       title: 'Media Manager',
-      desc: 'Frees space on the phone by moving photos to the computer, and finds duplicates by hashing contents rather than comparing names or sizes: names change when files move between devices and the bytes do not.',
+      desc: 'Frees space on the phone by moving photos to the computer, and finds duplicates by hashing contents rather than comparing names or sizes: names change when files move between devices and the bytes do not. The resulting archive is encrypted with AES-256.',
       tag: 'App',
     },
   },
@@ -238,13 +238,13 @@ export const projects = [
   },
   {
     title: 'Arch Linux · Dotfiles',
-    desc: 'Configuración personalizada de Arch Linux: scripts, dotfiles y ajustes de sistema.',
+    desc: 'Mi escritorio de Arch: Hyprland sobre Wayland, Waybar, kitty y los scripts que llevan batería, brillo y volumen a las notificaciones. El árbol es un espejo de ~/.config, así que se instala con enlaces simbólicos y lo que corre es el fichero del repositorio.',
     tag: 'Linux',
     url: 'https://github.com/Ismael-Sallami/Arch_Configuration',
     img: arch,
     en: {
       title: 'Arch Linux · Dotfiles',
-      desc: 'Custom Arch Linux setup: scripts, dotfiles and system tweaks.',
+      desc: 'My Arch desktop: Hyprland on Wayland, Waybar, kitty and the scripts that put battery, brightness and volume into notifications. The tree mirrors ~/.config, so it installs as symlinks and the file that runs is the one in the repository.',
       tag: 'Linux',
     },
   },
