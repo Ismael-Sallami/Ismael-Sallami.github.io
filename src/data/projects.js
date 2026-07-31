@@ -24,6 +24,7 @@ import oracleSql from '../../assets/images/oracle_sql.svg'
 import softwareEngineering from '../../assets/images/software_engineering.svg'
 import neetcode from '../../assets/images/neetcode.svg'
 import earlyCourses from '../../assets/images/early_courses.svg'
+import algorithmDesign from '../../assets/images/algorithm_design.svg'
 
 export const projects = [
   {
@@ -246,6 +247,18 @@ export const projects = [
       title: 'Arch Linux · Dotfiles',
       desc: 'My Arch desktop: Hyprland on Wayland, Waybar, kitty and the scripts that put battery, brightness and volume into notifications. The tree mirrors ~/.config, so it installs as symlinks and the file that runs is the one in the repository.',
       tag: 'Linux',
+    },
+  },
+  {
+    title: 'Técnicas de diseño de algoritmos',
+    desc: 'Diecinueve problemas resueltos con las cuatro técnicas clásicas: divide y vencerás, voraz, backtracking con ramificación y poda, y programación dinámica. Dos enunciados se repiten a propósito, resueltos primero de forma voraz y luego explorando, que es donde se ve cuándo el voraz se conforma demasiado pronto. Trabajo de un equipo de cinco.',
+    tag: 'C++ · Algoritmia',
+    url: 'https://github.com/Ismael-Sallami/algorithm-design-techniques',
+    img: algorithmDesign,
+    en: {
+      title: 'Algorithm design techniques',
+      desc: 'Nineteen problems solved with the four classic techniques: divide and conquer, greedy, backtracking with branch and bound, and dynamic programming. Two statements are set twice on purpose, solved greedily and then by search, which is where you see the greedy answer settling too early. Team of five.',
+      tag: 'C++ · Algorithms',
     },
   },
   {
