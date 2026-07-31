@@ -176,13 +176,13 @@ export const projects = [
   },
   {
     title: 'md2html · Test Generator',
-    desc: 'Herramienta que convierte Markdown a HTML para generar preguntas tipo test.',
+    desc: 'Convierte preguntas escritas en Markdown en un test HTML que se corrige solo: baraja, califica y muestra la explicación de cada respuesta. El resultado es un único fichero que funciona sin servidor, y sus doce temas son los mismos que usa la versión web.',
     tag: 'Tooling',
     url: 'https://github.com/Ismael-Sallami/md2html-testGenerator',
     img: testGen,
     en: {
       title: 'md2html · Test Generator',
-      desc: 'A tool that converts Markdown to HTML to generate multiple-choice test questions.',
+      desc: 'Turns questions written in Markdown into a self-marking HTML quiz: it shuffles them, marks them and shows an explanation per answer. The result is a single file that runs with no server, and its twelve themes are the ones the browser version uses.',
       tag: 'Tooling',
     },
   },
