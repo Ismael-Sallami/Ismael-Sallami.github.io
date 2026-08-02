@@ -3,7 +3,7 @@
 
 export const dict = {
   es: {
-    nav: { home: 'Inicio', projects: 'Proyectos', skills: 'Habilidades', letters: 'Cartas y certificados', cv: 'CV' },
+    nav: { home: 'Inicio', projects: 'Proyectos', skills: 'Habilidades', certificates: 'Certificaciones', cv: 'CV' },
     hero: {
       badge: 'Doble grado Informática + ADE · UGR',
       titleParts: [
@@ -16,7 +16,7 @@ export const dict = {
       textPre: 'Soy ',
       name: 'Ismael Sallami Moreno',
       textPost:
-        '. Me apasiona la programación, el desarrollo web y crear soluciones que aporten valor real en cualquier ámbito donde la informática pueda ayudar: sistemas y servidores, medicina, matemáticas, finanzas e investigación.',
+        '. Me apasiona la programación, el desarrollo web y crear soluciones que aporten valor real en cualquier ámbito donde la informática pueda ayudar.',
       contact: 'Contáctame',
       viewProjects: 'Ver proyectos',
       proyectsCount: 'Proyectos',
@@ -24,8 +24,8 @@ export const dict = {
     about: {
       kicker: 'Innovación',
       title: 'Informática al servicio de cualquier campo para generar impacto positivo.',
-      p1: 'La informática es una herramienta transversal: la misma capacidad técnica que optimiza servidores y sistemas puede acelerar la investigación médica, resolver problemas matemáticos o modelar mercados financieros. Me interesa aplicarla allá donde aporte valor real.',
-      p2: 'Disfruto explorando campos diversos —de la IA y las finanzas a la medicina y las matemáticas— y construyendo soluciones que mejoren la vida de las personas. Mi objetivo: seguir formándome y participar en proyectos con valor social, integrando habilidad técnica con una visión de crecimiento personal y profesional.',
+      p1: 'La informática es una herramienta transversal: la misma capacidad técnica sirve para levantar un sistema, analizar datos o automatizar lo que hoy se hace a mano. Me interesa aplicarla allá donde aporte valor real.',
+      p2: 'Disfruto explorando campos distintos y construyendo soluciones que mejoren la vida de las personas. Mi objetivo: seguir formándome y participar en proyectos con valor social, integrando habilidad técnica con una visión de crecimiento personal y profesional.',
     },
     featured: {
       kicker: 'Trabajo seleccionado',
@@ -66,12 +66,10 @@ export const dict = {
       intro:
         'Habilidades técnicas y blandas que me permiten abordar proyectos complejos y colaborar en equipos multidisciplinares. Comprometido con el aprendizaje continuo — aún me queda mucho por aprender.',
     },
-    lettersPage: {
+    certificatesPage: {
       kicker: 'Documentos',
-      title: 'Cartas y certificados',
-      intro: 'Cartas de recomendación de profesores y profesionales, y certificaciones obtenidas. Puedes previsualizarlas aquí o descargarlas.',
-      letter1: 'Carta de recomendación I',
-      letter2: 'Carta de recomendación II',
+      title: 'Certificaciones',
+      intro: 'Certificaciones obtenidas. Puedes previsualizarlas aquí o descargarlas.',
       ecert: 'Oracle Cloud Infrastructure 2025 Certified AI Foundations Associate',
       download: 'Descargar',
     },
@@ -79,7 +77,7 @@ export const dict = {
   },
 
   en: {
-    nav: { home: 'Home', projects: 'Projects', skills: 'Skills', letters: 'Letters & Certificates', cv: 'CV' },
+    nav: { home: 'Home', projects: 'Projects', skills: 'Skills', certificates: 'Certifications', cv: 'CV' },
     hero: {
       badge: 'Double Degree in Computer Engineering + Business · UGR',
       titleParts: [
@@ -92,7 +90,7 @@ export const dict = {
       textPre: "I'm ",
       name: 'Ismael Sallami Moreno',
       textPost:
-        ". I'm passionate about programming, web development and building solutions that add real value in any field where computer science can help: systems and servers, medicine, mathematics, finance and research.",
+        ". I'm passionate about programming, web development and building solutions that add real value in any field where computer science can help.",
       contact: 'Contact me',
       viewProjects: 'View projects',
       proyectsCount: 'Projects',
@@ -100,8 +98,8 @@ export const dict = {
     about: {
       kicker: 'Innovation',
       title: 'Computer science serving any field to create positive impact.',
-      p1: 'Computer science is a cross-cutting tool: the same technical skill that optimizes servers and systems can accelerate medical research, solve mathematical problems or model financial markets. I want to apply it wherever it adds real value.',
-      p2: "I enjoy exploring diverse fields —from AI and finance to medicine and mathematics— and building solutions that improve people's lives. My goal: keep learning and contribute to projects with social value, combining technical skill with a vision of personal and professional growth.",
+      p1: 'Computer science is a cross-cutting tool: the same technical skill builds a system, analyses data or automates what is done by hand today. I want to apply it wherever it adds real value.',
+      p2: "I enjoy exploring different fields and building solutions that improve people's lives. My goal: keep learning and contribute to projects with social value, combining technical skill with a vision of personal and professional growth.",
     },
     featured: {
       kicker: 'Selected work',
@@ -142,12 +140,10 @@ export const dict = {
       intro:
         'Technical and soft skills that let me tackle complex projects and collaborate in multidisciplinary teams. Committed to continuous learning — I still have a lot to learn.',
     },
-    lettersPage: {
+    certificatesPage: {
       kicker: 'Documents',
-      title: 'Letters & Certificates',
-      intro: 'Recommendation letters from professors and professionals, plus the certifications I have earned. You can preview them here or download them.',
-      letter1: 'Recommendation letter I',
-      letter2: 'Recommendation letter II',
+      title: 'Certifications',
+      intro: 'Certifications I have earned. You can preview them here or download them.',
       ecert: 'Oracle Cloud Infrastructure 2025 Certified AI Foundations Associate',
       download: 'Download',
     },

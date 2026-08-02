@@ -10,7 +10,7 @@ const Scene = lazy(() => import('./three/Scene.jsx'))
 import Home from './pages/Home.jsx'
 import Projects from './pages/Projects.jsx'
 import Skills from './pages/Skills.jsx'
-import Letters from './pages/Letters.jsx'
+import Certificates from './pages/Certificates.jsx'
 
 export default function App() {
   const location = useLocation()
@@ -32,7 +32,7 @@ export default function App() {
             <Route path="/" element={<Home />} />
             <Route path="/projects" element={<Projects />} />
             <Route path="/skills" element={<Skills />} />
-            <Route path="/letters" element={<Letters />} />
+            <Route path="/certificates" element={<Certificates />} />
             <Route path="*" element={<Home />} />
           </Routes>
         </AnimatePresence>
