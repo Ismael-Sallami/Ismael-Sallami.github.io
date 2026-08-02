@@ -16,7 +16,7 @@ export const dict = {
       textPre: 'Soy ',
       name: 'Ismael Sallami Moreno',
       textPost:
-        '. Me apasiona la programación, el desarrollo web y crear soluciones que aporten valor real en cualquier ámbito donde la informática pueda ayudar: sistemas y servidores, medicina, matemáticas, finanzas e investigación.',
+        '. Me apasiona la programación, el desarrollo web y crear soluciones que aporten valor real en cualquier ámbito donde la informática pueda ayudar.',
       contact: 'Contáctame',
       viewProjects: 'Ver proyectos',
       proyectsCount: 'Proyectos',
@@ -24,8 +24,8 @@ export const dict = {
     about: {
       kicker: 'Innovación',
       title: 'Informática al servicio de cualquier campo para generar impacto positivo.',
-      p1: 'La informática es una herramienta transversal: la misma capacidad técnica que optimiza servidores y sistemas puede acelerar la investigación médica, resolver problemas matemáticos o modelar mercados financieros. Me interesa aplicarla allá donde aporte valor real.',
-      p2: 'Disfruto explorando campos diversos —de la IA y las finanzas a la medicina y las matemáticas— y construyendo soluciones que mejoren la vida de las personas. Mi objetivo: seguir formándome y participar en proyectos con valor social, integrando habilidad técnica con una visión de crecimiento personal y profesional.',
+      p1: 'La informática es una herramienta transversal: la misma capacidad técnica sirve para levantar un sistema, analizar datos o automatizar lo que hoy se hace a mano. Me interesa aplicarla allá donde aporte valor real.',
+      p2: 'Disfruto explorando campos distintos y construyendo soluciones que mejoren la vida de las personas. Mi objetivo: seguir formándome y participar en proyectos con valor social, integrando habilidad técnica con una visión de crecimiento personal y profesional.',
     },
     featured: {
       kicker: 'Trabajo seleccionado',
@@ -90,7 +90,7 @@ export const dict = {
       textPre: "I'm ",
       name: 'Ismael Sallami Moreno',
       textPost:
-        ". I'm passionate about programming, web development and building solutions that add real value in any field where computer science can help: systems and servers, medicine, mathematics, finance and research.",
+        ". I'm passionate about programming, web development and building solutions that add real value in any field where computer science can help.",
       contact: 'Contact me',
       viewProjects: 'View projects',
       proyectsCount: 'Projects',
@@ -98,8 +98,8 @@ export const dict = {
     about: {
       kicker: 'Innovation',
       title: 'Computer science serving any field to create positive impact.',
-      p1: 'Computer science is a cross-cutting tool: the same technical skill that optimizes servers and systems can accelerate medical research, solve mathematical problems or model financial markets. I want to apply it wherever it adds real value.',
-      p2: "I enjoy exploring diverse fields —from AI and finance to medicine and mathematics— and building solutions that improve people's lives. My goal: keep learning and contribute to projects with social value, combining technical skill with a vision of personal and professional growth.",
+      p1: 'Computer science is a cross-cutting tool: the same technical skill builds a system, analyses data or automates what is done by hand today. I want to apply it wherever it adds real value.',
+      p2: "I enjoy exploring different fields and building solutions that improve people's lives. My goal: keep learning and contribute to projects with social value, combining technical skill with a vision of personal and professional growth.",
     },
     featured: {
       kicker: 'Selected work',
