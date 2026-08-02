@@ -3,7 +3,7 @@
 
 export const dict = {
   es: {
-    nav: { home: 'Inicio', projects: 'Proyectos', skills: 'Habilidades', letters: 'Cartas y certificados', cv: 'CV' },
+    nav: { home: 'Inicio', projects: 'Proyectos', skills: 'Habilidades', certificates: 'Certificaciones', cv: 'CV' },
     hero: {
       badge: 'Doble grado Informática + ADE · UGR',
       titleParts: [
@@ -66,12 +66,10 @@ export const dict = {
       intro:
         'Habilidades técnicas y blandas que me permiten abordar proyectos complejos y colaborar en equipos multidisciplinares. Comprometido con el aprendizaje continuo — aún me queda mucho por aprender.',
     },
-    lettersPage: {
+    certificatesPage: {
       kicker: 'Documentos',
-      title: 'Cartas y certificados',
-      intro: 'Cartas de recomendación de profesores y profesionales, y certificaciones obtenidas. Puedes previsualizarlas aquí o descargarlas.',
-      letter1: 'Carta de recomendación I',
-      letter2: 'Carta de recomendación II',
+      title: 'Certificaciones',
+      intro: 'Certificaciones obtenidas. Puedes previsualizarlas aquí o descargarlas.',
       ecert: 'Oracle Cloud Infrastructure 2025 Certified AI Foundations Associate',
       download: 'Descargar',
     },
@@ -79,7 +77,7 @@ export const dict = {
   },
 
   en: {
-    nav: { home: 'Home', projects: 'Projects', skills: 'Skills', letters: 'Letters & Certificates', cv: 'CV' },
+    nav: { home: 'Home', projects: 'Projects', skills: 'Skills', certificates: 'Certifications', cv: 'CV' },
     hero: {
       badge: 'Double Degree in Computer Engineering + Business · UGR',
       titleParts: [
@@ -142,12 +140,10 @@ export const dict = {
       intro:
         'Technical and soft skills that let me tackle complex projects and collaborate in multidisciplinary teams. Committed to continuous learning — I still have a lot to learn.',
     },
-    lettersPage: {
+    certificatesPage: {
       kicker: 'Documents',
-      title: 'Letters & Certificates',
-      intro: 'Recommendation letters from professors and professionals, plus the certifications I have earned. You can preview them here or download them.',
-      letter1: 'Recommendation letter I',
-      letter2: 'Recommendation letter II',
+      title: 'Certifications',
+      intro: 'Certifications I have earned. You can preview them here or download them.',
       ecert: 'Oracle Cloud Infrastructure 2025 Certified AI Foundations Associate',
       download: 'Download',
     },

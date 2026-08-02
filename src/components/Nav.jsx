@@ -39,7 +39,7 @@ export default function Nav() {
     { to: '/', label: t('nav.home') },
     { to: '/projects', label: t('nav.projects') },
     { to: '/skills', label: t('nav.skills') },
-    { to: '/letters', label: t('nav.letters') },
+    { to: '/certificates', label: t('nav.certificates') },
   ]
 
   useEffect(() => {
