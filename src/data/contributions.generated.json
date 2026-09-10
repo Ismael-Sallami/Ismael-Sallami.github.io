@@ -1,0 +1,30 @@
+[
+  {
+    "owner": "openMF",
+    "repo": "mifos-gazelle",
+    "lang": "Shell",
+    "prs": 21,
+    "commits": 46
+  },
+  {
+    "owner": "openMF",
+    "repo": "mifos-x-reporting-plugin-birt",
+    "lang": "Java",
+    "prs": 2,
+    "commits": 5
+  },
+  {
+    "owner": "openMF",
+    "repo": "mifos-reporting-plugin",
+    "lang": "Java",
+    "prs": 2,
+    "commits": 2
+  },
+  {
+    "owner": "cBioPortal",
+    "repo": "cbioportal-frontend",
+    "lang": "TypeScript",
+    "prs": 1,
+    "commits": 1
+  }
+]
