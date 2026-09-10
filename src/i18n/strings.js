@@ -3,7 +3,7 @@
 
 export const dict = {
   es: {
-    nav: { home: 'Inicio', projects: 'Proyectos', skills: 'Habilidades', certificates: 'Certificaciones', cv: 'CV' },
+    nav: { home: 'Inicio', projects: 'Proyectos', skills: 'Habilidades', certificates: 'Certificaciones', cv: 'CV', cvMenu: 'Elegir CV' },
     hero: {
       badge: 'Doble grado Informática + ADE · UGR',
       titleParts: [
@@ -59,6 +59,8 @@ export const dict = {
         'Proyectos de otras personas a los que he aportado código. No son repositorios míos, así que van aparte: cada enlace abre la lista de commits del proyecto original filtrada por mi autoría, que es la parte comprobable.',
       commit: 'commit',
       commits: 'commits',
+      pr: 'PR',
+      prs: 'PRs',
     },
     skillsPage: {
       kicker: 'Stack',
@@ -70,14 +72,13 @@ export const dict = {
       kicker: 'Documentos',
       title: 'Certificaciones',
       intro: 'Certificaciones obtenidas. Puedes previsualizarlas aquí o descargarlas.',
-      ecert: 'Oracle Cloud Infrastructure 2025 Certified AI Foundations Associate',
       download: 'Descargar',
     },
     common: { viewProject: 'Ver proyecto' },
   },
 
   en: {
-    nav: { home: 'Home', projects: 'Projects', skills: 'Skills', certificates: 'Certifications', cv: 'CV' },
+    nav: { home: 'Home', projects: 'Projects', skills: 'Skills', certificates: 'Certifications', cv: 'CV', cvMenu: 'Choose a CV' },
     hero: {
       badge: 'Double Degree in Computer Engineering + Business · UGR',
       titleParts: [
@@ -133,6 +134,8 @@ export const dict = {
         "Other people's projects I have contributed code to. They are not my repositories, so they sit apart: each link opens the upstream commit list filtered to my commits, which is the checkable part.",
       commit: 'commit',
       commits: 'commits',
+      pr: 'PR',
+      prs: 'PRs',
     },
     skillsPage: {
       kicker: 'Stack',
@@ -144,7 +147,6 @@ export const dict = {
       kicker: 'Documents',
       title: 'Certifications',
       intro: 'Certifications I have earned. You can preview them here or download them.',
-      ecert: 'Oracle Cloud Infrastructure 2025 Certified AI Foundations Associate',
       download: 'Download',
     },
     common: { viewProject: 'View project' },

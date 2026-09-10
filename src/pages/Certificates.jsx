@@ -1,15 +1,12 @@
 import { FileText, Download } from 'lucide-react'
 import PageWrap from '../components/PageWrap.jsx'
 import { useI18n } from '../i18n/LanguageContext.jsx'
-import ecert from '../../docs/eCertificate.pdf?url'
+import { certificates, localizeDocument } from '../data/documents.js'
 
 export default function Certificates() {
-  const { t } = useI18n()
-  // One entry today. Add the next certification here and the grid fills its
-  // second column on its own.
-  const docs = [
-    { title: t('certificatesPage.ecert'), url: ecert },
-  ]
+  const { t, lang } = useI18n()
+  // Whatever is in docs/certificates/. Dropping a file in there adds a card.
+  const docs = certificates.map((d) => localizeDocument(d, lang))
 
   return (
     <PageWrap>
@@ -22,24 +19,37 @@ export default function Certificates() {
 
         <div className="mt-14 grid gap-6 md:grid-cols-2 max-w-4xl">
           {docs.map((d) => (
-            <div
-              key={d.url}
-              className={`glass flex flex-col overflow-hidden rounded-2xl`}
-            >
-              <div className="flex items-center justify-between border-b border-white/8 px-5 py-4">
-                <h3 className="flex items-center gap-2 font-display text-lg">
-                  <FileText size={18} className="text-accent" /> {d.title}
+            <div key={d.file} className="glass flex flex-col overflow-hidden rounded-2xl">
+              <div className="flex items-start justify-between gap-3 border-b border-white/8 px-5 py-4">
+                <h3 className="flex items-start gap-2 font-display text-lg">
+                  <FileText size={18} className="mt-1 shrink-0 text-accent" /> {d.title}
                 </h3>
-                <a href={d.url} download aria-label={t('certificatesPage.download')} className="text-cool transition-colors hover:text-accent">
+                <a
+                  href={d.url}
+                  download={d.file}
+                  aria-label={`${t('certificatesPage.download')}: ${d.title}`}
+                  className="mt-1 shrink-0 text-cool transition-colors hover:text-accent"
+                >
                   <Download size={18} />
                 </a>
               </div>
-              <iframe
-                src={`${d.url}#toolbar=0&view=FitH`}
-                title={d.title}
-                className="h-[28rem] w-full bg-white/5"
-                loading="lazy"
-              />
+
+              {/* A PDF previews in an iframe; an image is just an image. */}
+              {d.kind === 'image' ? (
+                <img
+                  src={d.url}
+                  alt={d.title}
+                  loading="lazy"
+                  className="h-[28rem] w-full bg-white/5 object-contain p-4"
+                />
+              ) : (
+                <iframe
+                  src={`${d.url}#toolbar=0&view=FitH`}
+                  title={d.title}
+                  className="h-[28rem] w-full bg-white/5"
+                  loading="lazy"
+                />
+              )}
             </div>
           ))}
         </div>

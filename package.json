@@ -7,7 +7,10 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "check:documents": "node scripts/check-documents.mjs",
+    "sync:contributions": "node scripts/sync-contributions.mjs",
+    "gen:readme": "node scripts/gen-readme.mjs"
   },
   "dependencies": {
     "@fontsource/fraunces": "^5.0.21",
