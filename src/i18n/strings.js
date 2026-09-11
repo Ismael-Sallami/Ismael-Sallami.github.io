@@ -71,6 +71,16 @@ export const dict = {
       title: 'Habilidades',
       intro:
         'Habilidades técnicas y blandas que me permiten abordar proyectos complejos y colaborar en equipos multidisciplinares. Comprometido con el aprendizaje continuo — aún me queda mucho por aprender.',
+      note:
+        'Agrupadas por tipo, no puntuadas, igual que en mi CV. Un 80% en Python no significa nada sin una escala debajo, así que los únicos niveles que quedan son el C1 y el nativo, que los definió alguien que no soy yo. Son {n}.',
+      categories: {
+        languages: 'Lenguajes',
+        infra: 'Infraestructura y despliegue',
+        web: 'Web',
+        data: 'Datos y cálculo',
+        writing: 'Escritura técnica',
+        spoken: 'Idiomas',
+      },
     },
     certificatesPage: {
       kicker: 'Documentos',
@@ -150,6 +160,16 @@ export const dict = {
       title: 'Skills',
       intro:
         'Technical and soft skills that let me tackle complex projects and collaborate in multidisciplinary teams. Committed to continuous learning — I still have a lot to learn.',
+      note:
+        'Grouped by type rather than scored, the same way my CV does it. 80% in Python means nothing without a scale under it, so the only levels left are the C1 and the native, both defined by someone other than me. There are {n}.',
+      categories: {
+        languages: 'Languages',
+        infra: 'Infrastructure & deployment',
+        web: 'Web',
+        data: 'Data & computation',
+        writing: 'Technical writing',
+        spoken: 'Spoken',
+      },
     },
     certificatesPage: {
       kicker: 'Documents',

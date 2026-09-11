@@ -19,11 +19,11 @@ touching.
 
 | File | Holds |
 | --- | --- |
-| `src/data/projects.js` | the 20 projects, with their Spanish and English copy |
+| `src/data/projects.js` | the 27 projects, with their Spanish and English copy |
 | `src/data/contributions.js` | descriptions of the open source work; the numbers come from the API |
 | `src/data/experience.js` | the three roles in the Home timeline |
 | `src/data/documents.js` | the titles of the CVs and certifications under `docs/` |
-| `src/data/skills.js` | the 23 skills and their levels |
+| `src/data/skills.js` | the 30 skills, grouped by what each one is |
 | `src/i18n/strings.js` | every other string, in both languages |
 
 A role in `experience.js` with `end: null` is still open, which is what draws the
@@ -33,7 +33,7 @@ one prints its own date range. The GSoC figure is read out of
 contributions table.
 
 The `featured` flag in `projects.js` picks what the front page shows and which
-cards span two columns. Four are set. Keep them at the top of the array: a wide
+cards span two columns. Six are set. Keep them at the top of the array: a wide
 card landing on an odd column leaves a hole in the grid.
 
 ## Adding a CV or a certification
@@ -78,29 +78,37 @@ npm run gen:readme           # rewrites the tables below
 
 ### Featured
 
+- **[Laboratorio de infraestructura con Ansible](https://github.com/Ismael-Sallami/ansible-infra-lab)** — DevOps · Ansible. Aprovisionamiento de un laboratorio Rocky Linux: playbooks que crean usuarios y servidores web, Prometheus y Grafana midiéndolos, y un plan de JMeter que los somete a carga. Las claves no viven en el repositorio, las genera un script.
 - **[Algorithms and Patterns](https://github.com/Ismael-Sallami/algorithms-and-patterns)** — Algoritmos · C++. 183 implementaciones organizadas por patrón. 126 son extractos de mi trabajo previo, cada uno con enlace al fichero y las líneas de las que sale; las otras 57 están escritas para el repositorio y se verifican solas al compilar.
 - **[Personal Finance Manager](https://github.com/Ismael-Sallami/personal-finance-manager)** — Full-stack. Servicio de finanzas autoalojado: importa extractos de varios brókeres, calcula rentabilidad en aritmética decimal, agrega los informes y expone un bot de Telegram. FastAPI y PostgreSQL.
-- **[SCD · Concurrencia y Sistemas Distribuidos (MPI)](https://github.com/Ismael-Sallami/SCD-Concurrency-MPI)** — C++ · MPI. Programación concurrente y distribuida desde primitivas: semáforos, monitores, paso de mensajes con MPI y planificadores de tiempo real (~8.500 líneas de C++).
-- **[Parcherckers · IA con adversario](https://github.com/Ismael-Sallami/Parcherckers)** — IA · C++. Agente para un parchís de cuatro jugadores con dados, así que el árbol tiene nodos de azar. Minimax, minimax con límite de profundidad, cuatro variantes de poda alfa-beta con ordenación de movimientos y corte probabilístico, búsqueda de quietud y cinco funciones de evaluación comparadas entre sí.
+- **[Metaheurísticas · optimización de cartera](https://github.com/Ismael-Sallami/metaheuristics)** — Metaheurística. Dieciséis algoritmos de optimización sobre el mismo problema de cartera, del greedy y la búsqueda local al enfriamiento simulado, genéticos, meméticos y evolución diferencial. Cada uno se mide con repeticiones y desviación típica, no con una sola ejecución.
+- **[Agentes reactivos y deliberativos](https://github.com/Ismael-Sallami/rescue-agents)** — IA · C++. Agentes que exploran un mapa que no conocen. Cuando no hay mapa sobre el que planificar actúan por reglas; cuando lo hay, planifican con Dijkstra sobre una rejilla con coste y estado compuesto, y con A* usando distancia Manhattan. La proyección del sensor al mapa global es lo que une las dos capas.
+- **[Irrgarten](https://github.com/Ismael-Sallami/irrgarten)** — Java · Ruby. Juego de monstruos desarrollado en Java y Ruby como proyecto de POO.
 
 ### Everything else
 
-- **[DDSI · Diseño de bases de datos](https://github.com/Ismael-Sallami/DDSI)** — Oracle · SQL
+- **[Concurrencia y sistemas distribuidos](https://github.com/Ismael-Sallami/concurrency-mpi)** — C++ · MPI
+- **[Parchís · IA con adversario](https://github.com/Ismael-Sallami/parchis-ai)** — IA · C++
+- **[Sistema de información sobre Oracle](https://github.com/Ismael-Sallami/oracle-dbms-project)** — Oracle · SQL
 - **[pdf-to-md](https://github.com/Ismael-Sallami/pdf-to-md)** — Python · CLI
 - **[Esta web](https://github.com/Ismael-Sallami/Ismael-Sallami.github.io)** — React
-- **[AA Practices](https://github.com/Ismael-Sallami/AA-practices)** — Machine Learning
-- **[MH Practices](https://github.com/Ismael-Sallami/MH-Practices)** — Metaheurística
+- **[Prácticas de aprendizaje automático](https://github.com/Ismael-Sallami/machine-learning-practices)** — Machine Learning
 - **[3-Partition · Demostración NP-completo](https://github.com/Ismael-Sallami/3-Partition-NP-Completeness)** — Complejidad
 - **[Blog del doble grado Informática + ADE](https://elblogdeismael.github.io/)** — Web
 - **[md2html · Test Generator](https://github.com/Ismael-Sallami/md2html-testGenerator)** — Tooling
 - **[Media Manager](https://github.com/Ismael-Sallami/media-manager)** — App
-- **[TDA · Tratamiento de Imagen](https://github.com/Ismael-Sallami/TDA-Imagen)** — C++
-- **[Agentes reactivos y deliberativos](https://github.com/Ismael-Sallami/Practica2_IA)** — IA · C++
-- **[Irrgarten](https://github.com/ElblogdeIsmael/ElblogdeIsmael.github.io/tree/main/Subjects/Third/PDOO/Practica/Proyecto_Irrgarten/Proyecto_Irrgarten)** — Java · Ruby
+- **[TDA · Tratamiento de Imagen](https://github.com/Ismael-Sallami/image-adt)** — C++
 - **[Arch Linux · Dotfiles](https://github.com/Ismael-Sallami/Arch_Configuration)** — Linux
-- **[Air Lines Project](https://github.com/Ismael-Sallami/Air-lines-Project)** — C++
-- **[Modelo Econométrico · Obesidad](https://github.com/Ismael-Sallami/ModeloEconometrico)** — Econometría
+- **[Técnicas de diseño de algoritmos](https://github.com/Ismael-Sallami/algorithm-design-techniques)** — C++ · Algoritmia
+- **[Air Lines Project](https://github.com/Ismael-Sallami/airline-routes-adt)** — C++
+- **[Modelo Econométrico · Obesidad](https://github.com/Ismael-Sallami/econometric-model)** — Econometría
 - **[Modelos Complejos y Dinámicos](https://github.com/Leonin04/ModelosComplejosModelosDinamicos)** — Modelos
+- **[Informática gráfica en Godot](https://github.com/Ismael-Sallami/godot-graphics-exercises)** — Gráficos · GDScript
+- **[Ejercicios de SQL sobre Oracle](https://github.com/Ismael-Sallami/oracle-sql-exercises)** — Oracle · SQL
+- **[Especificación de un sistema de gestión turística](https://github.com/Ismael-Sallami/software-engineering-practices)** — Ingeniería del software
+- **[NeetCode · problemas resueltos](https://github.com/Ismael-Sallami/neetcode-submissions)** — Algoritmos · C++
+- **[Cursos de 2024](https://github.com/Ismael-Sallami/early-courses)** — Formación
+
 ## Contributions to open source
 
 Other people's projects, kept apart from my own. The bar is a merged pull
@@ -116,9 +124,17 @@ filtered to my commits. The numbers come from the API, refreshed weekly.
 
 ## Skills
 
-C++ (90%) · Python (85%) · React (80%) · Oracle SQL (80%) · Git (85%) · Docker (70%) · JavaScript (70%) · Tailwind (80%) · HTML (85%) · CSS (70%) · PostgreSQL (75%) · FastAPI (70%) · Bash (80%) · Kubernetes (60%) · scikit-learn (70%) · Java (70%) · Ruby (60%) · LaTeX (90%) · Markdown (90%) · YAML (80%) · Grafana (70%) · Prometheus (65%) · Inglés (C1)
+**Languages** — C++ · Python · C · Java · JavaScript · Bash · Ruby
 
-Levels are self-assessed and deliberately conservative.
+**Infrastructure & deployment** — Kubernetes · Helm · Docker · Ansible · Linux · Git · GitHub Actions · Grafana · Prometheus · YAML
+
+**Web** — React · HTML · CSS · Tailwind · FastAPI
+
+**Data & computation** — Oracle SQL · PostgreSQL · scikit-learn · MPI
+
+**Technical writing** — LaTeX · Markdown
+
+**Spoken** — Español · Inglés
 
 ## Licence
 

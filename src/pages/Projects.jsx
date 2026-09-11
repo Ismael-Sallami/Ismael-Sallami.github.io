@@ -1,6 +1,7 @@
 import { ArrowUpRight } from 'lucide-react'
 
 import PageWrap from '../components/PageWrap.jsx'
+import PageHeader from '../components/PageHeader.jsx'
 import ProjectCard from '../components/ProjectCard.jsx'
 import { projects, localizeProject } from '../data/projects.js'
 import { contributions, localizeContribution } from '../data/contributions.js'
@@ -11,11 +12,11 @@ export default function Projects() {
   return (
     <PageWrap>
       <section className="mx-auto max-w-6xl px-5 pt-36 pb-24">
-        <p className="mb-2 flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.25em] text-accent">
-          <span className="h-px w-8 bg-accent" /> {t('projectsPage.kicker')}
-        </p>
-        <h1 className="font-display text-5xl tracking-tightest md:text-6xl">{t('projectsPage.title')}</h1>
-        <p className="mt-5 max-w-2xl text-lg text-cool">{t('projectsPage.intro')}</p>
+        <PageHeader
+          kicker={t('projectsPage.kicker')}
+          title={t('projectsPage.title')}
+          intro={t('projectsPage.intro')}
+        />
 
         <div className="mt-14 grid gap-5 md:grid-cols-2">
           {projects.map((p, i) => (
@@ -26,7 +27,7 @@ export default function Projects() {
         {/* Other people's projects I contributed to. A row each instead of a card, so
             nothing in this block reads as a repository of mine. Each link opens the
             upstream commit list filtered to my commits, which is the checkable part. */}
-        <div className="mt-24">
+        <div className="glass-text mt-24 rounded-3xl p-8 md:p-12">
           <h2 className="font-display text-3xl tracking-tightest md:text-4xl">
             {t('contributions.title')}
           </h2>
