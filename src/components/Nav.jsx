@@ -93,7 +93,7 @@ function CvMenu() {
             transition={{ duration: 0.15 }}
             role="menu"
             aria-label={t('nav.cvMenu')}
-            className="glass absolute right-0 top-full z-50 mt-2 w-72 overflow-hidden rounded-2xl p-1.5"
+            className="glass-text absolute right-0 top-full z-50 mt-2 w-72 overflow-hidden rounded-2xl p-1.5"
           >
             <p className="px-3 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-cool">
               {t('nav.cvMenu')}
@@ -205,7 +205,7 @@ export default function Nav() {
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: 'auto', opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
-            className="glass mt-3 overflow-hidden md:hidden"
+            className="glass-text mt-3 overflow-hidden md:hidden"
           >
             {links.map((l) => (
               <li key={l.to} className="border-b border-white/5">

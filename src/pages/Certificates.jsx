@@ -19,7 +19,7 @@ export default function Certificates() {
 
         <div className="mt-14 grid gap-6 md:grid-cols-2 max-w-4xl">
           {docs.map((d) => (
-            <div key={d.file} className="glass flex flex-col overflow-hidden rounded-2xl">
+            <div key={d.file} className="glass-text flex flex-col overflow-hidden rounded-2xl">
               <div className="flex items-start justify-between gap-3 border-b border-white/8 px-5 py-4">
                 <h3 className="flex items-start gap-2 font-display text-lg">
                   <FileText size={18} className="mt-1 shrink-0 text-accent" /> {d.title}
