@@ -14,19 +14,65 @@ npm run build   # into dist/
 
 ## Where the content lives
 
-All of it is data, not markup. Editing these four files is enough; no component
-needs touching.
+All of it is data, not markup. Editing these files is enough; no component needs
+touching.
 
 | File | Holds |
 | --- | --- |
 | `src/data/projects.js` | the 20 projects, with their Spanish and English copy |
-| `src/data/contributions.js` | contributions to other people's projects |
+| `src/data/contributions.js` | descriptions of the open source work; the numbers come from the API |
+| `src/data/experience.js` | the three roles in the Home timeline |
+| `src/data/documents.js` | the titles of the CVs and certifications under `docs/` |
 | `src/data/skills.js` | the 23 skills and their levels |
 | `src/i18n/strings.js` | every other string, in both languages |
+
+A role in `experience.js` with `end: null` is still open, which is what draws the
+hollow dot at the end of the timeline. The three roles overlap on purpose, so each
+one prints its own date range. The GSoC figure is read out of
+`contributions.generated.json` rather than typed, so it cannot disagree with the
+contributions table.
 
 The `featured` flag in `projects.js` picks what the front page shows and which
 cards span two columns. Four are set. Keep them at the top of the array: a wide
 card landing on an odd column leaves a hole in the grid.
+
+## Adding a CV or a certification
+
+Copy the file into `docs/CVs/` or `docs/certificates/` and build. A glob in
+`documents.js` finds it, so the CV menu and the certifications page pick it up
+without any code change. PDFs and PNGs both work; a PDF previews in an iframe and
+an image as an image.
+
+The one thing a glob cannot guess is the title, so add the file to the `labels`
+map in `documents.js`. Skip that and the site falls back to a title made out of
+the file name, and `npm run check:documents` fails the build telling you which
+file is missing one. `--fix` writes the placeholder for you:
+
+```bash
+npm run check:documents
+node scripts/check-documents.mjs --fix
+```
+
+It also rejects a name with spaces or accents, which turns into `%20` and `%C3%B3`
+once it is a URL.
+
+## Contribution numbers
+
+`src/data/contributions.generated.json` holds the merged pull request and commit
+counts, written by `scripts/sync-contributions.mjs` from the GitHub API. A weekly
+workflow runs it and commits the file when the numbers move, so they cannot go
+stale by being forgotten. The descriptions stay hand-written in
+`contributions.js`, and `contributions.exclude.json` lists what to leave out and
+why.
+
+The tables further down quote the same numbers, so the workflow regenerates the
+README too. Both tables come out of the data files, so edit `projects.js` or
+`contributions.js` and rerun rather than editing the tables by hand.
+
+```bash
+npm run sync:contributions   # needs gh, or GITHUB_TOKEN
+npm run gen:readme           # rewrites the tables below
+```
 
 ## Projects
 
@@ -55,17 +101,18 @@ card landing on an odd column leaves a hole in the grid.
 - **[Air Lines Project](https://github.com/Ismael-Sallami/Air-lines-Project)** — C++
 - **[Modelo Econométrico · Obesidad](https://github.com/Ismael-Sallami/ModeloEconometrico)** — Econometría
 - **[Modelos Complejos y Dinámicos](https://github.com/Leonin04/ModelosComplejosModelosDinamicos)** — Modelos
-
 ## Contributions to open source
 
-Other people's projects, kept apart from my own. Each link opens the upstream
-commit list filtered to my commits.
+Other people's projects, kept apart from my own. The bar is a merged pull
+request: a fork with none is a clone. Each link opens the upstream commit list
+filtered to my commits. The numbers come from the API, refreshed weekly.
 
-| Project | Upstream | Language | My commits |
-| --- | --- | --- | ---: |
-| [mifos-gazelle](https://github.com/openMF/mifos-gazelle/commits?author=Ismael-Sallami) | openMF | Shell | 12 |
-| [mifos-x-reporting-plugin-birt](https://github.com/openMF/mifos-x-reporting-plugin-birt/commits?author=Ismael-Sallami) | openMF | Java | 5 |
-| [cbioportal-frontend](https://github.com/cBioPortal/cbioportal-frontend/commits?author=Ismael-Sallami) | cBioPortal | TypeScript | 1 |
+| Project | Upstream | Language | Merged PRs | My commits |
+| --- | --- | --- | ---: | ---: |
+| [mifos-gazelle](https://github.com/openMF/mifos-gazelle/commits?author=Ismael-Sallami) | openMF | Shell | 21 | 46 |
+| [mifos-x-reporting-plugin-birt](https://github.com/openMF/mifos-x-reporting-plugin-birt/commits?author=Ismael-Sallami) | openMF | Java | 2 | 5 |
+| [mifos-reporting-plugin](https://github.com/openMF/mifos-reporting-plugin/commits?author=Ismael-Sallami) | openMF | Java | 2 | 2 |
+| [cbioportal-frontend](https://github.com/cBioPortal/cbioportal-frontend/commits?author=Ismael-Sallami) | cBioPortal | TypeScript | 1 | 1 |
 
 ## Skills
 

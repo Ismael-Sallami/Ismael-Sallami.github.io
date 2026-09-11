@@ -1,0 +1,45 @@
+# Refreshes the open source contribution numbers from the GitHub API.
+#
+# The commit this pushes lands on main, which triggers the deploy workflow, so the site
+# picks the new numbers up on its own. Nothing is committed when they have not changed.
+name: Sync contributions
+
+on:
+  schedule:
+    - cron: '0 5 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: sync-contributions
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - run: node scripts/sync-contributions.mjs
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # The README quotes the same numbers, so it goes with them.
+      - run: node scripts/gen-readme.mjs
+
+      - name: Commit if the numbers moved
+        run: |
+          if git diff --quiet -- src/data/contributions.generated.json README.md; then
+            echo "No change."
+            exit 0
+          fi
+          git config user.name  "Ismael"
+          git config user.email "${{ github.actor_id }}+${{ github.actor }}@users.noreply.github.com"
+          git add src/data/contributions.generated.json README.md
+          git commit -m "chore: refresh the open source contribution counts"
+          git push

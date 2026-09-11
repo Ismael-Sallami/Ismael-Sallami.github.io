@@ -1,8 +1,8 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { Link, NavLink, useLocation } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Menu, X, Download } from 'lucide-react'
-import cvUrl from '../../docs/CV.pdf?url'
+import { Menu, X, Download, ChevronDown } from 'lucide-react'
+import { cvs, localizeDocument } from '../data/documents.js'
 import { useI18n } from '../i18n/LanguageContext.jsx'
 
 function LangToggle({ className = '' }) {
@@ -29,8 +29,100 @@ function LangToggle({ className = '' }) {
   )
 }
 
+// The CV button. With more than one file in docs/CVs/ it opens a menu to pick from;
+// with exactly one it stays a plain download link, because a menu of one is a nuisance.
+function CvMenu() {
+  const { t, lang } = useI18n()
+  const [open, setOpen] = useState(false)
+  const wrapRef = useRef(null)
+  const buttonRef = useRef(null)
+  const files = cvs.map((c) => localizeDocument(c, lang))
+
+  useEffect(() => {
+    if (!open) return
+    const onPointerDown = (e) => {
+      if (!wrapRef.current?.contains(e.target)) setOpen(false)
+    }
+    const onKeyDown = (e) => {
+      if (e.key === 'Escape') {
+        setOpen(false)
+        buttonRef.current?.focus()
+      }
+    }
+    document.addEventListener('pointerdown', onPointerDown)
+    document.addEventListener('keydown', onKeyDown)
+    return () => {
+      document.removeEventListener('pointerdown', onPointerDown)
+      document.removeEventListener('keydown', onKeyDown)
+    }
+  }, [open])
+
+  if (files.length === 0) return null
+
+  if (files.length === 1) {
+    return (
+      <a
+        href={files[0].url}
+        download={files[0].file}
+        className="flex items-center gap-1.5 rounded-full bg-accent px-4 py-2 text-sm font-semibold text-void transition-transform hover:scale-105"
+      >
+        <Download size={16} /> {t('nav.cv')}
+      </a>
+    )
+  }
+
+  return (
+    <div ref={wrapRef} className="relative">
+      <button
+        ref={buttonRef}
+        onClick={() => setOpen((v) => !v)}
+        aria-haspopup="menu"
+        aria-expanded={open}
+        className="flex items-center gap-1.5 rounded-full bg-accent px-4 py-2 text-sm font-semibold text-void transition-transform hover:scale-105"
+      >
+        <Download size={16} /> {t('nav.cv')}
+        <ChevronDown size={15} className={`transition-transform ${open ? 'rotate-180' : ''}`} />
+      </button>
+
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            initial={{ opacity: 0, y: -6 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -6 }}
+            transition={{ duration: 0.15 }}
+            role="menu"
+            aria-label={t('nav.cvMenu')}
+            className="glass absolute right-0 top-full z-50 mt-2 w-72 overflow-hidden rounded-2xl p-1.5"
+          >
+            <p className="px-3 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-cool">
+              {t('nav.cvMenu')}
+            </p>
+            {files.map((f) => (
+              <a
+                key={f.file}
+                href={f.url}
+                download={f.file}
+                role="menuitem"
+                onClick={() => setOpen(false)}
+                className="flex items-start gap-2.5 rounded-xl px-3 py-2.5 text-left transition-colors hover:bg-white/8"
+              >
+                <Download size={15} className="mt-1 shrink-0 text-accent" />
+                <span>
+                  <span className="block text-sm font-medium text-ivory">{f.title}</span>
+                  {f.note && <span className="block text-xs text-cool">{f.note}</span>}
+                </span>
+              </a>
+            ))}
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  )
+}
+
 export default function Nav() {
-  const { t } = useI18n()
+  const { t, lang } = useI18n()
   const [open, setOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
   const location = useLocation()
@@ -96,13 +188,7 @@ export default function Nav() {
 
         <div className="hidden items-center gap-3 md:flex">
           <LangToggle />
-          <a
-            href={cvUrl}
-            download
-            className="flex items-center gap-1.5 rounded-full bg-accent px-4 py-2 text-sm font-semibold text-void transition-transform hover:scale-105"
-          >
-            <Download size={16} /> {t('nav.cv')}
-          </a>
+          <CvMenu />
         </div>
 
         <div className="flex items-center gap-3 md:hidden">
@@ -129,9 +215,29 @@ export default function Nav() {
               </li>
             ))}
             <li className="px-6 py-4">
-              <a href={cvUrl} download className="flex w-max items-center gap-1.5 rounded-full bg-accent px-4 py-2 text-sm font-semibold text-void">
-                <Download size={16} /> {t('nav.cv')}
-              </a>
+              <p className="mb-3 text-xs font-semibold uppercase tracking-[0.18em] text-cool">
+                {t('nav.cvMenu')}
+              </p>
+              <ul className="space-y-2">
+                {cvs.map((raw) => {
+                  const f = localizeDocument(raw, lang)
+                  return (
+                    <li key={f.file}>
+                      <a
+                        href={f.url}
+                        download={f.file}
+                        className="flex items-start gap-2.5 rounded-xl border border-white/12 bg-white/5 px-3 py-2.5"
+                      >
+                        <Download size={15} className="mt-1 shrink-0 text-accent" />
+                        <span>
+                          <span className="block text-sm font-medium text-ivory">{f.title}</span>
+                          {f.note && <span className="block text-xs text-cool">{f.note}</span>}
+                        </span>
+                      </a>
+                    </li>
+                  )
+                })}
+              </ul>
             </li>
           </motion.ul>
         )}

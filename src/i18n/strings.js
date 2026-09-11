@@ -3,7 +3,7 @@
 
 export const dict = {
   es: {
-    nav: { home: 'Inicio', projects: 'Proyectos', skills: 'Habilidades', certificates: 'Certificaciones', cv: 'CV' },
+    nav: { home: 'Inicio', projects: 'Proyectos', skills: 'Habilidades', certificates: 'Certificaciones', cv: 'CV', cvMenu: 'Elegir CV' },
     hero: {
       badge: 'Doble grado Informática + ADE · UGR',
       titleParts: [
@@ -26,6 +26,10 @@ export const dict = {
       title: 'Informática al servicio de cualquier campo para generar impacto positivo.',
       p1: 'La informática es una herramienta transversal: la misma capacidad técnica sirve para levantar un sistema, analizar datos o automatizar lo que hoy se hace a mano. Me interesa aplicarla allá donde aporte valor real.',
       p2: 'Disfruto explorando campos distintos y construyendo soluciones que mejoren la vida de las personas. Mi objetivo: seguir formándome y participar en proyectos con valor social, integrando habilidad técnica con una visión de crecimiento personal y profesional.',
+    },
+    experience: {
+      kicker: 'Trayectoria',
+      title: 'Dónde he trabajado',
     },
     featured: {
       kicker: 'Trabajo seleccionado',
@@ -59,6 +63,8 @@ export const dict = {
         'Proyectos de otras personas a los que he aportado código. No son repositorios míos, así que van aparte: cada enlace abre la lista de commits del proyecto original filtrada por mi autoría, que es la parte comprobable.',
       commit: 'commit',
       commits: 'commits',
+      pr: 'PR',
+      prs: 'PRs',
     },
     skillsPage: {
       kicker: 'Stack',
@@ -70,14 +76,13 @@ export const dict = {
       kicker: 'Documentos',
       title: 'Certificaciones',
       intro: 'Certificaciones obtenidas. Puedes previsualizarlas aquí o descargarlas.',
-      ecert: 'Oracle Cloud Infrastructure 2025 Certified AI Foundations Associate',
       download: 'Descargar',
     },
     common: { viewProject: 'Ver proyecto' },
   },
 
   en: {
-    nav: { home: 'Home', projects: 'Projects', skills: 'Skills', certificates: 'Certifications', cv: 'CV' },
+    nav: { home: 'Home', projects: 'Projects', skills: 'Skills', certificates: 'Certifications', cv: 'CV', cvMenu: 'Choose a CV' },
     hero: {
       badge: 'Double Degree in Computer Engineering + Business · UGR',
       titleParts: [
@@ -100,6 +105,10 @@ export const dict = {
       title: 'Computer science serving any field to create positive impact.',
       p1: 'Computer science is a cross-cutting tool: the same technical skill builds a system, analyses data or automates what is done by hand today. I want to apply it wherever it adds real value.',
       p2: "I enjoy exploring different fields and building solutions that improve people's lives. My goal: keep learning and contribute to projects with social value, combining technical skill with a vision of personal and professional growth.",
+    },
+    experience: {
+      kicker: 'Track record',
+      title: 'Where I have worked',
     },
     featured: {
       kicker: 'Selected work',
@@ -133,6 +142,8 @@ export const dict = {
         "Other people's projects I have contributed code to. They are not my repositories, so they sit apart: each link opens the upstream commit list filtered to my commits, which is the checkable part.",
       commit: 'commit',
       commits: 'commits',
+      pr: 'PR',
+      prs: 'PRs',
     },
     skillsPage: {
       kicker: 'Stack',
@@ -144,7 +155,6 @@ export const dict = {
       kicker: 'Documents',
       title: 'Certifications',
       intro: 'Certifications I have earned. You can preview them here or download them.',
-      ecert: 'Oracle Cloud Infrastructure 2025 Certified AI Foundations Associate',
       download: 'Download',
     },
     common: { viewProject: 'View project' },

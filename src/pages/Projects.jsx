@@ -47,11 +47,15 @@ export default function Projects() {
                     <span className="rounded-full border border-white/12 px-2.5 py-0.5 text-xs text-cool">
                       {c.upstream}
                     </span>
-                    <span className="rounded-full border border-accent/40 bg-accent/10 px-2.5 py-0.5 text-xs text-accent">
-                      {c.lang}
-                    </span>
+                    {c.lang && (
+                      <span className="rounded-full border border-accent/40 bg-accent/10 px-2.5 py-0.5 text-xs text-accent">
+                        {c.lang}
+                      </span>
+                    )}
                     <span className="min-w-[12rem] flex-1 text-sm text-cool">{c.desc}</span>
                     <span className="flex shrink-0 items-center gap-1 text-sm font-medium text-ivory">
+                      {c.prs} {c.prs === 1 ? t('contributions.pr') : t('contributions.prs')}
+                      <span className="text-cool">·</span>
                       {c.commits}{' '}
                       {c.commits === 1 ? t('contributions.commit') : t('contributions.commits')}
                       <ArrowUpRight
