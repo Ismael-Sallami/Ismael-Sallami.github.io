@@ -1,5 +1,6 @@
 import { FileText, Download } from 'lucide-react'
 import PageWrap from '../components/PageWrap.jsx'
+import PageHeader from '../components/PageHeader.jsx'
 import { useI18n } from '../i18n/LanguageContext.jsx'
 import { certificates, localizeDocument } from '../data/documents.js'
 
@@ -11,11 +12,11 @@ export default function Certificates() {
   return (
     <PageWrap>
       <section className="mx-auto max-w-6xl px-5 pt-36 pb-24">
-        <p className="mb-2 flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.25em] text-accent">
-          <span className="h-px w-8 bg-accent" /> {t('certificatesPage.kicker')}
-        </p>
-        <h1 className="font-display text-5xl tracking-tightest md:text-6xl">{t('certificatesPage.title')}</h1>
-        <p className="mt-5 max-w-2xl text-lg text-cool">{t('certificatesPage.intro')}</p>
+        <PageHeader
+          kicker={t('certificatesPage.kicker')}
+          title={t('certificatesPage.title')}
+          intro={t('certificatesPage.intro')}
+        />
 
         <div className="mt-14 grid gap-6 md:grid-cols-2 max-w-4xl">
           {docs.map((d) => (

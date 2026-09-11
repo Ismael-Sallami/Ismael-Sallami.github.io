@@ -1,5 +1,6 @@
 import PageWrap from '../components/PageWrap.jsx'
-import SkillBar from '../components/SkillBar.jsx'
+import PageHeader from '../components/PageHeader.jsx'
+import SkillGroups from '../components/SkillGroups.jsx'
 import { skills } from '../data/skills.js'
 import { useI18n } from '../i18n/LanguageContext.jsx'
 
@@ -8,17 +9,17 @@ export default function Skills() {
   return (
     <PageWrap>
       <section className="mx-auto max-w-6xl px-5 pt-36 pb-24">
-        <p className="mb-2 flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.25em] text-accent">
-          <span className="h-px w-8 bg-accent" /> {t('skillsPage.kicker')}
-        </p>
-        <h1 className="font-display text-5xl tracking-tightest md:text-6xl">{t('skillsPage.title')}</h1>
-        <p className="mt-5 max-w-2xl text-lg text-cool">{t('skillsPage.intro')}</p>
-
-        <div className="mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {skills.map((s, i) => (
-            <SkillBar key={s.name} skill={s} index={i} />
-          ))}
-        </div>
+        {/* Header and groups share one panel: the group labels are bare text too, and
+            over the blob they measured 1.59:1 on their own. */}
+        <PageHeader kicker={t('skillsPage.kicker')} title={t('skillsPage.title')} intro={t('skillsPage.intro')}>
+          {/* Counted from the data, so the copy cannot claim a number the list does not have. */}
+          <p className="mt-3 max-w-2xl text-sm text-cool">
+            {t('skillsPage.note').replace('{n}', skills.length)}
+          </p>
+          <div className="mt-12">
+            <SkillGroups />
+          </div>
+        </PageHeader>
       </section>
     </PageWrap>
   )

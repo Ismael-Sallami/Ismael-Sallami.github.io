@@ -4,11 +4,10 @@ import { ArrowUpRight, Github, GraduationCap, Linkedin } from 'lucide-react'
 
 import PageWrap from '../components/PageWrap.jsx'
 import ProjectCard from '../components/ProjectCard.jsx'
-import SkillBar from '../components/SkillBar.jsx'
+import SkillGroups from '../components/SkillGroups.jsx'
 import Timeline from '../components/Timeline.jsx'
 import ContactForm from '../components/ContactForm.jsx'
 import { projects, localizeProject } from '../data/projects.js'
-import { skills } from '../data/skills.js'
 import { useI18n } from '../i18n/LanguageContext.jsx'
 import portrait from '../../assets/images/ismael-sallami.png'
 
@@ -149,11 +148,9 @@ export default function Home() {
       {/* SKILLS PREVIEW */}
       <section className="mx-auto max-w-6xl px-5 py-24">
         <SectionTitle kicker={t('skillsPreview.kicker')}>{t('skillsPreview.title')}</SectionTitle>
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {skills.slice(0, 6).map((s, i) => (
-            <SkillBar key={s.name} skill={s} index={i} />
-          ))}
-        </div>
+        {/* Two groups rather than "the first six", so reordering the data cannot change
+            what the front page shows. The rest are one click away. */}
+        <SkillGroups only={['languages', 'infra']} />
         <div className="mt-10">
           <Link to="/skills" className="inline-flex items-center gap-2 font-medium text-accent hover:gap-3 transition-all">
             {t('skillsPreview.viewAll')} <ArrowUpRight size={18} />

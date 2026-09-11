@@ -10,6 +10,7 @@
 import { readFileSync, writeFileSync } from 'node:fs'
 
 const projectsSrc = readFileSync('src/data/projects.js', 'utf8')
+const skillsSrc = readFileSync('src/data/skills.js', 'utf8')
 const generated = JSON.parse(readFileSync('src/data/contributions.generated.json', 'utf8'))
 const contribSrc = readFileSync('src/data/contributions.js', 'utf8')
 
@@ -52,14 +53,38 @@ const contribBlock = [
   }),
 ].join('\n')
 
+// Skills carry a category, not a score, grouped the way the site and the CV group them.
+const CATEGORY_LABEL = {
+  languages: 'Languages',
+  infra: 'Infrastructure & deployment',
+  web: 'Web',
+  data: 'Data & computation',
+  writing: 'Technical writing',
+  spoken: 'Spoken',
+}
+const skills = [...skillsSrc.matchAll(/name: '([^']+)'(?:,\s*\n\s*nameEn: '[^']+')?,\s*\n?\s*category: '(\w+)'/g)]
+  .map((m) => ({ name: m[1], category: m[2] }))
+
+const skillsBlock = Object.entries(CATEGORY_LABEL)
+  .map(([category, label]) => {
+    const names = skills.filter((s) => s.category === category).map((s) => s.name)
+    return names.length ? `**${label}** — ${names.join(' · ')}` : null
+  })
+  .filter(Boolean)
+  .join('\n\n')
+
 let readme = readFileSync('README.md', 'utf8')
 readme = readme.replace(
   /(## Projects\n\n)[\s\S]*?(\n## Contributions to open source)/,
-  `$1${projectsBlock}$2`
+  `$1${projectsBlock}\n$2`
 )
 readme = readme.replace(
   /(refreshed weekly\.\n\n)[\s\S]*?(\n## Skills)/,
   `$1${contribBlock}\n$2`
 )
+readme = readme.replace(/(## Skills\n\n)[\s\S]*?(\n## Licence)/, `$1${skillsBlock}\n$2`)
 writeFileSync('README.md', readme)
-console.log(`${projects.length} projects (${featured.length} featured), ${generated.length} contributions`)
+console.log(
+  `${projects.length} projects (${featured.length} featured), ` +
+    `${generated.length} contributions, ${skills.length} skills`
+)
