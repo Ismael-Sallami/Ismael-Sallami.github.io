@@ -9,6 +9,7 @@
     "build": "vite build",
     "preview": "vite preview",
     "check:documents": "node scripts/check-documents.mjs",
+    "check:numbers": "node scripts/check-numbers.mjs",
     "sync:contributions": "node scripts/sync-contributions.mjs",
     "gen:readme": "node scripts/gen-readme.mjs"
   },
