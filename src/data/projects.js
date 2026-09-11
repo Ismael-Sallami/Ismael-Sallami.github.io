@@ -42,14 +42,14 @@ export const projects = [
   },
   {
     title: 'Algorithms and Patterns',
-    desc: '183 implementaciones organizadas por patrón. 126 son extractos de mi trabajo previo, cada uno con enlace al fichero y las líneas de las que sale; las otras 57 están escritas para el repositorio y se verifican solas al compilar.',
+    desc: 'Casi 200 implementaciones organizadas por patrón. Más de 140 son extractos de mi trabajo previo, cada uno con enlace al fichero y las líneas de las que sale; el resto están escritas para el repositorio y se verifican solas al compilar.',
     tag: 'Algoritmos · C++',
     url: 'https://github.com/Ismael-Sallami/algorithms-and-patterns',
     img: algorithmsPatterns,
     featured: true,
     en: {
       title: 'Algorithms and Patterns',
-      desc: '183 implementations organised by pattern. 126 are extracts from my earlier work, each linking to the file and lines it came from; the other 57 were written for the repository and verify themselves when compiled.',
+      desc: 'Almost 200 implementations organised by pattern. Over 140 are extracts from my earlier work, each linking to the file and lines it came from; the rest were written for the repository and verify themselves when compiled.',
       tag: 'Algorithms · C++',
     },
   },

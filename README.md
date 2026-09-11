@@ -56,6 +56,27 @@ node scripts/check-documents.mjs --fix
 It also rejects a name with spaces or accents, which turns into `%20` and `%C3%B3`
 once it is a URL.
 
+## Figures quoted from other repositories
+
+Some project descriptions quote a count that lives in another repository: the size
+of the catalogue in `algorithms-and-patterns`, the page count of the 3-Partition
+proof, my share of the commits in a teammate's repository.
+
+`scripts/check-numbers.mjs` reads each of those out of what the owning repository
+publishes and fails the build when the site no longer matches. The wording on the
+site is deliberately rounded ("almost 200"), so the checks are ranges: the claim
+stays true while the repository grows and only fails when the rounding itself goes
+stale.
+
+This is worth having because it already went wrong. The site said 183
+implementations for months while the catalogue had reached 198, and it went
+unnoticed because the repository's own GitHub description also still said 183, so
+checking one against the other agreed and both were wrong.
+
+```bash
+npm run check:numbers        # needs gh, or GITHUB_TOKEN
+```
+
 ## Contribution numbers
 
 `src/data/contributions.generated.json` holds the merged pull request and commit
@@ -79,7 +100,7 @@ npm run gen:readme           # rewrites the tables below
 ### Featured
 
 - **[Laboratorio de infraestructura con Ansible](https://github.com/Ismael-Sallami/ansible-infra-lab)** — DevOps · Ansible. Aprovisionamiento de un laboratorio Rocky Linux: playbooks que crean usuarios y servidores web, Prometheus y Grafana midiéndolos, y un plan de JMeter que los somete a carga. Las claves no viven en el repositorio, las genera un script.
-- **[Algorithms and Patterns](https://github.com/Ismael-Sallami/algorithms-and-patterns)** — Algoritmos · C++. 183 implementaciones organizadas por patrón. 126 son extractos de mi trabajo previo, cada uno con enlace al fichero y las líneas de las que sale; las otras 57 están escritas para el repositorio y se verifican solas al compilar.
+- **[Algorithms and Patterns](https://github.com/Ismael-Sallami/algorithms-and-patterns)** — Algoritmos · C++. Casi 200 implementaciones organizadas por patrón. Más de 140 son extractos de mi trabajo previo, cada uno con enlace al fichero y las líneas de las que sale; el resto están escritas para el repositorio y se verifican solas al compilar.
 - **[Personal Finance Manager](https://github.com/Ismael-Sallami/personal-finance-manager)** — Full-stack. Servicio de finanzas autoalojado: importa extractos de varios brókeres, calcula rentabilidad en aritmética decimal, agrega los informes y expone un bot de Telegram. FastAPI y PostgreSQL.
 - **[Metaheurísticas · optimización de cartera](https://github.com/Ismael-Sallami/metaheuristics)** — Metaheurística. Dieciséis algoritmos de optimización sobre el mismo problema de cartera, del greedy y la búsqueda local al enfriamiento simulado, genéticos, meméticos y evolución diferencial. Cada uno se mide con repeticiones y desviación típica, no con una sola ejecución.
 - **[Agentes reactivos y deliberativos](https://github.com/Ismael-Sallami/rescue-agents)** — IA · C++. Agentes que exploran un mapa que no conocen. Cuando no hay mapa sobre el que planificar actúan por reglas; cuando lo hay, planifican con Dijkstra sobre una rejilla con coste y estado compuesto, y con A* usando distancia Manhattan. La proyección del sensor al mapa global es lo que une las dos capas.
