@@ -87,6 +87,20 @@ a { color: inherit; text-decoration: none; }
   border: 1px solid hsla(0, 0%, 100%, 0.08);
 }
 
+/* Same idea as .glass, but opaque enough to actually carry body text.
+   The 3D blob is fixed behind the page and covers 87% of the viewport height, so any
+   section below the hero passes under it. Body text is --cool, which measures 6.97:1
+   on the page background and 1.13:1 over the blob, well under the 4.5:1 AA floor.
+   .glass at 0.45 only lifts that to 2.85:1, so it looks like a fix and is not one.
+   At 0.85 the same text measures 4.94:1 over the brightest part of the blob.
+   Chrome that carries no prose (the nav, the portrait frame) keeps .glass. */
+.glass-text {
+  background: hsla(225, 30%, 10%, 0.85);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid hsla(0, 0%, 100%, 0.08);
+}
+
 .accent-text {
   background: linear-gradient(100deg, var(--accent), var(--accent2));
   -webkit-background-clip: text;

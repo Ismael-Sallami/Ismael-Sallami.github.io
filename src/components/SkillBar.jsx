@@ -10,7 +10,7 @@ export default function SkillBar({ skill, index }) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.4, delay: (index % 8) * 0.05 }}
-      className="glass rounded-2xl p-5"
+      className="glass-text rounded-2xl p-5"
     >
       <div className="mb-3 flex items-center justify-between">
         <h3 className="flex items-center gap-3 font-display text-lg">

@@ -93,7 +93,7 @@ export default function Home() {
             <div className="glass relative overflow-hidden rounded-[2rem] p-2">
               <img src={portrait} alt="Ismael Sallami" className="rounded-[1.5rem] object-cover" />
             </div>
-            <div className="glass absolute -bottom-5 -left-5 rounded-2xl px-5 py-3">
+            <div className="glass-text absolute -bottom-5 -left-5 rounded-2xl px-5 py-3">
               {/* Counted from the data so it cannot go stale: it said 10+ with fifteen listed. */}
               <p className="font-display text-3xl accent-text">{projects.length}</p>
               <p className="text-xs text-cool">{t('hero.proyectsCount')}</p>
@@ -104,19 +104,20 @@ export default function Home() {
 
       {/* ABOUT */}
       <section id="about" className="mx-auto max-w-6xl px-5 py-24">
-        <SectionTitle kicker={t('about.kicker')}>{t('about.title')}</SectionTitle>
-        <div className="grid gap-8 text-cool md:grid-cols-2">
-          <p>{t('about.p1')}</p>
-          <p>{t('about.p2')}</p>
+        {/* Panelled, like every section below the hero: the blob sits behind all of
+            them and bare body text over it measures 1.13:1. See .glass-text. */}
+        <div className="glass-text rounded-3xl p-8 md:p-12">
+          <SectionTitle kicker={t('about.kicker')}>{t('about.title')}</SectionTitle>
+          <div className="grid gap-8 text-cool md:grid-cols-2">
+            <p>{t('about.p1')}</p>
+            <p>{t('about.p2')}</p>
+          </div>
         </div>
       </section>
 
       {/* EXPERIENCE */}
       <section id="experience" className="mx-auto max-w-6xl px-5 py-24">
-        {/* On glass, like the contact panel. The 3D canvas is fixed behind the page, so
-            a section of bare body text lands on top of the sphere and loses contrast;
-            every card section on the site already solves it this way. */}
-        <div className="glass rounded-3xl p-8 md:p-12">
+        <div className="glass-text rounded-3xl p-8 md:p-12">
           <SectionTitle kicker={t('experience.kicker')}>{t('experience.title')}</SectionTitle>
           <Timeline />
         </div>
@@ -162,7 +163,7 @@ export default function Home() {
 
       {/* CONTACT */}
       <section id="contact" className="mx-auto max-w-6xl px-5 py-24">
-        <div className="glass grid gap-10 rounded-3xl p-8 md:grid-cols-2 md:p-12">
+        <div className="glass-text grid gap-10 rounded-3xl p-8 md:grid-cols-2 md:p-12">
           <div>
             <SectionTitle kicker={t('contact.kicker')}>{t('contact.title')}</SectionTitle>
             <p className="text-cool">{t('contact.text')}</p>
