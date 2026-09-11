@@ -21,9 +21,16 @@ touching.
 | --- | --- |
 | `src/data/projects.js` | the 20 projects, with their Spanish and English copy |
 | `src/data/contributions.js` | descriptions of the open source work; the numbers come from the API |
+| `src/data/experience.js` | the three roles in the Home timeline |
 | `src/data/documents.js` | the titles of the CVs and certifications under `docs/` |
 | `src/data/skills.js` | the 23 skills and their levels |
 | `src/i18n/strings.js` | every other string, in both languages |
+
+A role in `experience.js` with `end: null` is still open, which is what draws the
+hollow dot at the end of the timeline. The three roles overlap on purpose, so each
+one prints its own date range. The GSoC figure is read out of
+`contributions.generated.json` rather than typed, so it cannot disagree with the
+contributions table.
 
 The `featured` flag in `projects.js` picks what the front page shows and which
 cards span two columns. Four are set. Keep them at the top of the array: a wide

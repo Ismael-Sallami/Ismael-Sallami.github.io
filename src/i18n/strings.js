@@ -27,6 +27,10 @@ export const dict = {
       p1: 'La informática es una herramienta transversal: la misma capacidad técnica sirve para levantar un sistema, analizar datos o automatizar lo que hoy se hace a mano. Me interesa aplicarla allá donde aporte valor real.',
       p2: 'Disfruto explorando campos distintos y construyendo soluciones que mejoren la vida de las personas. Mi objetivo: seguir formándome y participar en proyectos con valor social, integrando habilidad técnica con una visión de crecimiento personal y profesional.',
     },
+    experience: {
+      kicker: 'Trayectoria',
+      title: 'Dónde he trabajado',
+    },
     featured: {
       kicker: 'Trabajo seleccionado',
       title: 'Proyectos destacados',
@@ -101,6 +105,10 @@ export const dict = {
       title: 'Computer science serving any field to create positive impact.',
       p1: 'Computer science is a cross-cutting tool: the same technical skill builds a system, analyses data or automates what is done by hand today. I want to apply it wherever it adds real value.',
       p2: "I enjoy exploring different fields and building solutions that improve people's lives. My goal: keep learning and contribute to projects with social value, combining technical skill with a vision of personal and professional growth.",
+    },
+    experience: {
+      kicker: 'Track record',
+      title: 'Where I have worked',
     },
     featured: {
       kicker: 'Selected work',

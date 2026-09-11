@@ -5,6 +5,7 @@ import { ArrowUpRight, Github, GraduationCap, Linkedin } from 'lucide-react'
 import PageWrap from '../components/PageWrap.jsx'
 import ProjectCard from '../components/ProjectCard.jsx'
 import SkillBar from '../components/SkillBar.jsx'
+import Timeline from '../components/Timeline.jsx'
 import ContactForm from '../components/ContactForm.jsx'
 import { projects, localizeProject } from '../data/projects.js'
 import { skills } from '../data/skills.js'
@@ -106,6 +107,17 @@ export default function Home() {
         <div className="grid gap-8 text-cool md:grid-cols-2">
           <p>{t('about.p1')}</p>
           <p>{t('about.p2')}</p>
+        </div>
+      </section>
+
+      {/* EXPERIENCE */}
+      <section id="experience" className="mx-auto max-w-6xl px-5 py-24">
+        {/* On glass, like the contact panel. The 3D canvas is fixed behind the page, so
+            a section of bare body text lands on top of the sphere and loses contrast;
+            every card section on the site already solves it this way. */}
+        <div className="glass rounded-3xl p-8 md:p-12">
+          <SectionTitle kicker={t('experience.kicker')}>{t('experience.title')}</SectionTitle>
+          <Timeline />
         </div>
       </section>
 
