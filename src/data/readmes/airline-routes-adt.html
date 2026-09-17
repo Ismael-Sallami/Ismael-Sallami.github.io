@@ -1,0 +1,122 @@
+<p dir="auto"><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/f9c54dc5bc2761ba0aa7e51a8c976d2b99b8c4c04ec464537990678251fba005/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f432532422532422d31342d303035393943"><img loading="lazy" decoding="async" src="https://camo.githubusercontent.com/f9c54dc5bc2761ba0aa7e51a8c976d2b99b8c4c04ec464537990678251fba005/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f432532422532422d31342d303035393943" alt="C++" data-canonical-src="https://img.shields.io/badge/C%2B%2B-14-00599C" style="max-width: 100%;"></a><br>
+<a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/67ec333f28483858f1981fba167d0f54da97647d3816b4d1dd66c45926f2b658/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f434d616b652d332e31362d303634463843"><img loading="lazy" decoding="async" src="https://camo.githubusercontent.com/67ec333f28483858f1981fba167d0f54da97647d3816b4d1dd66c45926f2b658/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f434d616b652d332e31362d303634463843" alt="CMake" data-canonical-src="https://img.shields.io/badge/CMake-3.16-064F8C" style="max-width: 100%;"></a><br>
+<a target="_blank" rel="noopener noreferrer" href="https://github.com/Ismael-Sallami/airline-routes-adt/actions/workflows/ci.yml"><img loading="lazy" decoding="async" src="https://camo.githubusercontent.com/cdd58d99ad190248012d2fa468363f39d339e7dd00b93882004d8dcc916bab8b/68747470733a2f2f696d672e736869656c64732e696f2f6769746875622f616374696f6e732f776f726b666c6f772f7374617475732f49736d61656c2d53616c6c616d692f6169726c696e652d726f757465732d6164742f63692e796d6c3f6272616e63683d6d61696e266c6f676f3d676974687562266c6162656c3d6275696c64" alt="build" data-canonical-src="https://img.shields.io/github/actions/workflow/status/Ismael-Sallami/airline-routes-adt/ci.yml?branch=main&amp;logo=github&amp;label=build" style="max-width: 100%;"></a><br>
+<a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/f94c5fd447e0fcdb57a248775dc35882bfe62c7b8a301d7f72b2fbd0df3d4839/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f6c6963656e73652d4d49542d346331"><img loading="lazy" decoding="async" src="https://camo.githubusercontent.com/f94c5fd447e0fcdb57a248775dc35882bfe62c7b8a301d7f72b2fbd0df3d4839/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f6c6963656e73652d4d49542d346331" alt="license" data-canonical-src="https://img.shields.io/badge/license-MIT-4c1" style="max-width: 100%;"></a></p>
+<p dir="auto">Draws an air route over a world map: the flag of every country it visits, and a plane turned<br>
+towards the next leg.</p>
+<p dir="auto"><a target="_blank" rel="noopener noreferrer" href="https://github.com/Ismael-Sallami/airline-routes-adt/blob/main/docs/doxygen/fondo.png"><img loading="lazy" decoding="async" src="https://raw.githubusercontent.com/Ismael-Sallami/airline-routes-adt/main/docs/doxygen/fondo.png" alt="A route drawn over the map" style="max-width: 100%;"></a></p>
+<h2 dir="auto" id="context">Context</h2>
+<p dir="auto">Final assignment of <strong>Estructura de Datos</strong>, year 2 of the double degree in Computer Science<br>
+and Business Administration, University of Granada (2023-24).</p>
+<h2 dir="auto" id="the-problem">The problem</h2>
+<p dir="auto">Given a file of countries with their coordinates and flag, a store of routes, a world map<br>
+and a plane image, produce the map with one route drawn on it. Two things make it more than<br>
+a drawing exercise:</p>
+<ul dir="auto">
+<li>The map is a PPM image of three million pixels, and the flags and the plane are pasted on<br>
+it with a mask, so transparency has to be handled by hand.</li>
+<li>The plane has to point along the route, which means rotating an image by an arbitrary<br>
+angle and pasting the result without leaving holes.</li>
+</ul>
+<p dir="auto">The assignment also fixes the design: each type has to expose iterators of its own, so the<br>
+structures can be traversed without knowing what is inside them.</p>
+<h2 dir="auto" id="the-solution">The solution</h2>
+<p dir="auto">Five types, each with the container that fits its access pattern:</p>
+<markdown-accessiblity-table><table role="table">
+<thead>
+<tr>
+<th>Type</th>
+<th>Holds</th>
+<th>Representation</th>
+<th>Why</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code class="notranslate">Punto</code></td>
+<td>A latitude and a longitude</td>
+<td>Two doubles</td>
+<td>The leaf of everything else</td>
+</tr>
+<tr>
+<td><code class="notranslate">Pais</code></td>
+<td>A point, a name and a flag</td>
+<td>Value type</td>
+<td>Ordered by name, so it can live in a set</td>
+</tr>
+<tr>
+<td><code class="notranslate">Paises</code></td>
+<td>Every country</td>
+<td><code class="notranslate">set&lt;Pais&gt;</code></td>
+<td>Lookup in logarithmic time, and no duplicates by construction</td>
+</tr>
+<tr>
+<td><code class="notranslate">Ruta</code></td>
+<td>The points of one route</td>
+<td><code class="notranslate">list&lt;Punto&gt;</code></td>
+<td>Routes are traversed in order and built by appending</td>
+</tr>
+<tr>
+<td><code class="notranslate">Almacen_Rutas</code></td>
+<td>Every route by code</td>
+<td><code class="notranslate">map&lt;string,Ruta&gt;</code></td>
+<td>The program asks for a route by its code, <code class="notranslate">R1</code> to <code class="notranslate">R5</code></td>
+</tr>
+</tbody>
+</table></markdown-accessiblity-table>
+<p dir="auto">Each of them ships its own <code class="notranslate">iterator</code> and <code class="notranslate">const_iterator</code>, wrapping the iterator of the<br>
+underlying container. That is the point of the exercise: the caller walks a <code class="notranslate">Paises</code> without<br>
+learning that a <code class="notranslate">set</code> is inside, and the representation could change without touching a<br>
+single loop.</p>
+<p dir="auto"><code class="notranslate">Imagen</code> is the other half: a matrix of <code class="notranslate">Pixel</code> with reading and writing of PPM and PGM,<br>
+pasting with a mask, and rotation by interpolation.</p>
+<h2 dir="auto" id="layout">Layout</h2>
+<pre class="notranslate"><code class="notranslate">include/          the five types plus the image class
+src/              their implementation, the main program and two test programs
+data/             countries, routes, world maps, flags and planes
+docs/doxygen/     Doxygen main page and the images of this README
+</code></pre>
+<h2 dir="auto" id="requirements">Requirements</h2>
+<ul dir="auto">
+<li>CMake 3.16 or later and a compiler with C++14.</li>
+<li>Doxygen, only to generate the documentation.</li>
+</ul>
+<h2 dir="auto" id="build-and-run">Build and run</h2>
+<div class="highlight highlight-source-shell" dir="auto"><pre class="notranslate">cmake -S <span class="pl-c1">.</span> -B build
+cmake --build build -j<span class="pl-s"><span class="pl-pds">"</span><span class="pl-s"><span class="pl-pds">$(</span>nproc<span class="pl-pds">)</span></span><span class="pl-pds">"</span></span>
+
+./build/ruta_aerea data/paises.txt data/images/mapas/mapa1.ppm data/images/banderas/ \
+  data/almacen_rutas.txt data/images/aviones/avion1.ppm data/images/aviones/mascara_avion1.pgm</pre></div>
+<p dir="auto">It lists the routes it has read and asks for a code (<code class="notranslate">R1</code> to <code class="notranslate">R5</code>). It writes <code class="notranslate">&lt;code&gt;.ppm</code><br>
+in the current directory.</p>
+<p dir="auto">The flags directory <strong>must end in a slash</strong>: the program concatenates it with the file name.<br>
+Two smaller programs, <code class="notranslate">pruebarotacion</code> and <code class="notranslate">pruebapegado</code>, exercise the rotation and the<br>
+masked pasting on their own.</p>
+<p dir="auto">If Doxygen is installed, the documentation is generated in<br>
+<code class="notranslate">build/doc_doxygen/html/index.html</code>.</p>
+<h2 dir="auto" id="results">Results</h2>
+<p dir="auto">Route <code class="notranslate">R1</code> over <code class="notranslate">mapa1.ppm</code> produces a 3.5 MB PPM image, the one at the top of this README.<br>
+The CI draws that route on every push and checks that the output is a valid PPM, so the<br>
+example here is verified rather than promised.</p>
+<h2 dir="auto" id="what-i-learned">What I learned</h2>
+<ul dir="auto">
+<li>Choosing the container is a design decision, not a detail. <code class="notranslate">set</code> for the countries and<br>
+<code class="notranslate">map</code> for the routes came from how each one is queried, and writing the iterators by hand<br>
+is what showed why the standard library separates <code class="notranslate">iterator</code> from <code class="notranslate">const_iterator</code>.</li>
+<li>Pasting with a mask and rotating by interpolation are two lines of maths and a lot of<br>
+boundary cases: the pixel that falls outside, the one that falls between four, the one the<br>
+mask leaves out.</li>
+<li><strong>Limitations, kept as handed in:</strong>
+<ul dir="auto">
+<li>The program writes its output in the current directory, with no option to choose the<br>
+path, and overwrites without asking.</li>
+<li>The flags path has to end in a slash, and that is not validated: passing it without one<br>
+produces a file-not-found for every flag.</li>
+<li>Identifiers, comments and Doxygen documentation are in Spanish.</li>
+<li>The assignment statement and the presentation written by the teaching staff are not<br>
+published here.</li>
+</ul>
+</li>
+</ul>
+<h2 dir="auto" id="author-and-licence">Author and licence</h2>
+<p dir="auto">Ismael Sallami Moreno. Released under the MIT licence (see <code class="notranslate">LICENSE</code>).</p>

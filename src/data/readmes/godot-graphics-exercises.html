@@ -1,0 +1,204 @@
+<p dir="auto"><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/ef95b3c7ff5d9202302ea4be3709f06475c2a8ea4e613a353d2e3d27650bc233/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f676f646f742d342e782d343738434246"><img loading="lazy" decoding="async" src="https://camo.githubusercontent.com/ef95b3c7ff5d9202302ea4be3709f06475c2a8ea4e613a353d2e3d27650bc233/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f676f646f742d342e782d343738434246" alt="godot" data-canonical-src="https://img.shields.io/badge/godot-4.x-478CBF" style="max-width: 100%;"></a><br>
+<a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/96eda5d6b4f193f5d5f9b40222faf44f70a0f5f2167a3903b8465794e0efda90/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f67647363726970742d323432352532306c696e65732d333535353730"><img loading="lazy" decoding="async" src="https://camo.githubusercontent.com/96eda5d6b4f193f5d5f9b40222faf44f70a0f5f2167a3903b8465794e0efda90/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f67647363726970742d323432352532306c696e65732d333535353730" alt="gdscript" data-canonical-src="https://img.shields.io/badge/gdscript-2425%20lines-355570" style="max-width: 100%;"></a><br>
+<a target="_blank" rel="noopener noreferrer" href="https://github.com/Ismael-Sallami/godot-graphics-exercises/actions/workflows/ci.yml"><img loading="lazy" decoding="async" src="https://camo.githubusercontent.com/e620136ac3d0e1bbbe43617768976e3cd55082894e2e007bd6573d020529ac9b/68747470733a2f2f696d672e736869656c64732e696f2f6769746875622f616374696f6e732f776f726b666c6f772f7374617475732f49736d61656c2d53616c6c616d692f676f646f742d67726170686963732d6578657263697365732f63692e796d6c3f6272616e63683d6d61696e266c6f676f3d676974687562266c6162656c3d6275696c64" alt="build" data-canonical-src="https://img.shields.io/github/actions/workflow/status/Ismael-Sallami/godot-graphics-exercises/ci.yml?branch=main&amp;logo=github&amp;label=build" style="max-width: 100%;"></a><br>
+<a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/f94c5fd447e0fcdb57a248775dc35882bfe62c7b8a301d7f72b2fbd0df3d4839/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f6c6963656e73652d4d49542d346331"><img loading="lazy" decoding="async" src="https://camo.githubusercontent.com/f94c5fd447e0fcdb57a248775dc35882bfe62c7b8a301d7f72b2fbd0df3d4839/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f6c6963656e73652d4d49542d346331" alt="license" data-canonical-src="https://img.shields.io/badge/license-MIT-4c1" style="max-width: 100%;"></a></p>
+<p dir="auto">Computer graphics exercises in Godot: procedural meshes, hierarchical 2D models, lighting,<br>
+ray intersection and parametric animation. Sixty-seven scripts, extracted from the LaTeX<br>
+write-up where each one sits next to its statement and its reasoning.</p>
+<h2 dir="auto" id="context">Context</h2>
+<p dir="auto">Coursework for <strong>IG — Computer Graphics</strong>, year 4 of the double degree in Computer Science<br>
+and Business Administration, University of Granada (2024–2025). Solo work.</p>
+<p dir="auto">The course runs as eleven lab sessions plus three practicals. I wrote the whole thing up in<br>
+LaTeX rather than keeping loose script files: every exercise has its statement, the maths<br>
+behind it, and the code. That document is the source of truth, and this repository is<br>
+generated from it.</p>
+<h2 dir="auto" id="the-problem">The problem</h2>
+<p dir="auto">Build, from scratch and without a rendering engine doing the work for you, the pieces a 3D<br>
+renderer is made of:</p>
+<ul dir="auto">
+<li><strong>Meshes.</strong> Indexed and non-indexed, in 2D and 3D. Triangle strips, spatial enumeration,<br>
+surfaces of revolution, per-vertex and per-face colour, texture coordinates.</li>
+<li><strong>Hierarchical models.</strong> A scene tree where each node carries its own transform, so a<br>
+figure is composed of reusable parts placed by matrix products.</li>
+<li><strong>Lighting.</strong> The pseudo-specular term of the Phong and Blinn-Phong models, written out<br>
+as functions.</li>
+<li><strong>Ray intersection.</strong> Ray against triangle, disc, sphere and bounded quadrics, with the<br>
+algebra worked through before the code.</li>
+<li><strong>Animation.</strong> Position and rotation as functions of time: Hermite interpolation, a<br>
+pendulum, an analogue clock, ballistic motion.</li>
+</ul>
+<h2 dir="auto" id="the-solution">The solution</h2>
+<p dir="auto"><strong>The write-up is the source, the code is generated.</strong> Keeping the exercises in LaTeX means<br>
+each solution stays next to the reasoning that produced it — which for graphics is most of<br>
+the value, because the code is short and the derivation is not. The cost is that the code<br>
+is trapped in a document. <code class="notranslate">tools/extract-from-latex.py</code> solves that: it walks the<br>
+<code class="notranslate">lstlisting</code> blocks and writes them out as real files, using each block's own metadata.</p>
+<p dir="auto">That metadata turned out to be worth reading:</p>
+<ul dir="auto">
+<li><strong><code class="notranslate">caption=</code></strong> names the file. <code class="notranslate">script-del-reloj-analogico.gd</code> beats <code class="notranslate">solution-7.gd</code>.</li>
+<li><strong><code class="notranslate">language=</code></strong> picks the extension. Five blocks in the ray-intersection sessions are<br>
+C++, not GDScript, and now carry <code class="notranslate">.cpp</code>.</li>
+<li>Five blocks tagged <code class="notranslate">language=Python</code> are plainly GDScript — <code class="notranslate">onready</code>, <code class="notranslate">export</code>, <code class="notranslate">$Node</code>,<br>
+<code class="notranslate">_process</code>. The tag was for the syntax highlighter, which has no GDScript mode. They are<br>
+written as <code class="notranslate">.gd</code>, and each one says so in its header.</li>
+</ul>
+<p dir="auto">Every generated file carries a header pointing back at the <code class="notranslate">.tex</code> file and section it came<br>
+from, so the explanation is always one click away.</p>
+<p dir="auto"><strong>CI checks the two halves have not drifted.</strong> <code class="notranslate">make diff-check</code> regenerates everything and<br>
+fails if the result differs from what is committed. Without that, editing the LaTeX and<br>
+forgetting to re-extract would leave the repository quietly wrong.</p>
+<p dir="auto"><strong>Known-bad files are listed, not hidden.</strong> Six scripts do not parse as Godot 4 GDScript.<br>
+<code class="notranslate">tools/check.sh</code> skips exactly those, each with its reason in<br>
+<code class="notranslate">tools/known-parse-failures.txt</code>, and fails on anything else — so a newly broken file<br>
+cannot slip in behind them.</p>
+<h2 dir="auto" id="layout">Layout</h2>
+<pre class="notranslate"><code class="notranslate">src/problems/       20 scripts kept as files: the numbered theory problems
+src/sessions/       47 blocks extracted from the write-up, by lab session
+src/practicals/     the three practicals
+docs/latex/         the LaTeX write-up these are generated from
+tools/              the extractor and the parse check
+</code></pre>
+<p dir="auto">Session by session:</p>
+<markdown-accessiblity-table><table role="table">
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>02</td>
+<td>2D meshes, non-indexed, and autoload helper scripts</td>
+</tr>
+<tr>
+<td>03</td>
+<td>Dot product from coordinates; <code class="notranslate">ArrayMesh</code> built by hand</td>
+</tr>
+<tr>
+<td>04</td>
+<td>Spatial enumeration of a sphere; triangle strip storage</td>
+</tr>
+<tr>
+<td>06</td>
+<td>A <code class="notranslate">Camera3D</code> that tracks a moving target every frame</td>
+</tr>
+<tr>
+<td>07</td>
+<td>Pseudo-specular reflectivity: Phong and Blinn-Phong</td>
+</tr>
+<tr>
+<td>08</td>
+<td>Indexed cube with per-face texture coordinates, as a die</td>
+</tr>
+<tr>
+<td>09</td>
+<td>Key press and release handling; ray-triangle intersection with barycentric coordinates</td>
+</tr>
+<tr>
+<td>10</td>
+<td>Ray against disc, sphere and bounded quadrics <em>(C++ in the write-up)</em></td>
+</tr>
+<tr>
+<td>11</td>
+<td>Parametric animation: Hermite, pendulum, analogue clock, ballistic motion</td>
+</tr>
+</tbody>
+</table></markdown-accessiblity-table>
+<p dir="auto">Session 5, on hierarchical 2D models, has no code block in the write-up. Its work is in<br>
+<code class="notranslate">src/problems/</code> instead: <code class="notranslate">problema_5_1</code> to <code class="notranslate">problema_5_5</code> and<br>
+<code class="notranslate">funciones_auxiliares_t5.gd</code>, which builds a house out of reusable parts.</p>
+<h2 dir="auto" id="requirements">Requirements</h2>
+<ul dir="auto">
+<li>
+<p dir="auto"><strong>Godot 4.x</strong> to run the scripts.</p>
+</li>
+<li>
+<p dir="auto"><strong>Python 3.12</strong> and <strong>gdtoolkit 4</strong> for the extractor and the parse check:</p>
+<div class="highlight highlight-source-shell" dir="auto"><pre class="notranslate">pip install <span class="pl-s"><span class="pl-pds">'</span>gdtoolkit==4.*<span class="pl-pds">'</span></span></pre></div>
+</li>
+</ul>
+<h2 dir="auto" id="build-and-run">Build and run</h2>
+<p dir="auto">There is nothing to compile. What the CI does:</p>
+<div class="highlight highlight-source-shell" dir="auto"><pre class="notranslate">make check        <span class="pl-c"><span class="pl-c">#</span> parse every .gd file</span>
+make extract      <span class="pl-c"><span class="pl-c">#</span> regenerate src/sessions and src/practicals from docs/latex</span>
+make diff-check   <span class="pl-c"><span class="pl-c">#</span> fail if the two have drifted apart</span>
+make lint         <span class="pl-c"><span class="pl-c">#</span> gdlint, reported not enforced</span></pre></div>
+<p dir="auto">To use a script in Godot: create a node of the type its <code class="notranslate">extends</code> line names, attach the<br>
+script, and run the scene. <code class="notranslate">src/problems/Global.gd</code> is meant to be an autoload.</p>
+<h2 dir="auto" id="results">Results</h2>
+<p dir="auto">Sixty-seven files, <strong>2,425 lines</strong> of code:</p>
+<markdown-accessiblity-table><table role="table">
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GDScript</td>
+<td>62 files</td>
+</tr>
+<tr>
+<td>C++</td>
+<td>5 files (the ray intersection algorithms)</td>
+</tr>
+<tr>
+<td>Parse cleanly as Godot 4</td>
+<td>56 of 62</td>
+</tr>
+<tr>
+<td>Known failures, each with a reason</td>
+<td>6</td>
+</tr>
+</tbody>
+</table></markdown-accessiblity-table>
+<p dir="auto">The write-up itself, with the figures and the derivations, is the PDF published at<br>
+<a target="_blank" rel="noopener noreferrer" href="https://elblogdeismael.github.io/" rel="nofollow">elblogdeismael.github.io</a>, filed under the fourth-year<br>
+computer graphics course. The blog's menus are in Spanish, so look for <code class="notranslate">Cuarto Curso</code> and<br>
+then <code class="notranslate">Informática Gráfica</code>.</p>
+<h2 dir="auto" id="what-i-learned">What I learned</h2>
+<ul dir="auto">
+<li><strong>Writing it up in LaTeX was the right call and the wrong storage.</strong> Keeping the algebra<br>
+next to the code is what made the ray-intersection sessions make sense months later. But<br>
+a document is not a repository: nothing in it can be parsed, linted or run. Extracting it<br>
+was fifty lines of Python I should have written at the start of the course.</li>
+<li><strong>Metadata you write for one purpose is useful for another.</strong> I added <code class="notranslate">caption=</code> and<br>
+<code class="notranslate">language=</code> so the PDF would look right. Years later they were the only thing that let a<br>
+script name and type the files correctly.</li>
+<li><strong>A generated tree needs a drift check or it rots.</strong> The moment code exists in two places<br>
+one of them starts lying. <code class="notranslate">make diff-check</code> is three lines and it is the difference<br>
+between generated files you can trust and generated files you have to re-verify by hand.</li>
+<li><strong>Godot 3 and Godot 4 are different languages.</strong> The animation scripts still use<br>
+<code class="notranslate">onready var</code> and <code class="notranslate">export var</code>. They were written earlier in the course and never<br>
+migrated, and nothing complained because a document does not type-check.</li>
+</ul>
+<h3 dir="auto" id="known-limitations">Known limitations</h3>
+<ul dir="auto">
+<li><strong>Six scripts do not parse as Godot 4 GDScript</strong>, listed with reasons in<br>
+<code class="notranslate">tools/known-parse-failures.txt</code>:
+<ul dir="auto">
+<li>Five session 11 animation scripts use Godot 3 syntax (<code class="notranslate">onready var</code>, <code class="notranslate">export var</code><br>
+instead of <code class="notranslate">@onready</code>, <code class="notranslate">@export</code>).</li>
+<li><code class="notranslate">src/sessions/session-09/solution.gd</code> lost its indentation when it was pasted into the<br>
+LaTeX document — the body of <code class="notranslate">_process</code> sits at column 0. GDScript is<br>
+indentation-sensitive, so the listing is wrong in the PDF too. Guessing the original<br>
+nesting would be inventing code, so it stays as the document has it.</li>
+</ul>
+</li>
+<li><strong>There is no Godot project here.</strong> The scenes these scripts were attached to were not<br>
+kept, only the scripts. <code class="notranslate">src/problems/problema_5_2.gd</code> preloads<br>
+<code class="notranslate">res://escenaHijos/problema_5_1.tscn</code>, which does not exist in this repository. Each<br>
+script has to be attached to a node of the right type by hand.</li>
+<li><strong>One character was removed from a delivered file.</strong> <code class="notranslate">funciones_auxiliares_t5.gd</code> had a<br>
+stray <code class="notranslate">y</code> on line 2, an accidental keystroke that stopped the file parsing. Nothing else<br>
+in <code class="notranslate">src/problems/</code> was touched.</li>
+<li><strong><code class="notranslate">gdlint</code> reports style problems and CI does not fail on them.</strong> Naming and whitespace<br>
+rules against delivered coursework would mean rewriting the submission.</li>
+<li><strong>The session 2 lab snippets are not here.</strong> They were fill-in-the-blank skeletons from<br>
+the lecture slides, with <code class="notranslate">...</code> where the code should go, and five of the nine did not<br>
+parse. They are lecture material, not work of mine.</li>
+</ul>
+<h2 dir="auto" id="author-and-licence">Author and licence</h2>
+<p dir="auto">Ismael Sallami Moreno. Released under the MIT licence (see <a target="_blank" rel="noopener noreferrer" href="https://github.com/Ismael-Sallami/godot-graphics-exercises/blob/main/LICENSE"><code class="notranslate">LICENSE</code></a>).</p>

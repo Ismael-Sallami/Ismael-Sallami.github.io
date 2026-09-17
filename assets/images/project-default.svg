@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="800" height="600" role="img" aria-label="">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="hsl(190,95%,60%)" stop-opacity="0.22"/>
+      <stop offset="0.55" stop-color="hsl(265,90%,60%)" stop-opacity="0.16"/>
+      <stop offset="1" stop-color="hsl(160,95%,55%)" stop-opacity="0.20"/>
+    </linearGradient>
+    <radialGradient id="h" cx="0.5" cy="0.45" r="0.6">
+      <stop offset="0" stop-color="hsl(160,95%,55%)" stop-opacity="0.30"/>
+      <stop offset="1" stop-color="hsl(160,95%,55%)" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="800" height="600" fill="#05060a"/>
+  <rect width="800" height="600" fill="url(#g)"/>
+  <circle cx="400" cy="270" r="230" fill="url(#h)"/>
+  <g fill="none" stroke="hsl(160,95%,55%)" stroke-opacity="0.35" stroke-width="2">
+    <circle cx="400" cy="270" r="96"/>
+    <circle cx="400" cy="270" r="150" stroke-opacity="0.18"/>
+  </g>
+  <g fill="hsl(40,30%,94%)" fill-opacity="0.9" font-family="monospace" font-size="54" text-anchor="middle">
+    <text x="400" y="290">&lt;/&gt;</text>
+  </g>
+</svg>

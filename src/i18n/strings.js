@@ -88,6 +88,19 @@ export const dict = {
       intro: 'Certificaciones obtenidas. Puedes previsualizarlas aquí o descargarlas.',
       download: 'Descargar',
     },
+    project: {
+      back: 'Volver a proyectos',
+      viewCode: 'Ver el código',
+      repository: 'Repositorio',
+      updated: 'Última actividad',
+      // The READMEs are written in English; saying so is more honest than letting
+      // someone assume the page failed to translate.
+      readmeInEnglish: 'El README viene del repositorio y está en inglés.',
+      readmeMissing: 'Este repositorio todavía no tiene README.',
+      readmeFailed: 'No se ha podido cargar el README.',
+      notFound: 'No existe ningún proyecto con esa dirección.',
+      openOnGithub: 'Ábrelo en GitHub',
+    },
     common: { viewProject: 'Ver proyecto' },
   },
 
@@ -176,6 +189,17 @@ export const dict = {
       title: 'Certifications',
       intro: 'Certifications I have earned. You can preview them here or download them.',
       download: 'Download',
+    },
+    project: {
+      back: 'Back to projects',
+      viewCode: 'View the code',
+      repository: 'Repository',
+      updated: 'Last activity',
+      readmeInEnglish: '',
+      readmeMissing: 'This repository has no README yet.',
+      readmeFailed: 'The README could not be loaded.',
+      notFound: 'No project lives at that address.',
+      openOnGithub: 'Open it on GitHub',
     },
     common: { viewProject: 'View project' },
   },

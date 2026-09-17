@@ -1,0 +1,136 @@
+<p dir="auto"><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/bff76f256c7cb22c98d20da985b6d08065937de097e23263a3885e79baf63224/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f507974686f6e2d332e31322d333737364142"><img loading="lazy" decoding="async" src="https://camo.githubusercontent.com/bff76f256c7cb22c98d20da985b6d08065937de097e23263a3885e79baf63224/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f507974686f6e2d332e31322d333737364142" alt="Python" data-canonical-src="https://img.shields.io/badge/Python-3.12-3776AB" style="max-width: 100%;"></a><br>
+<a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/245663c7d4fa2f71e62e4e3963082449fc3cb9b5cf49c9fec3f9b963849a0cb7/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f50794d755044462d312e32342d316137663337"><img loading="lazy" decoding="async" src="https://camo.githubusercontent.com/245663c7d4fa2f71e62e4e3963082449fc3cb9b5cf49c9fec3f9b963849a0cb7/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f50794d755044462d312e32342d316137663337" alt="PyMuPDF" data-canonical-src="https://img.shields.io/badge/PyMuPDF-1.24-1a7f37" style="max-width: 100%;"></a><br>
+<a target="_blank" rel="noopener noreferrer" href="https://github.com/Ismael-Sallami/pdf-to-md/actions/workflows/ci.yml"><img loading="lazy" decoding="async" src="https://camo.githubusercontent.com/9de4f3a39f41a40f7bdb4ce90200fd965bc5a610cd15c480d0889aeec0d12d60/68747470733a2f2f696d672e736869656c64732e696f2f6769746875622f616374696f6e732f776f726b666c6f772f7374617475732f49736d61656c2d53616c6c616d692f7064662d746f2d6d642f63692e796d6c3f6272616e63683d6d61696e266c6f676f3d676974687562266c6162656c3d7465737473" alt="tests" data-canonical-src="https://img.shields.io/github/actions/workflow/status/Ismael-Sallami/pdf-to-md/ci.yml?branch=main&amp;logo=github&amp;label=tests" style="max-width: 100%;"></a><br>
+<a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/f94c5fd447e0fcdb57a248775dc35882bfe62c7b8a301d7f72b2fbd0df3d4839/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f6c6963656e73652d4d49542d346331"><img loading="lazy" decoding="async" src="https://camo.githubusercontent.com/f94c5fd447e0fcdb57a248775dc35882bfe62c7b8a301d7f72b2fbd0df3d4839/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f6c6963656e73652d4d49542d346331" alt="license" data-canonical-src="https://img.shields.io/badge/license-MIT-4c1" style="max-width: 100%;"></a></p>
+<p dir="auto">A command-line converter that turns a PDF into Markdown: headings taken from the font size,<br>
+tables, embedded images, attachments and metadata, with optional OCR for scans.</p>
+<blockquote>
+<p dir="auto">There is a browser version for PDF, Word and Excel, with nothing to install:<br>
+<a target="_blank" rel="noopener noreferrer" href="https://elblogdeismael.github.io/pdf2md/" rel="nofollow">elblogdeismael.github.io/pdf2md</a></p>
+</blockquote>
+<h2 dir="auto" id="context">Context</h2>
+<p dir="auto">A tool of my own, not coursework. University notes arrive as PDF and are read, searched and<br>
+edited far better as Markdown, and the converters within reach either flatten everything to<br>
+plain text or charge for the ones that do not.</p>
+<h2 dir="auto" id="the-problem">The problem</h2>
+<p dir="auto">A PDF does not know what a heading is. It knows glyphs, positions and font sizes: the<br>
+structure a reader sees is something the eye reconstructs. Converting to Markdown means<br>
+guessing that structure back, and no single library gives you all of it.</p>
+<p dir="auto">Tables live in the ruling lines, images in the object stream, metadata in a dictionary, and<br>
+a scanned page has none of the three because it is a photograph of a page.</p>
+<h2 dir="auto" id="the-solution">The solution</h2>
+<p dir="auto"><strong>One engine per job</strong>, because each one is the best at exactly one thing:</p>
+<markdown-accessiblity-table><table role="table">
+<thead>
+<tr>
+<th>Engine</th>
+<th>What it is asked for</th>
+<th>Why that one</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PyMuPDF</td>
+<td>Text with its font size, embedded images, page renders</td>
+<td>The only one that reports the size of each span</td>
+</tr>
+<tr>
+<td>pdfplumber</td>
+<td>Tables, from the ruling lines</td>
+<td>Its table detection is the good one</td>
+</tr>
+<tr>
+<td>pypdf</td>
+<td>Metadata and embedded attachments</td>
+<td>Reads the document dictionary without decoding pages</td>
+</tr>
+<tr>
+<td>Tesseract</td>
+<td>Text on pages that have none</td>
+<td>Last resort, and only there</td>
+</tr>
+</tbody>
+</table></markdown-accessiblity-table>
+<p dir="auto"><strong>Heading levels come from the size, relative to the document.</strong> The largest text in the<br>
+whole PDF is measured first, and everything is compared against it: 95 % or more is <code class="notranslate">#</code>,<br>
+80 % is <code class="notranslate">##</code>, 68 % is <code class="notranslate">###</code>. Fixed thresholds would break the moment a document sets its<br>
+body text at 14 pt.</p>
+<p dir="auto"><strong>OCR is the last step, and only on pages without a text layer.</strong> It is orders of magnitude<br>
+slower than reading a text layer, and worse: it hands back a guess where the page had the<br>
+exact string. The requested languages are checked against the installed models first, so a<br>
+missing model warns once instead of failing the run.</p>
+<h2 dir="auto" id="layout">Layout</h2>
+<pre class="notranslate"><code class="notranslate">src/pdf_to_md.py          the converter, one file
+docs/usage.md             every option, and what OCR needs
+tests/test_convert.py     end-to-end test over the fixture
+tests/make_fixture.py     builds that fixture
+tests/fixtures/sample.pdf a PDF with a heading, a paragraph, an image and a ruled table
+requirements.txt          the dependencies
+</code></pre>
+<h2 dir="auto" id="requirements">Requirements</h2>
+<ul dir="auto">
+<li>Python 3.12</li>
+<li><code class="notranslate">pymupdf</code> 1.24+, <code class="notranslate">pdfplumber</code> 0.11+, <code class="notranslate">pypdf</code> 4.0+</li>
+<li>For OCR only: <code class="notranslate">pytesseract</code> 0.3.13+, <code class="notranslate">Pillow</code> 10+, and Tesseract installed on the system</li>
+</ul>
+<h2 dir="auto" id="build-and-run">Build and run</h2>
+<div class="highlight highlight-source-shell" dir="auto"><pre class="notranslate">python3 -m venv .venv <span class="pl-k">&amp;&amp;</span> <span class="pl-c1">source</span> .venv/bin/activate
+pip install -r requirements.txt
+
+python3 src/pdf_to_md.py document.pdf                 <span class="pl-c"><span class="pl-c">#</span> writes ./document/</span>
+python3 src/pdf_to_md.py document.pdf --output out    <span class="pl-c"><span class="pl-c">#</span> somewhere else</span>
+python3 src/pdf_to_md.py scanned.pdf --ocr            <span class="pl-c"><span class="pl-c">#</span> scans, Spanish and English</span></pre></div>
+<p dir="auto">OCR needs Tesseract and its language models:</p>
+<div class="highlight highlight-source-shell" dir="auto"><pre class="notranslate">sudo apt install tesseract-ocr tesseract-ocr-spa</pre></div>
+<p dir="auto">Running the tests:</p>
+<div class="highlight highlight-source-shell" dir="auto"><pre class="notranslate">pip install pytest ruff
+pytest -q
+ruff check <span class="pl-c1">.</span></pre></div>
+<p dir="auto">The full list of options is in <a target="_blank" rel="noopener noreferrer" href="https://github.com/Ismael-Sallami/pdf-to-md/blob/main/docs/usage.md"><code class="notranslate">docs/usage.md</code></a>.</p>
+<h2 dir="auto" id="results">Results</h2>
+<p dir="auto">Converting <code class="notranslate">tests/fixtures/sample.pdf</code>, which is what the CI does on every push:</p>
+<div class="highlight highlight-text-md" dir="auto"><pre class="notranslate"><span class="pl-s">---</span>
+<span class="pl-ent">title</span>: <span class="pl-s"><span class="pl-pds">"</span>Sample Document<span class="pl-pds">"</span></span>
+<span class="pl-ent">author</span>: <span class="pl-s"><span class="pl-pds">"</span>Ismael Sallami Moreno<span class="pl-pds">"</span></span>
+<span class="pl-ent">pages</span>: <span class="pl-c1">1</span>
+<span class="pl-ent">source</span>: <span class="pl-s">sample.pdf</span>
+<span class="pl-s">---</span>
+
+<span class="pl-mh"># <span class="pl-en">Sample Document</span></span>
+
+<span class="pl-mh">## <span class="pl-en">First Section</span></span>
+
+A paragraph of body text at the usual size.
+
+<span class="pl-ml">|</span> Language <span class="pl-ml">|</span> Extension <span class="pl-ml">|</span>
+<span class="pl-ml">|</span> --- <span class="pl-ml">|</span> --- <span class="pl-ml">|</span>
+<span class="pl-ml">|</span> Python <span class="pl-ml">|</span> .py <span class="pl-ml">|</span>
+<span class="pl-ml">|</span> Markdown <span class="pl-ml">|</span> .md <span class="pl-ml">|</span>
+
+<span class="pl-s">![</span>Imagen página 1<span class="pl-s">]</span><span class="pl-s">(</span><span class="pl-corl">images/page_01_img_001.png</span><span class="pl-s">)</span></pre></div>
+<p dir="auto">The 28 pt title became <code class="notranslate">#</code> and the 24 pt one <code class="notranslate">##</code> without either being tagged as a heading<br>
+anywhere in the PDF; the ruled table came back as GFM; and the embedded image was written to<br>
+<code class="notranslate">images/</code> and linked.</p>
+<h2 dir="auto" id="what-i-learned">What I learned</h2>
+<ul dir="auto">
+<li>The size of the largest text in the document is a better yardstick than any absolute<br>
+threshold. It is one line of code and it is what makes the heading detection survive a<br>
+document that sets its body at 14 pt.</li>
+<li>Reaching for OCR first is the expensive mistake. Most PDFs that look like scans carry a<br>
+text layer underneath, and it is exact where OCR is a guess.</li>
+<li><strong>Limitations:</strong>
+<ul dir="auto">
+<li><strong>The text of a table comes out twice.</strong> pdfplumber returns the table and PyMuPDF<br>
+returns those same cells as part of the text flow, and the two are not cross-checked, so<br>
+the cells also land in the paragraph above. Visible in the sample output.</li>
+<li>Headings rest entirely on the font size. A document that marks its sections with bold<br>
+rather than a larger size comes out flat.</li>
+<li>There is no page-range option: it converts the whole document.</li>
+<li>OCR is not covered by the tests. It needs Tesseract and its language models, and a test<br>
+that installs them checks Tesseract rather than this converter.</li>
+<li>The messages the command prints, and the comments in the code, are in Spanish.</li>
+</ul>
+</li>
+</ul>
+<h2 dir="auto" id="author-and-licence">Author and licence</h2>
+<p dir="auto">Ismael Sallami Moreno. Released under the MIT licence (see <code class="notranslate">LICENSE</code>).</p>

@@ -49,12 +49,21 @@
    Do instead: edit descriptions in `src/data/contributions.js`, exclusions in
    `contributions.exclude.json`, then `npm run sync:contributions && npm run gen:readme`.
    `contributions.generated.json` and the README tables are output.
-4. **[2026-09-10] projects.js links use old repo names and survive on GitHub redirects**
-   Do instead: 10 of them (SCD-Concurrency-MPI, MH-Practices, AA-practices,
-   Parcherckers, DDSI, TDA-Imagen, Air-lines-Project, Practica2_IA,
-   ModeloEconometrico). Ask before renaming; they still resolve.
+4. **[2026-09-17] projects.js URLs are all canonical now; the sync warns if that breaks**
+   Do instead: the old note said 10 links lived on GitHub redirects. Checked all 26
+   against /repos/{owner}/{repo} on 2026-09-17: every one matches a real repo name.
+   `scripts/sync-projects.mjs` prints a WARNING if a URL stops being canonical. The
+   merge keys on the URL, not the repo name, so a rename degrades the route slug, not
+   the card.
 5. **[2026-09-10] `featured: true` projects must stay at the top of the array**
-   Do instead: a wide card landing on an odd grid column leaves a hole. Four are set.
+   Do instead: a wide card landing on an odd grid column leaves a hole. Six are set,
+   and three of them already sit mid-array. Auto-generated projects are appended last
+   and never featured, so they cannot make it worse.
+6. **[2026-09-17] Tailwind preflight strips list markers and only emits used keyframes**
+   Do instead: injected HTML (a README) needs `list-style` asked for again, or lists
+   render as loose paragraphs. And `animation: spin` only exists in the stylesheet if
+   an `animate-spin` class appears in scanned source, so a hand-written CSS animation
+   must declare its own keyframes or it silently does nothing.
 
 ## Shell & Git Reliability
 1. **[2026-09-10] Push needs HTTPS with the gh token, not SSH**

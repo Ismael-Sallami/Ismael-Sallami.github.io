@@ -1,0 +1,167 @@
+<p dir="auto"><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/e33b9a8c0e7597eddea4bc9442c9193c78bb91748ac432793b91fc127db6f0a0/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f432532422532422d31372d303035393943"><img loading="lazy" decoding="async" src="https://camo.githubusercontent.com/e33b9a8c0e7597eddea4bc9442c9193c78bb91748ac432793b91fc127db6f0a0/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f432532422532422d31372d303035393943" alt="C++" data-canonical-src="https://img.shields.io/badge/C%2B%2B-17-00599C" style="max-width: 100%;"></a><br>
+<a target="_blank" rel="noopener noreferrer" href="https://github.com/Ismael-Sallami/rescue-agents/actions/workflows/ci.yml"><img loading="lazy" decoding="async" src="https://camo.githubusercontent.com/c7319ddf138c13f8be750e29d5240ab0a7f7a996e583cc5498357bbffd32a40b/68747470733a2f2f696d672e736869656c64732e696f2f6769746875622f616374696f6e732f776f726b666c6f772f7374617475732f49736d61656c2d53616c6c616d692f7265736375652d6167656e74732f63692e796d6c3f6272616e63683d6d61696e266c6f676f3d676974687562266c6162656c3d636865636b73" alt="checks" data-canonical-src="https://img.shields.io/github/actions/workflow/status/Ismael-Sallami/rescue-agents/ci.yml?branch=main&amp;logo=github&amp;label=checks" style="max-width: 100%;"></a><br>
+<a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/f94c5fd447e0fcdb57a248775dc35882bfe62c7b8a301d7f72b2fbd0df3d4839/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f6c6963656e73652d4d49542d346331"><img loading="lazy" decoding="async" src="https://camo.githubusercontent.com/f94c5fd447e0fcdb57a248775dc35882bfe62c7b8a301d7f72b2fbd0df3d4839/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f6c6963656e73652d4d49542d346331" alt="license" data-canonical-src="https://img.shields.io/badge/license-MIT-4c1" style="max-width: 100%;"></a></p>
+<p dir="auto">Two agents that explore an unknown map and meet at a base post: one reactive, one<br>
+deliberative, and a mixed mode where they coordinate.</p>
+<h2 dir="auto" id="context">Context</h2>
+<p dir="auto">Coursework for <strong>Inteligencia Artificial</strong>, year 3 of the double degree in Computer Science<br>
+and Business Administration, University of Granada (2024-25). Solo work.</p>
+<p dir="auto">The simulator, the maps and the sensor model are <strong>course-provided material</strong> and are not in<br>
+this repository. What is here are the four files the assignment asks you to write, plus the<br>
+scripts and the run outputs used to check them.</p>
+<h2 dir="auto" id="the-problem">The problem</h2>
+<p dir="auto">Two agents, a rescuer and an assistant, are dropped on a map they cannot see. Each turn they<br>
+receive a small sensor window: the terrain and the height of the cells around them, whether<br>
+another agent is there, their remaining energy and the level being played. They have to reach<br>
+a base post, and in the last level do it together while avoiding each other, the vandal and<br>
+the hiker.</p>
+<p dir="auto">Five levels, each with more information and tighter demands:</p>
+<markdown-accessiblity-table><table role="table">
+<thead>
+<tr>
+<th>Level</th>
+<th>What the agent knows</th>
+<th>What it has to do</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>Only the sensors of this turn</td>
+<td>Move without falling off a cliff</td>
+</tr>
+<tr>
+<td>1</td>
+<td>Sensors plus the map it has built</td>
+<td>Explore and find the base post</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Its position on the map</td>
+<td>Plan a route</td>
+</tr>
+<tr>
+<td>3</td>
+<td>The same, with the shoes item</td>
+<td>Plan taking the item into account</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Everything, and the other agent</td>
+<td>Coordinate, recharge and finish together</td>
+</tr>
+</tbody>
+</table></markdown-accessiblity-table>
+<h2 dir="auto" id="the-solution">The solution</h2>
+<p dir="auto">State is <code class="notranslate">(row, column, compass, shoes)</code>, and each level plugs a different planner into the<br>
+same reactive skeleton:</p>
+<markdown-accessiblity-table><table role="table">
+<thead>
+<tr>
+<th>Level</th>
+<th>Rescuer</th>
+<th>Assistant</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>Reactive, sensor window only</td>
+<td>Reactive, sensor window only</td>
+</tr>
+<tr>
+<td>1</td>
+<td>Reactive with map memory, priority queue of unknown cells</td>
+<td>The same, with its own queue</td>
+</tr>
+<tr>
+<td>2</td>
+<td><strong>Dijkstra</strong> over the discovered map</td>
+<td><strong>A*</strong></td>
+</tr>
+<tr>
+<td>3</td>
+<td>Not implemented, returns <code class="notranslate">IDLE</code></td>
+<td>A* with the shoes state</td>
+</tr>
+<tr>
+<td>4</td>
+<td><strong>A*</strong>, tells the assistant where to go, recharges by energy threshold</td>
+<td>A* plus a reactive fallback when the plan breaks</td>
+</tr>
+</tbody>
+</table></markdown-accessiblity-table>
+<p dir="auto">The parts worth naming:</p>
+<ul dir="auto">
+<li><strong>Cost model.</strong> <code class="notranslate">CosteBaseTerreno</code> charges by terrain (a path is cheap, water is expensive,<br>
+a wall is impassable) and <code class="notranslate">CosteCambioAltura</code> charges for climbing and descending. That is<br>
+what makes Dijkstra and A* worth running instead of counting steps.</li>
+<li><strong>Exploration by priority.</strong> <code class="notranslate">cola_con_casillas_con_interrogacion</code> keeps the unknown cells<br>
+in a priority queue, so level 1 heads for what it does not know instead of wandering.</li>
+<li><strong>Anti-loop.</strong> <code class="notranslate">CasillVisitadamasde10veces</code> breaks the cycles a purely reactive agent falls<br>
+into on symmetric maps.</li>
+<li><strong>Coordination in level 4.</strong> The rescuer decides when to send the assistant<br>
+(<code class="notranslate">decirleAlAuxiliar</code>), and the recharge threshold moves with the map size: 1000 energy in<br>
+general, 1500 on 100×100 maps, because a longer map means a longer walk home.</li>
+</ul>
+<h2 dir="auto" id="layout">Layout</h2>
+<pre class="notranslate"><code class="notranslate">src/                      the four files handed in on 2025-05-11
+docs/earlier-iterations/  an earlier version of the same agents, with work that did not
+                          make it into the final one
+docs/results/             output of the 11 test runs, and their summary
+tools/                    the scripts used to run those tests
+</code></pre>
+<h2 dir="auto" id="requirements">Requirements</h2>
+<ul dir="auto">
+<li>A C++17 compiler (g++ 11 or later).</li>
+<li>The practice simulator of the subject, which provides <code class="notranslate">comportamientos/comportamiento.hpp</code>,<br>
+the <code class="notranslate">Sensores</code> type and the maps.</li>
+</ul>
+<h2 dir="auto" id="build-and-run">Build and run</h2>
+<p dir="auto">This repository does not build on its own: without the simulator there is no <code class="notranslate">Comportamiento</code><br>
+base class to derive from. Drop the four files where the assignment expects them and build<br>
+there:</p>
+<div class="highlight highlight-source-shell" dir="auto"><pre class="notranslate">cp src/<span class="pl-k">*</span>.cpp src/<span class="pl-k">*</span>.hpp <span class="pl-k">&lt;</span>simulator<span class="pl-k">&gt;</span>/Comportamientos_Jugador/
+<span class="pl-c1">cd</span> <span class="pl-k">&lt;</span>simulator<span class="pl-k">&gt;</span> <span class="pl-k">&amp;&amp;</span> ./install.sh
+./practica2SG ./mapas/mapa30.map 0 0 17 5 0 17 17 0 3 3 0</pre></div>
+<p dir="auto"><code class="notranslate">tools/test.sh</code> replays the eleven scenarios and writes the outputs. It checks it is being<br>
+run from the simulator directory, which is named <code class="notranslate">IA_Practica2</code>, so it goes in that folder:</p>
+<div class="highlight highlight-source-shell" dir="auto"><pre class="notranslate">cp tools/test.sh <span class="pl-k">&lt;</span>simulator<span class="pl-k">&gt;</span>/ <span class="pl-k">&amp;&amp;</span> <span class="pl-c1">cd</span> <span class="pl-k">&lt;</span>simulator<span class="pl-k">&gt;</span> <span class="pl-k">&amp;&amp;</span> ./test.sh</pre></div>
+<p dir="auto">What runs here without the simulator is the static analysis:</p>
+<div class="highlight highlight-source-shell" dir="auto"><pre class="notranslate">cppcheck --std=c++17 --enable=warning,style,performance --suppress=missingInclude src/
+shellcheck tools/<span class="pl-k">*</span>.sh</pre></div>
+<h2 dir="auto" id="results">Results</h2>
+<p dir="auto"><code class="notranslate">tools/test.sh</code> runs eleven scenarios over seven maps and marks a run as good only when the<br>
+three success lines appear and neither agent has crashed or fallen off a cliff. The last run<br>
+kept in <code class="notranslate">docs/results/summary.txt</code>:</p>
+<pre class="notranslate"><code class="notranslate">Test 1: OK    Test 5: OK    Test  9: OK
+Test 2: OK    Test 6: OK    Test 10: OK
+Test 3: OK    Test 7: OK    Test 11: OK
+Test 4: OK    Test 8: OK
+</code></pre>
+<p dir="auto">Eleven out of eleven, on <code class="notranslate">mapa30</code>, <code class="notranslate">mapa75</code>, <code class="notranslate">gemini2</code>, <code class="notranslate">paldea25</code>, <code class="notranslate">chess</code>, <code class="notranslate">luminalia25</code>,<br>
+<code class="notranslate">bosque_prohibido</code> and <code class="notranslate">islas25</code>. The per-run output is in <code class="notranslate">docs/results/</code>.</p>
+<h2 dir="auto" id="what-i-learned">What I learned</h2>
+<ul dir="auto">
+<li>Writing the cost function was harder than writing the search. Dijkstra and A* are short;<br>
+deciding what climbing a slope with water on it should cost is what actually changes the<br>
+route.</li>
+<li>A reactive agent needs a memory of where it has already been, or it loops. The counter of<br>
+visits per cell fixed more failed runs than any change to the planner.</li>
+<li><strong>Limitations of what is here, kept as handed in:</strong>
+<ul dir="auto">
+<li><code class="notranslate">ComportamientoRescatadorNivel_3</code> returns <code class="notranslate">IDLE</code>: the rescuer does not play level 3. The<br>
+alternative, <code class="notranslate">ComportamientoRescatadorNivel_E</code>, is written but stays commented out in<br>
+<code class="notranslate">think()</code>.</li>
+<li><code class="notranslate">tools/test.sh</code> refuses to run unless the current folder is called <code class="notranslate">IA_Practica2</code>, which<br>
+is the name of the simulator checkout, not of this repository.</li>
+<li><code class="notranslate">docs/earlier-iterations/</code> does not compile next to <code class="notranslate">src/</code>: they define the same classes.<br>
+It is there to be read, not built.</li>
+<li>Identifiers and comments are in Spanish, the language the subject is taught in.</li>
+<li>The self-assessment questionnaire handed in with the practice is not published: it<br>
+reproduces the form written by the teaching staff.</li>
+</ul>
+</li>
+</ul>
+<h2 dir="auto" id="author-and-licence">Author and licence</h2>
+<p dir="auto">Ismael Sallami Moreno. Released under the MIT licence (see <code class="notranslate">LICENSE</code>).</p>

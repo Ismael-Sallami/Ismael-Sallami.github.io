@@ -1,0 +1,126 @@
+<p dir="auto"><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/9d824de49104e94265bb8662dac31a4e9d72d5b6a86404a8058a84d982dae830/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f432532422532422d31312d303035393943"><img loading="lazy" decoding="async" src="https://camo.githubusercontent.com/9d824de49104e94265bb8662dac31a4e9d72d5b6a86404a8058a84d982dae830/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f432532422532422d31312d303035393943" alt="C++" data-canonical-src="https://img.shields.io/badge/C%2B%2B-11-00599C" style="max-width: 100%;"></a><br>
+<a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/2d85790a7b5d816a34d99b2bfd871464bac96312970831bcab6925a0d4f89d09/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f4f70656e4d50492d342e312d636634613262"><img loading="lazy" decoding="async" src="https://camo.githubusercontent.com/2d85790a7b5d816a34d99b2bfd871464bac96312970831bcab6925a0d4f89d09/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f4f70656e4d50492d342e312d636634613262" alt="OpenMPI" data-canonical-src="https://img.shields.io/badge/OpenMPI-4.1-cf4a2b" style="max-width: 100%;"></a><br>
+<a target="_blank" rel="noopener noreferrer" href="https://github.com/Ismael-Sallami/concurrency-mpi/actions/workflows/ci.yml"><img loading="lazy" decoding="async" src="https://camo.githubusercontent.com/ef2749b864242408c52e40af2d51dfc201c7bc7ef0778c678e4e97c9a12fb49e/68747470733a2f2f696d672e736869656c64732e696f2f6769746875622f616374696f6e732f776f726b666c6f772f7374617475732f49736d61656c2d53616c6c616d692f636f6e63757272656e63792d6d70692f63692e796d6c3f6272616e63683d6d61696e266c6f676f3d676974687562266c6162656c3d6275696c64" alt="build" data-canonical-src="https://img.shields.io/github/actions/workflow/status/Ismael-Sallami/concurrency-mpi/ci.yml?branch=main&amp;logo=github&amp;label=build" style="max-width: 100%;"></a><br>
+<a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/f94c5fd447e0fcdb57a248775dc35882bfe62c7b8a301d7f72b2fbd0df3d4839/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f6c6963656e73652d4d49542d346331"><img loading="lazy" decoding="async" src="https://camo.githubusercontent.com/f94c5fd447e0fcdb57a248775dc35882bfe62c7b8a301d7f72b2fbd0df3d4839/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f6c6963656e73652d4d49542d346331" alt="license" data-canonical-src="https://img.shields.io/badge/license-MIT-4c1" style="max-width: 100%;"></a></p>
+<p dir="auto">Thirty-one programs that solve the classic synchronisation problems three times over: with<br>
+semaphores, with monitors and with message passing.</p>
+<h2 dir="auto" id="context">Context</h2>
+<p dir="auto">Coursework for <strong>Concurrent and Distributed Systems</strong>, year 3 of the double degree in<br>
+Computer Science and Business Administration, University of Granada (2024-25). Solo work.</p>
+<p dir="auto">The <code class="notranslate">scd</code> support library (<code class="notranslate">scd.h</code>, <code class="notranslate">scd.cpp</code>) is provided by the subject and is kept<br>
+because the programs do not compile without it.</p>
+<h2 dir="auto" id="the-problem">The problem</h2>
+<p dir="auto">The same problems come back at every level of abstraction, and that repetition is the point<br>
+of the subject: producer-consumer, readers-writers, cigarette smokers and dining<br>
+philosophers, solved first with the lowest primitive available and then with higher ones.</p>
+<p dir="auto">Each solution has to guarantee three things, and none of them can be checked by looking at<br>
+one run: mutual exclusion where the resource demands it, no deadlock, and no starvation.</p>
+<h2 dir="auto" id="the-solution">The solution</h2>
+<markdown-accessiblity-table><table role="table">
+<thead>
+<tr>
+<th>Practice</th>
+<th>Tool</th>
+<th>Programs</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Semaphores</td>
+<td>Producer-consumer with <strong>FIFO and LIFO</strong> buffers, the multiple-producer multiple-consumer version, cigarette smokers</td>
+</tr>
+<tr>
+<td>2</td>
+<td><strong>SU monitors</strong></td>
+<td>Readers-writers, smokers, bounded multiple producer-consumer</td>
+</tr>
+<tr>
+<td>3</td>
+<td><strong>MPI</strong></td>
+<td>Dining philosophers, the version that deadlocks, and the fix with a waiter; distributed producer-consumer with an intermediate buffer process</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Real time</td>
+<td>Cyclic executives with period and WCET analysis, clock and duration handling</td>
+</tr>
+<tr>
+<td>Extra</td>
+<td>MPI</td>
+<td>Distributed Sieve of Eratosthenes</td>
+</tr>
+</tbody>
+</table></markdown-accessiblity-table>
+<p dir="auto">Details worth naming:</p>
+<ul dir="auto">
+<li><strong>The deadlock is committed on purpose.</strong> <code class="notranslate">philosophers-deadlock.cpp</code> is the version where<br>
+every philosopher takes the same fork first, and it hangs. <code class="notranslate">philosophers-waiter.cpp</code> adds<br>
+the arbitrator that limits how many sit at once, which is the standard fix. Keeping both<br>
+is what makes the problem visible.</li>
+<li><strong>FIFO and LIFO are separate programs</strong>, not a flag. The order of the buffer changes which<br>
+index the producer and the consumer touch, so the two solutions are different code, and<br>
+the outputs in <code class="notranslate">docs/results/</code> show the difference.</li>
+<li><strong>The cyclic executives are timed, not guessed.</strong> <code class="notranslate">timing.cpp</code> and <code class="notranslate">clocks.cpp</code> work with<br>
+durations and instants so the schedule can be checked against the period and the<br>
+worst-case execution time, instead of assuming the tasks fit.</li>
+<li><strong>The exams are here too.</strong> <code class="notranslate">docs/exams/</code> holds seven problems solved under exam<br>
+conditions: supermarket checkouts, philosophers with a waiter in two different styles,<br>
+producer-consumer with odd and even consumers, and two turn-based games over MPI.</li>
+</ul>
+<h2 dir="auto" id="layout">Layout</h2>
+<pre class="notranslate"><code class="notranslate">src/practice-1-semaphores/    producer-consumer, its multiple version and the smokers
+src/practice-2-monitors/      the same problems with SU monitors, plus readers-writers
+src/practice-3-mpi/           philosophers and distributed producer-consumer
+src/practice-4-realtime/      cyclic executives, clocks and timing
+src/extra-mpi-sieve/          distributed Sieve of Eratosthenes
+docs/exams/                   seven exam problems
+docs/results/                 captured output of the runs
+tools/build-all.sh            builds everything in one command
+</code></pre>
+<h2 dir="auto" id="requirements">Requirements</h2>
+<ul dir="auto">
+<li>A C++ compiler with C++11 (g++ 11 or later).</li>
+<li>OpenMPI (<code class="notranslate">openmpi-bin</code>, <code class="notranslate">libopenmpi-dev</code>) for the MPI programs.</li>
+</ul>
+<h2 dir="auto" id="build-and-run">Build and run</h2>
+<div class="highlight highlight-source-shell" dir="auto"><pre class="notranslate">bash tools/build-all.sh                      <span class="pl-c"><span class="pl-c">#</span> every program, binaries land in build/</span>
+./build/prodcons-fifo                        <span class="pl-c"><span class="pl-c">#</span> threaded programs run straight away</span>
+mpirun -np 11 ./build/philosophers-waiter    <span class="pl-c"><span class="pl-c">#</span> philosophers, forks and the waiter</span>
+mpirun -np 21 ./build/sieve                  <span class="pl-c"><span class="pl-c">#</span> the sieve, one process per range</span></pre></div>
+<p dir="auto">The MPI programs fix the number of processes they need in a constant at the top of the file:<br>
+<code class="notranslate">num_procesos</code> in the philosophers, <code class="notranslate">num_prod</code> and <code class="notranslate">num_cons</code> in the producer-consumer.<br>
+Passing a different <code class="notranslate">-np</code> makes them abort on purpose.</p>
+<h2 dir="auto" id="results">Results</h2>
+<p dir="auto">Sample runs are captured in <code class="notranslate">docs/results/</code>. The programs print in Spanish, so the files are<br>
+worth opening rather than quoted here.</p>
+<p dir="auto">The producer-consumer traces the buffer indices on every operation, and that is where the<br>
+two versions part company: the FIFO run reports a read cursor 80 times and the LIFO run<br>
+never does, because popping from the end you pushed to does not need one. Both captures<br>
+carry the same banner, though, since <code class="notranslate">prodcons-fifo.cpp:153</code> prints the LIFO one. The<br>
+banner is copy-pasted; the traced indices are not.</p>
+<p dir="auto">The sieve reports which process found each prime, so the split of the ranges is visible:<br>
+process 19 accounts for 61, 67, 71 and on up.</p>
+<h2 dir="auto" id="what-i-learned">What I learned</h2>
+<ul dir="auto">
+<li>A concurrent program that runs correctly once proves nothing. The interesting bugs only<br>
+appear under a particular interleaving, which is why the deadlocking version of the<br>
+philosophers is worth keeping next to the fixed one.</li>
+<li>Monitors move the synchronisation from the caller to the resource. With semaphores every<br>
+caller has to remember to signal; with a monitor, forgetting is not an option the caller<br>
+has. That is the whole difference between practices 1 and 2.</li>
+<li><strong>Limitations, kept as handed in:</strong>
+<ul dir="auto">
+<li><code class="notranslate">src/practice-1-semaphores/smokers/smokers.cpp</code> <strong>does not compile</strong>: it calls <code class="notranslate">fumar()</code><br>
+at line 75, and the function is defined at line 83 with no forward declaration. It is<br>
+listed in <code class="notranslate">tools/known-build-failures.txt</code> with the reason, and the build script fails<br>
+if it ever starts building, so the list cannot rot. It is not patched.</li>
+<li>Practice 3 keeps the base programs given with the assignment next to my versions,<br>
+because the versions are edits of them and separating them would hide what changed.</li>
+<li>Identifiers, comments and the captured output are in Spanish, as handed in. Translating<br>
+them would mean editing code that was graded.</li>
+</ul>
+</li>
+</ul>
+<h2 dir="auto" id="author-and-licence">Author and licence</h2>
+<p dir="auto">Ismael Sallami Moreno. Released under the MIT licence (see <code class="notranslate">LICENSE</code>).</p>

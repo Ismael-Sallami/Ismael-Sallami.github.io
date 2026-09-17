@@ -1,0 +1,181 @@
+<p dir="auto">Source of <a target="_blank" rel="noopener noreferrer" href="https://ismael-sallami.github.io" rel="nofollow">https://ismael-sallami.github.io</a>. Vite, React Router, Tailwind and<br>
+framer-motion, with a three.js background scene. Everything is bilingual from a<br>
+single dictionary.</p>
+<h2 dir="auto" id="running-it">Running it</h2>
+<div class="highlight highlight-source-shell" dir="auto"><pre class="notranslate">npm ci
+npm run dev     <span class="pl-c"><span class="pl-c">#</span> http://localhost:5173</span>
+npm run build   <span class="pl-c"><span class="pl-c">#</span> into dist/</span></pre></div>
+<h2 dir="auto" id="where-the-content-lives">Where the content lives</h2>
+<p dir="auto">All of it is data, not markup. Editing these files is enough; no component needs<br>
+touching.</p>
+<markdown-accessiblity-table><table role="table">
+<thead>
+<tr>
+<th>File</th>
+<th>Holds</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code class="notranslate">src/data/projects.js</code></td>
+<td>the 27 projects, with their Spanish and English copy</td>
+</tr>
+<tr>
+<td><code class="notranslate">src/data/contributions.js</code></td>
+<td>descriptions of the open source work; the numbers come from the API</td>
+</tr>
+<tr>
+<td><code class="notranslate">src/data/experience.js</code></td>
+<td>the three roles in the Home timeline</td>
+</tr>
+<tr>
+<td><code class="notranslate">src/data/documents.js</code></td>
+<td>the titles of the CVs and certifications under <code class="notranslate">docs/</code></td>
+</tr>
+<tr>
+<td><code class="notranslate">src/data/skills.js</code></td>
+<td>the 30 skills, grouped by what each one is</td>
+</tr>
+<tr>
+<td><code class="notranslate">src/i18n/strings.js</code></td>
+<td>every other string, in both languages</td>
+</tr>
+</tbody>
+</table></markdown-accessiblity-table>
+<p dir="auto">A role in <code class="notranslate">experience.js</code> with <code class="notranslate">end: null</code> is still open, which is what draws the<br>
+hollow dot at the end of the timeline. The three roles overlap on purpose, so each<br>
+one prints its own date range. The GSoC figure is read out of<br>
+<code class="notranslate">contributions.generated.json</code> rather than typed, so it cannot disagree with the<br>
+contributions table.</p>
+<p dir="auto">The <code class="notranslate">featured</code> flag in <code class="notranslate">projects.js</code> picks what the front page shows and which<br>
+cards span two columns. Six are set. Keep them at the top of the array: a wide<br>
+card landing on an odd column leaves a hole in the grid.</p>
+<h2 dir="auto" id="adding-a-cv-or-a-certification">Adding a CV or a certification</h2>
+<p dir="auto">Copy the file into <code class="notranslate">docs/CVs/</code> or <code class="notranslate">docs/certificates/</code> and build. A glob in<br>
+<code class="notranslate">documents.js</code> finds it, so the CV menu and the certifications page pick it up<br>
+without any code change. PDFs and PNGs both work; a PDF previews in an iframe and<br>
+an image as an image.</p>
+<p dir="auto">The one thing a glob cannot guess is the title, so add the file to the <code class="notranslate">labels</code><br>
+map in <code class="notranslate">documents.js</code>. Skip that and the site falls back to a title made out of<br>
+the file name, and <code class="notranslate">npm run check:documents</code> fails the build telling you which<br>
+file is missing one. <code class="notranslate">--fix</code> writes the placeholder for you:</p>
+<div class="highlight highlight-source-shell" dir="auto"><pre class="notranslate">npm run check:documents
+node scripts/check-documents.mjs --fix</pre></div>
+<p dir="auto">It also rejects a name with spaces or accents, which turns into <code class="notranslate">%20</code> and <code class="notranslate">%C3%B3</code><br>
+once it is a URL.</p>
+<h2 dir="auto" id="figures-quoted-from-other-repositories">Figures quoted from other repositories</h2>
+<p dir="auto">Some project descriptions quote a count that lives in another repository: the size<br>
+of the catalogue in <code class="notranslate">algorithms-and-patterns</code>, the page count of the 3-Partition<br>
+proof, my share of the commits in a teammate's repository.</p>
+<p dir="auto"><code class="notranslate">scripts/check-numbers.mjs</code> reads each of those out of what the owning repository<br>
+publishes and fails the build when the site no longer matches. The wording on the<br>
+site is deliberately rounded ("almost 200"), so the checks are ranges: the claim<br>
+stays true while the repository grows and only fails when the rounding itself goes<br>
+stale.</p>
+<p dir="auto">This is worth having because it already went wrong. The site said 183<br>
+implementations for months while the catalogue had reached 198, and it went<br>
+unnoticed because the repository's own GitHub description also still said 183, so<br>
+checking one against the other agreed and both were wrong.</p>
+<div class="highlight highlight-source-shell" dir="auto"><pre class="notranslate">npm run check:numbers        <span class="pl-c"><span class="pl-c">#</span> needs gh, or GITHUB_TOKEN</span></pre></div>
+<h2 dir="auto" id="contribution-numbers">Contribution numbers</h2>
+<p dir="auto"><code class="notranslate">src/data/contributions.generated.json</code> holds the merged pull request and commit<br>
+counts, written by <code class="notranslate">scripts/sync-contributions.mjs</code> from the GitHub API. A weekly<br>
+workflow runs it and commits the file when the numbers move, so they cannot go<br>
+stale by being forgotten. The descriptions stay hand-written in<br>
+<code class="notranslate">contributions.js</code>, and <code class="notranslate">contributions.exclude.json</code> lists what to leave out and<br>
+why.</p>
+<p dir="auto">The tables further down quote the same numbers, so the workflow regenerates the<br>
+README too. Both tables come out of the data files, so edit <code class="notranslate">projects.js</code> or<br>
+<code class="notranslate">contributions.js</code> and rerun rather than editing the tables by hand.</p>
+<div class="highlight highlight-source-shell" dir="auto"><pre class="notranslate">npm run sync:contributions   <span class="pl-c"><span class="pl-c">#</span> needs gh, or GITHUB_TOKEN</span>
+npm run gen:readme           <span class="pl-c"><span class="pl-c">#</span> rewrites the tables below</span></pre></div>
+<h2 dir="auto" id="projects">Projects</h2>
+<h3 dir="auto" id="featured">Featured</h3>
+<ul dir="auto">
+<li><strong><a target="_blank" rel="noopener noreferrer" href="https://github.com/Ismael-Sallami/ansible-infra-lab">Laboratorio de infraestructura con Ansible</a></strong> — DevOps · Ansible. Aprovisionamiento de un laboratorio Rocky Linux: playbooks que crean usuarios y servidores web, Prometheus y Grafana midiéndolos, y un plan de JMeter que los somete a carga. Las claves no viven en el repositorio, las genera un script.</li>
+<li><strong><a target="_blank" rel="noopener noreferrer" href="https://github.com/Ismael-Sallami/algorithms-and-patterns">Algorithms and Patterns</a></strong> — Algoritmos · C++. Casi 200 implementaciones organizadas por patrón. Más de 140 son extractos de mi trabajo previo, cada uno con enlace al fichero y las líneas de las que sale; el resto están escritas para el repositorio y se verifican solas al compilar.</li>
+<li><strong><a target="_blank" rel="noopener noreferrer" href="https://github.com/Ismael-Sallami/personal-finance-manager">Personal Finance Manager</a></strong> — Full-stack. Servicio de finanzas autoalojado: importa extractos de varios brókeres, calcula rentabilidad en aritmética decimal, agrega los informes y expone un bot de Telegram. FastAPI y PostgreSQL.</li>
+<li><strong><a target="_blank" rel="noopener noreferrer" href="https://github.com/Ismael-Sallami/metaheuristics">Metaheurísticas · optimización de cartera</a></strong> — Metaheurística. Dieciséis algoritmos de optimización sobre el mismo problema de cartera, del greedy y la búsqueda local al enfriamiento simulado, genéticos, meméticos y evolución diferencial. Cada uno se mide con repeticiones y desviación típica, no con una sola ejecución.</li>
+<li><strong><a target="_blank" rel="noopener noreferrer" href="https://github.com/Ismael-Sallami/rescue-agents">Agentes reactivos y deliberativos</a></strong> — IA · C++. Agentes que exploran un mapa que no conocen. Cuando no hay mapa sobre el que planificar actúan por reglas; cuando lo hay, planifican con Dijkstra sobre una rejilla con coste y estado compuesto, y con A* usando distancia Manhattan. La proyección del sensor al mapa global es lo que une las dos capas.</li>
+<li><strong><a target="_blank" rel="noopener noreferrer" href="https://github.com/Ismael-Sallami/irrgarten">Irrgarten</a></strong> — Java · Ruby. Juego de monstruos desarrollado en Java y Ruby como proyecto de POO.</li>
+</ul>
+<h3 dir="auto" id="everything-else">Everything else</h3>
+<ul dir="auto">
+<li><strong><a target="_blank" rel="noopener noreferrer" href="https://github.com/Ismael-Sallami/concurrency-mpi">Concurrencia y sistemas distribuidos</a></strong> — C++ · MPI</li>
+<li><strong><a target="_blank" rel="noopener noreferrer" href="https://github.com/Ismael-Sallami/parchis-ai">Parchís · IA con adversario</a></strong> — IA · C++</li>
+<li><strong><a target="_blank" rel="noopener noreferrer" href="https://github.com/Ismael-Sallami/oracle-dbms-project">Sistema de información sobre Oracle</a></strong> — Oracle · SQL</li>
+<li><strong><a target="_blank" rel="noopener noreferrer" href="https://github.com/Ismael-Sallami/pdf-to-md">pdf-to-md</a></strong> — Python · CLI</li>
+<li><strong><a target="_blank" rel="noopener noreferrer" href="https://github.com/Ismael-Sallami/Ismael-Sallami.github.io">Esta web</a></strong> — React</li>
+<li><strong><a target="_blank" rel="noopener noreferrer" href="https://github.com/Ismael-Sallami/machine-learning-practices">Prácticas de aprendizaje automático</a></strong> — Machine Learning</li>
+<li><strong><a target="_blank" rel="noopener noreferrer" href="https://github.com/Ismael-Sallami/3-Partition-NP-Completeness">3-Partition · Demostración NP-completo</a></strong> — Complejidad</li>
+<li><strong><a target="_blank" rel="noopener noreferrer" href="https://elblogdeismael.github.io/" rel="nofollow">Blog del doble grado Informática + ADE</a></strong> — Web</li>
+<li><strong><a target="_blank" rel="noopener noreferrer" href="https://github.com/Ismael-Sallami/md2html-testGenerator">md2html · Test Generator</a></strong> — Tooling</li>
+<li><strong><a target="_blank" rel="noopener noreferrer" href="https://github.com/Ismael-Sallami/media-manager">Media Manager</a></strong> — App</li>
+<li><strong><a target="_blank" rel="noopener noreferrer" href="https://github.com/Ismael-Sallami/image-adt">TDA · Tratamiento de Imagen</a></strong> — C++</li>
+<li><strong><a target="_blank" rel="noopener noreferrer" href="https://github.com/Ismael-Sallami/Arch_Configuration">Arch Linux · Dotfiles</a></strong> — Linux</li>
+<li><strong><a target="_blank" rel="noopener noreferrer" href="https://github.com/Ismael-Sallami/algorithm-design-techniques">Técnicas de diseño de algoritmos</a></strong> — C++ · Algoritmia</li>
+<li><strong><a target="_blank" rel="noopener noreferrer" href="https://github.com/Ismael-Sallami/airline-routes-adt">Air Lines Project</a></strong> — C++</li>
+<li><strong><a target="_blank" rel="noopener noreferrer" href="https://github.com/Ismael-Sallami/econometric-model">Modelo Econométrico · Obesidad</a></strong> — Econometría</li>
+<li><strong><a target="_blank" rel="noopener noreferrer" href="https://github.com/Leonin04/ModelosComplejosModelosDinamicos">Modelos Complejos y Dinámicos</a></strong> — Modelos</li>
+<li><strong><a target="_blank" rel="noopener noreferrer" href="https://github.com/Ismael-Sallami/godot-graphics-exercises">Informática gráfica en Godot</a></strong> — Gráficos · GDScript</li>
+<li><strong><a target="_blank" rel="noopener noreferrer" href="https://github.com/Ismael-Sallami/oracle-sql-exercises">Ejercicios de SQL sobre Oracle</a></strong> — Oracle · SQL</li>
+<li><strong><a target="_blank" rel="noopener noreferrer" href="https://github.com/Ismael-Sallami/software-engineering-practices">Especificación de un sistema de gestión turística</a></strong> — Ingeniería del software</li>
+<li><strong><a target="_blank" rel="noopener noreferrer" href="https://github.com/Ismael-Sallami/neetcode-submissions">NeetCode · problemas resueltos</a></strong> — Algoritmos · C++</li>
+<li><strong><a target="_blank" rel="noopener noreferrer" href="https://github.com/Ismael-Sallami/early-courses">Cursos de 2024</a></strong> — Formación</li>
+</ul>
+<h2 dir="auto" id="contributions-to-open-source">Contributions to open source</h2>
+<p dir="auto">Other people's projects, kept apart from my own. The bar is a merged pull<br>
+request: a fork with none is a clone. Each link opens the upstream commit list<br>
+filtered to my commits. The numbers come from the API, refreshed weekly.</p>
+<markdown-accessiblity-table><table role="table">
+<thead>
+<tr>
+<th>Project</th>
+<th>Upstream</th>
+<th>Language</th>
+<th align="right">Merged PRs</th>
+<th align="right">My commits</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a target="_blank" rel="noopener noreferrer" href="https://github.com/openMF/mifos-gazelle/commits?author=Ismael-Sallami">mifos-gazelle</a></td>
+<td>openMF</td>
+<td>Shell</td>
+<td align="right">21</td>
+<td align="right">46</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener noreferrer" href="https://github.com/openMF/mifos-x-reporting-plugin-birt/commits?author=Ismael-Sallami">mifos-x-reporting-plugin-birt</a></td>
+<td>openMF</td>
+<td>Java</td>
+<td align="right">2</td>
+<td align="right">5</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener noreferrer" href="https://github.com/openMF/mifos-reporting-plugin/commits?author=Ismael-Sallami">mifos-reporting-plugin</a></td>
+<td>openMF</td>
+<td>Java</td>
+<td align="right">2</td>
+<td align="right">2</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener noreferrer" href="https://github.com/cBioPortal/cbioportal-frontend/commits?author=Ismael-Sallami">cbioportal-frontend</a></td>
+<td>cBioPortal</td>
+<td>TypeScript</td>
+<td align="right">1</td>
+<td align="right">1</td>
+</tr>
+</tbody>
+</table></markdown-accessiblity-table>
+<h2 dir="auto" id="skills">Skills</h2>
+<p dir="auto"><strong>Languages</strong> — C++ · Python · C · Java · JavaScript · Bash · Ruby</p>
+<p dir="auto"><strong>Infrastructure &amp; deployment</strong> — Kubernetes · Helm · Docker · Ansible · Linux · Git · GitHub Actions · Grafana · Prometheus · YAML</p>
+<p dir="auto"><strong>Web</strong> — React · HTML · CSS · Tailwind · FastAPI</p>
+<p dir="auto"><strong>Data &amp; computation</strong> — Oracle SQL · PostgreSQL · scikit-learn · MPI</p>
+<p dir="auto"><strong>Technical writing</strong> — LaTeX · Markdown</p>
+<p dir="auto"><strong>Spoken</strong> — Español · Inglés</p>
+<h2 dir="auto" id="licence">Licence</h2>
+<p dir="auto">MIT. See <a target="_blank" rel="noopener noreferrer" href="https://github.com/Ismael-Sallami/Ismael-Sallami.github.io/blob/main/LICENSE"><code class="notranslate">LICENSE</code></a>.</p>
+<h2 dir="auto" id="author">Author</h2>
+<p dir="auto">Ismael Sallami Moreno</p>

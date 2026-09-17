@@ -1,0 +1,54 @@
+# Refreshes the project cards and their READMEs from the GitHub API.
+#
+# GitHub has no event for "a repository was created" that can reach a workflow in
+# another repository of a personal account, so this runs on a timer instead. Give a new
+# repository the `portfolio` topic and it appears here on the next run; the manual
+# trigger is there for when that wait is too long.
+#
+# The commit this pushes lands on main, which triggers the deploy workflow, so the site
+# picks the new projects up on its own. Nothing is committed when nothing changed.
+name: Sync projects
+
+on:
+  schedule:
+    - cron: '30 5 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: sync-projects
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      # No npm ci: the script runs on Node's own fetch and nothing else.
+      - run: node scripts/sync-projects.mjs
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Commit if anything moved
+        run: |
+          git config user.name  "Ismael"
+          git config user.email "${{ github.actor_id }}+${{ github.actor }}@users.noreply.github.com"
+          # Staged first, then compared against the index: the README of a repository
+          # that has only just been given the topic is a new file, and `git diff` on its
+          # own does not see one.
+          git add -A src/data/projects.generated.json src/data/readmes
+          if git diff --cached --quiet; then
+            echo "No change."
+            exit 0
+          fi
+          git commit -m "chore: refresh the project READMEs from GitHub"
+          # The contributions workflow pushes to the same branch, so the two can collide
+          # on the week their schedules meet.
+          git pull --rebase origin main
+          git push

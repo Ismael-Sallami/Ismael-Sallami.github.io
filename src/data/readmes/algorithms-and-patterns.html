@@ -1,0 +1,286 @@
+<p dir="auto"><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/cadf3750ef636e653f41316a33ac1fb6e591875112e76ef549d66eba411da621/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f432532422532422d32302d303035393943"><img loading="lazy" decoding="async" src="https://camo.githubusercontent.com/cadf3750ef636e653f41316a33ac1fb6e591875112e76ef549d66eba411da621/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f432532422532422d32302d303035393943" alt="C++" data-canonical-src="https://img.shields.io/badge/C%2B%2B-20-00599C" style="max-width: 100%;"></a><br>
+<a target="_blank" rel="noopener noreferrer" href="https://github.com/Ismael-Sallami/algorithms-and-patterns/actions/workflows/ci.yml"><img loading="lazy" decoding="async" src="https://camo.githubusercontent.com/28c4a5f16fa23b934af6288f816933bd42fb82f085af824d6c704c2b00322b3d/68747470733a2f2f696d672e736869656c64732e696f2f6769746875622f616374696f6e732f776f726b666c6f772f7374617475732f49736d61656c2d53616c6c616d692f616c676f726974686d732d616e642d7061747465726e732f63692e796d6c3f6272616e63683d6d61696e266c6f676f3d676974687562266c6162656c3d7465737473" alt="tests" data-canonical-src="https://img.shields.io/github/actions/workflow/status/Ismael-Sallami/algorithms-and-patterns/ci.yml?branch=main&amp;logo=github&amp;label=tests" style="max-width: 100%;"></a><br>
+<a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/f94c5fd447e0fcdb57a248775dc35882bfe62c7b8a301d7f72b2fbd0df3d4839/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f6c6963656e73652d4d49542d346331"><img loading="lazy" decoding="async" src="https://camo.githubusercontent.com/f94c5fd447e0fcdb57a248775dc35882bfe62c7b8a301d7f72b2fbd0df3d4839/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f6c6963656e73652d4d49542d346331" alt="license" data-canonical-src="https://img.shields.io/badge/license-MIT-4c1" style="max-width: 100%;"></a></p>
+<p dir="auto">A catalogue of 198 algorithm and data structure implementations, organised by<br>
+pattern. It has two halves, kept apart on purpose.</p>
+<p dir="auto"><strong><a target="_blank" rel="noopener noreferrer" href="https://github.com/Ismael-Sallami/algorithms-and-patterns/blob/main/patterns/"><code class="notranslate">patterns/</code></a> — 141 extracts from earlier work.</strong> Code I<br>
+wrote during the double degree in Computer Science and Business Administration at the<br>
+University of Granada, and in my own projects since, reorganised by pattern rather than by<br>
+subject. Nothing here was written for this repository: each file is the original<br>
+implementation, sliced out of the repository it belongs to, with a header naming the source<br>
+file and line range and a link to it. Every claim is checkable against the commit history<br>
+that produced it.</p>
+<p dir="auto"><strong><a target="_blank" rel="noopener noreferrer" href="https://github.com/Ismael-Sallami/algorithms-and-patterns/blob/main/reference/"><code class="notranslate">reference/</code></a> — 57 implementations written for this<br>
+repository.</strong> Canonical algorithms that my coursework never produced a committed<br>
+implementation of, covering the standard interview taxonomy and the computer architecture<br>
+mechanisms I studied without writing code for. These have no prior commit history and their<br>
+headers say so. Each one is self-contained and asserts its own behaviour, so it is verified<br>
+by compiling and running it.</p>
+<h2 dir="auto" id="verifying-it">Verifying it</h2>
+<p dir="auto">The CI compiles and runs the 57 reference implementations on every push. They print<br>
+nothing and assert their own behaviour, so a silent run is a pass and a broken invariant<br>
+aborts the build:</p>
+<div class="highlight highlight-source-shell" dir="auto"><pre class="notranslate">bash scripts/verify.sh</pre></div>
+<pre class="notranslate"><code class="notranslate">ok    reference/01-arrays-and-hashing/in-place-matrix-transforms/in_place_matrix_transforms.cpp
+...
+57 reference implementations compile and verify themselves
+</code></pre>
+<p dir="auto">The files under <code class="notranslate">patterns/</code> are not compiled: they are fragments of larger programs, kept<br>
+with a link to the commit they came from, and they do not stand alone. What can be checked<br>
+about them is their provenance, and every header carries it.</p>
+<h2 dir="auto" id="counters">Counters</h2>
+<h3 dir="auto" id="extracted-from-earlier-work">Extracted from earlier work</h3>
+<markdown-accessiblity-table><table role="table">
+<thead>
+<tr>
+<th>Category</th>
+<th align="right">Implementations</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a target="_blank" rel="noopener noreferrer" href="https://github.com/Ismael-Sallami/algorithms-and-patterns/blob/main/patterns/01-graph-search/">Graph and state-space search</a></td>
+<td align="right">13</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener noreferrer" href="https://github.com/Ismael-Sallami/algorithms-and-patterns/blob/main/patterns/02-adversarial-search/">Adversarial search</a></td>
+<td align="right">15</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener noreferrer" href="https://github.com/Ismael-Sallami/algorithms-and-patterns/blob/main/patterns/03-metaheuristics/">Metaheuristics and continuous optimisation</a></td>
+<td align="right">22</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener noreferrer" href="https://github.com/Ismael-Sallami/algorithms-and-patterns/blob/main/patterns/04-concurrency-and-distributed/">Concurrency and distributed systems</a></td>
+<td align="right">19</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener noreferrer" href="https://github.com/Ismael-Sallami/algorithms-and-patterns/blob/main/patterns/05-data-structures-and-adt/">Data structures and abstract data types</a></td>
+<td align="right">23</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener noreferrer" href="https://github.com/Ismael-Sallami/algorithms-and-patterns/blob/main/patterns/06-applied-machine-learning/">Applied machine learning</a></td>
+<td align="right">5</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener noreferrer" href="https://github.com/Ismael-Sallami/algorithms-and-patterns/blob/main/patterns/07-databases-and-transactions/">Databases and transactions</a></td>
+<td align="right">11</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener noreferrer" href="https://github.com/Ismael-Sallami/algorithms-and-patterns/blob/main/patterns/08-application-architecture/">Application architecture</a></td>
+<td align="right">18</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener noreferrer" href="https://github.com/Ismael-Sallami/algorithms-and-patterns/blob/main/patterns/09-algorithm-design-techniques/">Algorithm design techniques</a></td>
+<td align="right">15</td>
+</tr>
+</tbody>
+</table></markdown-accessiblity-table>
+<h3 dir="auto" id="written-for-this-repository">Written for this repository</h3>
+<markdown-accessiblity-table><table role="table">
+<thead>
+<tr>
+<th>Category</th>
+<th align="right">Implementations</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a target="_blank" rel="noopener noreferrer" href="https://github.com/Ismael-Sallami/algorithms-and-patterns/blob/main/reference/01-arrays-and-hashing/">Arrays and hashing</a></td>
+<td align="right">5</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener noreferrer" href="https://github.com/Ismael-Sallami/algorithms-and-patterns/blob/main/reference/02-two-pointers-and-sliding-window/">Two pointers and sliding window</a></td>
+<td align="right">5</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener noreferrer" href="https://github.com/Ismael-Sallami/algorithms-and-patterns/blob/main/reference/03-stack-and-monotonic-structures/">Stacks and monotonic structures</a></td>
+<td align="right">1</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener noreferrer" href="https://github.com/Ismael-Sallami/algorithms-and-patterns/blob/main/reference/04-binary-search/">Binary search</a></td>
+<td align="right">1</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener noreferrer" href="https://github.com/Ismael-Sallami/algorithms-and-patterns/blob/main/reference/05-linked-lists/">Linked lists</a></td>
+<td align="right">2</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener noreferrer" href="https://github.com/Ismael-Sallami/algorithms-and-patterns/blob/main/reference/06-trees-and-tries/">Trees and tries</a></td>
+<td align="right">6</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener noreferrer" href="https://github.com/Ismael-Sallami/algorithms-and-patterns/blob/main/reference/07-heaps-and-priority-queues/">Heaps and priority queues</a></td>
+<td align="right">2</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener noreferrer" href="https://github.com/Ismael-Sallami/algorithms-and-patterns/blob/main/reference/08-backtracking/">Backtracking</a></td>
+<td align="right">1</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener noreferrer" href="https://github.com/Ismael-Sallami/algorithms-and-patterns/blob/main/reference/09-graphs/">Graphs</a></td>
+<td align="right">7</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener noreferrer" href="https://github.com/Ismael-Sallami/algorithms-and-patterns/blob/main/reference/10-advanced-graphs/">Advanced graphs</a></td>
+<td align="right">7</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener noreferrer" href="https://github.com/Ismael-Sallami/algorithms-and-patterns/blob/main/reference/11-dynamic-programming/">Dynamic programming</a></td>
+<td align="right">3</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener noreferrer" href="https://github.com/Ismael-Sallami/algorithms-and-patterns/blob/main/reference/12-greedy-and-intervals/">Greedy algorithms and intervals</a></td>
+<td align="right">2</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener noreferrer" href="https://github.com/Ismael-Sallami/algorithms-and-patterns/blob/main/reference/13-string-algorithms/">String algorithms</a></td>
+<td align="right">2</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener noreferrer" href="https://github.com/Ismael-Sallami/algorithms-and-patterns/blob/main/reference/14-math-and-bit-manipulation/">Mathematics and bit manipulation</a></td>
+<td align="right">2</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener noreferrer" href="https://github.com/Ismael-Sallami/algorithms-and-patterns/blob/main/reference/15-computer-architecture/">Computer architecture</a></td>
+<td align="right">9</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener noreferrer" href="https://github.com/Ismael-Sallami/algorithms-and-patterns/blob/main/reference/16-systems-primitives/">Systems primitives</a></td>
+<td align="right">2</td>
+</tr>
+</tbody>
+</table></markdown-accessiblity-table>
+<p dir="auto"><strong>Total: 198 implementations</strong> — 141 extracted, 57 written here.</p>
+<p dir="auto">Problems solved on NeetCode are tracked separately, in <a target="_blank" rel="noopener noreferrer" href="https://github.com/Ismael-Sallami/neetcode-submissions"><code class="notranslate">neetcode-submissions</code></a>: 5 at the last count.</p>
+<p dir="auto">Run <code class="notranslate">python3 scripts/count.py</code> to regenerate these tables from the directory tree.</p>
+<h2 dir="auto" id="how-to-read-this-repository">How to read this repository</h2>
+<ol dir="auto">
+<li><strong>Under <code class="notranslate">patterns/</code>, the code is copied, not rewritten.</strong> Extracts are verbatim. The only<br>
+removals are file-level includes and surrounding context belonging to the original build.<br>
+They are not standalone builds; each names its origin so it can be read in context.</li>
+<li><strong>Only my own code is extracted.</strong> Where a subject supplied a framework — the<br>
+Parchis engine, the simulation engine, the metaheuristics base classes — that<br>
+framework is referenced and never copied. What is catalogued is the part I wrote.</li>
+<li><strong>Under <code class="notranslate">reference/</code>, the code was written here and says so.</strong> No provenance link is<br>
+claimed for it, because there is none. Every file compiles with <code class="notranslate">g++ -std=c++20</code> and<br>
+exits zero, which is what its assertions check.</li>
+<li><strong>Applied work is labelled as applied.</strong> The machine learning folders call scikit-learn<br>
+and Keras; what is catalogued is the pipeline, the parameter search and the evaluation<br>
+logic, and each folder says so.</li>
+</ol>
+<h2 dir="auto" id="catalogue">Catalogue</h2>
+<p dir="auto"><a target="_blank" rel="noopener noreferrer" href="https://github.com/Ismael-Sallami/algorithms-and-patterns/blob/main/CATALOG.md"><code class="notranslate">CATALOG.md</code></a> lists every entry in one table, with its language and its origin.<br>
+Or browse by category.</p>
+<p dir="auto">Extracted from earlier work:</p>
+<ul dir="auto">
+<li><a target="_blank" rel="noopener noreferrer" href="https://github.com/Ismael-Sallami/algorithms-and-patterns/blob/main/patterns/01-graph-search/">Graph and state-space search</a> — 13</li>
+<li><a target="_blank" rel="noopener noreferrer" href="https://github.com/Ismael-Sallami/algorithms-and-patterns/blob/main/patterns/02-adversarial-search/">Adversarial search</a> — 15</li>
+<li><a target="_blank" rel="noopener noreferrer" href="https://github.com/Ismael-Sallami/algorithms-and-patterns/blob/main/patterns/03-metaheuristics/">Metaheuristics and continuous optimisation</a> — 22</li>
+<li><a target="_blank" rel="noopener noreferrer" href="https://github.com/Ismael-Sallami/algorithms-and-patterns/blob/main/patterns/04-concurrency-and-distributed/">Concurrency and distributed systems</a> — 19</li>
+<li><a target="_blank" rel="noopener noreferrer" href="https://github.com/Ismael-Sallami/algorithms-and-patterns/blob/main/patterns/05-data-structures-and-adt/">Data structures and abstract data types</a> — 23</li>
+<li><a target="_blank" rel="noopener noreferrer" href="https://github.com/Ismael-Sallami/algorithms-and-patterns/blob/main/patterns/06-applied-machine-learning/">Applied machine learning</a> — 5</li>
+<li><a target="_blank" rel="noopener noreferrer" href="https://github.com/Ismael-Sallami/algorithms-and-patterns/blob/main/patterns/07-databases-and-transactions/">Databases and transactions</a> — 11</li>
+<li><a target="_blank" rel="noopener noreferrer" href="https://github.com/Ismael-Sallami/algorithms-and-patterns/blob/main/patterns/08-application-architecture/">Application architecture</a> — 18</li>
+</ul>
+<p dir="auto">Written for this repository:</p>
+<ul dir="auto">
+<li><a target="_blank" rel="noopener noreferrer" href="https://github.com/Ismael-Sallami/algorithms-and-patterns/blob/main/reference/01-arrays-and-hashing/">Arrays and hashing</a> — 5</li>
+<li><a target="_blank" rel="noopener noreferrer" href="https://github.com/Ismael-Sallami/algorithms-and-patterns/blob/main/reference/02-two-pointers-and-sliding-window/">Two pointers and sliding window</a> — 5</li>
+<li><a target="_blank" rel="noopener noreferrer" href="https://github.com/Ismael-Sallami/algorithms-and-patterns/blob/main/reference/03-stack-and-monotonic-structures/">Stacks and monotonic structures</a> — 1</li>
+<li><a target="_blank" rel="noopener noreferrer" href="https://github.com/Ismael-Sallami/algorithms-and-patterns/blob/main/reference/04-binary-search/">Binary search</a> — 1</li>
+<li><a target="_blank" rel="noopener noreferrer" href="https://github.com/Ismael-Sallami/algorithms-and-patterns/blob/main/reference/05-linked-lists/">Linked lists</a> — 2</li>
+<li><a target="_blank" rel="noopener noreferrer" href="https://github.com/Ismael-Sallami/algorithms-and-patterns/blob/main/reference/06-trees-and-tries/">Trees and tries</a> — 6</li>
+<li><a target="_blank" rel="noopener noreferrer" href="https://github.com/Ismael-Sallami/algorithms-and-patterns/blob/main/reference/07-heaps-and-priority-queues/">Heaps and priority queues</a> — 2</li>
+<li><a target="_blank" rel="noopener noreferrer" href="https://github.com/Ismael-Sallami/algorithms-and-patterns/blob/main/reference/08-backtracking/">Backtracking</a> — 1</li>
+<li><a target="_blank" rel="noopener noreferrer" href="https://github.com/Ismael-Sallami/algorithms-and-patterns/blob/main/reference/09-graphs/">Graphs</a> — 7</li>
+<li><a target="_blank" rel="noopener noreferrer" href="https://github.com/Ismael-Sallami/algorithms-and-patterns/blob/main/reference/10-advanced-graphs/">Advanced graphs</a> — 7</li>
+<li><a target="_blank" rel="noopener noreferrer" href="https://github.com/Ismael-Sallami/algorithms-and-patterns/blob/main/reference/11-dynamic-programming/">Dynamic programming</a> — 3</li>
+<li><a target="_blank" rel="noopener noreferrer" href="https://github.com/Ismael-Sallami/algorithms-and-patterns/blob/main/reference/12-greedy-and-intervals/">Greedy algorithms and intervals</a> — 2</li>
+<li><a target="_blank" rel="noopener noreferrer" href="https://github.com/Ismael-Sallami/algorithms-and-patterns/blob/main/reference/13-string-algorithms/">String algorithms</a> — 2</li>
+<li><a target="_blank" rel="noopener noreferrer" href="https://github.com/Ismael-Sallami/algorithms-and-patterns/blob/main/reference/14-math-and-bit-manipulation/">Mathematics and bit manipulation</a> — 2</li>
+<li><a target="_blank" rel="noopener noreferrer" href="https://github.com/Ismael-Sallami/algorithms-and-patterns/blob/main/reference/15-computer-architecture/">Computer architecture</a> — 9</li>
+<li><a target="_blank" rel="noopener noreferrer" href="https://github.com/Ismael-Sallami/algorithms-and-patterns/blob/main/reference/16-systems-primitives/">Systems primitives</a> — 2</li>
+</ul>
+<h2 dir="auto" id="source-repositories">Source repositories</h2>
+<p dir="auto">Every extract under <code class="notranslate">patterns/</code> comes from one of these.</p>
+<markdown-accessiblity-table><table role="table">
+<thead>
+<tr>
+<th>Repository</th>
+<th>Content</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a target="_blank" rel="noopener noreferrer" href="https://github.com/Ismael-Sallami/parchis-ai"><code class="notranslate">parchis-ai</code></a></td>
+<td>Adversarial search agent for Parchis, a four-player board game with dice. Artificial Intelligence, 3rd year.</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener noreferrer" href="https://github.com/Ismael-Sallami/rescue-agents"><code class="notranslate">rescue-agents</code></a></td>
+<td>Reactive and deliberative agents planning over a partially known map. Artificial Intelligence, 3rd year.</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener noreferrer" href="https://github.com/Ismael-Sallami/metaheuristics"><code class="notranslate">metaheuristics</code></a></td>
+<td>Sixteen metaheuristics applied to a portfolio allocation problem. Metaheuristics, 4th year.</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener noreferrer" href="https://github.com/Ismael-Sallami/concurrency-mpi"><code class="notranslate">concurrency-mpi</code></a></td>
+<td>Classic synchronisation problems with semaphores, monitors and MPI. Concurrent and Distributed Systems, 2nd year.</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener noreferrer" href="https://github.com/Ismael-Sallami/image-adt"><code class="notranslate">image-adt</code></a></td>
+<td>Image abstract data type with manual memory management. Data Structures, 2nd year.</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener noreferrer" href="https://github.com/Ismael-Sallami/airline-routes-adt"><code class="notranslate">airline-routes-adt</code></a></td>
+<td>Air route system with custom containers and iterators. Data Structures, 2nd year.</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener noreferrer" href="https://github.com/Ismael-Sallami/machine-learning-practices"><code class="notranslate">machine-learning-practices</code></a></td>
+<td>Supervised learning, clustering and neural networks. Machine Learning, 4th year.</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener noreferrer" href="https://github.com/Ismael-Sallami/oracle-dbms-project"><code class="notranslate">oracle-dbms-project</code></a></td>
+<td>Relational schema, triggers, procedures and transactional write paths. Database Design, 3rd year.</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener noreferrer" href="https://github.com/Ismael-Sallami/personal-finance-manager"><code class="notranslate">personal-finance-manager</code></a></td>
+<td>Self-hosted finance service: broker statement parsing, money arithmetic, background jobs. Personal project.</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener noreferrer" href="https://github.com/Ismael-Sallami/media-manager"><code class="notranslate">media-manager</code></a></td>
+<td>Photo transfer and deduplication by content hash. Personal project.</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener noreferrer" href="https://github.com/Ismael-Sallami/md2html-testGenerator"><code class="notranslate">md2html-testGenerator</code></a></td>
+<td>Markdown to interactive HTML converter. Personal project.</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener noreferrer" href="https://github.com/Ismael-Sallami/pdf-to-md"><code class="notranslate">pdf-to-md</code></a></td>
+<td>PDF to Markdown converter with layered extraction fallbacks. Personal project.</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener noreferrer" href="https://github.com/Ismael-Sallami/econometric-model"><code class="notranslate">econometric-model</code></a></td>
+<td>Linear regression with assumption diagnostics. Econometrics coursework.</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener noreferrer" href="https://github.com/Ismael-Sallami/algorithm-design-techniques"><code class="notranslate">algorithm-design-techniques</code></a></td>
+<td>Divide and conquer, greedy, backtracking with branch and bound, and dynamic programming. Algorithmics, 2nd year. Team of five.</td>
+</tr>
+</tbody>
+</table></markdown-accessiblity-table>
+<h2 dir="auto" id="related">Related</h2>
+<ul dir="auto">
+<li><a target="_blank" rel="noopener noreferrer" href="https://github.com/Ismael-Sallami/neetcode-submissions"><code class="notranslate">neetcode-submissions</code></a> — solutions to<br>
+NeetCode problems, synchronised from the platform.</li>
+<li><a target="_blank" rel="noopener noreferrer" href="https://github.com/Ismael-Sallami/3-Partition-NP-Completeness"><code class="notranslate">3-Partition-NP-Completeness</code></a><br>
+— write-up of the reduction proving 3-Partition is NP-complete. Proof only, no<br>
+implementation, which is why it has no folder here.</li>
+</ul>
+<h2 dir="auto" id="licence">Licence</h2>
+<p dir="auto">MIT. See <a target="_blank" rel="noopener noreferrer" href="https://github.com/Ismael-Sallami/algorithms-and-patterns/blob/main/LICENSE"><code class="notranslate">LICENSE</code></a>.</p>
+<p dir="auto">Where a source repository was joint coursework, the extracts here are limited to the parts I<br>
+wrote. Co-authors are credited in the source repositories.</p>
+<h2 dir="auto" id="author">Author</h2>
+<p dir="auto">Ismael Sallami Moreno</p>

@@ -1,0 +1,113 @@
+<p dir="auto"><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/bff76f256c7cb22c98d20da985b6d08065937de097e23263a3885e79baf63224/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f507974686f6e2d332e31322d333737364142"><img loading="lazy" decoding="async" src="https://camo.githubusercontent.com/bff76f256c7cb22c98d20da985b6d08065937de097e23263a3885e79baf63224/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f507974686f6e2d332e31322d333737364142" alt="Python" data-canonical-src="https://img.shields.io/badge/Python-3.12-3776AB" style="max-width: 100%;"></a><br>
+<a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/8da345d270725195d11ec3ff5e56475346a687dcd1ba3eff72b78cc1671e6174/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f4f7261636c652d3233253230467265652d463830303030"><img loading="lazy" decoding="async" src="https://camo.githubusercontent.com/8da345d270725195d11ec3ff5e56475346a687dcd1ba3eff72b78cc1671e6174/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f4f7261636c652d3233253230467265652d463830303030" alt="Oracle" data-canonical-src="https://img.shields.io/badge/Oracle-23%20Free-F80000" style="max-width: 100%;"></a><br>
+<a target="_blank" rel="noopener noreferrer" href="https://github.com/Ismael-Sallami/oracle-dbms-project/actions/workflows/ci.yml"><img loading="lazy" decoding="async" src="https://camo.githubusercontent.com/bae53dc3600d3b3755aa488186361e6b6a5033045372604fcb7d602d52838704/68747470733a2f2f696d672e736869656c64732e696f2f6769746875622f616374696f6e732f776f726b666c6f772f7374617475732f49736d61656c2d53616c6c616d692f6f7261636c652d64626d732d70726f6a6563742f63692e796d6c3f6272616e63683d6d61696e266c6f676f3d676974687562266c6162656c3d636865636b73" alt="checks" data-canonical-src="https://img.shields.io/github/actions/workflow/status/Ismael-Sallami/oracle-dbms-project/ci.yml?branch=main&amp;logo=github&amp;label=checks" style="max-width: 100%;"></a><br>
+<a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/f94c5fd447e0fcdb57a248775dc35882bfe62c7b8a301d7f72b2fbd0df3d4839/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f6c6963656e73652d4d49542d346331"><img loading="lazy" decoding="async" src="https://camo.githubusercontent.com/f94c5fd447e0fcdb57a248775dc35882bfe62c7b8a301d7f72b2fbd0df3d4839/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f6c6963656e73652d4d49542d346331" alt="license" data-canonical-src="https://img.shields.io/badge/license-MIT-4c1" style="max-width: 100%;"></a></p>
+<p dir="auto">A social network built the long way round: requirements first, then data-flow diagrams, an<br>
+entity-relationship schema, normalisation, and only at the end the Oracle database and the<br>
+Python client that talks to it.</p>
+<h2 dir="auto" id="context">Context</h2>
+<p dir="auto">Coursework for <strong>Information Systems Design and Development</strong>, year 4 of the double degree<br>
+in Computer Science and Business Administration, University of Granada (2025-26).<br>
+Team work with <strong>Jesús Rodríguez González</strong>, <strong>Fernando José Gracia Choin</strong>, <strong>Sergio Calvo<br>
+González</strong> and <strong>Javier Niño Sánchez</strong>. The subsystems were split between us and each one<br>
+signs their own chapters in the reports: publications and the final write-up went to Javier,<br>
+trends to Jesús, users to Fernando, private messaging to Sergio, and advertising, the entry<br>
+point and the database connection to me.</p>
+<h2 dir="auto" id="the-problem">The problem</h2>
+<p dir="auto">Design an information system end to end, in the order the subject insists on: you do not get<br>
+to write a <code class="notranslate">CREATE TABLE</code> until the requirements, the diagrams and the normalisation say<br>
+which tables there should be.</p>
+<p dir="auto">Six subsystems: users, publications, messaging, advertising, trends and legal terms. Each<br>
+one has its own requirements, its own data-flow diagram and its own part of the schema, and<br>
+all of them share a single database.</p>
+<h2 dir="auto" id="the-solution">The solution</h2>
+<p dir="auto"><strong>The database.</strong> Fifteen tables, and the rules the model cannot express live in nine<br>
+triggers and a procedure: a user cannot befriend themselves, and so on.<br>
+<code class="notranslate">RAISE_APPLICATION_ERROR</code> is what turns a business rule into something the database refuses<br>
+instead of something the application is trusted to remember.</p>
+<p dir="auto"><strong>The client.</strong> A Python application with one package per subsystem, each with its <code class="notranslate">menu.py</code><br>
+and its <code class="notranslate">functions.py</code>, over a single connection object. Messaging encrypts the body of every<br>
+message with Fernet before it reaches the table, so the database never stores plain text.</p>
+<p dir="auto"><strong>The documents.</strong> Five deliverables in LaTeX with the whole trail of the design:<br>
+requirements and semantic constraints, black-box and level-0 and level-1 data-flow diagrams,<br>
+external schemas per process, the E/R schema, the functional dependencies and the<br>
+normalisation that produced the final tables.</p>
+<h2 dir="auto" id="layout">Layout</h2>
+<pre class="notranslate"><code class="notranslate">src/                 the Python client, one package per subsystem
+  main.py            entry point
+  db_connection.py   the connection, read from the environment
+database/            schema, triggers and procedures
+docs/practice-1      requirements, diagrams and E/R schema
+docs/practice-3      triggers, transactions and legal terms
+docs/seminar-1..2    the seminars
+docs/coursework-4    the fourth assignment
+tools/               the checks the CI runs
+</code></pre>
+<h2 dir="auto" id="requirements">Requirements</h2>
+<ul dir="auto">
+<li>Python 3.12 and the packages in <code class="notranslate">requirements.txt</code>.</li>
+<li>An Oracle database. The CI uses <code class="notranslate">gvenzl/oracle-free:slim</code>; the subject used<br>
+<code class="notranslate">oracle0.ugr.es:1521/practbd</code>.</li>
+<li>LaTeX with <code class="notranslate">minted</code> and Pygments, only to rebuild the reports.</li>
+</ul>
+<h2 dir="auto" id="build-and-run">Build and run</h2>
+<p dir="auto"><strong>Credentials come from the environment.</strong> Nothing is written in the code:</p>
+<div class="highlight highlight-source-shell" dir="auto"><pre class="notranslate">pip install -r requirements.txt
+
+<span class="pl-k">export</span> ORACLE_USER=your_user
+<span class="pl-k">export</span> ORACLE_PASSWORD=your_password
+<span class="pl-k">export</span> ORACLE_DSN=oracle0.ugr.es:1521/practbd
+
+python3 src/main.py</pre></div>
+<p dir="auto">To create the schema and load the triggers into a database of your own, and to compile the<br>
+application:</p>
+<div class="highlight highlight-source-shell" dir="auto"><pre class="notranslate">python3 tools/run-against-oracle.py     <span class="pl-c"><span class="pl-c">#</span> the same script the CI runs</span>
+bash tools/check-python.sh</pre></div>
+<h2 dir="auto" id="results">Results</h2>
+<p dir="auto">What the CI prints on every push, against a real Oracle:</p>
+<pre class="notranslate"><code class="notranslate">database/00_init_tablas.sql: 16 statements
+database/mensajeria/triggers_mensajeria.sql: 1 statements
+  known failure in database/publicaciones/triggers_publicaciones.sql: ORA-06550
+  known failure in database/publicaciones/triggers_publicaciones.sql: ORA-06550
+database/publicaciones/triggers_publicaciones.sql: 2 statements, 2 known failures
+database/publicidad/procedures_publicidad.sql: 1 statements
+database/publicidad/triggers_publicidad.sql: 3 statements
+database/tendencias/triggers_tendencias.sql: 1 statements
+database/usuarios/triggers_usuarios.sql: 1 statements
+
+45 tables and 8 triggers created, all valid
+</code></pre>
+<p dir="auto">The check is not that the SQL parses: it is that Oracle accepts it and that no trigger ends<br>
+up as an invalid object, which is what a typo in a column name produces. That is how the<br>
+<code class="notranslate">SQL_CODE</code> bug below was found, after the code had been handed in and marked.</p>
+<h2 dir="auto" id="what-we-learned">What we learned</h2>
+<ul dir="auto">
+<li>The order of the subject is the lesson. Writing requirements before tables feels slow until<br>
+normalisation changes three tables at once and not a line of code has been written yet.</li>
+<li>A rule that must always hold belongs in the database. Enforced only in the Python menus, it<br>
+is a rule the next client to connect can ignore.</li>
+<li><strong>Limitations, and the one thing that had to be fixed:</strong>
+<ul dir="auto">
+<li><strong>The delivered code had university Oracle credentials written in four files</strong>, mine and<br>
+two teammates', with the password equal to the username. They are gone from the tree and<br>
+from the history, and the connection now reads <code class="notranslate">ORACLE_USER</code>, <code class="notranslate">ORACLE_PASSWORD</code> and<br>
+<code class="notranslate">ORACLE_DSN</code> from the environment. <strong>The credentials that were published no longer work.</strong><br>
+This is the only change to what was handed in: publishing credentials is not a defect to<br>
+document, it is one to remove.</li>
+<li><strong>Two PL/SQL blocks never compiled.</strong> <code class="notranslate">database/publicaciones/triggers_publicaciones.sql</code><br>
+catches the "index already exists" error with <code class="notranslate">IF SQL_CODE != -955</code>, and PL/SQL has<br>
+<code class="notranslate">SQLCODE</code>, not <code class="notranslate">SQL_CODE</code>. Oracle raises PLS-00201 and the two indexes on <code class="notranslate">ME_GUSTA</code> are<br>
+never created. Running the SQL against a real database is what surfaced it; parsing it<br>
+would not have. Listed in <code class="notranslate">tools/known-sql-failures.txt</code> and asserted, not patched.</li>
+<li><code class="notranslate">src/publicaciones/menu_TUI.py</code> <strong>does not compile</strong>. A triple-quoted block opened to<br>
+comment out an old terminal prototype is never closed, and it swallows the rest of the<br>
+file. <code class="notranslate">tools/check-python.sh</code> asserts that failure instead of skipping it. Not patched.</li>
+<li>The application has no tests. What the checks do is compile it and exercise the database,<br>
+which is what there is to check.</li>
+<li>Identifiers, comments and the reports are in Spanish.</li>
+</ul>
+</li>
+</ul>
+<h2 dir="auto" id="authors-and-licence">Authors and licence</h2>
+<p dir="auto">Ismael Sallami Moreno, Jesús Rodríguez González, Fernando José Gracia Choin, Sergio Calvo<br>
+González and Javier Niño Sánchez. Released under the MIT licence (see <code class="notranslate">LICENSE</code>).</p>

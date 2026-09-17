@@ -1,0 +1,178 @@
+<h2 dir="auto" id="análisis-de-la-prima-de-riesgo-en-la-crisis-de-deuda-soberana-2008-2013">Análisis de la Prima de Riesgo en la Crisis de Deuda Soberana (2008-2013)</h2>
+<p dir="auto"><strong>Asignatura:</strong> Seminario de Modelización (2025-26)<br>
+<strong>Grupo:</strong> 4<br>
+<strong>Autores:</strong> Ismael Sallami Moreno &amp; David Bacas Posadas</p>
+<hr>
+<h2 dir="auto" id="acceso-inmediato-cloud">Acceso Inmediato (Cloud)</h2>
+<p dir="auto">Este proyecto ha sido desplegado en la nube. Puedes interactuar con la aplicación y visualizar los resultados sin necesidad de instalación local:</p>
+<p dir="auto"><strong><a target="_blank" rel="noopener noreferrer" href="https://emsemgrupo4.streamlit.app/" rel="nofollow">Ver aplicación web desplegada</a></strong></p>
+<blockquote>
+<p dir="auto"><strong>Advertencia:</strong> Si se opta por realizar pruebas siguiendo las siguientes guías se debe de tener un conocimiento básico sobre como gestionar entornos y demás.</p>
+</blockquote>
+<hr>
+<h2 dir="auto" id="descripción-del-proyecto">Descripción del Proyecto</h2>
+<p dir="auto">Este trabajo presenta un estudio comparativo computacional entre dos enfoques metodológicos dispares para explicar la dinámica del diferencial del bono griego a 10 años respecto al Bund alemán (Prima de Riesgo) durante los años más críticos de la crisis financiera.</p>
+<ol dir="auto">
+<li><strong>Enfoque de Econofísica:</strong> Utiliza modelos de <strong>Difusión Anómala</strong> y análisis de <em>Mean Squared Displacement</em> (MSPD) para detectar comportamientos de memoria a largo plazo (super-difusión) y leyes de potencia en la serie temporal.</li>
+<li><strong>Enfoque Econométrico:</strong> Implementa modelos de <strong>Volatilidad Estocástica GARCH(1,1)</strong> calibrados mediante inferencia Bayesiana (MCMC - Markov Chain Monte Carlo) para capturar la agrupación de volatilidad y el riesgo diario.</li>
+</ol>
+<hr>
+<h2 dir="auto" id="estructura-detallada-del-repositorio">Estructura Detallada del Repositorio</h2>
+<p dir="auto">El repositorio se divide en dos grandes bloques: <code class="notranslate">/Recursos</code> (entorno de desarrollo e investigación) y <code class="notranslate">/Seminario</code> (producto final). A continuación, se detalla la arquitectura de la carpeta de producción <strong><code class="notranslate">/Seminario</code></strong>:</p>
+<h3 dir="auto" id="seminario-entorno-de-producción"><code class="notranslate">/Seminario</code> (Entorno de Producción)</h3>
+<p dir="auto">Esta carpeta contiene la aplicación final, limpia y estructurada modularmente.</p>
+<h4 dir="auto" id="1-raíz-de-la-aplicación">1. Raíz de la Aplicación</h4>
+<ul dir="auto">
+<li><strong><code class="notranslate">Home.py</code></strong>: <strong>Punto de Entrada.</strong> Es el script principal que ejecuta Streamlit. Orquesta la navegación entre páginas y presenta la introducción institucional.</li>
+<li><strong><code class="notranslate">script.py</code></strong>: <strong>Motor de Cálculo.</strong> Este script independiente contiene la lógica pesada del proyecto. Realiza la calibración del modelo GARCH utilizando <code class="notranslate">PyMC</code>, ejecuta las cadenas de Markov (MCMC) y genera las imágenes estáticas de los resultados.</li>
+<li><strong><code class="notranslate">paper_final.pdf</code></strong>: <strong>Memoria Académica.</strong> El documento PDF final con todo el desarrollo teórico, matemático y las conclusiones del seminario.</li>
+</ul>
+<h4 dir="auto" id="2-módulos-y-código-pages">2. Módulos y Código (<code class="notranslate">/pages</code>)</h4>
+<p dir="auto">La lógica de visualización se ha desacoplado en páginas independientes para facilitar el mantenimiento:</p>
+<ul dir="auto">
+<li><strong><code class="notranslate">1_Metodologia.py</code></strong>: Expone el marco teórico. Muestra las ecuaciones de la Ley de Potencia (Econofísica) frente a la especificación GARCH (Econometría) y permite ver fragmentos de código.</li>
+<li><strong><code class="notranslate">2_Dashboard.py</code></strong>: <strong>Laboratorio Interactivo.</strong> Es el núcleo de la visualización. Carga los datos, calcula métricas en tiempo real y permite al usuario interactuar con los gráficos dinámicos de Plotly.</li>
+<li><strong><code class="notranslate">3_Documentacion.py</code></strong>: Manual técnico integrado en la web. Explica la estructura de archivos y las instrucciones de uso.</li>
+<li><strong><code class="notranslate">4_Conclusiones.py</code></strong>: Síntesis de hallazgos, tabla comparativa de errores (MSE) y agradecimientos.</li>
+</ul>
+<h4 dir="auto" id="3-datos-data">3. Datos (<code class="notranslate">/data</code>)</h4>
+<p dir="auto">Contiene la materia prima del análisis:</p>
+<ul dir="auto">
+<li><strong><code class="notranslate">germany.xlsx</code></strong>: Serie temporal histórica de los rendimientos del bono alemán (Bund) a 10 años.</li>
+<li><strong><code class="notranslate">greece.xlsx</code></strong>: Serie temporal histórica de los rendimientos del bono griego a 10 años.
+<ul dir="auto">
+<li><em>Nota:</em> Los datos son procesados y limpiados en tiempo real por el <code class="notranslate">Dashboard.py</code> para calcular el <em>Spread</em>.</li>
+</ul>
+</li>
+</ul>
+<h4 dir="auto" id="4-cuadernos-de-investigación-notebooks">4. Cuadernos de Investigación (<code class="notranslate">/Notebooks</code>)</h4>
+<ul dir="auto">
+<li><strong><code class="notranslate">Modelo.ipynb</code></strong>: <strong>Jupyter Notebook.</strong> Contiene el desarrollo "paso a paso" y pedagógico del proyecto. Ideal para entender la lógica secuencial del análisis de datos, las pruebas de difusión y la construcción del modelo Bayesiano antes de ser pasados a la web.</li>
+</ul>
+<h4 dir="auto" id="5-resultados-pre-calculados-analisisgreciacalibracionmse">5. Resultados Pre-Calculados (<code class="notranslate">/analisis_grecia_calibracion_mse</code>)</h4>
+<p dir="auto">Almacena los artefactos generados por <code class="notranslate">script.py</code>. Dado que el modelo Bayesiano tarda mucho en computar, las gráficas se guardan aquí como imágenes estáticas para que la web cargue rápido:</p>
+<ul dir="auto">
+<li><strong><code class="notranslate">Modelo_GARCH_Fit.png</code></strong>: Visualización de la volatilidad posterior estimada (traza MCMC).</li>
+<li><strong><code class="notranslate">Modelo_Difusion_Fit.png</code></strong>: Gráfica Log-Log del ajuste de la ley de potencia.</li>
+</ul>
+<h4 dir="auto" id="6-configuración-del-entorno-environmentfiles">6. Configuración del Entorno (<code class="notranslate">/environment_files</code>)</h4>
+<p dir="auto">Archivos necesarios para replicar el entorno de Python exacto:</p>
+<ul dir="auto">
+<li><strong><code class="notranslate">environment.yml</code></strong>: Lista completa de dependencias (Streamlit, PyMC, ArviZ, Plotly, etc.) para Anaconda.</li>
+<li><strong><code class="notranslate">ActivarEntorno.sh</code> / <code class="notranslate">DesactivarEntorno.sh</code></strong>: Scripts auxiliares para gestión manual del entorno.</li>
+</ul>
+<h4 dir="auto" id="7-automatización-installers">7. Automatización (<code class="notranslate">/installers</code>)</h4>
+<p dir="auto">Scripts para facilitar la ejecución a usuarios sin experiencia técnica:</p>
+<ul dir="auto">
+<li><strong><code class="notranslate">setup_windows.bat</code></strong>: Instalador "doble clic" para Windows.</li>
+<li><strong><code class="notranslate">setup_unix.sh</code></strong>: Instalador automático para Linux y macOS.</li>
+</ul>
+<h4 dir="auto" id="8-recursos-web-webfiles">8. Recursos Web (<code class="notranslate">/web_files</code>)</h4>
+<ul dir="auto">
+<li><strong><code class="notranslate">Crisis_de_la_Deuda_Griega.mp4</code></strong>: Video generado por IA (Avatar) que se reproduce en la portada de la aplicación.</li>
+</ul>
+<h4 dir="auto" id="9-código-fuente-latex-documentacionlatex">9. Código Fuente LaTeX (<code class="notranslate">/Documentacion_LaTeX...</code>)</h4>
+<p dir="auto">Contiene todos los archivos <code class="notranslate">.tex</code>, <code class="notranslate">.bib</code> y recursos vectoriales necesarios para compilar el <code class="notranslate">paper_final.pdf</code>.</p>
+<hr>
+<h2 dir="auto" id="guía-de-instalación-y-ejecución-local">Guía de Instalación y Ejecución Local</h2>
+<p dir="auto">Si deseas ejecutar el proyecto en tu propio ordenador, sigue estos pasos. Es necesario situarse dentro de la estructura del proyecto.</p>
+<h3 dir="auto" id="a-ejecución-automática-recomendada">A. Ejecución Automática (Recomendada)</h3>
+<p dir="auto">Estos scripts configuran el entorno y lanzan la aplicación automáticamente.</p>
+<ul dir="auto">
+<li>
+<p dir="auto"><strong>Windows:</strong></p>
+<ol dir="auto">
+<li>Navega a la carpeta <code class="notranslate">Seminario/installers</code>.</li>
+<li>Haz doble clic en <code class="notranslate">setup_windows.bat</code>.</li>
+</ol>
+</li>
+<li>
+<p dir="auto"><strong>Linux / macOS:</strong></p>
+<ol dir="auto">
+<li>Abre una terminal en la raíz del repositorio.</li>
+<li>Ejecuta:
+<div class="highlight highlight-source-shell" dir="auto"><pre class="notranslate">bash Seminario/installers/setup_unix.sh</pre></div>
+</li>
+</ol>
+<blockquote>
+<p dir="auto">Nota: Debes de tener conda o miniconda instalado.</p>
+</blockquote>
+</li>
+</ul>
+<h3 dir="auto" id="b-ejecución-manual-expertos">B. Ejecución Manual (Expertos)</h3>
+<p dir="auto">Si prefieres usar la terminal paso a paso:</p>
+<ol dir="auto">
+<li><strong>Crear el entorno Conda:</strong>
+<div class="highlight highlight-source-shell" dir="auto"><pre class="notranslate">conda env create -f Seminario/environment_files/environment.yml</pre></div>
+</li>
+<li><strong>Activar el entorno:</strong>
+<div class="highlight highlight-source-shell" dir="auto"><pre class="notranslate">conda activate Seminario_EM</pre></div>
+</li>
+<li><strong>Lanzar la aplicación:</strong><br>
+Es importante ejecutar el comando apuntando al archivo <code class="notranslate">Home.py</code> dentro de la carpeta <code class="notranslate">Seminario</code>.
+<div class="highlight highlight-source-shell" dir="auto"><pre class="notranslate">streamlit run Seminario/Home.py</pre></div>
+</li>
+</ol>
+<h3 dir="auto" id="c-ejecución-ultra-rápida-con-uv-experimental-moderno">C. Ejecución Ultra-Rápida con <code class="notranslate">uv</code> (Experimental / Moderno)</h3>
+<p dir="auto">Para usuarios avanzados que deseen tiempos de instalación casi instantáneos, soportamos <strong>uv</strong>, un gestor de paquetes de nueva generación escrito en Rust.</p>
+<ol dir="auto">
+<li>
+<p dir="auto"><strong>Instalar uv</strong> (si no lo tienes):</p>
+<div class="highlight highlight-source-shell" dir="auto"><pre class="notranslate">pip install uv</pre></div>
+</li>
+<li>
+<p dir="auto"><strong>Configurar y Ejecutar (en segundos):</strong></p>
+<div class="highlight highlight-source-shell" dir="auto"><pre class="notranslate"><span class="pl-c1">cd</span> Seminario
+
+<span class="pl-c"><span class="pl-c">#</span> 1. Crear entorno virtual</span>
+uv venv
+
+<span class="pl-c"><span class="pl-c">#</span> 2. Activar entorno</span>
+<span class="pl-c"><span class="pl-c">#</span> Windows:</span>
+.venv<span class="pl-cce">\S</span>cripts<span class="pl-cce">\a</span>ctivate
+<span class="pl-c"><span class="pl-c">#</span> Linux/Mac:</span>
+<span class="pl-c1">source</span> .venv/bin/activate
+
+<span class="pl-c"><span class="pl-c">#</span> 3. Instalar dependencias a velocidad luz</span>
+uv pip install -r requirements.txt
+
+<span class="pl-c"><span class="pl-c">#</span> 4. Lanzar</span>
+streamlit run Home.py</pre></div>
+</li>
+</ol>
+<hr>
+<blockquote>
+<p dir="auto">Alternativamente, si ya dispones de las dependencias instaladas (por ejemplo, <code class="notranslate">streamlit</code>, <code class="notranslate">pymc</code>, <code class="notranslate">plotly</code>, etc.), puedes lanzar la aplicación invocando Streamlit como módulo de Python. Nótese que una aplicación Streamlit no se ejecuta con <code class="notranslate">python Home.py</code>, sino a través de Streamlit:</p>
+<div class="highlight highlight-source-shell" dir="auto"><pre class="notranslate">python -m streamlit run Seminario/Home.py</pre></div>
+<p dir="auto">El motor de cálculo (<code class="notranslate">script.py</code>) sí es un script independiente y puede ejecutarse directamente con Python. Debe lanzarse desde dentro de la carpeta <code class="notranslate">Seminario</code>, ya que utiliza rutas relativas hacia <code class="notranslate">data/</code>:</p>
+<div class="highlight highlight-source-shell" dir="auto"><pre class="notranslate"><span class="pl-c1">cd</span> Seminario
+python3 script.py</pre></div>
+</blockquote>
+<hr>
+<h2 dir="auto" id="resumen-de-resultados-técnicos">Resumen de Resultados Técnicos</h2>
+<markdown-accessiblity-table><table role="table">
+<thead>
+<tr>
+<th>Modelo</th>
+<th>Parámetro Clave</th>
+<th>MSE (Error)</th>
+<th>Interpretación del Hallazgo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Difusión (Física)</strong></td>
+<td><math-renderer class="js-inline-math" style="display: inline-block" data-run-id="5490e41a5faccb7abe12a7e2b1176fc5">$\alpha \approx 0.94$</math-renderer></td>
+<td><strong>8.39</strong></td>
+<td>El exponente cercano a 1 indica <strong>super-difusión</strong>. Los shocks en la prima de riesgo tienen memoria y persisten en el tiempo.</td>
+</tr>
+<tr>
+<td><strong>GARCH (Bayesiano)</strong></td>
+<td><math-renderer class="js-inline-math" style="display: inline-block" data-run-id="5490e41a5faccb7abe12a7e2b1176fc5">$\hat{R} \approx 1.01$</math-renderer></td>
+<td>1692.09</td>
+<td>El modelo captura bien los clústeres de volatilidad, pero el alto MSE refleja la dificultad de predecir el ruido diario exacto en crisis.</td>
+</tr>
+</tbody>
+</table></markdown-accessiblity-table>
+<hr>
+<p dir="auto"><strong>Licencia:</strong> Uso académico para el Seminario de Modelización - Universidad de Granada.</p>

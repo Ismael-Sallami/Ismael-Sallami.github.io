@@ -1,0 +1,177 @@
+<p dir="auto"><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/de46ba19791c1205ed390233fcbb27c9d8ff94b7417310241eb645f09acf2d95/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f417263685f4c696e75782d3137393344313f6c6f676f3d617263682d6c696e7578266c6f676f436f6c6f723d7768697465"><img loading="lazy" decoding="async" src="https://camo.githubusercontent.com/de46ba19791c1205ed390233fcbb27c9d8ff94b7417310241eb645f09acf2d95/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f417263685f4c696e75782d3137393344313f6c6f676f3d617263682d6c696e7578266c6f676f436f6c6f723d7768697465" alt="Arch Linux" data-canonical-src="https://img.shields.io/badge/Arch_Linux-1793D1?logo=arch-linux&amp;logoColor=white" style="max-width: 100%;"></a><br>
+<a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/e4e518312957f04171185b7b3dfe838730f2acac7bf2a5ea33547b12e9e3c037/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f487970726c616e642d5761796c616e642d353845314646"><img loading="lazy" decoding="async" src="https://camo.githubusercontent.com/e4e518312957f04171185b7b3dfe838730f2acac7bf2a5ea33547b12e9e3c037/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f487970726c616e642d5761796c616e642d353845314646" alt="Hyprland" data-canonical-src="https://img.shields.io/badge/Hyprland-Wayland-58E1FF" style="max-width: 100%;"></a><br>
+<a target="_blank" rel="noopener noreferrer" href="https://github.com/Ismael-Sallami/Arch_Configuration/actions/workflows/ci.yml"><img loading="lazy" decoding="async" src="https://camo.githubusercontent.com/53539885519d165a355c9b70f187e832cc78853e4999844c9da06c39944e098b/68747470733a2f2f696d672e736869656c64732e696f2f6769746875622f616374696f6e732f776f726b666c6f772f7374617475732f49736d61656c2d53616c6c616d692f417263685f436f6e66696775726174696f6e2f63692e796d6c3f6272616e63683d6d61696e266c6f676f3d676974687562266c6162656c3d636865636b73" alt="checks" data-canonical-src="https://img.shields.io/github/actions/workflow/status/Ismael-Sallami/Arch_Configuration/ci.yml?branch=main&amp;logo=github&amp;label=checks" style="max-width: 100%;"></a><br>
+<a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/f94c5fd447e0fcdb57a248775dc35882bfe62c7b8a301d7f72b2fbd0df3d4839/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f6c6963656e73652d4d49542d346331"><img loading="lazy" decoding="async" src="https://camo.githubusercontent.com/f94c5fd447e0fcdb57a248775dc35882bfe62c7b8a301d7f72b2fbd0df3d4839/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f6c6963656e73652d4d49542d346331" alt="license" data-canonical-src="https://img.shields.io/badge/license-MIT-4c1" style="max-width: 100%;"></a></p>
+<p dir="auto">My Arch Linux desktop: Hyprland on Wayland, Waybar, kitty, and the handful of shell scripts<br>
+that put battery, brightness and volume into notifications.</p>
+<h2 dir="auto" id="context">Context</h2>
+<p dir="auto">A daily-driver laptop setup, kept in git so a reinstall is an afternoon and not a weekend.<br>
+It is a personal repository, not a distribution: it is here to be read and borrowed from,<br>
+and to survive my next reinstall.</p>
+<h2 dir="auto" id="the-problem">The problem</h2>
+<p dir="auto">A desktop built this way is thirty small files that only make sense together, and they rot<br>
+in two ways. They drift, because the copy that runs is not the copy that is stored. And they<br>
+stop being portable, because absolute paths creep in: this repository shipped for two years<br>
+with notification icons pointing at <code class="notranslate">/home/jose</code>, inherited from someone else's dotfiles.<br>
+Nothing failed, the notifications just came up with no icon.</p>
+<h2 dir="auto" id="the-solution">The solution</h2>
+<p dir="auto"><strong>The tree mirrors <code class="notranslate">~/.config</code>, and installs as symlinks.</strong> Everything under <code class="notranslate">config/</code> maps<br>
+one to one, so the configuration that runs is the file in the repository. Edit one and you<br>
+have edited the other; there is no copying step to forget.</p>
+<p dir="auto"><strong>No absolute paths.</strong> Every reference goes through <code class="notranslate">$HOME</code>, so the setup works for anyone<br>
+who clones it. <code class="notranslate">tools/check.sh</code> greps for <code class="notranslate">/home/&lt;user&gt;</code> and fails if one comes back, which<br>
+is the only way that class of bug does not return quietly.</p>
+<p dir="auto"><strong>Other people's work is not vendored.</strong> The repository used to carry copies of<br>
+<code class="notranslate">/usr/share/zsh</code> and <code class="notranslate">/usr/share/sddm</code> — 1,872 files and 111 MB, of which about fifty were<br>
+mine — plus the same sddm theme three times over. All of that is a <code class="notranslate">pacman</code> command away and<br>
+is now written down in <a target="_blank" rel="noopener noreferrer" href="https://github.com/Ismael-Sallami/Arch_Configuration/blob/main/docs/install.md"><code class="notranslate">docs/install.md</code></a> instead.</p>
+<p dir="auto"><strong>What the CI can check, it checks.</strong> No runner starts Hyprland, but shellcheck reads every<br>
+script, the waybar configuration is parsed as JSONC, and the portability grep runs. Hence the<br>
+<code class="notranslate">checks</code> badge rather than <code class="notranslate">tests</code>.</p>
+<h2 dir="auto" id="layout">Layout</h2>
+<pre class="notranslate"><code class="notranslate">config/hypr/         Hyprland: monitors, keybindings, workspaces
+config/waybar/       three bars, their styles and their scripts
+config/kitty/        the terminal and its colour themes
+config/scripts/      battery, brightness, volume, screenshots, lock, and the icons
+config/rofi/         config.rasi. The launchers are third-party, see docs/install.md
+config/ranger/       the file manager, as ranger --copy-config writes it
+config/nvim/         the LazyVim starter, with the plugin versions pinned
+config/waypaper/     wallpaper picker
+config/lazygit/      git TUI
+config/wallpapers/   the wallpaper the compositor and the lock screen use
+grub/default         goes to /etc/default/grub
+docs/install.md      packages, symlinks and the themes that are not here
+tools/check.sh       what the CI runs
+</code></pre>
+<h2 dir="auto" id="requirements">Requirements</h2>
+<ul dir="auto">
+<li>Arch Linux with Wayland</li>
+<li><code class="notranslate">hyprland</code>, <code class="notranslate">waybar</code>, <code class="notranslate">kitty</code>, <code class="notranslate">wofi</code>, <code class="notranslate">rofi-wayland</code>, <code class="notranslate">ranger</code>, <code class="notranslate">dunst</code>, <code class="notranslate">waypaper</code></li>
+<li>For the scripts: <code class="notranslate">pamixer</code>, <code class="notranslate">light</code>, <code class="notranslate">acpi</code>, <code class="notranslate">playerctl</code>, <code class="notranslate">brightnessctl</code>, <code class="notranslate">swaylock</code>,<br>
+<code class="notranslate">swayidle</code>, <code class="notranslate">xautolock</code>, <code class="notranslate">grim</code>, <code class="notranslate">slurp</code>, <code class="notranslate">libcanberra</code></li>
+</ul>
+<p dir="auto">The full list, with what each package is for, is in <a target="_blank" rel="noopener noreferrer" href="https://github.com/Ismael-Sallami/Arch_Configuration/blob/main/docs/install.md"><code class="notranslate">docs/install.md</code></a>.</p>
+<h2 dir="auto" id="build-and-run">Build and run</h2>
+<div class="highlight highlight-source-shell" dir="auto"><pre class="notranslate">git clone https://github.com/Ismael-Sallami/Arch_Configuration.git
+<span class="pl-c1">cd</span> Arch_Configuration
+
+<span class="pl-c"><span class="pl-c">#</span> back up what you have, then link config/* into ~/.config</span>
+<span class="pl-k">for</span> <span class="pl-smi">d</span> <span class="pl-k">in</span> config/<span class="pl-k">*</span>/<span class="pl-k">;</span> <span class="pl-k">do</span>
+  name=<span class="pl-s"><span class="pl-pds">$(</span>basename <span class="pl-s"><span class="pl-pds">"</span><span class="pl-smi">$d</span><span class="pl-pds">"</span></span><span class="pl-pds">)</span></span>
+  [ <span class="pl-k">-e</span> <span class="pl-s"><span class="pl-pds">"</span><span class="pl-smi">$HOME</span>/.config/<span class="pl-smi">$name</span><span class="pl-pds">"</span></span> ] <span class="pl-k">&amp;&amp;</span> mv <span class="pl-s"><span class="pl-pds">"</span><span class="pl-smi">$HOME</span>/.config/<span class="pl-smi">$name</span><span class="pl-pds">"</span></span> <span class="pl-s"><span class="pl-pds">"</span><span class="pl-smi">$HOME</span>/.config/<span class="pl-smi">$name</span>.bak<span class="pl-pds">"</span></span>
+  ln -s <span class="pl-s"><span class="pl-pds">"</span><span class="pl-smi">$PWD</span>/<span class="pl-smi">$d</span><span class="pl-pds">"</span></span> <span class="pl-s"><span class="pl-pds">"</span><span class="pl-smi">$HOME</span>/.config/<span class="pl-smi">$name</span><span class="pl-pds">"</span></span>
+<span class="pl-k">done</span></pre></div>
+<p dir="auto">Log out and pick Hyprland. Running the checks:</p>
+<div class="highlight highlight-source-shell" dir="auto"><pre class="notranslate">bash tools/check.sh</pre></div>
+<h2 dir="auto" id="results">Results</h2>
+<p dir="auto">The keybindings, read out of <code class="notranslate">config/hypr/hyprland.conf</code> rather than remembered:</p>
+<markdown-accessiblity-table><table role="table">
+<thead>
+<tr>
+<th>Keys</th>
+<th>What it does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code class="notranslate">SUPER + Return</code></td>
+<td>kitty</td>
+</tr>
+<tr>
+<td><code class="notranslate">SUPER + Q</code></td>
+<td>Close the window</td>
+</tr>
+<tr>
+<td><code class="notranslate">SUPER + R</code></td>
+<td>wofi launcher</td>
+</tr>
+<tr>
+<td><code class="notranslate">SUPER + D</code></td>
+<td>rofi launcher, type 5</td>
+</tr>
+<tr>
+<td><code class="notranslate">SUPER + E</code></td>
+<td>File manager</td>
+</tr>
+<tr>
+<td><code class="notranslate">SUPER + F</code></td>
+<td>Firefox</td>
+</tr>
+<tr>
+<td><code class="notranslate">SUPER + V</code> / <code class="notranslate">SUPER + Space</code></td>
+<td>Float the window</td>
+</tr>
+<tr>
+<td><code class="notranslate">SUPER + J</code> / <code class="notranslate">SUPER + P</code></td>
+<td>Split, pseudo-tile</td>
+</tr>
+<tr>
+<td><code class="notranslate">SUPER + arrows</code></td>
+<td>Move the focus</td>
+</tr>
+<tr>
+<td><code class="notranslate">SUPER + h</code> / <code class="notranslate">SUPER + l</code></td>
+<td>Resize by 30 px</td>
+</tr>
+<tr>
+<td><code class="notranslate">SUPER + 1…0</code></td>
+<td>Go to workspace</td>
+</tr>
+<tr>
+<td><code class="notranslate">SUPER + SHIFT + 1…0</code></td>
+<td>Send the window to a workspace</td>
+</tr>
+<tr>
+<td><code class="notranslate">SUPER + S</code></td>
+<td>Scratchpad</td>
+</tr>
+<tr>
+<td><code class="notranslate">SUPER + M</code></td>
+<td>Leave Hyprland</td>
+</tr>
+<tr>
+<td><code class="notranslate">Print</code></td>
+<td>Screenshot, through <code class="notranslate">screenshot.sh</code></td>
+</tr>
+</tbody>
+</table></markdown-accessiblity-table>
+<p dir="auto">Volume, brightness and media keys go through <code class="notranslate">wpctl</code>, <code class="notranslate">brightnessctl</code> and <code class="notranslate">playerctl</code><br>
+straight from the compositor, and the scripts add the notification with its icon.</p>
+<p dir="auto">What <code class="notranslate">tools/check.sh</code> prints, which is what the CI runs on every push:</p>
+<pre class="notranslate"><code class="notranslate">── shellcheck
+  ok    config/scripts/autolock
+  ok    config/scripts/battery.sh
+  …
+── los config de waybar son JSONC
+  ok    config/waybar/config.jsonc
+── portabilidad
+  ok    ninguna ruta /home/&lt;usuario&gt;
+── lo que la configuracion referencia esta en el repositorio
+  ok    config/wallpapers/wallpaper.png
+  ok    config/scripts/icons
+</code></pre>
+<h2 dir="auto" id="what-i-learned">What I learned</h2>
+<ul dir="auto">
+<li>A dotfiles repository is worth exactly what it can rebuild. Everything it points at and<br>
+does not carry — a wallpaper in <code class="notranslate">~/Imágenes</code>, a theme installed by hand — is a step you<br>
+will have forgotten by the next reinstall.</li>
+<li>Copying a folder out of <code class="notranslate">/usr/share</code> feels like backing it up and is only weight. The<br>
+package manager already has it, and better versioned than you do.</li>
+<li>The bugs that survive longest are the ones that fail silently. <code class="notranslate">dunstify -i</code> with a path<br>
+that does not exist shows the notification without an icon and returns success, which is<br>
+why <code class="notranslate">/home/jose</code> lasted two years.</li>
+<li><strong>Limitations:</strong>
+<ul dir="auto">
+<li><code class="notranslate">config/nvim/</code> and <code class="notranslate">config/ranger/</code> are the upstream starters with nothing customised.<br>
+They are here so a fresh machine matches, not because there is anything to read in them.</li>
+<li>The monitor layout is a laptop's: <code class="notranslate">eDP-1</code> at 1920x1080. An external screen needs the<br>
+<code class="notranslate">monitor=</code> line changed.</li>
+<li>Comments in the configuration files are in Spanish.</li>
+<li>The CI checks syntax and portability. Whether the desktop actually comes up is something<br>
+only the machine can answer.</li>
+</ul>
+</li>
+</ul>
+<h2 dir="auto" id="author-and-licence">Author and licence</h2>
+<p dir="auto">Ismael Sallami Moreno. Released under the MIT licence (see <code class="notranslate">LICENSE</code>), except<br>
+<code class="notranslate">config/nvim/</code>, which keeps the licence of the LazyVim starter it came from.</p>

@@ -1,0 +1,114 @@
+<p align="center" dir="auto">
+  <a target="_blank" rel="noopener noreferrer" href="https://github.com/Ismael-Sallami/media-manager/blob/main/assets/icons.gif"><img loading="lazy" decoding="async" src="https://raw.githubusercontent.com/Ismael-Sallami/media-manager/main/assets/icons.gif" alt="" width="150" data-animated-image="" style="max-width: 100%;"></a>
+  <a target="_blank" rel="noopener noreferrer" href="https://github.com/Ismael-Sallami/media-manager/blob/main/assets/transfer.gif"><img loading="lazy" decoding="async" src="https://raw.githubusercontent.com/Ismael-Sallami/media-manager/main/assets/transfer.gif" alt="" width="150" data-animated-image="" style="max-width: 100%;"></a>
+</p>
+<p dir="auto"><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/9c741703ad9c7619e038b01e7b56bf830fc8a3f8031931978dd369129836f810/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f504f5349585f73682d344541413235"><img loading="lazy" decoding="async" src="https://camo.githubusercontent.com/9c741703ad9c7619e038b01e7b56bf830fc8a3f8031931978dd369129836f810/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f504f5349585f73682d344541413235" alt="Shell" data-canonical-src="https://img.shields.io/badge/POSIX_sh-4EAA25" style="max-width: 100%;"></a><br>
+<a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/bff76f256c7cb22c98d20da985b6d08065937de097e23263a3885e79baf63224/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f507974686f6e2d332e31322d333737364142"><img loading="lazy" decoding="async" src="https://camo.githubusercontent.com/bff76f256c7cb22c98d20da985b6d08065937de097e23263a3885e79baf63224/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f507974686f6e2d332e31322d333737364142" alt="Python" data-canonical-src="https://img.shields.io/badge/Python-3.12-3776AB" style="max-width: 100%;"></a><br>
+<a target="_blank" rel="noopener noreferrer" href="https://github.com/Ismael-Sallami/media-manager/actions/workflows/ci.yml"><img loading="lazy" decoding="async" src="https://camo.githubusercontent.com/93348212cab1734c30d005c602bd18eb613d311a3654851a5e9eae7b4a2b6275/68747470733a2f2f696d672e736869656c64732e696f2f6769746875622f616374696f6e732f776f726b666c6f772f7374617475732f49736d61656c2d53616c6c616d692f6d656469612d6d616e616765722f63692e796d6c3f6272616e63683d6d61696e266c6f676f3d676974687562266c6162656c3d7465737473" alt="tests" data-canonical-src="https://img.shields.io/github/actions/workflow/status/Ismael-Sallami/media-manager/ci.yml?branch=main&amp;logo=github&amp;label=tests" style="max-width: 100%;"></a><br>
+<a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/f94c5fd447e0fcdb57a248775dc35882bfe62c7b8a301d7f72b2fbd0df3d4839/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f6c6963656e73652d4d49542d346331"><img loading="lazy" decoding="async" src="https://camo.githubusercontent.com/f94c5fd447e0fcdb57a248775dc35882bfe62c7b8a301d7f72b2fbd0df3d4839/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f6c6963656e73652d4d49542d346331" alt="license" data-canonical-src="https://img.shields.io/badge/license-MIT-4c1" style="max-width: 100%;"></a></p>
+<p dir="auto">Moves the photos off a phone and onto a computer, finds the duplicates by content rather than<br>
+by name, frees the space they were taking, and can leave the result in an encrypted archive.</p>
+<h2 dir="auto" id="context">Context</h2>
+<p dir="auto">A tool of my own, not coursework. When a phone fills up the options are paying for cloud<br>
+storage every month, deleting things by hand, or moving them somewhere yourself. This is the<br>
+third one, automated, so that "I will sort the photos out one day" stops being a decision.</p>
+<h2 dir="auto" id="the-problem">The problem</h2>
+<p dir="auto">Copying is the easy part. The problem is knowing what you already copied.</p>
+<p dir="auto">Photos change name as they move between devices: the same picture is <code class="notranslate">IMG_0421.jpg</code> on the<br>
+phone and <code class="notranslate">20240613_182233.jpg</code> on the computer. Compare by name and you copy it twice.<br>
+Compare by size and two different photos of the same burst look identical. And you cannot<br>
+delete anything from the phone until you are sure, byte for byte, that it is somewhere else.</p>
+<h2 dir="auto" id="the-solution">The solution</h2>
+<p dir="auto"><strong>Identity is the content, not the name.</strong> Every file is reduced to the MD5 of its bytes, so<br>
+a photo that was renamed on the way is still recognised as the same photo, and two different<br>
+files that happen to share a name are not confused. That is what makes it safe to delete from<br>
+the source afterwards.</p>
+<p dir="auto"><strong>Deleting is a budget, not a switch.</strong> Rather than "delete duplicates", you say how much<br>
+space you want back — <code class="notranslate">ALL</code>, <code class="notranslate">5GB</code>, <code class="notranslate">50%</code> — and it deletes the largest duplicates first until<br>
+it gets there. You free what you needed and keep the rest where it is.</p>
+<p dir="auto"><strong>Nothing is deleted that is not somewhere else.</strong> The clean step only ever considers files<br>
+that are already in the destination, checked by hash if you ask for it.</p>
+<p dir="auto"><strong>The archive is encrypted with AES-256</strong>, through <code class="notranslate">gpg</code>, and the password is fed in over a<br>
+pipe. Both details matter: the previous version used <code class="notranslate">zip -P</code>, which is ZipCrypto — broken<br>
+for decades, and recoverable from a single known file inside the archive — and it passed the<br>
+password as a command-line argument, where anyone running <code class="notranslate">ps</code> could read it.</p>
+<h2 dir="auto" id="layout">Layout</h2>
+<pre class="notranslate"><code class="notranslate">media-manager.sh          the flow: copy, compare, clean, archive, encrypt
+src/copy_images.py        copies, skipping what is already there by hash
+src/compare.py            reports what is in one side and not the other
+src/clean.py              deletes duplicates from the source, up to a budget
+paths.txt                 source on line 1, destination on line 2
+tests/test_flow.sh        the whole flow over throwaway folders
+docs/connecting-a-phone.md   mounting an iPhone or Android, and Windows paths
+</code></pre>
+<h2 dir="auto" id="requirements">Requirements</h2>
+<ul dir="auto">
+<li>A POSIX shell, <code class="notranslate">zip</code> and <code class="notranslate">gnupg</code></li>
+<li>Python 3.12, standard library only</li>
+<li>For a phone: <code class="notranslate">ifuse</code>, <code class="notranslate">usbmuxd</code> and <code class="notranslate">libimobiledevice</code> on iPhone. See<br>
+<a target="_blank" rel="noopener noreferrer" href="https://github.com/Ismael-Sallami/media-manager/blob/main/docs/connecting-a-phone.md"><code class="notranslate">docs/connecting-a-phone.md</code></a></li>
+</ul>
+<h2 dir="auto" id="build-and-run">Build and run</h2>
+<p dir="auto">Put the two paths in <code class="notranslate">paths.txt</code>:</p>
+<pre class="notranslate"><code class="notranslate">/home/you/iphone/DCIM
+/home/you/Pictures/phone
+</code></pre>
+<p dir="auto">Then pick how much you want it to do:</p>
+<div class="highlight highlight-source-shell" dir="auto"><pre class="notranslate">./media-manager.sh                       <span class="pl-c"><span class="pl-c">#</span> everything, asking as it goes</span>
+./media-manager.sh --comparar            <span class="pl-c"><span class="pl-c">#</span> only report the differences</span>
+./media-manager.sh --zip                 <span class="pl-c"><span class="pl-c">#</span> copy, compare and archive</span>
+./media-manager.sh --zip --encriptar     <span class="pl-c"><span class="pl-c">#</span> and encrypt the archive</span>
+./media-manager.sh --limpiar --zip --encriptar   <span class="pl-c"><span class="pl-c">#</span> the lot</span></pre></div>
+<p dir="auto">One step at a time, when you know what you want:</p>
+<div class="highlight highlight-source-shell" dir="auto"><pre class="notranslate">./media-manager.sh --only-copiar
+./media-manager.sh --only-comparar
+./media-manager.sh --only-limpiar
+./media-manager.sh --only-zip
+./media-manager.sh --only-encriptar backup_20240613_182233.zip   <span class="pl-c"><span class="pl-c">#</span> or the latest one</span></pre></div>
+<p dir="auto">Decrypting is plain <code class="notranslate">gpg</code>, with nothing of this tool involved:</p>
+<div class="highlight highlight-source-shell" dir="auto"><pre class="notranslate">gpg -d -o photos.zip backup_20240613_182233.zip.gpg</pre></div>
+<p dir="auto">Running the tests:</p>
+<div class="highlight highlight-source-shell" dir="auto"><pre class="notranslate">sh tests/test_flow.sh</pre></div>
+<h2 dir="auto" id="results">Results</h2>
+<p dir="auto">What <code class="notranslate">sh tests/test_flow.sh</code> prints, which is also what the CI runs on every push:</p>
+<pre class="notranslate"><code class="notranslate">── copiar
+  ok    copia el .jpg
+  ok    copia el .png del subdir
+  ok    ignora lo que no es imagen
+── comparar
+  ok    señala el fichero que esta en origen y no en destino
+  ok    no señala los que si estan copiados
+── el duplicado se detecta por contenido, no por nombre
+  ok    borra el duplicado renombrado
+── cifrado
+  ok    crea el fichero cifrado
+  ok    borra el zip sin cifrar
+  ok    no descifra con la contraseña equivocada
+  ok    descifra con la buena
+  ok    y el zip sigue siendo valido
+  ok    los nombres de dentro no se leen
+</code></pre>
+<p dir="auto">The duplicate in that run is a copy of <code class="notranslate">uno.jpg</code> renamed to <code class="notranslate">IMG_9999.jpg</code>: it is the case<br>
+the whole tool exists for, so it is the one the test insists on.</p>
+<h2 dir="auto" id="what-i-learned">What I learned</h2>
+<ul dir="auto">
+<li>Hashing the content is the entire idea, and it is six lines. Everything else in the tool is<br>
+the interface around that one decision.</li>
+<li>"Free 5 GB" is a better question to ask a user than "delete duplicates?". The second one<br>
+demands a leap of faith; the first one has an answer you already know.</li>
+<li>Shipping encryption is easy to get wrong in a way that still looks like it works. <code class="notranslate">zip -P</code><br>
+produced a file that asked for a password, so it looked encrypted, and was not.</li>
+<li><strong>Limitations:</strong>
+<ul dir="auto">
+<li>MD5 is the right tool here — it identifies files, it is not guarding against anyone — but<br>
+it would be the wrong one if the point were to detect tampering.</li>
+<li>The copy step reads a whole directory tree into memory before it starts. Fine for a phone,<br>
+not for a NAS.</li>
+<li>There is no dry run: the clean step tells you what it will delete and asks, and that is<br>
+the only brake.</li>
+<li>The messages and the options are in Spanish, which is how I use it.</li>
+</ul>
+</li>
+</ul>
+<h2 dir="auto" id="author-and-licence">Author and licence</h2>
+<p dir="auto">Ismael Sallami Moreno. Released under the MIT licence (see <code class="notranslate">LICENSE</code>).</p>

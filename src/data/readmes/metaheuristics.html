@@ -1,0 +1,162 @@
+<p dir="auto"><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/e33b9a8c0e7597eddea4bc9442c9193c78bb91748ac432793b91fc127db6f0a0/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f432532422532422d31372d303035393943"><img loading="lazy" decoding="async" src="https://camo.githubusercontent.com/e33b9a8c0e7597eddea4bc9442c9193c78bb91748ac432793b91fc127db6f0a0/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f432532422532422d31372d303035393943" alt="C++" data-canonical-src="https://img.shields.io/badge/C%2B%2B-17-00599C" style="max-width: 100%;"></a><br>
+<a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/62190e1150aa6addc205ab165f4edc9035f831732674780a32154c0b314c6f0c/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f434d616b652d332e32382d303634463843"><img loading="lazy" decoding="async" src="https://camo.githubusercontent.com/62190e1150aa6addc205ab165f4edc9035f831732674780a32154c0b314c6f0c/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f434d616b652d332e32382d303634463843" alt="CMake" data-canonical-src="https://img.shields.io/badge/CMake-3.28-064F8C" style="max-width: 100%;"></a><br>
+<a target="_blank" rel="noopener noreferrer" href="https://github.com/Ismael-Sallami/metaheuristics/actions/workflows/ci.yml"><img loading="lazy" decoding="async" src="https://camo.githubusercontent.com/edb24d5f900282b1ab460f125513dd082630f297159edcdede08073fc237845a/68747470733a2f2f696d672e736869656c64732e696f2f6769746875622f616374696f6e732f776f726b666c6f772f7374617475732f49736d61656c2d53616c6c616d692f6d657461686575726973746963732f63692e796d6c3f6272616e63683d6d61696e266c6f676f3d676974687562266c6162656c3d6275696c64" alt="build" data-canonical-src="https://img.shields.io/github/actions/workflow/status/Ismael-Sallami/metaheuristics/ci.yml?branch=main&amp;logo=github&amp;label=build" style="max-width: 100%;"></a><br>
+<a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/f94c5fd447e0fcdb57a248775dc35882bfe62c7b8a301d7f72b2fbd0df3d4839/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f6c6963656e73652d4d49542d346331"><img loading="lazy" decoding="async" src="https://camo.githubusercontent.com/f94c5fd447e0fcdb57a248775dc35882bfe62c7b8a301d7f72b2fbd0df3d4839/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f6c6963656e73652d4d49542d346331" alt="license" data-canonical-src="https://img.shields.io/badge/license-MIT-4c1" style="max-width: 100%;"></a></p>
+<p dir="auto">Fifteen metaheuristics written from scratch in C++ and compared on the same problem under<br>
+the same evaluation budget.</p>
+<h2 dir="auto" id="context">Context</h2>
+<p dir="auto">Coursework for <strong>Metaheuristics</strong>, year 4 of the double degree in Computer Science and<br>
+Business Administration, University of Granada (2025-26). Solo work.</p>
+<h2 dir="auto" id="the-problem">The problem</h2>
+<p dir="auto">Practices 1 to 3 solve the same problem: <strong>portfolio selection in the Markowitz sense</strong>.<br>
+Given the historical returns of a market, choose the weight of each asset so the portfolio<br>
+balances return against risk, with each weight inside a band (0.005 to 0.08 on IBEX 35) and<br>
+the weights adding up to one.</p>
+<p dir="auto">Practice 4 changes the ground: the <strong>CEC'17 benchmark</strong> of continuous functions in 10, 30,<br>
+50 and 100 dimensions, which is what the field uses to compare optimisers.</p>
+<p dir="auto">The rule that shapes everything: <strong>a fixed budget of evaluations</strong>, the same for every<br>
+algorithm, 50 independent runs each. An algorithm is not better because it finds a good<br>
+solution, but because it finds it inside the budget.</p>
+<h2 dir="auto" id="the-solution">The solution</h2>
+<markdown-accessiblity-table><table role="table">
+<thead>
+<tr>
+<th>Practice</th>
+<th>Problem</th>
+<th>Algorithms</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Markowitz portfolio</td>
+<td>Greedy, local search (first and best improvement), multi-start local search, random search as a floor</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Markowitz portfolio</td>
+<td>Generational and steady-state genetic algorithms (BLX, arithmetic and Gaussian crossover), three memetic variants, differential evolution</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Markowitz portfolio</td>
+<td>Iterated local search, simulated annealing, CHC, and the combinations ILS-ES and ILS-ES-CHC</td>
+</tr>
+<tr>
+<td>4</td>
+<td>CEC'17 benchmark</td>
+<td>Liver Cancer Algorithm (Houssein et al., 2023) and variants, against DE and PSO</td>
+</tr>
+</tbody>
+</table></markdown-accessiblity-table>
+<p dir="auto">Things worth naming:</p>
+<ul dir="auto">
+<li><strong>One shared framework.</strong> <code class="notranslate">common/</code> holds the problem and solution abstractions, so every<br>
+algorithm receives a <code class="notranslate">Problem</code> and returns a solution: swapping the metaheuristic does not<br>
+touch the problem, and swapping the problem does not touch the metaheuristic.</li>
+<li><strong>Experiments driven by a file.</strong> <code class="notranslate">config.cfg</code> fixes the seed, the evaluation budget, the<br>
+number of runs and the market. Reproducing an experiment means editing that file, not<br>
+recompiling.</li>
+<li><strong>Every run is written out.</strong> Each practice leaves a CSV with one row per run, which is<br>
+what feeds the box plots and the tables in the reports.</li>
+<li><strong>Random search is always in the comparison.</strong> It is the floor: a metaheuristic that does<br>
+not beat it is not doing any work.</li>
+</ul>
+<h2 dir="auto" id="layout">Layout</h2>
+<pre class="notranslate"><code class="notranslate">src/practice-1..4/     the four practices, each with its own CMakeLists and config.cfg
+  common/              problem and solution abstractions shared by the algorithms
+  inc/  src/           one header and one file per metaheuristic
+  *.csv                one row per run, the raw material of the reports
+docs/reports/          the four LaTeX reports, with their figures and tables
+</code></pre>
+<h2 dir="auto" id="requirements">Requirements</h2>
+<ul dir="auto">
+<li>CMake 3.28 or later (practice 4 asks for 3.0) and a C++ compiler with C++17.</li>
+<li>Python 3 with <code class="notranslate">numpy</code>, <code class="notranslate">pandas</code> and <code class="notranslate">matplotlib</code>, only for the box plot and analysis<br>
+scripts.</li>
+</ul>
+<h2 dir="auto" id="build-and-run">Build and run</h2>
+<p dir="auto">Each practice is an independent project:</p>
+<div class="highlight highlight-source-shell" dir="auto"><pre class="notranslate">cmake -S src/practice-1 -B build -DCMAKE_BUILD_TYPE=Release
+cmake --build build -j<span class="pl-s"><span class="pl-pds">"</span><span class="pl-s"><span class="pl-pds">$(</span>nproc<span class="pl-pds">)</span></span><span class="pl-pds">"</span></span>
+<span class="pl-c1">cd</span> src/practice-1 <span class="pl-k">&amp;&amp;</span> ../../build/main        <span class="pl-c"><span class="pl-c">#</span> reads config.cfg and the data next to it</span></pre></div>
+<p dir="auto">Practice 4 ships its own script, which builds everything and runs a smoke test:</p>
+<div class="highlight highlight-source-shell" dir="auto"><pre class="notranslate"><span class="pl-c1">cd</span> src/practice-4 <span class="pl-k">&amp;&amp;</span> bash probar.sh          <span class="pl-c"><span class="pl-c">#</span> about a minute, exit code 0 if it passes</span>
+bash probar.sh --completo                    <span class="pl-c"><span class="pl-c">#</span> the full CEC'17 sweep, 30 to 40 minutes</span></pre></div>
+<h2 dir="auto" id="results">Results</h2>
+<p dir="auto">Ranking on IBEX 35 after 50 runs of each algorithm, from the CSV in <code class="notranslate">src/practice-3</code>.<br>
+Fitness is maximised, so higher is better:</p>
+<markdown-accessiblity-table><table role="table">
+<thead>
+<tr>
+<th>Algorithm</th>
+<th>Mean</th>
+<th>Best</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Memetic, local search on the best (AM-LSCH, AM-BEST)</td>
+<td><strong>-4.4903</strong></td>
+<td>-4.4902</td>
+</tr>
+<tr>
+<td>Memetic, random subset (AM-RAND)</td>
+<td>-4.4905</td>
+<td>-4.4902</td>
+</tr>
+<tr>
+<td>Differential evolution</td>
+<td>-4.4906</td>
+<td>-4.4902</td>
+</tr>
+<tr>
+<td>Generational genetic, BLX crossover</td>
+<td>-4.4975</td>
+<td>-4.4904</td>
+</tr>
+<tr>
+<td>… eleven more between these two …</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Greedy</td>
+<td>-4.7941</td>
+<td>-4.7941</td>
+</tr>
+<tr>
+<td>Random search</td>
+<td>-4.9113</td>
+<td>-4.7307</td>
+</tr>
+</tbody>
+</table></markdown-accessiblity-table>
+<p dir="auto">The population-based algorithms with a local search on top take the top of the table, and<br>
+the gap between them is smaller than the gap from any of them to the greedy solution. Random<br>
+search sits last, which is the point of keeping it in the comparison.</p>
+<p dir="auto">The box plots per market and the statistical tests are in <code class="notranslate">docs/reports/</code>.</p>
+<h2 dir="auto" id="what-i-learned">What I learned</h2>
+<ul dir="auto">
+<li>The budget is the experiment. Once every algorithm gets the same number of evaluations,<br>
+the comparison stops being about who converges lower and becomes about who spends the<br>
+budget better. That reframing is most of what these four practices teach.</li>
+<li>Hybridising helps up to a point. The memetic variants beat their genetic parents, but<br>
+ILS-ES-CHC, which stacks three ideas, lands mid-table: the extra machinery costs<br>
+evaluations that the search then does not have.</li>
+<li><strong>Limitations, kept as handed in:</strong>
+<ul dir="auto">
+<li><strong>Practice 3 does not compile as published.</strong> Its <code class="notranslate">CMakeLists.txt</code> includes <code class="notranslate">common/</code>,<br>
+but that folder was never committed for this practice; practices 1, 2 and 4 do have it.<br>
+The CI builds the other three and leaves this one out instead of patching it.</li>
+<li>The <strong>large datasets are not in the repository</strong>. <code class="notranslate">syp_100.csv</code> and <code class="notranslate">syp_500.csv</code><br>
+(33 MB together) and the CEC'17 matrices for 30, 50 and 100 dimensions (39 MB) belong to<br>
+the subject and to the benchmark suite, and are not mine to republish. What stays is<br>
+<code class="notranslate">ibex_35.csv</code> and the CEC'17 files up to 20 dimensions, which is enough to run.</li>
+<li>Identifiers and comments mix English and Spanish, and each practice repeats the<br>
+framework instead of sharing one copy: they were handed in as separate deliverables.</li>
+</ul>
+</li>
+</ul>
+<h2 dir="auto" id="author-and-licence">Author and licence</h2>
+<p dir="auto">Ismael Sallami Moreno. Released under the MIT licence (see <code class="notranslate">LICENSE</code>).</p>

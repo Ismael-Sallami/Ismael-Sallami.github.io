@@ -7,7 +7,7 @@ import ProjectCard from '../components/ProjectCard.jsx'
 import SkillGroups from '../components/SkillGroups.jsx'
 import Timeline from '../components/Timeline.jsx'
 import ContactForm from '../components/ContactForm.jsx'
-import { projects, localizeProject } from '../data/projects.js'
+import { mergeProjects, localizeProject } from '../data/projects.js'
 import { useI18n } from '../i18n/LanguageContext.jsx'
 import portrait from '../../assets/images/ismael-sallami.png'
 
@@ -34,7 +34,10 @@ function SectionTitle({ kicker, children }) {
 // Driven by the flag rather than by array position, so reordering the data cannot
 // silently change what the front page shows. The flag marks the same six that are
 // pinned on the GitHub profile, so both places tell the same story.
-const featuredProjects = projects.filter((p) => p.featured)
+const allProjects = mergeProjects()
+
+// Only hand-written cards are ever featured, so this stays the same six it always was.
+const featuredProjects = allProjects.filter((p) => p.featured)
 
 export default function Home() {
   const { t, lang } = useI18n()
@@ -94,7 +97,7 @@ export default function Home() {
             </div>
             <div className="glass-text absolute -bottom-5 -left-5 rounded-2xl px-5 py-3">
               {/* Counted from the data so it cannot go stale: it said 10+ with fifteen listed. */}
-              <p className="font-display text-3xl accent-text">{projects.length}</p>
+              <p className="font-display text-3xl accent-text">{allProjects.length}</p>
               <p className="text-xs text-cool">{t('hero.proyectsCount')}</p>
             </div>
           </motion.div>

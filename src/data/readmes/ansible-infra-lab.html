@@ -1,0 +1,211 @@
+<p dir="auto"><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/692ce018c8b766b237ad6d92fc34ea52815d328b34bf972acdf4df66689e08e9/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f616e7369626c652d322e31362d454530303030"><img loading="lazy" decoding="async" src="https://camo.githubusercontent.com/692ce018c8b766b237ad6d92fc34ea52815d328b34bf972acdf4df66689e08e9/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f616e7369626c652d322e31362d454530303030" alt="ansible" data-canonical-src="https://img.shields.io/badge/ansible-2.16-EE0000" style="max-width: 100%;"></a><br>
+<a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/81e757fba6481e50494b26208eecbabf82c82d3de1fdc474853651366dbe36ea/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f646f636b6572253230636f6d706f73652d76322d323439364544"><img loading="lazy" decoding="async" src="https://camo.githubusercontent.com/81e757fba6481e50494b26208eecbabf82c82d3de1fdc474853651366dbe36ea/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f646f636b6572253230636f6d706f73652d76322d323439364544" alt="docker" data-canonical-src="https://img.shields.io/badge/docker%20compose-v2-2496ED" style="max-width: 100%;"></a><br>
+<a target="_blank" rel="noopener noreferrer" href="https://github.com/Ismael-Sallami/ansible-infra-lab/actions/workflows/ci.yml"><img loading="lazy" decoding="async" src="https://camo.githubusercontent.com/f2d355a10a6d53eb94e22b9591e353685777259639d8dbb0761a7cfb95405b99/68747470733a2f2f696d672e736869656c64732e696f2f6769746875622f616374696f6e732f776f726b666c6f772f7374617475732f49736d61656c2d53616c6c616d692f616e7369626c652d696e6672612d6c61622f63692e796d6c3f6272616e63683d6d61696e266c6f676f3d676974687562266c6162656c3d6275696c64" alt="build" data-canonical-src="https://img.shields.io/github/actions/workflow/status/Ismael-Sallami/ansible-infra-lab/ci.yml?branch=main&amp;logo=github&amp;label=build" style="max-width: 100%;"></a><br>
+<a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/f94c5fd447e0fcdb57a248775dc35882bfe62c7b8a301d7f72b2fbd0df3d4839/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f6c6963656e73652d4d49542d346331"><img loading="lazy" decoding="async" src="https://camo.githubusercontent.com/f94c5fd447e0fcdb57a248775dc35882bfe62c7b8a301d7f72b2fbd0df3d4839/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f6c6963656e73652d4d49542d346331" alt="license" data-canonical-src="https://img.shields.io/badge/license-MIT-4c1" style="max-width: 100%;"></a></p>
+<p dir="auto">Provisioning, monitoring and load testing for a small Rocky Linux lab: Ansible playbooks,<br>
+a Prometheus and Grafana stack, and a JMeter test plan.</p>
+<h2 dir="auto" id="context">Context</h2>
+<p dir="auto">Coursework for <strong>ISE — Enterprise Systems Infrastructure</strong>, year 3 of the double degree in<br>
+Computer Science and Business Administration, University of Granada (2024–2025). Solo work.</p>
+<p dir="auto">The lab was three VirtualBox machines on a host-only network: one control node and two<br>
+managed nodes, all Rocky Linux.</p>
+<h2 dir="auto" id="the-problem">The problem</h2>
+<p dir="auto">Four assignments, each on top of the last:</p>
+<ol dir="auto">
+<li><strong>Accounts.</strong> Provision an <code class="notranslate">admin</code> account with passwordless sudo and key-based SSH on<br>
+every managed node, plus two ordinary users, starting from machines that only accept<br>
+root over a password.</li>
+<li><strong>Web servers.</strong> Turn one node into an Apache server and the other into Nginx, from a<br>
+single playbook, opening the right firewall port on each.</li>
+<li><strong>Monitoring.</strong> Scrape both nodes and an API with Prometheus and put the metrics on a<br>
+Grafana dashboard.</li>
+<li><strong>Load testing.</strong> Write a JMeter plan against a REST API that authenticates with<br>
+HTTP Basic and then a JWT, and measure it under concurrent users.</li>
+</ol>
+<h2 dir="auto" id="the-solution">The solution</h2>
+<p dir="auto"><strong>Bootstrapping a host you cannot log into yet.</strong> The first playbook has a chicken-and-egg<br>
+problem: it must install SSH keys, but at the start the only way in is a root password.<br>
+<code class="notranslate">playbook.yml</code> handles it in three moves — open <code class="notranslate">PermitRootLogin yes</code>, do the provisioning,<br>
+then set <code class="notranslate">PermitRootLogin prohibit-password</code> and restart sshd through a handler. The machine<br>
+ends up more locked down than it started, and the playbook is still idempotent: run it twice<br>
+and the second run changes nothing.</p>
+<p dir="auto"><strong>One playbook, two different web servers.</strong> The obvious approach is two playbooks, or one<br>
+playbook full of <code class="notranslate">when: inventory_hostname == ...</code>. Neither scales. Instead the inventory<br>
+puts each host in a group named after the software it should run, and the playbook loads its<br>
+variables from the group name:</p>
+<div class="highlight highlight-source-yaml" dir="auto"><pre class="notranslate"><span class="pl-ent">vars_files</span>:
+  - <span class="pl-s"><span class="pl-pds">"</span>../vars/{{ group_names[0] }}.yml<span class="pl-pds">"</span></span></pre></div>
+<p dir="auto"><code class="notranslate">vars/apache.yml</code> and <code class="notranslate">vars/nginx.yml</code> each declare <code class="notranslate">web_package</code>, <code class="notranslate">web_service</code> and<br>
+<code class="notranslate">web_port</code>. Adding a third web server means one more group and one more vars file — the<br>
+playbook does not change.</p>
+<p dir="auto"><strong>The nodes were reused between assignments</strong>, so a host could still be running the other<br>
+web server from a previous run. The playbook explicitly stops and disables the one it is not<br>
+supposed to run, with <code class="notranslate">ignore_errors: true</code> so it does not fail on a host where that package<br>
+was never installed. It is defensive, and it is what makes the playbook safe to rerun on a<br>
+dirty machine.</p>
+<p dir="auto"><strong>Keys are generated, never stored.</strong> <code class="notranslate">scripts/generate-keys.sh</code> creates the three lab<br>
+keypairs into <code class="notranslate">claves/</code>, which is in <code class="notranslate">.gitignore</code>. The playbook never embeds a key: it reads<br>
+the public half at run time.</p>
+<div class="highlight highlight-source-yaml" dir="auto"><pre class="notranslate"><span class="pl-ent">ssh_pub_key_admin</span>: <span class="pl-s"><span class="pl-pds">"</span>{{ lookup('file', 'claves/id_rsa_admin.pub') }}<span class="pl-pds">"</span></span></pre></div>
+<p dir="auto">That one line is why the repository can be public. An earlier version of this project had<br>
+twelve private keys committed.</p>
+<h2 dir="auto" id="layout">Layout</h2>
+<pre class="notranslate"><code class="notranslate">src/ansible/users/        part 1: accounts, sudo and SSH hardening
+src/ansible/webservers/   part 2: Apache and Nginx from one playbook
+src/monitoring/           part 3: Prometheus and Grafana on Docker Compose
+src/load-testing/         part 4: JMeter plan, input data and a saved run
+scripts/generate-keys.sh  creates the lab SSH keys
+docs/report/              the written reports, in order, and a JMeter screenshot
+docs/variants/            the earlier iteration of the webserver playbook
+docs/latex/               the lab write-up these were produced alongside
+requirements.yml          Ansible collections the playbooks need
+</code></pre>
+<p dir="auto"><code class="notranslate">docs/report/</code> is the analysis as it was written: the first report on provisioning, how the<br>
+playbook works, the working notes, and the explanation of the second version.</p>
+<h2 dir="auto" id="requirements">Requirements</h2>
+<ul dir="auto">
+<li>
+<p dir="auto"><strong>Ansible 2.16</strong> — tested with <code class="notranslate">ansible-playbook</code> 2.16 (core), plus the <code class="notranslate">ansible.posix</code><br>
+collection for <code class="notranslate">authorized_key</code> and <code class="notranslate">firewalld</code>:</p>
+<div class="highlight highlight-source-shell" dir="auto"><pre class="notranslate">ansible-galaxy collection install -r requirements.yml</pre></div>
+</li>
+<li>
+<p dir="auto"><strong>Docker Compose v2</strong> for the monitoring stack.</p>
+</li>
+<li>
+<p dir="auto"><strong>ansible-lint</strong> and <strong>shellcheck</strong> for the checks.</p>
+</li>
+<li>
+<p dir="auto"><strong>JMeter 5.6</strong> to open the test plan.</p>
+</li>
+<li>
+<p dir="auto">Managed nodes: <strong>Rocky Linux 9</strong>, reachable over SSH.</p>
+</li>
+</ul>
+<h2 dir="auto" id="build-and-run">Build and run</h2>
+<p dir="auto">There is nothing to compile. These are the checks CI runs:</p>
+<div class="highlight highlight-source-shell" dir="auto"><pre class="notranslate">make check            <span class="pl-c"><span class="pl-c">#</span> everything below</span>
+make syntax           <span class="pl-c"><span class="pl-c">#</span> parse both playbooks, touching no host</span>
+make lint             <span class="pl-c"><span class="pl-c">#</span> ansible-lint</span>
+make compose          <span class="pl-c"><span class="pl-c">#</span> validate the monitoring stack definition</span>
+make shell            <span class="pl-c"><span class="pl-c">#</span> shellcheck the scripts</span></pre></div>
+<p dir="auto">To use it against real machines:</p>
+<div class="highlight highlight-source-shell" dir="auto"><pre class="notranslate">make keys                                     <span class="pl-c"><span class="pl-c">#</span> create keys/, then paste the .pub values</span>
+                                              <span class="pl-c"><span class="pl-c">#</span> into src/ansible/users/group_vars/all.yml</span>
+
+<span class="pl-c1">cd</span> src/ansible/users                          <span class="pl-c"><span class="pl-c">#</span> part 1</span>
+ansible-playbook -i hosts.ini playbook.yml --ask-pass --ask-become-pass
+
+<span class="pl-c1">cd</span> ../webservers                              <span class="pl-c"><span class="pl-c">#</span> part 2</span>
+ansible-playbook -i inventory/hosts.ini playbooks/configurar_web.yml
+
+make monitoring-up                            <span class="pl-c"><span class="pl-c">#</span> part 3: Grafana on :4000, Prometheus on :9090</span>
+make monitoring-down</pre></div>
+<p dir="auto">Both inventories point at <code class="notranslate">192.168.56.103</code> and <code class="notranslate">.104</code>. Change them to your own hosts.</p>
+<h2 dir="auto" id="results">Results</h2>
+<p dir="auto">The monitoring stack scrapes three targets every five seconds: Prometheus itself, a<br>
+<code class="notranslate">node_exporter</code> on the Rocky node, and the API's <code class="notranslate">/metrics</code> endpoint.</p>
+<p dir="auto">The saved JMeter run is in <code class="notranslate">src/load-testing/results.jtl</code>. It is <strong>not</strong> a finished load<br>
+test — it is a debugging run captured while the plan was still being built:</p>
+<markdown-accessiblity-table><table role="table">
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Samples</td>
+<td>26, over roughly one second</td>
+</tr>
+<tr>
+<td>Successful</td>
+<td>10 of 26 (38 %)</td>
+</tr>
+<tr>
+<td>Median / p95</td>
+<td>5 ms / 66 ms</td>
+</tr>
+<tr>
+<td>Failures</td>
+<td>the student record lookup returned 500 (×10), the admin login returned 401 (×3)</td>
+</tr>
+</tbody>
+</table></markdown-accessiblity-table>
+<p dir="auto">Student login worked; the record lookup and the admin login did not. The final run was never<br>
+saved to the repository, so this is what there is. <code class="notranslate">docs/report/jmeter-load-test.png</code> shows<br>
+the plan running in the JMeter GUI.</p>
+<h2 dir="auto" id="what-i-learned">What I learned</h2>
+<ul dir="auto">
+<li><strong>Idempotence is a design constraint, not a feature you add later.</strong> The first playbook I<br>
+wrote worked once and broke on the second run. Getting it to converge on the same state<br>
+every time is what forced the SSH open-then-close sequence to be explicit rather than<br>
+something I did by hand.</li>
+<li><strong>Group names are data.</strong> Selecting a vars file from <code class="notranslate">group_names[0]</code> removed every<br>
+<code class="notranslate">when: inventory_hostname == ...</code> from the web playbook. That one line is the difference<br>
+between a playbook that scales and one that grows a branch per host.</li>
+<li><strong>A load test that is not saved did not happen.</strong> I tuned the JMeter plan until it worked<br>
+and never re-exported the results, so the only run in the repository is a broken one. Ten<br>
+seconds of <code class="notranslate">-l results.jtl</code> would have kept the evidence.</li>
+<li><strong>Committing keys is easy and undoing it is not.</strong> Twelve private keys sat in a public<br>
+repository for months. Removing them from the index was not enough — they had to be purged<br>
+from the history, which rewrites every commit hash. Hence <code class="notranslate">generate-keys.sh</code>.</li>
+</ul>
+<h3 dir="auto" id="known-limitations">Known limitations</h3>
+<ul dir="auto">
+<li>
+<p dir="auto"><strong>The API under load is not included.</strong> It is a Node and MongoDB service supplied by the<br>
+course, whose own README states its development is outside the scope of the subject. It is<br>
+not mine to republish, and it ships with hardcoded credentials. The JMeter plan targets<br>
+<code class="notranslate">localhost:3000</code>.</p>
+</li>
+<li>
+<p dir="auto"><strong>The plan's HTTP Basic credentials were parameterised.</strong> As delivered, <code class="notranslate">ETSII_API.jmx</code><br>
+had the API's username and password written into the auth manager. They are now<br>
+<code class="notranslate">${__P(api.user,)}</code> and <code class="notranslate">${__P(api.password,)}</code>, so you pass them in:</p>
+<div class="highlight highlight-source-shell" dir="auto"><pre class="notranslate">jmeter -n -t src/load-testing/ETSII_API.jmx \
+       -Japi.user=<span class="pl-k">&lt;</span>user<span class="pl-k">&gt;</span> -Japi.password=<span class="pl-k">&lt;</span>password<span class="pl-k">&gt;</span> \
+       -l run.jtl</pre></div>
+<p dir="auto">This is the only change made to any delivered file.</p>
+</li>
+<li>
+<p dir="auto"><strong><code class="notranslate">group_vars/all.yml</code> came from the exercise folder, not the submission.</strong> The copy<br>
+inside the graded deliverable had been overwritten with unrelated study notes at some<br>
+point before the project was first committed. The working original survived under<br>
+<code class="notranslate">Resolucion/Capitulos/Ficheros_Ejercicios/</code>, and that is the one here.</p>
+</li>
+<li>
+<p dir="auto"><strong>The assignment briefs are not included</strong> either, for the same reason. "The problem"<br>
+above describes what they asked for.</p>
+</li>
+<li>
+<p dir="auto"><strong><code class="notranslate">src/ansible/webservers/inventory/hosts.ini</code> still points at <code class="notranslate">claves/id_rsa_admin</code></strong>, a<br>
+path that no longer ships. Point it at your own key or drop the option and use <code class="notranslate">--ask-pass</code>.</p>
+</li>
+<li>
+<p dir="auto"><strong>The IPs are hardcoded</strong> to the <code class="notranslate">192.168.56.0/24</code> host-only network of a VirtualBox lab<br>
+that no longer exists.</p>
+</li>
+<li>
+<p dir="auto"><strong>Nothing here is tested against a live host in CI.</strong> The workflow parses, lints and<br>
+validates. Spinning up two Rocky VMs in Actions to prove the playbooks converge would be<br>
+the real check, and it is not there.</p>
+</li>
+<li>
+<p dir="auto"><strong>Three <code class="notranslate">ansible-lint</code> rules are skipped</strong>, listed with their reasons in<br>
+<a target="_blank" rel="noopener noreferrer" href="https://github.com/Ismael-Sallami/ansible-infra-lab/blob/main/ansible-lint"><code class="notranslate">.ansible-lint</code></a>. They are real defects, left in place because rewriting a<br>
+delivered submission to please a linter would misrepresent it:</p>
+<ul dir="auto">
+<li><code class="notranslate">ignore-errors</code> — the two tasks that stop the other web server use <code class="notranslate">ignore_errors: true</code><br>
+instead of a <code class="notranslate">failed_when</code> condition, so they would also swallow an unrelated failure.</li>
+<li><code class="notranslate">risky-file-permissions</code> — the two <code class="notranslate">copy</code> tasks that write <code class="notranslate">index.html</code> set no <code class="notranslate">mode</code>,<br>
+so the file lands with whatever umask the remote happens to have.</li>
+<li><code class="notranslate">name[template]</code> — one task name puts <code class="notranslate">{{ web_service }}</code> in the middle instead of at<br>
+the end, which makes the log line harder to group.</li>
+</ul>
+<p dir="auto">Three more are skipped as purely cosmetic: <code class="notranslate">fqcn</code>, <code class="notranslate">yaml[truthy]</code> and <code class="notranslate">yaml[empty-lines]</code>.</p>
+</li>
+</ul>
+<h2 dir="auto" id="author-and-licence">Author and licence</h2>
+<p dir="auto">Ismael Sallami Moreno. Released under the MIT licence (see <a target="_blank" rel="noopener noreferrer" href="https://github.com/Ismael-Sallami/ansible-infra-lab/blob/main/LICENSE"><code class="notranslate">LICENSE</code></a>).</p>
