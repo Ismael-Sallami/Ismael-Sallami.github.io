@@ -25,6 +25,10 @@ jobs:
           cache: npm
       - run: npm ci
       - run: node scripts/check-documents.mjs
+      # Validates the roles already committed, without going near Google. A bad role
+      # object does not break one section: App.jsx sends every unknown route to Home, so
+      # it takes the whole site with it. A red deploy is the better failure.
+      - run: node scripts/sync-experience.mjs --check
       # Reads the real figures out of the repositories the site quotes.
       - run: node scripts/check-numbers.mjs
         env:

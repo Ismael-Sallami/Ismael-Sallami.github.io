@@ -1,0 +1,50 @@
+# Refreshes the home timeline from the Google Sheet the roles are written in.
+#
+# GitHub cannot be told "a row changed", so this runs on a timer. Add a role in the
+# morning and it is on the site by the next run at the latest; the manual trigger is
+# there for when that wait is too long.
+#
+# The commit this pushes lands on main, which triggers the deploy workflow, so the site
+# picks the new roles up on its own. Nothing is committed when nothing changed.
+name: Sync experience
+
+on:
+  schedule:
+    - cron: '0 7 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: sync-experience
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      # No npm ci: the script runs on Node's own fetch and nothing else.
+      - run: node scripts/sync-experience.mjs
+
+      - name: Commit if anything moved
+        run: |
+          git config user.name  "Ismael"
+          git config user.email "${{ github.actor_id }}+${{ github.actor }}@users.noreply.github.com"
+          # Staged first, then compared against the index, so a file that did not exist
+          # before is still seen: `git diff` alone does not report an untracked file.
+          git add -A src/data/experience.generated.json
+          if git diff --cached --quiet; then
+            echo "No change."
+            exit 0
+          fi
+          git commit -m "chore: refresh the experience timeline from the sheet"
+          # The projects workflow pushes to the same branch an hour and a half earlier,
+          # and a slow run could still overlap.
+          git pull --rebase origin main
+          git push

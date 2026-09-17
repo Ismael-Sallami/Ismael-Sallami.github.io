@@ -1,86 +1,50 @@
-// Where I have worked. Ordered oldest first, so the role still open ends the list.
+// Where I have worked. The roles themselves live in a Google Sheet, not here.
 //
-// The three overlap, and that is not a typo: GSoC ran May to August, the Erasmus+
-// placement July to September, and the research grant started in May and pauses for
-// both. Each entry prints its own range so the overlap reads as deliberate.
+// scripts/sync-experience.mjs reads that sheet every morning and writes
+// experience.generated.json, so adding a job is a row in a spreadsheet rather than an
+// edit to this file. Order comes from the sheet: oldest first, so the role still open
+// ends the list and the hollow dot closes the timeline.
 //
-// Same shape as projects.js: Spanish in the fields, English in `en`, one function to
-// pick a language.
-import generated from './contributions.generated.json'
+// Same shape as projects.js: Spanish in the fields, English in `en`, one function to pick
+// a language.
+import roles from './experience.generated.json'
+import contributions from './contributions.generated.json'
 
-// The GSoC figure is the same number /projects shows, read from the file the weekly
-// workflow rewrites. Typing it here is how it would end up contradicting that page.
-// A missing row leaves the entry without a figure rather than throwing.
-const gazelle = generated.find((r) => `${r.owner}/${r.repo}` === 'openMF/mifos-gazelle')
+// A figure can quote live numbers instead of frozen ones. The GSoC entry does: the sheet
+// stores `{prs} PRs` and the repository it comes from, never the number itself.
+//
+// This has to happen here, at module time, and not in the sync. The contributions file is
+// rewritten by its own weekly workflow; if the daily experience sync baked the number in,
+// it would freeze at whatever it was that morning and start contradicting the figure
+// /projects shows from the same source.
+function resolve(text, row) {
+  return text.replace(/\{(\w+)\}/g, (whole, key) => (key in row ? String(row[key]) : whole))
+}
 
-export const experience = [
-  {
-    id: 'gsoc-2026',
-    role: 'Google Summer of Code 2026 Contributor',
-    org: 'The Mifos Initiative',
-    place: 'Remoto',
-    dates: 'may — ago 2026',
-    end: '2026-08-24',
-    tags: ['Kubernetes', 'Helm', 'Python'],
-    desc: 'Integré OpenSPP como cuarto Digital Public Good de la herramienta de despliegue en Kubernetes de Mifos, con su Helm chart escrito de cero porque no existía ninguno. El alta pasó de un docker-compose a mano a una sola orden.',
-    figure: gazelle && {
-      value: `${gazelle.prs} PRs`,
-      label: `mergeados upstream · ${gazelle.commits} commits`,
-      url: 'https://github.com/openMF/mifos-gazelle/commits?author=Ismael-Sallami',
-    },
-    en: {
-      place: 'Remote',
-      dates: 'May — Aug 2026',
-      desc: 'Integrated OpenSPP as a fourth Digital Public Good into Mifos’ Kubernetes deployment tool, writing its Helm chart from scratch since none existed. Setup went from a hand-run docker-compose to one command.',
-      figureLabel: `merged upstream · ${gazelle?.commits} commits`,
-    },
-  },
-  {
-    id: 'erasmus-cork',
-    role: 'Digital Marketing & E-Commerce Intern (Erasmus+)',
-    org: 'Golden Moments Worldwide',
-    place: 'Cork, Irlanda',
-    dates: 'jul — sep 2026',
-    end: '2026-09-30',
-    tags: ['SEO', 'Ahrefs', 'JavaScript'],
-    desc: 'Cambios de front-end en HTML, CSS y JavaScript, análisis de tráfico con Ahrefs y definición de la estrategia SEO, además de negociación con partners y atención al cliente.',
-    figure: {
-      value: '35 h',
-      label: 'a la semana, íntegramente en inglés',
-      to: '/certificates',
-    },
-    en: {
-      place: 'Cork, Ireland',
-      dates: 'Jul — Sep 2026',
-      desc: 'Front-end changes in HTML, CSS and JavaScript, traffic analysis with Ahrefs and the SEO strategy, plus partner negotiation and customer support.',
-      figureLabel: 'a week, entirely in English',
-    },
-  },
-  {
-    id: 'catedra-gpu',
-    role: 'Becario de investigación',
-    org: 'Cátedra GPU Solutions, Universidad de Granada',
-    place: 'Granada',
-    dates: 'may 2026 · retoma oct 2026',
-    end: null,
-    tags: ['Eficiencia energética', 'IA', 'HPC'],
-    desc: 'Plaza financiada de seis meses sobre eficiencia energética en infraestructura de IA, en el clúster GPU-Lab-UGR. Pausada para el Google Summer of Code y retomada en octubre.',
-    figure: {
-      value: '6 meses',
-      label: 'de beca, y la base del TFG',
-    },
-    en: {
-      role: 'Undergraduate Research Scholar',
-      org: 'Cátedra GPU Solutions, University of Granada',
-      place: 'Granada, Spain',
-      dates: 'May 2026 · resuming Oct 2026',
-      tags: ['Energy efficiency', 'AI', 'HPC'],
-      desc: 'A funded six-month placement on energy efficiency in AI infrastructure, on the GPU-Lab-UGR cluster. Paused for Google Summer of Code and picked up again in October.',
-      figureValue: '6 months',
-      figureLabel: 'of funding, and the basis of the undergraduate thesis',
-    },
-  },
-]
+// A missing row leaves the entry without a figure rather than printing "undefined PRs",
+// which is what the old `gazelle && { ... }` did.
+function withFigures(role) {
+  if (!role.figure?.source) return role
+
+  const row = contributions.find((c) => `${c.owner}/${c.repo}` === role.figure.source)
+  if (!row) {
+    const { figure, en, ...rest } = role
+    if (!en) return rest
+    const { figureValue, figureLabel, ...restEn } = en
+    return Object.keys(restEn).length > 0 ? { ...rest, en: restEn } : rest
+  }
+
+  const figure = { ...role.figure, value: resolve(role.figure.value, row), label: resolve(role.figure.label, row) }
+  delete figure.source
+
+  if (!role.en) return { ...role, figure }
+  const en = { ...role.en }
+  if (en.figureValue) en.figureValue = resolve(en.figureValue, row)
+  if (en.figureLabel) en.figureLabel = resolve(en.figureLabel, row)
+  return { ...role, figure, en }
+}
+
+export const experience = roles.map(withFigures)
 
 // A role with no end date is still open, which is what the hollow dot means. Derived
 // from the data so it cannot disagree with the dates printed next to it.

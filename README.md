@@ -21,20 +21,43 @@ touching.
 | --- | --- |
 | `src/data/projects.js` | the 27 projects, with their Spanish and English copy |
 | `src/data/contributions.js` | descriptions of the open source work; the numbers come from the API |
-| `src/data/experience.js` | the three roles in the Home timeline |
+| `src/data/experience.generated.json` | the roles in the Home timeline, written in a Google Sheet |
 | `src/data/documents.js` | the titles of the CVs and certifications under `docs/` |
 | `src/data/skills.js` | the 30 skills, grouped by what each one is |
 | `src/i18n/strings.js` | every other string, in both languages |
 
-A role in `experience.js` with `end: null` is still open, which is what draws the
-hollow dot at the end of the timeline. The three roles overlap on purpose, so each
-one prints its own date range. The GSoC figure is read out of
-`contributions.generated.json` rather than typed, so it cannot disagree with the
+A role with an empty end date is still open, which is what draws the hollow dot at
+the end of the timeline. The roles overlap on purpose, so each one prints its own
+date range. The GSoC figure is never typed as a number: the sheet holds `{prs} PRs`
+and the repository it comes from, and the count is read out of
+`contributions.generated.json` when the page renders, so it cannot disagree with the
 contributions table.
 
 The `featured` flag in `projects.js` picks what the front page shows and which
 cards span two columns. Six are set. Keep them at the top of the array: a wide
 card landing on an odd column leaves a hole in the grid.
+
+## Adding a role to the timeline
+
+The roles live in a Google Sheet rather than in this repository, so adding a job is
+a row in a spreadsheet. `scripts/sync-experience.mjs` reads the sheet every morning,
+rewrites `experience.generated.json`, and the commit it pushes triggers a deploy.
+Run the workflow by hand from the Actions tab if the wait is too long.
+
+Two rows per role, one per language, paired by `id`. An English cell left empty
+falls back to the Spanish one, which is why most of them are empty. Only the
+Spanish row is read for `publicar`, `fin`, `cifra_enlace` and `cifra_fuente`, since
+those describe the role rather than its wording.
+
+Nothing is written when anything looks wrong, so a bad row leaves the last good
+timeline in place rather than replacing it with half of one. The message names the
+row and the column. The one worth knowing in advance: Sheets will turn `2026-08-24`
+into a date value and export it as `24/08/2026`, so import with "Convert text to
+numbers, dates and formulas" switched off, or set the `fin` column to plain text.
+
+```bash
+npm run sync:experience
+```
 
 ## Adding a CV or a certification
 

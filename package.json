@@ -12,6 +12,7 @@
     "check:numbers": "node scripts/check-numbers.mjs",
     "sync:contributions": "node scripts/sync-contributions.mjs",
     "sync:projects": "node scripts/sync-projects.mjs",
+    "sync:experience": "node scripts/sync-experience.mjs",
     "gen:readme": "node scripts/gen-readme.mjs"
   },
   "dependencies": {

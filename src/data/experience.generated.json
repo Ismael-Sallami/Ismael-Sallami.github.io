@@ -1,0 +1,85 @@
+[
+  {
+    "id": "gsoc-2026",
+    "role": "Google Summer of Code 2026 Contributor",
+    "org": "The Mifos Initiative",
+    "place": "Remoto",
+    "dates": "may — ago 2026",
+    "end": "2026-08-24",
+    "tags": [
+      "Kubernetes",
+      "Helm",
+      "Python"
+    ],
+    "desc": "Integré OpenSPP como cuarto Digital Public Good de la herramienta de despliegue en Kubernetes de Mifos, con su Helm chart escrito de cero porque no existía ninguno. El alta pasó de un docker-compose a mano a una sola orden.",
+    "figure": {
+      "value": "{prs} PRs",
+      "label": "mergeados upstream · {commits} commits",
+      "url": "https://github.com/openMF/mifos-gazelle/commits?author=Ismael-Sallami",
+      "source": "openMF/mifos-gazelle"
+    },
+    "en": {
+      "place": "Remote",
+      "dates": "May — Aug 2026",
+      "desc": "Integrated OpenSPP as a fourth Digital Public Good into Mifos’ Kubernetes deployment tool, writing its Helm chart from scratch since none existed. Setup went from a hand-run docker-compose to one command.",
+      "figureLabel": "merged upstream · {commits} commits"
+    }
+  },
+  {
+    "id": "erasmus-cork",
+    "role": "Digital Marketing & E-Commerce Intern (Erasmus+)",
+    "org": "Golden Moments Worldwide",
+    "place": "Cork, Irlanda",
+    "dates": "jul — sep 2026",
+    "end": "2026-09-30",
+    "tags": [
+      "SEO",
+      "Ahrefs",
+      "JavaScript"
+    ],
+    "desc": "Cambios de front-end en HTML, CSS y JavaScript, análisis de tráfico con Ahrefs y definición de la estrategia SEO, además de negociación con partners y atención al cliente.",
+    "figure": {
+      "value": "35 h",
+      "label": "a la semana, íntegramente en inglés",
+      "to": "/certificates"
+    },
+    "en": {
+      "place": "Cork, Ireland",
+      "dates": "Jul — Sep 2026",
+      "desc": "Front-end changes in HTML, CSS and JavaScript, traffic analysis with Ahrefs and the SEO strategy, plus partner negotiation and customer support.",
+      "figureLabel": "a week, entirely in English"
+    }
+  },
+  {
+    "id": "catedra-gpu",
+    "role": "Becario de investigación",
+    "org": "Cátedra GPU Solutions, Universidad de Granada",
+    "place": "Granada",
+    "dates": "may 2026 · retoma oct 2026",
+    "end": null,
+    "tags": [
+      "Eficiencia energética",
+      "IA",
+      "HPC"
+    ],
+    "desc": "Plaza financiada de seis meses sobre eficiencia energética en infraestructura de IA, en el clúster GPU-Lab-UGR. Pausada para el Google Summer of Code y retomada en octubre.",
+    "figure": {
+      "value": "6 meses",
+      "label": "de beca, y la base del TFG"
+    },
+    "en": {
+      "role": "Undergraduate Research Scholar",
+      "org": "Cátedra GPU Solutions, University of Granada",
+      "place": "Granada, Spain",
+      "dates": "May 2026 · resuming Oct 2026",
+      "tags": [
+        "Energy efficiency",
+        "AI",
+        "HPC"
+      ],
+      "desc": "A funded six-month placement on energy efficiency in AI infrastructure, on the GPU-Lab-UGR cluster. Paused for Google Summer of Code and picked up again in October.",
+      "figureValue": "6 months",
+      "figureLabel": "of funding, and the basis of the undergraduate thesis"
+    }
+  }
+]
