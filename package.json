@@ -10,9 +10,11 @@
     "preview": "vite preview",
     "check:documents": "node scripts/check-documents.mjs",
     "check:numbers": "node scripts/check-numbers.mjs",
+    "check:repos": "node scripts/check-missing-repos.mjs",
     "sync:contributions": "node scripts/sync-contributions.mjs",
     "sync:projects": "node scripts/sync-projects.mjs",
     "sync:experience": "node scripts/sync-experience.mjs",
+    "sync:skills": "node scripts/sync-skills.mjs",
     "gen:readme": "node scripts/gen-readme.mjs"
   },
   "dependencies": {

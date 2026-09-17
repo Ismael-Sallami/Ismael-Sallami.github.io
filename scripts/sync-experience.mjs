@@ -17,16 +17,16 @@
 
 import { writeFile, readFile } from 'node:fs/promises'
 
+import { Fail, fetchCsv, readRows } from './lib/sheet.mjs'
+
 // Not a secret. The whole design rests on the sheet being readable by anyone with the
 // link, which is what lets this run with no token; hiding the id would buy nothing and
 // would mask it in the logs, turning a 404 into guesswork. Same convention as
 // sync-projects.mjs, which hardcodes the owner and the topic. The override is for
 // testing against a copy.
 const SHEET_ID = process.env.EXPERIENCE_SHEET_ID ?? '1XmP8a4ymvgE0CZkxIFF9o2C3d10jqu3d8CHXoUGcajk'
+// The roles tab. Addressed by gid rather than by name: see the note in lib/sheet.mjs.
 const GID = process.env.EXPERIENCE_SHEET_GID ?? '0'
-
-const CSV_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv&gid=${GID}`
-
 const OUTPUT = new URL('../src/data/experience.generated.json', import.meta.url)
 const PROJECTS = new URL('../src/data/projects.generated.json', import.meta.url)
 
@@ -45,142 +45,9 @@ const MARKERS = ['prs', 'commits']
 
 const MAX_ROWS = 50
 
-class Fail extends Error {}
-
-// --- CSV --------------------------------------------------------------------------
-//
-// A real RFC 4180 state machine rather than split(','). It has to be: the GSoC
-// description contains a comma, so Google quotes the whole cell, and splitting would
-// shift every column after it.
-
-function parseCsv(text) {
-  // Only at position 0. Left in place it becomes part of the first header, which then
-  // matches nothing and silently empties that column.
-  if (text.charCodeAt(0) === 0xfeff) text = text.slice(1)
-
-  const rows = []
-  let row = []
-  let field = ''
-  let quoted = false
-  let i = 0
-
-  const endField = () => { row.push(field); field = '' }
-  const endRow = () => { endField(); rows.push(row); row = [] }
-
-  while (i < text.length) {
-    const c = text[i]
-
-    if (quoted) {
-      if (c === '"') {
-        if (text[i + 1] === '"') { field += '"'; i += 2; continue }
-        quoted = false; i++; continue
-      }
-      field += c; i++; continue
-    }
-
-    if (c === '"' && field === '') { quoted = true; i++; continue }
-    if (c === ',') { endField(); i++; continue }
-    // \r\n, \n and a lone \r all end a record. A naive split('\n') leaves the \r stuck to
-    // the last field of every row, and it survives all the way into the DOM.
-    if (c === '\r') { endRow(); if (text[i + 1] === '\n') i++; i++; continue }
-    if (c === '\n') { endRow(); i++; continue }
-
-    field += c; i++
-  }
-
-  // Whatever is pending when the text runs out is still a record, unless the file simply
-  // ended with a newline.
-  if (field !== '' || row.length > 0) endRow()
-
-  return rows
-}
-
-// Written by a person, so read forgivingly: accents stripped, case and spacing ignored.
-const normHeader = (h) =>
-  h.normalize('NFD').replace(/\p{M}/gu, '')
-    .trim().toLowerCase()
-    .replace(/[^a-z0-9]+/g, '_')
-    .replace(/^_+|_+$/g, '')
-
-// A non-breaking space is invisible in the sheet and survives trim in some engines, which
-// makes an exact comparison fail for no visible reason. Stripped from control columns
-// only; in prose it may well be deliberate, as in "35 h".
-const clean = (v) => (v ?? '').replace(/ /g, ' ').trim()
-
-// --- fetching ---------------------------------------------------------------------
-
-async function fetchCsv() {
-  let res
-  try {
-    res = await fetch(CSV_URL, { redirect: 'follow' })
-  } catch (err) {
-    throw new Fail(`No se pudo contactar con Google: ${err.message}`)
-  }
-
-  if (!res.ok) {
-    throw new Fail(
-      `La hoja respondió ${res.status}. ¿Sigue existiendo y compartida como "cualquiera con el enlace"?\n  ${CSV_URL}`,
-    )
-  }
-
-  // A sheet that is not shared does not answer 403. It redirects to the Google sign-in
-  // page and serves HTML with status 200, which a CSV parser will happily turn into
-  // nonsense rows. This is the check that catches it.
-  const type = res.headers.get('content-type') ?? ''
-  if (!type.includes('text/csv')) {
-    throw new Fail(
-      `La hoja devolvió ${type.split(';')[0] || 'nada'} en vez de CSV.\n` +
-      `  Casi siempre significa que no está compartida. Ábrela, Compartir, Acceso general,\n` +
-      `  "Cualquier persona con el enlace" con rol Lector.`,
-    )
-  }
-
-  return res.text()
-}
-
 // --- the sheet, turned into records ------------------------------------------------
 
-function readSheet(csv) {
-  const raw = parseCsv(csv)
-  if (raw.length === 0) throw new Fail('La hoja está vacía.')
-
-  const header = raw[0].map(normHeader)
-  const missing = REQUIRED_HEADERS.filter((h) => !header.includes(h))
-  if (missing.length > 0) {
-    throw new Fail(
-      `Faltan columnas: ${missing.join(', ')}.\n  Encontradas: ${header.filter(Boolean).join(', ')}`,
-    )
-  }
-
-  const records = []
-  for (let n = 1; n < raw.length; n++) {
-    const cells = raw[n]
-    // Google emits an all-empty record for every formatted-but-blank row at the bottom.
-    if (cells.every((c) => clean(c) === '')) continue
-
-    // A row longer than the header is usually a note typed into a stray column, which
-    // would otherwise be dropped without a word.
-    if (cells.length > header.length) {
-      const extra = cells.slice(header.length).map(clean).filter(Boolean)
-      if (extra.length > 0) {
-        throw new Fail(`Fila ${n + 1}: hay texto fuera de las columnas conocidas ("${extra[0]}").`)
-      }
-    }
-
-    const row = {}
-    header.forEach((h, k) => { if (h) row[h] = clean(cells[k]) })
-    // A short row is fine; the missing cells are simply empty.
-    for (const h of REQUIRED_HEADERS) row[h] ??= ''
-    row.__line = n + 1
-    records.push(row)
-  }
-
-  if (records.length > MAX_ROWS) {
-    throw new Fail(`${records.length} filas de datos. ¿Es la pestaña correcta?`)
-  }
-
-  return records
-}
+const readSheet = (csv) => readRows(csv, REQUIRED_HEADERS, { maxRows: MAX_ROWS })
 
 // --- validation of the sheet itself -------------------------------------------------
 
@@ -404,7 +271,7 @@ try {
     validateRoles(JSON.parse(await readFile(OUTPUT, 'utf8')))
     console.log('experience.generated.json es válido.')
   } else {
-    const roles = await buildRoles(readSheet(await fetchCsv()))
+    const roles = await buildRoles(readSheet(await fetchCsv(SHEET_ID, GID)))
     validateRoles(roles)
     // Nothing is written until everything has been read and checked, so a sync that dies
     // halfway cannot leave a half-built timeline behind.

@@ -1,0 +1,32 @@
+[
+  {
+    "slug": "languages",
+    "es": "Lenguajes",
+    "en": "Languages"
+  },
+  {
+    "slug": "infra",
+    "es": "Infraestructura y despliegue",
+    "en": "Infrastructure & deployment"
+  },
+  {
+    "slug": "web",
+    "es": "Web",
+    "en": "Web"
+  },
+  {
+    "slug": "data",
+    "es": "Datos y cálculo",
+    "en": "Data & computation"
+  },
+  {
+    "slug": "writing",
+    "es": "Escritura técnica",
+    "en": "Technical writing"
+  },
+  {
+    "slug": "spoken",
+    "es": "Idiomas",
+    "en": "Spoken"
+  }
+]

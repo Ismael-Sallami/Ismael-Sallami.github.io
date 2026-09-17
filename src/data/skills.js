@@ -1,5 +1,14 @@
-const icon = (slug) =>
-  `https://cdn.jsdelivr.net/gh/devicons/devicon/icons/${slug}/${slug}-original.svg`
+import list from './skills.generated.json'
+import categories from './skills.categories.generated.json'
+
+// Most icons live in devicon, where the file name repeats the slug, so the sheet stores
+// the slug and the URL is built here. That keeps the pattern in one place rather than
+// baked into thirty rows of generated data. Anything already a URL, like the two flags,
+// passes through.
+const iconUrl = (slug) =>
+  /^https:\/\//.test(slug)
+    ? slug
+    : `https://cdn.jsdelivr.net/gh/devicons/devicon/icons/${slug}/${slug}-original.svg`
 
 // Grouped by what each thing is, not by how good I claim to be at it.
 //
@@ -15,70 +24,20 @@ const icon = (slug) =>
 //
 // The two levels left are the C1 and Nativo, which are CEFR and a fact. That is the test
 // a level has to pass to stay: someone other than me defined it.
-export const CATEGORIES = ['languages', 'infra', 'web', 'data', 'writing', 'spoken']
+//
+// The list and its groupings live in a Google Sheet now; scripts/sync-skills.mjs writes
+// both JSON files. Adding a category is a row, not an edit in three places.
+export const CATEGORIES = categories.map((c) => c.slug)
 
-export const skills = [
-  // --- languages
-  { name: 'C++', category: 'languages', icon: icon('cplusplus') },
-  { name: 'Python', category: 'languages', icon: icon('python') },
-  { name: 'C', category: 'languages', icon: icon('c') },
-  { name: 'Java', category: 'languages', icon: icon('java') },
-  { name: 'JavaScript', category: 'languages', icon: icon('javascript') },
-  { name: 'Bash', category: 'languages', icon: icon('bash') },
-  { name: 'Ruby', category: 'languages', icon: icon('ruby') },
+// The heading over each group. It comes from the sheet rather than from strings.js,
+// because a category invented there would otherwise render without a name.
+export function categoryLabel(slug, lang) {
+  const c = categories.find((x) => x.slug === slug)
+  if (!c) return slug
+  return lang === 'en' ? c.en : c.es
+}
 
-  // --- infrastructure and deployment
-  { name: 'Kubernetes', category: 'infra', icon: icon('kubernetes') },
-  // The GSoC chart was written from scratch because none existed upstream.
-  { name: 'Helm', category: 'infra', icon: icon('helm') },
-  { name: 'Docker', category: 'infra', icon: icon('docker') },
-  { name: 'Ansible', category: 'infra', icon: icon('ansible') },
-  { name: 'Linux', category: 'infra', icon: icon('linux') },
-  { name: 'Git', category: 'infra', icon: icon('git') },
-  // 24 of my repositories run a workflow. Nothing else here is used as widely.
-  { name: 'GitHub Actions', category: 'infra', icon: icon('githubactions') },
-  { name: 'Grafana', category: 'infra', icon: icon('grafana') },
-  { name: 'Prometheus', category: 'infra', icon: icon('prometheus') },
-  { name: 'YAML', category: 'infra', icon: icon('yaml') },
-
-  // --- web
-  { name: 'React', category: 'web', icon: icon('react') },
-  { name: 'HTML', category: 'web', icon: icon('html5') },
-  { name: 'CSS', category: 'web', icon: icon('css3') },
-  { name: 'Tailwind', category: 'web', icon: icon('tailwindcss') },
-  { name: 'FastAPI', category: 'web', icon: icon('fastapi') },
-
-  // --- data and computation
-  // Oracle rather than MySQL: the database coursework is Oracle. The oracle icon is a
-  // wide wordmark that turns into an illegible sliver at 24px, so this uses the SQL
-  // Developer one, which reads as a database at icon size.
-  { name: 'Oracle SQL', category: 'data', icon: icon('sqldeveloper') },
-  { name: 'PostgreSQL', category: 'data', icon: icon('postgresql') },
-  { name: 'scikit-learn', category: 'data', icon: icon('scikitlearn') },
-  // No devicon slug for MPI, so it borrows the C++ mark it is always written with.
-  { name: 'MPI', category: 'data', icon: icon('cplusplus') },
-
-  // --- technical writing
-  { name: 'LaTeX', category: 'writing', icon: icon('latex') },
-  { name: 'Markdown', category: 'writing', icon: icon('markdown') },
-
-  // --- spoken
-  {
-    name: 'Español',
-    nameEn: 'Spanish',
-    category: 'spoken',
-    display: 'Nativo',
-    displayEn: 'Native',
-    icon: 'https://cdn.jsdelivr.net/gh/twitter/twemoji@latest/assets/svg/1f1ea-1f1f8.svg',
-  },
-  {
-    name: 'Inglés',
-    nameEn: 'English',
-    category: 'spoken',
-    display: 'C1',
-    icon: 'https://cdn.jsdelivr.net/gh/twitter/twemoji@latest/assets/svg/1f1ec-1f1e7.svg',
-  },
-]
+export const skills = list.map((s) => ({ ...s, icon: iconUrl(s.icon) }))
 
 // Skill display name for the active language.
 export function skillName(skill, lang) {

@@ -59,13 +59,21 @@
    Do instead: a wide card landing on an odd grid column leaves a hole. Six are set,
    and three of them already sit mid-array. Auto-generated projects are appended last
    and never featured, so they cannot make it worse.
-6. **[2026-09-18] The timeline roles live in a Google Sheet, not in the repo**
-   Do instead: `experience.generated.json` is output; never hand-edit it. Edit the sheet
-   (id 1XmP8a4ymvgE0CZkxIFF9o2C3d10jqu3d8CHXoUGcajk, two rows per role, one per
-   language) and run `npm run sync:experience`. An empty English cell must omit the key,
-   not emit "": `localizeRole` spreads `en` over the role, so a present-but-empty key
-   blanks the Spanish text instead of falling back to it.
-7. **[2026-09-17] Tailwind preflight strips list markers and only emits used keyframes**
+6. **[2026-09-18] Roles and skills live in a Google Sheet, not in the repo**
+   Do instead: `experience.generated.json` and `skills.generated.json` are output; never
+   hand-edit them. Edit the sheet (id 1XmP8a4ymvgE0CZkxIFF9o2C3d10jqu3d8CHXoUGcajk, one
+   tab each) and run the sync. Roles use two rows per role, one per language; an empty
+   English cell must OMIT the key, not emit "": `localizeRole` spreads `en` over the
+   role, so a present-but-empty key blanks the Spanish text instead of falling back.
+   Address tabs by gid, never by name: gviz returns the FIRST tab, silently, when the
+   name does not exist. See `MAINTAINING.md`.
+7. **[2026-09-18] gen-readme.mjs breaks silently when a data file changes shape**
+   Do instead: it rewrites three README blocks from `projects.js`, `contributions.js`
+   and `skills.generated.json`. Moving skills out of `skills.js` made it emit 0 skills
+   and delete ten README lines without an error. Always run `node scripts/gen-readme.mjs
+   && git diff README.md` after touching any data file. It now also fills the counts in
+   the content table, so those cannot go stale either.
+8. **[2026-09-17] Tailwind preflight strips list markers and only emits used keyframes**
    Do instead: injected HTML (a README) needs `list-style` asked for again, or lists
    render as loose paragraphs. And `animation: spin` only exists in the stylesheet if
    an `animate-spin` class appears in scanned source, so a hand-written CSS animation

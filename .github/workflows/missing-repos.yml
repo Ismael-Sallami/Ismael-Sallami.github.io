@@ -1,0 +1,64 @@
+# Opens an issue when a public repository is not on the site.
+#
+# A repository joins the site by being given the `portfolio` topic. That is on purpose,
+# so nothing half-finished publishes itself, but it is also easy to forget months later.
+# This publishes nothing and changes nothing: it keeps one issue up to date, and closes
+# it when there is nothing left to say.
+name: Repos not on the site
+
+on:
+  schedule:
+    - cron: '0 8 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+concurrency:
+  group: missing-repos
+  cancel-in-progress: false
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - id: check
+        run: |
+          node scripts/check-missing-repos.mjs > body.md
+          # A single issue, reused week after week, rather than a new one each Monday.
+          if grep -q "están en la web o excluidos" body.md; then
+            echo "missing=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "missing=true" >> "$GITHUB_OUTPUT"
+          fi
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Open or update the issue
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TITLE: Repositorios que no están en la web
+        run: |
+          existing=$(gh issue list --state open --search "$TITLE in:title" --json number,title \
+            --jq "[.[] | select(.title == env.TITLE)] | first | .number // empty")
+
+          if [ "${{ steps.check.outputs.missing }}" = "false" ]; then
+            if [ -n "$existing" ]; then
+              gh issue close "$existing" --comment "Ya no queda ninguno. Cerrando."
+            fi
+            echo "Nada que avisar."
+            exit 0
+          fi
+
+          if [ -n "$existing" ]; then
+            gh issue edit "$existing" --body-file body.md
+            echo "Issue #$existing actualizada."
+          else
+            gh issue create --title "$TITLE" --body-file body.md
+          fi

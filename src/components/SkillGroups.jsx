@@ -1,11 +1,11 @@
-import { CATEGORIES, byCategory } from '../data/skills.js'
+import { CATEGORIES, byCategory, categoryLabel } from '../data/skills.js'
 import SkillChip from './SkillChip.jsx'
 import { useI18n } from '../i18n/LanguageContext.jsx'
 
 // The categories, each a wrapping row of chips. `only` takes a list of category keys,
 // which is how the front page shows a subset without hardcoding names.
 export default function SkillGroups({ only }) {
-  const { t } = useI18n()
+  const { lang } = useI18n()
   const groups = only ?? CATEGORIES
 
   return (
@@ -16,7 +16,7 @@ export default function SkillGroups({ only }) {
         return (
           <div key={category}>
             <p className="mb-4 flex items-center gap-3 text-sm font-semibold uppercase tracking-[0.18em] text-cool">
-              {t(`skillsPage.categories.${category}`)}
+              {categoryLabel(category, lang)}
               <span className="h-px flex-1 bg-white/10" />
               <span className="font-body text-xs normal-case tracking-normal">{items.length}</span>
             </p>
