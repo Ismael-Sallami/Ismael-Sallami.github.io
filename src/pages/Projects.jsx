@@ -3,9 +3,13 @@ import { ArrowUpRight } from 'lucide-react'
 import PageWrap from '../components/PageWrap.jsx'
 import PageHeader from '../components/PageHeader.jsx'
 import ProjectCard from '../components/ProjectCard.jsx'
-import { projects, localizeProject } from '../data/projects.js'
+import { mergeProjects, localizeProject } from '../data/projects.js'
 import { contributions, localizeContribution } from '../data/contributions.js'
 import { useI18n } from '../i18n/LanguageContext.jsx'
+
+// Hand-written cards first, in the order the grid was laid out around, then any
+// repository that carries the topic and has no card of its own.
+const allProjects = mergeProjects()
 
 export default function Projects() {
   const { t, lang } = useI18n()
@@ -19,7 +23,7 @@ export default function Projects() {
         />
 
         <div className="mt-14 grid gap-5 md:grid-cols-2">
-          {projects.map((p, i) => (
+          {allProjects.map((p, i) => (
             <ProjectCard key={p.url} project={localizeProject(p, lang)} index={i} large={p.featured} />
           ))}
         </div>

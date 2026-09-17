@@ -1,0 +1,142 @@
+<p dir="auto"><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/f9c54dc5bc2761ba0aa7e51a8c976d2b99b8c4c04ec464537990678251fba005/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f432532422532422d31342d303035393943"><img loading="lazy" decoding="async" src="https://camo.githubusercontent.com/f9c54dc5bc2761ba0aa7e51a8c976d2b99b8c4c04ec464537990678251fba005/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f432532422532422d31342d303035393943" alt="C++" data-canonical-src="https://img.shields.io/badge/C%2B%2B-14-00599C" style="max-width: 100%;"></a><br>
+<a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/67ec333f28483858f1981fba167d0f54da97647d3816b4d1dd66c45926f2b658/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f434d616b652d332e31362d303634463843"><img loading="lazy" decoding="async" src="https://camo.githubusercontent.com/67ec333f28483858f1981fba167d0f54da97647d3816b4d1dd66c45926f2b658/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f434d616b652d332e31362d303634463843" alt="CMake" data-canonical-src="https://img.shields.io/badge/CMake-3.16-064F8C" style="max-width: 100%;"></a><br>
+<a target="_blank" rel="noopener noreferrer" href="https://github.com/Ismael-Sallami/image-adt/actions/workflows/ci.yml"><img loading="lazy" decoding="async" src="https://camo.githubusercontent.com/f81a809b31715af47e94b0aba03259d608c041a06a3388512f42d8c859487bd1/68747470733a2f2f696d672e736869656c64732e696f2f6769746875622f616374696f6e732f776f726b666c6f772f7374617475732f49736d61656c2d53616c6c616d692f696d6167652d6164742f63692e796d6c3f6272616e63683d6d61696e266c6f676f3d676974687562266c6162656c3d7465737473" alt="tests" data-canonical-src="https://img.shields.io/github/actions/workflow/status/Ismael-Sallami/image-adt/ci.yml?branch=main&amp;logo=github&amp;label=tests" style="max-width: 100%;"></a><br>
+<a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/f94c5fd447e0fcdb57a248775dc35882bfe62c7b8a301d7f72b2fbd0df3d4839/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f6c6963656e73652d4d49542d346331"><img loading="lazy" decoding="async" src="https://camo.githubusercontent.com/f94c5fd447e0fcdb57a248775dc35882bfe62c7b8a301d7f72b2fbd0df3d4839/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f6c6963656e73652d4d49542d346331" alt="license" data-canonical-src="https://img.shields.io/badge/license-MIT-4c1" style="max-width: 100%;"></a></p>
+<p dir="auto">An abstract data type for grayscale images in C++, with the six programs that exercise it<br>
+and an efficiency study of the one operation whose cost is not obvious.</p>
+<p dir="auto"><a target="_blank" rel="noopener noreferrer" href="https://github.com/Ismael-Sallami/image-adt/blob/main/docs/img/inicio.png"><img loading="lazy" decoding="async" src="https://raw.githubusercontent.com/Ismael-Sallami/image-adt/main/docs/img/inicio.png" alt="The image type in use" style="max-width: 100%;"></a></p>
+<h2 dir="auto" id="context">Context</h2>
+<p dir="auto">Coursework for <strong>Estructuras de Datos</strong>, year 2 of the double degree in Computer Science and<br>
+Business Administration, University of Granada (2023-24).</p>
+<h2 dir="auto" id="the-problem">The problem</h2>
+<p dir="auto">Write the <code class="notranslate">Image</code> type from scratch: no <code class="notranslate">vector</code>, no smart pointers, a raw buffer of bytes<br>
+managed by hand. It has to read and write PGM, expose pixels in two ways, and support six<br>
+operations that other programs call from the command line.</p>
+<p dir="auto">The interesting part is not the operations, it is that everything else in the assignment<br>
+depends on this one class being correct: allocation, copying, destruction and the boundary<br>
+of every region the operations touch.</p>
+<h2 dir="auto" id="the-solution">The solution</h2>
+<p dir="auto">The image is a dynamic matrix of <code class="notranslate">byte</code> with its own copy constructor, assignment operator<br>
+and destructor, and pixels reachable two ways: by <code class="notranslate">(row, column)</code> and by a single index over<br>
+the unrolled image, which is what makes the whole-image operations one loop instead of two.</p>
+<markdown-accessiblity-table><table role="table">
+<thead>
+<tr>
+<th>Operation</th>
+<th>What it does</th>
+<th>Program</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code class="notranslate">Invert</code></td>
+<td>Negative</td>
+<td><code class="notranslate">negativo</code></td>
+</tr>
+<tr>
+<td><code class="notranslate">AdjustContrast(in1, in2, out1, out2)</code></td>
+<td>Linear contrast stretch between two ranges</td>
+<td><code class="notranslate">contraste</code></td>
+</tr>
+<tr>
+<td><code class="notranslate">Mean(i, j, height, width)</code></td>
+<td>Average of a region</td>
+<td>used by <code class="notranslate">Subsample</code></td>
+</tr>
+<tr>
+<td><code class="notranslate">Subsample(factor)</code></td>
+<td>Icon: each pixel is the mean of a <code class="notranslate">factor × factor</code> block</td>
+<td><code class="notranslate">icono</code></td>
+</tr>
+<tr>
+<td><code class="notranslate">Crop(row, col, height, width)</code></td>
+<td>Sub-image</td>
+<td><code class="notranslate">subimagen</code></td>
+</tr>
+<tr>
+<td><code class="notranslate">Zoom2X()</code></td>
+<td>Doubles a square region by interpolation</td>
+<td><code class="notranslate">zoom</code></td>
+</tr>
+<tr>
+<td><code class="notranslate">ShuffleRows()</code></td>
+<td>Pseudo-random row permutation, seeded by the number of rows</td>
+<td><code class="notranslate">barajar</code></td>
+</tr>
+</tbody>
+</table></markdown-accessiblity-table>
+<p dir="auto"><code class="notranslate">ShuffleRows</code> is deterministic on purpose: the permutation depends only on the number of<br>
+rows, so a shuffled image can be un-shuffled and the efficiency study can be repeated.</p>
+<h2 dir="auto" id="layout">Layout</h2>
+<pre class="notranslate"><code class="notranslate">include/                image.h and imageIO.h
+src/                    the type, the low level PGM I/O and one main per program
+src/efficiency-study/   the ShuffleRows study: two mains, the scripts and the measurements
+data/img/               sample images
+data/expected/          reference outputs from the online judge of the subject
+docs/                   the efficiency analysis and the images of this README
+tools/run-tests.sh      runs every program and checks what can be checked
+</code></pre>
+<h2 dir="auto" id="requirements">Requirements</h2>
+<ul dir="auto">
+<li>CMake 3.16 or later and a compiler with C++14.</li>
+<li>Doxygen, only for the documentation.</li>
+<li><code class="notranslate">imagemagick</code> and <code class="notranslate">gnuplot</code>, only for the efficiency study.</li>
+</ul>
+<h2 dir="auto" id="build-and-run">Build and run</h2>
+<div class="highlight highlight-source-shell" dir="auto"><pre class="notranslate">cmake -S <span class="pl-c1">.</span> -B build
+cmake --build build -j<span class="pl-s"><span class="pl-pds">"</span><span class="pl-s"><span class="pl-pds">$(</span>nproc<span class="pl-pds">)</span></span><span class="pl-pds">"</span></span>
+
+./build/negativo  data/img/vacas.pgm negative.pgm
+./build/contraste data/img/vacas.pgm contrast.pgm 100 150 0 255
+./build/icono     data/img/vacas.pgm icon.pgm 4
+./build/subimagen data/img/vacas.pgm crop.pgm 10 10 100 100     <span class="pl-c"><span class="pl-c">#</span> row col height width</span>
+./build/zoom      data/img/vacas.pgm zoom.pgm 50 50 80          <span class="pl-c"><span class="pl-c">#</span> row col side</span>
+./build/barajar   data/img/board.pgm shuffled.pgm
+
+bash tools/run-tests.sh build</pre></div>
+<h2 dir="auto" id="results">Results</h2>
+<p dir="auto"><code class="notranslate">tools/run-tests.sh</code> is what the CI runs on every push:</p>
+<pre class="notranslate"><code class="notranslate">ok    negativo matches data/expected/negativo_pub.pgm
+ok    contraste
+ok    icono
+ok    zoom
+ok    barajar
+ok    subimagen 80 rows x 60 cols
+known subimagen 60 rows x 80 cols crashes, as documented
+all checks passed
+</code></pre>
+<p dir="auto"><code class="notranslate">negativo</code> is the only program that can be compared byte for byte, because it takes no<br>
+parameters: its output is identical to the reference image from the judge. The other<br>
+reference images were produced by the judge with arguments it does not publish, so for those<br>
+the check is that the program runs and writes a valid PGM.</p>
+<p dir="auto">The efficiency study measures <code class="notranslate">ShuffleRows</code> on five images and writes time against pixel<br>
+count to <code class="notranslate">src/efficiency-study/datos.txt</code>; the theoretical analysis is in<br>
+<code class="notranslate">docs/efficiency-study.pdf</code>.</p>
+<h2 dir="auto" id="what-i-learned">What I learned</h2>
+<ul dir="auto">
+<li>Managing memory by hand is where the bugs live. The operations are a handful of loops; the<br>
+copy constructor, the assignment operator and the destructor are what decide whether the<br>
+program survives.</li>
+<li>Two ways of indexing the same buffer pay off. Whole-image operations become a single loop<br>
+over <code class="notranslate">size()</code>, and only the ones that care about geometry use <code class="notranslate">(row, column)</code>.</li>
+<li><strong>Limitations, kept as handed in:</strong>
+<ul dir="auto">
+<li><strong><code class="notranslate">Crop</code> crashes when the crop has fewer rows than columns.</strong> <code class="notranslate">subimagen … 0 0 60 80</code><br>
+segfaults, while <code class="notranslate">0 0 80 60</code> and any square crop work: rows and columns are swapped<br>
+somewhere in the copy. The test script asserts the crash instead of skipping it, so if<br>
+it is ever fixed the script fails and says the README is out of date. It is not patched.<br>
+The reference image <code class="notranslate">subimagen_pub.pgm</code> is 80 by 60, so this is exactly the case the<br>
+judge tested.</li>
+<li><code class="notranslate">icono</code> and <code class="notranslate">zoom</code> produce valid images but do not reproduce the reference ones. Without<br>
+the arguments the judge used, there is no way to tell whether that is a defect or a<br>
+different invocation, so the README does not claim either.</li>
+<li>The scripts of the efficiency study use relative paths from the old layout and need<br>
+their paths checked before running.</li>
+<li>Identifiers, comments and Doxygen documentation are in Spanish.</li>
+<li>The assignment statement written by the teaching staff, and its submission script for<br>
+the online judge, are not published here.</li>
+</ul>
+</li>
+</ul>
+<h2 dir="auto" id="author-and-licence">Author and licence</h2>
+<p dir="auto">Ismael Sallami Moreno. Released under the MIT licence (see <code class="notranslate">LICENSE</code>).</p>

@@ -1,0 +1,427 @@
+<p dir="auto">Self-hosted web app to track expenses, income, investments and net worth, with a<br>
+Telegram bot to log entries and pull reports from your phone.</p>
+<p dir="auto"><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/8820d9bf84e23754356b5b0fd887a8966f98510a9ba4fabb01907b7c6c4e03b4/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f707974686f6e2d332e31322d626c7565"><img loading="lazy" decoding="async" src="https://camo.githubusercontent.com/8820d9bf84e23754356b5b0fd887a8966f98510a9ba4fabb01907b7c6c4e03b4/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f707974686f6e2d332e31322d626c7565" alt="Python" data-canonical-src="https://img.shields.io/badge/python-3.12-blue" style="max-width: 100%;"></a><br>
+<a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/6c092655de67818e9a8f7c2837f452993f7d3d69c052356ca5e9c6aca4116fb6/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f466173744150492d302e3133372d303039363838"><img loading="lazy" decoding="async" src="https://camo.githubusercontent.com/6c092655de67818e9a8f7c2837f452993f7d3d69c052356ca5e9c6aca4116fb6/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f466173744150492d302e3133372d303039363838" alt="FastAPI" data-canonical-src="https://img.shields.io/badge/FastAPI-0.137-009688" style="max-width: 100%;"></a><br>
+<a target="_blank" rel="noopener noreferrer" href="https://github.com/Ismael-Sallami/personal-finance-manager/actions/workflows/ci.yml/badge.svg"><img loading="lazy" decoding="async" src="https://github.com/Ismael-Sallami/personal-finance-manager/actions/workflows/ci.yml/badge.svg" alt="Tests" style="max-width: 100%;"></a><br>
+<a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/f8df3091bbe1149f398a5369b2c39e896766f9f6efba3477c63e9b4aa940ef14/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f6c6963656e73652d4d49542d677265656e"><img loading="lazy" decoding="async" src="https://camo.githubusercontent.com/f8df3091bbe1149f398a5369b2c39e896766f9f6efba3477c63e9b4aa940ef14/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f6c6963656e73652d4d49542d677265656e" alt="License" data-canonical-src="https://img.shields.io/badge/license-MIT-green" style="max-width: 100%;"></a></p>
+<hr>
+<h2 dir="auto" id="project-status">Project status</h2>
+<p dir="auto">This app is used privately for real personal finances. This repository is the<br>
+public version of it, adapted so anyone can run their own instance: no personal<br>
+data, no hardcoded paths, everything driven by environment variables. The code<br>
+is the same; only the data is yours.</p>
+<p dir="auto">It is built for <strong>one user</strong>. There is a single login, and every page assumes<br>
+the data belongs to that person. That is a deliberate simplification, not a<br>
+missing feature.</p>
+<hr>
+<h2 dir="auto" id="full-project-report">Full project report</h2>
+<p dir="auto">A 51-page report walks through the whole project: the design decisions and why<br>
+the alternatives were dropped, how each area works, how it is deployed and kept<br>
+alive on a free tier, and how a private repository was turned into this public<br>
+one without leaking anything.</p>
+<p dir="auto">📄 <strong><a target="_blank" rel="noopener noreferrer" href="https://github.com/Ismael-Sallami/personal-finance-manager/blob/main/informe/informe.pdf">Read the report (PDF)</a></strong> · LaTeX sources in<br>
+<a target="_blank" rel="noopener noreferrer" href="https://github.com/Ismael-Sallami/personal-finance-manager/blob/main/informe/"><code class="notranslate">informe/</code></a></p>
+<div class="highlight highlight-source-shell" dir="auto"><pre class="notranslate"><span class="pl-c1">cd</span> informe <span class="pl-k">&amp;&amp;</span> make        <span class="pl-c"><span class="pl-c">#</span> rebuild it (needs a LaTeX distribution)</span></pre></div>
+<hr>
+<h2 dir="auto" id="features">Features</h2>
+<p dir="auto"><strong>Expenses and income</strong></p>
+<ul dir="auto">
+<li>Add entries by hand, or paste the notes you already keep on your phone. Each<br>
+line can carry arithmetic (<code class="notranslate">Groceries: 15-1+3</code> → 17.00) and it is evaluated<br>
+safely, without <code class="notranslate">eval</code>.</li>
+<li>Import preview: fix categories and amounts before saving, then append to the<br>
+month or replace it.</li>
+<li>Monthly and yearly views with category and cashflow charts.</li>
+</ul>
+<p dir="auto"><strong>Investments</strong></p>
+<ul dir="auto">
+<li>Import statements from <strong>MyInvestor</strong> (CSV), <strong>Trade Republic</strong> (PDF) and<br>
+<strong>Kraken</strong> (CSV). Each parser returns the same shape, so the rest of the app<br>
+does not care where the data came from.</li>
+<li>Add positions by hand for anything not covered by a parser.</li>
+<li>Automatic revaluation for listed products: give a position a Yahoo symbol, or<br>
+let it resolve from the ISIN, and prices refresh on a schedule. Funds stay<br>
+manual on purpose.</li>
+<li>Contributions (DCA): one-off or monthly, tracked as accumulated cost, so<br>
+profit is always value minus what you actually put in. Money is <code class="notranslate">Decimal</code><br>
+everywhere, never <code class="notranslate">float</code>.</li>
+</ul>
+<p dir="auto"><strong>Net worth</strong></p>
+<ul dir="auto">
+<li>Bank accounts, savings and cash, added as you like.</li>
+<li>Net worth = investments + accounts, with a snapshot per day feeding the<br>
+evolution chart.</li>
+</ul>
+<p dir="auto"><strong>Reports</strong></p>
+<ul dir="auto">
+<li>Excel: monthly and yearly.</li>
+<li>PDF with embedded charts: monthly, yearly, any range of months, and a net<br>
+worth report.</li>
+</ul>
+<p dir="auto"><strong>Telegram bot</strong></p>
+<ul dir="auto">
+<li>Log entries from a chat, with a Confirm/Cancel preview before anything is<br>
+saved.</li>
+<li>Summaries, net worth, balances, categories, cashflow and PDF reports on<br>
+demand.</li>
+<li>Weekly database backup delivered to your own chat.</li>
+</ul>
+<hr>
+<h2 dir="auto" id="stack">Stack</h2>
+<markdown-accessiblity-table><table role="table">
+<thead>
+<tr>
+<th>Layer</th>
+<th>Choice</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Web</td>
+<td>FastAPI, Jinja2, HTMX</td>
+</tr>
+<tr>
+<td>UI</td>
+<td>Tailwind (compiled), Chart.js</td>
+</tr>
+<tr>
+<td>Data</td>
+<td>SQLAlchemy 2, Alembic, Postgres or SQLite</td>
+</tr>
+<tr>
+<td>Auth</td>
+<td>bcrypt, signed session cookie, CSRF tokens</td>
+</tr>
+<tr>
+<td>Reports</td>
+<td>openpyxl, reportlab, matplotlib</td>
+</tr>
+<tr>
+<td>Market data</td>
+<td>yfinance, OpenFIGI</td>
+</tr>
+<tr>
+<td>Jobs</td>
+<td>APScheduler, or any external cron</td>
+</tr>
+</tbody>
+</table></markdown-accessiblity-table>
+<hr>
+<h2 dir="auto" id="quick-start">Quick start</h2>
+<div class="highlight highlight-source-shell" dir="auto"><pre class="notranslate">git clone https://github.com/Ismael-Sallami/personal-finance-manager.git
+<span class="pl-c1">cd</span> personal-finance-manager
+
+python3 -m venv .venv <span class="pl-k">&amp;&amp;</span> <span class="pl-c1">source</span> .venv/bin/activate
+pip install -r requirements.txt
+
+cp .env.example .env          <span class="pl-c"><span class="pl-c">#</span> then edit it</span>
+python -c <span class="pl-s"><span class="pl-pds">"</span>import secrets; print(secrets.token_hex(32))<span class="pl-pds">"</span></span>   <span class="pl-c"><span class="pl-c">#</span> SECRET_KEY</span></pre></div>
+<p dir="auto">Create the schema and the user:</p>
+<div class="highlight highlight-source-shell" dir="auto"><pre class="notranslate">alembic upgrade head          <span class="pl-c"><span class="pl-c">#</span> creates the tables</span>
+python -m scripts.seed        <span class="pl-c"><span class="pl-c">#</span> creates the user from .env</span></pre></div>
+<p dir="auto">Run it:</p>
+<div class="highlight highlight-source-shell" dir="auto"><pre class="notranslate">uvicorn app.main:app --reload
+<span class="pl-c"><span class="pl-c">#</span> http://localhost:8000  -&gt; sign in with APP_USER_EMAIL / APP_USER_PASSWORD</span></pre></div>
+<p dir="auto">With <code class="notranslate">DATABASE_URL</code> empty the app uses a local SQLite file (<code class="notranslate">dev.db</code>), which is<br>
+enough to try everything. Set it to a Postgres URL for real use.</p>
+<hr>
+<h2 dir="auto" id="configuration">Configuration</h2>
+<p dir="auto">Everything lives in <code class="notranslate">.env</code>. Nothing here is baked into the code.</p>
+<markdown-accessiblity-table><table role="table">
+<thead>
+<tr>
+<th>Variable</th>
+<th>What it does</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code class="notranslate">DATABASE_URL</code></td>
+<td>Postgres URL. Empty means local SQLite.</td>
+<td>empty</td>
+</tr>
+<tr>
+<td><code class="notranslate">SECRET_KEY</code></td>
+<td>Signs the session cookie. <strong>Required in production.</strong></td>
+<td>insecure dev value</td>
+</tr>
+<tr>
+<td><code class="notranslate">COOKIE_SECURE</code></td>
+<td><code class="notranslate">true</code> sends the cookie over HTTPS only.</td>
+<td><code class="notranslate">false</code></td>
+</tr>
+<tr>
+<td><code class="notranslate">IS_PROD</code></td>
+<td><code class="notranslate">true</code> hides <code class="notranslate">/docs</code> and enables HSTS.</td>
+<td><code class="notranslate">false</code></td>
+</tr>
+<tr>
+<td><code class="notranslate">APP_USER_EMAIL</code></td>
+<td>Login email, created by <code class="notranslate">scripts/seed.py</code>.</td>
+<td><code class="notranslate">admin@local</code></td>
+</tr>
+<tr>
+<td><code class="notranslate">APP_USER_PASSWORD</code></td>
+<td>Login password for the seed script.</td>
+<td><code class="notranslate">admin</code></td>
+</tr>
+<tr>
+<td><code class="notranslate">REPORT_OWNER</code></td>
+<td>Name printed on generated reports.</td>
+<td><code class="notranslate">Account owner</code></td>
+</tr>
+<tr>
+<td><code class="notranslate">CURRENCY_SYMBOL</code></td>
+<td>Symbol shown next to every amount.</td>
+<td><code class="notranslate">€</code></td>
+</tr>
+<tr>
+<td><code class="notranslate">TIMEZONE</code></td>
+<td>IANA timezone the scheduled jobs run in.</td>
+<td><code class="notranslate">UTC</code></td>
+</tr>
+<tr>
+<td><code class="notranslate">OPENFIGI_API_KEY</code></td>
+<td>Optional key for ISIN lookups (works without one).</td>
+<td>empty</td>
+</tr>
+<tr>
+<td><code class="notranslate">TELEGRAM_BOT_TOKEN</code></td>
+<td>Bot token from <a target="_blank" rel="noopener noreferrer" class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/Botfather/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/Botfather">@Botfather</a>. Empty disables the bot.</td>
+<td>empty</td>
+</tr>
+<tr>
+<td><code class="notranslate">TELEGRAM_CHAT_ID</code></td>
+<td>Allowlist of chat ids, comma separated.</td>
+<td>empty</td>
+</tr>
+<tr>
+<td><code class="notranslate">TELEGRAM_WEBHOOK_SECRET</code></td>
+<td>Secret Telegram echoes back on every update.</td>
+<td>empty</td>
+</tr>
+<tr>
+<td><code class="notranslate">PUBLIC_BASE_URL</code></td>
+<td>Public URL used to register the webhook.</td>
+<td>empty</td>
+</tr>
+<tr>
+<td><code class="notranslate">USE_SCHEDULER</code></td>
+<td><code class="notranslate">true</code> only on always-on hosts.</td>
+<td><code class="notranslate">false</code></td>
+</tr>
+<tr>
+<td><code class="notranslate">TASKS_TOKEN</code></td>
+<td>Authorises <code class="notranslate">/tasks/*</code>. Empty disables those endpoints.</td>
+<td>empty</td>
+</tr>
+</tbody>
+</table></markdown-accessiblity-table>
+<hr>
+<h2 dir="auto" id="deployment">Deployment</h2>
+<p dir="auto">Two supported paths, both covered in detail in<br>
+<a target="_blank" rel="noopener noreferrer" href="https://github.com/Ismael-Sallami/personal-finance-manager/blob/main/docs/DEPLOYMENT.md"><code class="notranslate">docs/DEPLOYMENT.md</code></a>.</p>
+<p dir="auto"><strong>Self-hosted with Docker Compose</strong> — the app plus its own Postgres:</p>
+<div class="highlight highlight-source-shell" dir="auto"><pre class="notranslate">cp .env.example .env
+docker compose up -d
+docker compose <span class="pl-c1">exec</span> app alembic upgrade head
+docker compose <span class="pl-c1">exec</span> app python -m scripts.seed</pre></div>
+<p dir="auto"><strong>Managed host plus managed Postgres</strong> — <code class="notranslate">render.yaml</code> and <code class="notranslate">fly.toml</code> are<br>
+included as blueprints. Set the secrets in the provider dashboard, then run<br>
+<code class="notranslate">alembic upgrade head</code> once from the shell.</p>
+<p dir="auto">In production set <code class="notranslate">COOKIE_SECURE=true</code> and <code class="notranslate">IS_PROD=true</code>, and never keep the<br>
+default <code class="notranslate">SECRET_KEY</code>: the app refuses to boot with it.</p>
+<hr>
+<h2 dir="auto" id="keeping-it-alive-on-a-free-tier">Keeping it alive on a free tier</h2>
+<p dir="auto">Free hosting sleeps the app after ~15 minutes without traffic, and free managed<br>
+databases pause after several days without queries. If the app is asleep, the<br>
+Telegram webhook arrives while the process is still booting and the message is<br>
+dropped, so the bot looks broken.</p>
+<p dir="auto">Three pieces prevent it:</p>
+<markdown-accessiblity-table><table role="table">
+<thead>
+<tr>
+<th>Piece</th>
+<th>What it does</th>
+<th>Where it runs</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Uptime monitor</td>
+<td><code class="notranslate">GET /health/db</code> every 5 minutes</td>
+<td>UptimeRobot or similar</td>
+</tr>
+<tr>
+<td>Task cron</td>
+<td><code class="notranslate">POST /tasks/*</code> on a schedule</td>
+<td>cron-job.org, GitHub Actions</td>
+</tr>
+<tr>
+<td>Backup</td>
+<td><code class="notranslate">POST /tasks/backup</code> weekly</td>
+<td>same cron</td>
+</tr>
+</tbody>
+</table></markdown-accessiblity-table>
+<p dir="auto"><strong>The two health endpoints are not interchangeable:</strong></p>
+<ul dir="auto">
+<li><code class="notranslate">/health</code> always answers and never touches the database. This is the host<br>
+healthcheck. If it failed during a short database outage, the host would tear<br>
+down the deployment.</li>
+<li><code class="notranslate">/health/db</code> runs <code class="notranslate">SELECT 1</code> and answers <strong>503</strong> when the database is silent.<br>
+This is the one the monitor should ping: the same request keeps the app awake<br>
+<strong>and</strong> the database alive, and a paused database raises an alert instead of<br>
+going unnoticed.</li>
+</ul>
+<p dir="auto">Recommended cron jobs:</p>
+<markdown-accessiblity-table><table role="table">
+<thead>
+<tr>
+<th>Job</th>
+<th>When</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code class="notranslate">POST /tasks/prices</code></td>
+<td>daily, 03:00</td>
+</tr>
+<tr>
+<td><code class="notranslate">POST /tasks/snapshot</code></td>
+<td>daily, 23:00</td>
+</tr>
+<tr>
+<td><code class="notranslate">POST /tasks/backup</code></td>
+<td>weekly</td>
+</tr>
+<tr>
+<td><code class="notranslate">POST /tasks/contributions</code></td>
+<td>1st of the month, 06:00</td>
+</tr>
+<tr>
+<td><code class="notranslate">POST /tasks/reminder</code></td>
+<td>last day of the month, 20:00</td>
+</tr>
+</tbody>
+</table></markdown-accessiblity-table>
+<p dir="auto">The token goes in the <code class="notranslate">X-Tasks-Token</code> header or as <code class="notranslate">?token=</code>. <strong>On cron-job.org<br>
+use <code class="notranslate">?token=</code></strong>: custom headers are not forwarded and the endpoint answers 403<br>
+with no further hint. With curl or GitHub Actions the header works and is<br>
+preferable, since the token never ends up in a URL. Always use <code class="notranslate">https://</code>, or<br>
+the redirect will drop the POST body.</p>
+<h3 dir="auto" id="backups">Backups</h3>
+<p dir="auto"><code class="notranslate">POST /tasks/backup</code> dumps the database to gzipped JSON and sends it to your<br>
+Telegram chat. That is the point: the copy lives outside the database provider,<br>
+so a paused or deleted project does not take your history with it.</p>
+<p dir="auto">By hand:</p>
+<div class="highlight highlight-source-shell" dir="auto"><pre class="notranslate">python -m scripts.backup dump                    <span class="pl-c"><span class="pl-c">#</span> finance_backup_&lt;date&gt;.json.gz</span>
+python -m scripts.backup restore copy.json.gz    <span class="pl-c"><span class="pl-c">#</span> dry run, writes nothing</span>
+python -m scripts.backup restore copy.json.gz --write</pre></div>
+<p dir="auto">Restoring <strong>deletes</strong> the tables present in the file before inserting. The<br>
+backup never contains <code class="notranslate">users.password_hash</code>, so after restoring into an empty<br>
+database recreate the user with <code class="notranslate">python -m scripts.seed</code>.</p>
+<hr>
+<h2 dir="auto" id="telegram-bot">Telegram bot</h2>
+<p dir="auto">Create a bot with <a target="_blank" rel="noopener noreferrer" href="https://t.me/botfather" rel="nofollow">@BotFather</a>, put the token in<br>
+<code class="notranslate">TELEGRAM_BOT_TOKEN</code>, your chat id in <code class="notranslate">TELEGRAM_CHAT_ID</code>, and set<br>
+<code class="notranslate">PUBLIC_BASE_URL</code>. The webhook registers itself on every boot.</p>
+<markdown-accessiblity-table><table role="table">
+<thead>
+<tr>
+<th>Command</th>
+<th>What it returns</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code class="notranslate">/menu</code></td>
+<td>Button menu</td>
+</tr>
+<tr>
+<td><code class="notranslate">/summary [mm/yyyy]</code></td>
+<td>Income, expenses, savings, net worth</td>
+</tr>
+<tr>
+<td><code class="notranslate">/net [period]</code></td>
+<td>Income, expenses and net, any range</td>
+</tr>
+<tr>
+<td><code class="notranslate">/networth</code></td>
+<td>Investments and accounts</td>
+</tr>
+<tr>
+<td><code class="notranslate">/banks</code>, <code class="notranslate">/bank &lt;name&gt; &lt;balance&gt;</code></td>
+<td>Read or update balances</td>
+</tr>
+<tr>
+<td><code class="notranslate">/expenses [mm/yyyy]</code></td>
+<td>Expenses by category</td>
+</tr>
+<tr>
+<td><code class="notranslate">/cashflow [yyyy]</code></td>
+<td>Income vs expenses per month</td>
+</tr>
+<tr>
+<td><code class="notranslate">/savings [mm/yyyy]</code></td>
+<td>Savings of the period</td>
+</tr>
+<tr>
+<td><code class="notranslate">/report [period]</code></td>
+<td>PDF with charts</td>
+</tr>
+<tr>
+<td><code class="notranslate">/detailed [period]</code></td>
+<td>Full PDF: net worth, categories, cashflow</td>
+</tr>
+</tbody>
+</table></markdown-accessiblity-table>
+<p dir="auto">Any other text is read as expense lines and previewed before saving.</p>
+<hr>
+<h2 dir="auto" id="security">Security</h2>
+<ul dir="auto">
+<li>Password hashed with <strong>bcrypt</strong>; session in a signed <code class="notranslate">httponly</code> cookie with<br>
+<code class="notranslate">samesite=lax</code> (plus <code class="notranslate">secure</code> in production).</li>
+<li><strong>CSRF token</strong> on every POST form.</li>
+<li>Per-IP sliding window on the login form, so brute force stops after a few<br>
+attempts.</li>
+<li>Uploads limited to 8 MB and filtered by extension.</li>
+<li>Pasted arithmetic is parsed with <code class="notranslate">ast</code>, never executed.</li>
+<li>Security headers on every response: CSP, <code class="notranslate">X-Frame-Options: DENY</code>, <code class="notranslate">nosniff</code>,<br>
+<code class="notranslate">Referrer-Policy</code>, and HSTS in production.</li>
+<li>API docs hidden when <code class="notranslate">IS_PROD=true</code>.</li>
+<li>No personal data in the code: it all comes from <code class="notranslate">.env</code>.</li>
+</ul>
+<hr>
+<h2 dir="auto" id="tests">Tests</h2>
+<div class="highlight highlight-source-shell" dir="auto"><pre class="notranslate">python -m pytest -q</pre></div>
+<p dir="auto">They cover the broker parsers, the P&amp;L maths in <code class="notranslate">Decimal</code>, the paste parser,<br>
+aggregation, the bot, the task endpoints, backups and the health contracts.</p>
+<p dir="auto"><code class="notranslate">tests/test_boot_imports.py</code> deserves a note: it asserts that importing<br>
+<code class="notranslate">app.main</code> does <strong>not</strong> pull in pandas, matplotlib, reportlab, openpyxl or<br>
+pdfplumber. Those add seconds to startup and are only needed when a report is<br>
+generated or a statement is uploaded. If that test fails, a heavy import has<br>
+crept to the top of a module: move it inside the function that uses it.</p>
+<hr>
+<h2 dir="auto" id="project-structure">Project structure</h2>
+<pre class="notranslate"><code class="notranslate">app/
+  main.py       config.py  db.py  models.py  auth.py  security.py  templating.py
+  format.py     scheduler.py
+  routers/      dashboard, expenses, investments, banks, reports, tasks,
+                telegram, auth_routes
+  services/
+    parsers/    myinvestor, traderepublic, kraken, dispatch
+    reports/    excel.py  pdf.py  charts.py  generate.py
+    aggregation.py  pnl.py  prices.py  symbol_lookup.py  contributions.py
+    backup.py   bot.py     expenses_parse.py
+  templates/    static/
+migrations/     Alembic
+scripts/        seed.py  backup.py
+tests/
+docs/           ARCHITECTURE.md  DEPLOYMENT.md
+informe/        LaTeX sources of the project report + informe.pdf
+</code></pre>
+<hr>
+<h2 dir="auto" id="license">License</h2>
+<p dir="auto">MIT. See <a target="_blank" rel="noopener noreferrer" href="https://github.com/Ismael-Sallami/personal-finance-manager/blob/main/LICENSE">LICENSE</a>.</p>

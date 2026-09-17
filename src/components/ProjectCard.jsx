@@ -1,7 +1,10 @@
 import { useRef, useState } from 'react'
+import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { ArrowUpRight } from 'lucide-react'
 import { useI18n } from '../i18n/LanguageContext.jsx'
+
+const MotionLink = motion(Link)
 
 export default function ProjectCard({ project, index, large = false }) {
   const { t } = useI18n()
@@ -18,12 +21,19 @@ export default function ProjectCard({ project, index, large = false }) {
   }
   const reset = () => setTilt({ rx: 0, ry: 0 })
 
+  // Most cards now open a page on the site that carries the repository's README. One of
+  // them points at a site rather than a repository, and a repository with no README has
+  // nothing to show, so those two keep sending people straight to the source.
+  const internal = Boolean(project.slug && project.hasReadme)
+  const Card = internal ? MotionLink : motion.a
+  const target = internal
+    ? { to: `/projects/${project.slug}` }
+    : { href: project.url, target: '_blank', rel: 'noopener noreferrer' }
+
   return (
-    <motion.a
+    <Card
       ref={ref}
-      href={project.url}
-      target="_blank"
-      rel="noopener noreferrer"
+      {...target}
       onMouseMove={onMove}
       onMouseLeave={reset}
       initial={{ opacity: 0, y: 30 }}
@@ -56,6 +66,6 @@ export default function ProjectCard({ project, index, large = false }) {
           <ArrowUpRight size={16} className="transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
         </span>
       </div>
-    </motion.a>
+    </Card>
   )
 }

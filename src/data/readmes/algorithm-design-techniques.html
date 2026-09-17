@@ -1,0 +1,127 @@
+<p dir="auto"><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/5e24a2a41b1e39f51b67ff112cb9b8387e0b4cf0ef00677b979307a0d1867084/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f432532422532422d31372d3030353939433f6c6f676f3d63706c7573706c7573266c6f676f436f6c6f723d7768697465"><img loading="lazy" decoding="async" src="https://camo.githubusercontent.com/5e24a2a41b1e39f51b67ff112cb9b8387e0b4cf0ef00677b979307a0d1867084/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f432532422532422d31372d3030353939433f6c6f676f3d63706c7573706c7573266c6f676f436f6c6f723d7768697465" alt="C++" data-canonical-src="https://img.shields.io/badge/C%2B%2B-17-00599C?logo=cplusplus&amp;logoColor=white" style="max-width: 100%;"></a><br>
+<a target="_blank" rel="noopener noreferrer" href="https://github.com/Ismael-Sallami/algorithm-design-techniques/actions/workflows/ci.yml"><img loading="lazy" decoding="async" src="https://camo.githubusercontent.com/8a70f6c6f5fcf55863cb18bbf499e60d3b0c64bc561a7ee4f320e6672e9aa188/68747470733a2f2f696d672e736869656c64732e696f2f6769746875622f616374696f6e732f776f726b666c6f772f7374617475732f49736d61656c2d53616c6c616d692f616c676f726974686d2d64657369676e2d746563686e69717565732f63692e796d6c3f6272616e63683d6d61696e266c6f676f3d676974687562266c6162656c3d7465737473" alt="tests" data-canonical-src="https://img.shields.io/github/actions/workflow/status/Ismael-Sallami/algorithm-design-techniques/ci.yml?branch=main&amp;logo=github&amp;label=tests" style="max-width: 100%;"></a><br>
+<a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/f94c5fd447e0fcdb57a248775dc35882bfe62c7b8a301d7f72b2fbd0df3d4839/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f6c6963656e73652d4d49542d346331"><img loading="lazy" decoding="async" src="https://camo.githubusercontent.com/f94c5fd447e0fcdb57a248775dc35882bfe62c7b8a301d7f72b2fbd0df3d4839/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f6c6963656e73652d4d49542d346331" alt="license" data-canonical-src="https://img.shields.io/badge/license-MIT-4c1" style="max-width: 100%;"></a></p>
+<p dir="auto">Nineteen problems solved with the four classic algorithm design techniques, in C++: divide<br>
+and conquer, greedy, backtracking with branch and bound, and dynamic programming.</p>
+<h2 dir="auto" id="context">Context</h2>
+<p dir="auto">Coursework for <strong>Algorithmics</strong>, year 2 of the double degree in Computer Science and<br>
+Business Administration, University of Granada (2023-24). Team work with <strong>José Ángel Carretero<br>
+Montes</strong>, <strong>Fernando José Gracia Choin</strong>, <strong>Minerva Cebrián Marín</strong> and <strong>Jesús Rodríguez<br>
+González</strong>.</p>
+<p dir="auto">It was handed in as four separate repositories, one per practical, and this is the four<br>
+brought together. <strong>Practical 1 is not here</strong>: it was the empirical efficiency study and no<br>
+copy of it survives in any of our accounts. The numbering below follows the course, so it<br>
+starts at two.</p>
+<h2 dir="auto" id="the-problem">The problem</h2>
+<p dir="auto">The subject is not about the problems. It is about the technique: the same statement is<br>
+handed to you twice, in two different practicals, so that you have to solve it once with a<br>
+greedy algorithm and once with backtracking and see for yourself where the first one gives<br>
+up.</p>
+<p dir="auto">Student pairing and the circular table appear in both practical 3 and practical 4 for that<br>
+reason, and the pair is the most interesting thing in this repository. The greedy version<br>
+takes the best available pair at each step and finishes instantly; backtracking explores and<br>
+finds an optimum the greedy one misses, and pays for it.</p>
+<p dir="auto">Divide and conquer adds a second question on top: past what size is splitting worth it?<br>
+Every problem in practical 2 comes in three versions — iterative, recursive, and a hybrid<br>
+that switches to the iterative one below a threshold — plus the benchmark that measures where<br>
+that threshold is.</p>
+<h2 dir="auto" id="the-solution">The solution</h2>
+<p dir="auto"><strong>Practical 2 — divide and conquer.</strong> Absolute majority in a vote count, matching nuts to<br>
+bolts without ever comparing two nuts, deciding whether a number is the product of three<br>
+consecutive naturals, removing duplicates, and building a round-robin calendar by doubling a<br>
+half-sized one. Five problems, each in its three versions.</p>
+<p dir="auto"><strong>Practical 3 — greedy.</strong> Pairing students, seating guests at a circular table, choosing<br>
+refuelling stops to make as few as possible, routing sensor data with Dijkstra, and paving<br>
+the streets of a village with a minimum spanning tree.</p>
+<p dir="auto"><strong>Practical 4 — backtracking and branch and bound.</strong> The first two problems again, plus<br>
+peg solitaire on a 7×7 board, a maze solved by backtracking, and the same maze solved with a<br>
+bound so that the path found is the shortest.</p>
+<p dir="auto"><strong>Practical 5 — dynamic programming.</strong> The cheapest downstream trip on a river, minimum<br>
+flight times with stopovers by Floyd, the most gold collectable crossing a grid, and the<br>
+cheapest descent of a mountain. All four fill a table and then walk it backwards to recover<br>
+the route, which is the half people skip.</p>
+<h2 dir="auto" id="layout">Layout</h2>
+<pre class="notranslate"><code class="notranslate">src/01-divide-and-conquer/    five problems, three versions each, plus the benchmarks
+src/02-greedy/                five problems
+src/03-backtracking-and-branch-and-bound/   five problems, sharing maze.cpp
+src/04-dynamic-programming/   four problems
+tests/cases.txt               arguments and stdin for each case
+tests/expected/               the output each one has to produce
+tools/run-tests.sh            builds, runs and compares
+tools/known-build-failures.txt, known-crashes.txt, nondeterministic.txt
+</code></pre>
+<h2 dir="auto" id="requirements">Requirements</h2>
+<ul dir="auto">
+<li>A C++17 compiler. Tested with g++ 13 and 14</li>
+<li><code class="notranslate">make</code>, optional: everything runs through <code class="notranslate">bash tools/run-tests.sh</code></li>
+<li><code class="notranslate">graphviz</code>, only if you want <code class="notranslate">street_paving</code> to draw its graph</li>
+</ul>
+<h2 dir="auto" id="build-and-run">Build and run</h2>
+<div class="highlight highlight-source-shell" dir="auto"><pre class="notranslate">git clone https://github.com/Ismael-Sallami/algorithm-design-techniques.git
+<span class="pl-c1">cd</span> algorithm-design-techniques
+
+make <span class="pl-c1">test</span>          <span class="pl-c"><span class="pl-c">#</span> builds everything, runs the cases, compares the output</span></pre></div>
+<p dir="auto">Individual programs, once built:</p>
+<div class="highlight highlight-source-shell" dir="auto"><pre class="notranslate">./bin/dnc/absolute_majority_divide 7 1 1 2 1 3 1 1
+./bin/greedy/bus_refuelling
+./bin/backtracking/senku
+./bin/dp/gold_grid</pre></div>
+<p dir="auto">The benchmarks are the exception. They sweep sizes from 10,000 to 100,000 writing timings to<br>
+a file, and take minutes:</p>
+<div class="highlight highlight-source-shell" dir="auto"><pre class="notranslate">./bin/dnc/absolute_majority_threshold_benchmark output.dat 42 0 100</pre></div>
+<h2 dir="auto" id="results">Results</h2>
+<p dir="auto"><code class="notranslate">make test</code> builds 31 programs and runs 27 cases. Dynamic programming on the grid of gold,<br>
+for instance:</p>
+<pre class="notranslate"><code class="notranslate">Matriz T:
+0	1	1	-∞	0
+0	-∞	2	2	2
+0	0	-∞	2	3
+1	1	1	3	3
+Máximo oro recogido: 3
+Ruta: (0,0) (0,1) (1,2) (1,3) (2,4) (3,4)
+</code></pre>
+<p dir="auto">And the check that matters in practical 2, which is that the two ways of solving the same<br>
+problem agree:</p>
+<pre class="notranslate"><code class="notranslate">── las dos versiones del mismo problema coinciden
+  ok    mayoria absoluta, con mayoria
+  ok    mayoria absoluta, sin mayoria
+  ok    calendario del campeonato
+  ok    producto de tres consecutivos, n=120
+  ok    producto de tres consecutivos, n=121
+  ok    eliminar repetidos, mismo conjunto en las dos versiones
+</code></pre>
+<p dir="auto">The last line is not the same check as the others. Removing duplicates by divide and conquer<br>
+returns <strong>the same set in a different order</strong>, because sorting falls out of the merge for<br>
+free, so what is compared there is the set and not the text.</p>
+<h2 dir="auto" id="what-we-learned">What we learned</h2>
+<ul dir="auto">
+<li>Solving the same statement twice, once greedily and once with backtracking, teaches more<br>
+than either alone. The greedy pairing is not wrong so much as satisfied too early.</li>
+<li>A hybrid with a threshold is the honest answer to "which is faster". Recursion wins<br>
+asymptotically and loses on small inputs, and the crossover is a number you measure rather<br>
+than a matter of opinion.</li>
+<li>Every dynamic programming problem here is two halves: filling the table, which is<br>
+mechanical, and walking it back to recover the route, which is where the mistakes are.</li>
+<li><strong>Limitations, and the two defects left as they were handed in:</strong>
+<ul dir="auto">
+<li><strong><code class="notranslate">nuts_and_bolts_iterative</code> segfaults on every run.</strong> Its counting sort loops with<br>
+<code class="notranslate">for (size_t i = arr1.size() - 1; i &gt;= 0; --i)</code>, and <code class="notranslate">i &gt;= 0</code> is always true for an<br>
+unsigned type, so after zero it wraps around and reads out of bounds. The second half of<br>
+the same function loops with <code class="notranslate">int</code> and is fine, which is what makes it look right.<br>
+Asserted in <code class="notranslate">tools/known-crashes.txt</code>.</li>
+<li><strong><code class="notranslate">river_trip</code> does not compile.</strong> It uses <code class="notranslate">INT32_MAX</code> without including <code class="notranslate">&lt;cstdint&gt;</code>;<br>
+GCC used to provide it through another header and no longer does, so what was marked in<br>
+2024 does not build today. Asserted in <code class="notranslate">tools/known-build-failures.txt</code>.</li>
+<li>Neither is fixed. A submission rewritten to please a compiler is not the submission any<br>
+more, so both are asserted instead: if either ever starts working, the tests fail and the<br>
+list gets corrected rather than quietly lying.</li>
+<li><code class="notranslate">greedy/student_pairing</code> seeds with <code class="notranslate">time(NULL)</code>, so it cannot have a fixed expected<br>
+output. What the test checks there is the shape of the answer, declared in<br>
+<code class="notranslate">tools/nondeterministic.txt</code>.</li>
+<li>The code, the comments and the program output are in Spanish.</li>
+</ul>
+</li>
+</ul>
+<h2 dir="auto" id="authors-and-licence">Authors and licence</h2>
+<p dir="auto">José Ángel Carretero Montes, Ismael Sallami Moreno, Fernando José Gracia Choin, Minerva<br>
+Cebrián Marín and Jesús Rodríguez González. Released under the MIT licence (see <code class="notranslate">LICENSE</code>).</p>

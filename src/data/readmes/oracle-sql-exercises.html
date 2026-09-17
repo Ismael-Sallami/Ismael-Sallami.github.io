@@ -1,0 +1,241 @@
+<p dir="auto"><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/ced827536d2f8f1be02f1f9be159383c9e70bb7cce6da2863f726aba4464223e/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f6f7261636c652d32336169253230667265652d463830303030"><img loading="lazy" decoding="async" src="https://camo.githubusercontent.com/ced827536d2f8f1be02f1f9be159383c9e70bb7cce6da2863f726aba4464223e/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f6f7261636c652d32336169253230667265652d463830303030" alt="oracle" data-canonical-src="https://img.shields.io/badge/oracle-23ai%20free-F80000" style="max-width: 100%;"></a><br>
+<a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/d0ed464111ce9a8994efba7faa5e284c165d5e655103fc3b9df727e9ce66a949/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f73716c2d39323025323073746174656d656e74732d333336373931"><img loading="lazy" decoding="async" src="https://camo.githubusercontent.com/d0ed464111ce9a8994efba7faa5e284c165d5e655103fc3b9df727e9ce66a949/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f73716c2d39323025323073746174656d656e74732d333336373931" alt="sql" data-canonical-src="https://img.shields.io/badge/sql-920%20statements-336791" style="max-width: 100%;"></a><br>
+<a target="_blank" rel="noopener noreferrer" href="https://github.com/Ismael-Sallami/oracle-sql-exercises/actions/workflows/ci.yml"><img loading="lazy" decoding="async" src="https://camo.githubusercontent.com/6729b13df43c45f25fe427549862b765b38fcafa5babd11dd2af488e033509a2/68747470733a2f2f696d672e736869656c64732e696f2f6769746875622f616374696f6e732f776f726b666c6f772f7374617475732f49736d61656c2d53616c6c616d692f6f7261636c652d73716c2d6578657263697365732f63692e796d6c3f6272616e63683d6d61696e266c6f676f3d676974687562266c6162656c3d6275696c64" alt="build" data-canonical-src="https://img.shields.io/github/actions/workflow/status/Ismael-Sallami/oracle-sql-exercises/ci.yml?branch=main&amp;logo=github&amp;label=build" style="max-width: 100%;"></a><br>
+<a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/f94c5fd447e0fcdb57a248775dc35882bfe62c7b8a301d7f72b2fbd0df3d4839/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f6c6963656e73652d4d49542d346331"><img loading="lazy" decoding="async" src="https://camo.githubusercontent.com/f94c5fd447e0fcdb57a248775dc35882bfe62c7b8a301d7f72b2fbd0df3d4839/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f6c6963656e73652d4d49542d346331" alt="license" data-canonical-src="https://img.shields.io/badge/license-MIT-4c1" style="max-width: 100%;"></a></p>
+<p dir="auto">A basketball league database in Oracle, plus the full set of SQL exercises from the course:<br>
+schema, seed data, twenty delivered queries and 136 more pulled out of the chapter notes. CI<br>
+creates the tables, loads the rows and runs every delivered query against a real Oracle.</p>
+<h2 dir="auto" id="context">Context</h2>
+<p dir="auto">Coursework for <strong>FBD — Database Foundations</strong>, year 3 of the double degree in Computer<br>
+Science and Business Administration, University of Granada (2024–2025). Solo work.</p>
+<h2 dir="auto" id="the-problem">The problem</h2>
+<p dir="auto">Design and query a small league database. Four entities and the rules that tie them<br>
+together:</p>
+<ul dir="auto">
+<li><strong>Equipos</strong> — a team has a unique name, a home town, a coach and a founding date.</li>
+<li><strong>Jugadores</strong> — a player belongs to exactly one team.</li>
+<li><strong>Encuentros</strong> — a match is played between a home team and an away team on a date, with<br>
+a score for each side.</li>
+<li><strong>Faltas</strong> — a foul happens in a given match, committed by a given player, in a given<br>
+minute.</li>
+</ul>
+<p dir="auto">Then answer twenty questions about it: who has never fouled, who plays alongside whom,<br>
+which team scored most, which matches are still to be played.</p>
+<h2 dir="auto" id="the-solution">The solution</h2>
+<p dir="auto"><strong>Constraints carry names.</strong> Every primary key, foreign key, unique and check constraint in<br>
+<code class="notranslate">01-schema.sql</code> is declared with an explicit name:</p>
+<div class="highlight highlight-source-sql" dir="auto"><pre class="notranslate">codE <span class="pl-k">VARCHAR</span>(<span class="pl-c1">5</span>) <span class="pl-k">CONSTRAINT</span> PK_codE <span class="pl-k">PRIMARY KEY</span>,
+nombreE <span class="pl-k">VARCHAR2</span>(<span class="pl-c1">30</span>) <span class="pl-k">CONSTRAINT</span> uq_nombreE UNIQUE <span class="pl-k">NOT NULL</span>,</pre></div>
+<p dir="auto">Oracle would generate a name on its own — <code class="notranslate">SYS_C0011234</code>. Naming them means an error<br>
+message says which rule you broke, and <code class="notranslate">ALTER TABLE ... DROP CONSTRAINT</code> has something to<br>
+refer to.</p>
+<p dir="auto"><strong>The composite key is the match itself.</strong> <code class="notranslate">Encuentros</code> is keyed on<br>
+<code class="notranslate">(ELocal, EVisitante, fecha)</code> rather than a surrogate id, so the same two teams playing<br>
+twice on different dates is legal and the same fixture twice on one date is not. <code class="notranslate">Faltas</code><br>
+then has to carry that whole key plus the player: a four-column primary key<br>
+<code class="notranslate">(codJ, ELocal, EVisitante, fecha)</code> and a three-column foreign key back to the match. It is<br>
+more verbose than an id column, and it is the reason the database cannot hold a foul that<br>
+belongs to no match.</p>
+<p dir="auto"><strong>"All of them" is written as "none that is not".</strong> SQL has no operator for universal<br>
+quantification, so <em>teams that won every home match</em> becomes <em>teams for which no home match<br>
+exists that they did not win</em>:</p>
+<div class="highlight highlight-source-sql" dir="auto"><pre class="notranslate"><span class="pl-k">SELECT</span> <span class="pl-c1">E</span>.<span class="pl-c1">codE</span>, <span class="pl-c1">E</span>.<span class="pl-c1">nombreE</span>
+<span class="pl-k">FROM</span> Equipos E
+<span class="pl-k">WHERE</span> NOT EXISTS (
+    <span class="pl-k">SELECT</span> <span class="pl-c1">1</span> <span class="pl-k">FROM</span> Encuentros Enc
+    <span class="pl-k">WHERE</span> <span class="pl-c1">Enc</span>.<span class="pl-c1">ELocal</span> <span class="pl-k">=</span> <span class="pl-c1">E</span>.<span class="pl-c1">codE</span> <span class="pl-k">AND</span> <span class="pl-c1">Enc</span>.<span class="pl-c1">PLocal</span> <span class="pl-k">&lt;=</span> <span class="pl-c1">Enc</span>.<span class="pl-c1">PVisitante</span>)
+<span class="pl-k">AND</span> EXISTS (
+    <span class="pl-k">SELECT</span> <span class="pl-c1">1</span> <span class="pl-k">FROM</span> Encuentros Enc
+    <span class="pl-k">WHERE</span> <span class="pl-c1">Enc</span>.<span class="pl-c1">ELocal</span> <span class="pl-k">=</span> <span class="pl-c1">E</span>.<span class="pl-c1">codE</span>);</pre></div>
+<p dir="auto">The second <code class="notranslate">EXISTS</code> is the part that is easy to miss: without it, a team that has never<br>
+played at home vacuously satisfies the first condition and shows up as having won<br>
+everything.</p>
+<p dir="auto"><strong>Fixtures that do not exist yet come from a <code class="notranslate">WITH</code> clause.</strong> To list unplayed matches you<br>
+first need the set of all possible ones, which is not in any table. A CTE builds the cross<br>
+product of teams against themselves, and <code class="notranslate">NOT EXISTS</code> subtracts the matches already played.</p>
+<p dir="auto"><strong>Most of the course SQL was trapped in a document.</strong> The chapter notes hold 136 fenced<br>
+<code class="notranslate">sql</code> blocks: the whole syllabus, from <code class="notranslate">CREATE TABLE</code> to <code class="notranslate">GRANT</code>. As Markdown none of it<br>
+could be parsed or run. <code class="notranslate">tools/extract-from-notes.py</code> writes it out as one file per chapter,<br>
+keeping each block's heading and exercise number so a statement can be traced back.</p>
+<p dir="auto">Grouping by chapter rather than by block matters: the median block is three lines, so a file<br>
+per block would be 136 fragments. Seven blocks document the grammar rather than run —<br>
+<code class="notranslate">UPDATE t SET a = v [WHERE &lt;cond&gt;];</code> — and are written out commented, so the chapter still<br>
+parses as SQL.</p>
+<p dir="auto"><strong>CI runs the SQL, it does not just read it.</strong> A parser accepts a query against a column<br>
+that does not exist. The <code class="notranslate">run</code> job starts <code class="notranslate">gvenzl/oracle-free</code>, executes the schema, commits<br>
+the seed data, checks the row counts and then runs all twenty queries. If a join condition<br>
+is wrong, the build fails. A second check regenerates <code class="notranslate">src/exercises/</code> and fails if it no<br>
+longer matches the notes.</p>
+<h2 dir="auto" id="layout">Layout</h2>
+<pre class="notranslate"><code class="notranslate">src/01-schema.sql       4 tables with named constraints
+src/02-seed.sql         4 teams, 20 players, 10 matches, 11 fouls
+src/03-queries.sql      20 query exercises with their statements
+src/exercises/          136 blocks from the course notes, one file per chapter
+src/workbook/           earlier chapter work, on an older version of the schema
+notes/ApuntesFBD.md     the write-up src/exercises is generated from
+tools/                  the extractor and the runner used by CI
+</code></pre>
+<p dir="auto"><code class="notranslate">src/exercises/</code> covers the whole course, chapter by chapter:</p>
+<markdown-accessiblity-table><table role="table">
+<thead>
+<tr>
+<th>File</th>
+<th>Blocks</th>
+<th>Topic</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code class="notranslate">chapter-1-schema-definition.sql</code></td>
+<td>1</td>
+<td><code class="notranslate">CREATE TABLE</code>, data types</td>
+</tr>
+<tr>
+<td><code class="notranslate">chapter-2-data-maintenance.sql</code></td>
+<td>15</td>
+<td><code class="notranslate">INSERT</code>, <code class="notranslate">UPDATE</code>, <code class="notranslate">DELETE</code>, dates</td>
+</tr>
+<tr>
+<td><code class="notranslate">chapter-3-queries.sql</code></td>
+<td>109</td>
+<td>joins, aggregation, subqueries, set operators</td>
+</tr>
+<tr>
+<td><code class="notranslate">chapter-4-views.sql</code></td>
+<td>7</td>
+<td>the external level: views</td>
+</tr>
+<tr>
+<td><code class="notranslate">chapter-5-catalogue-and-privileges.sql</code></td>
+<td>4</td>
+<td>the catalogue, <code class="notranslate">GRANT</code> and <code class="notranslate">REVOKE</code></td>
+</tr>
+</tbody>
+</table></markdown-accessiblity-table>
+<p dir="auto"><code class="notranslate">src/01-schema.sql</code> → <code class="notranslate">02</code> → <code class="notranslate">03</code> is a pipeline: run them in order.</p>
+<p dir="auto"><code class="notranslate">src/workbook/chapters-1-2.sql</code> is separate on purpose. It builds <code class="notranslate">Equipos</code> with<br>
+<code class="notranslate">codE VARCHAR2(3)</code> while the delivered schema uses <code class="notranslate">VARCHAR(5)</code>: it is the earlier<br>
+iteration from chapters 1 and 2, kept as it was handed in. Running it against the same<br>
+database as <code class="notranslate">src/</code> would clash.</p>
+<h2 dir="auto" id="requirements">Requirements</h2>
+<ul dir="auto">
+<li><strong>Oracle Database 23ai Free</strong> — or any Oracle. CI uses the <code class="notranslate">gvenzl/oracle-free:slim</code><br>
+container.</li>
+<li><strong>Python 3.12</strong> with <code class="notranslate">oracledb</code> for the runner. Thin mode, so no Oracle client needed.</li>
+<li><strong>sqlfluff</strong> for the parse check.</li>
+</ul>
+<div class="highlight highlight-source-shell" dir="auto"><pre class="notranslate">pip install oracledb sqlfluff</pre></div>
+<h2 dir="auto" id="build-and-run">Build and run</h2>
+<div class="highlight highlight-source-shell" dir="auto"><pre class="notranslate">make check       <span class="pl-c"><span class="pl-c">#</span> parse plus drift check, what CI runs</span>
+make parse       <span class="pl-c"><span class="pl-c">#</span> every script parses as Oracle SQL</span>
+make extract     <span class="pl-c"><span class="pl-c">#</span> regenerate src/exercises from the notes</span>
+make diff-check  <span class="pl-c"><span class="pl-c">#</span> fail if the two have drifted apart</span>
+make lint        <span class="pl-c"><span class="pl-c">#</span> style rules, reported not enforced</span></pre></div>
+<p dir="auto">Against a real database:</p>
+<div class="highlight highlight-source-shell" dir="auto"><pre class="notranslate">make db-up       <span class="pl-c"><span class="pl-c">#</span> start Oracle in Docker, takes a couple of minutes</span>
+make run         <span class="pl-c"><span class="pl-c">#</span> schema, seed data and all twenty queries</span>
+make db-down</pre></div>
+<p dir="auto"><code class="notranslate">make run</code> reads <code class="notranslate">ORACLE_DSN</code>, <code class="notranslate">ORACLE_USER</code> and <code class="notranslate">ORACLE_PASSWORD</code>, defaulting to the<br>
+container above.</p>
+<h2 dir="auto" id="results">Results</h2>
+<p dir="auto"><strong>920 statements</strong> across eleven files: the delivered pipeline, the five chapter files and<br>
+the earlier workbook.</p>
+<p dir="auto">What the twenty delivered queries exercise:</p>
+<markdown-accessiblity-table><table role="table">
+<thead>
+<tr>
+<th>Technique</th>
+<th>Times used</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Joins</td>
+<td>13</td>
+</tr>
+<tr>
+<td><code class="notranslate">GROUP BY</code></td>
+<td>8</td>
+</tr>
+<tr>
+<td><code class="notranslate">ORDER BY</code></td>
+<td>8</td>
+</tr>
+<tr>
+<td>Aggregates (<code class="notranslate">SUM</code>, <code class="notranslate">MAX</code>, <code class="notranslate">COUNT</code>, <code class="notranslate">AVG</code>)</td>
+<td>16</td>
+</tr>
+<tr>
+<td>Subqueries with <code class="notranslate">IN (SELECT ...)</code></td>
+<td>5</td>
+</tr>
+<tr>
+<td><code class="notranslate">HAVING</code></td>
+<td>2</td>
+</tr>
+<tr>
+<td><code class="notranslate">WITH</code> clauses</td>
+<td>7</td>
+</tr>
+<tr>
+<td><code class="notranslate">UNION</code></td>
+<td>2</td>
+</tr>
+<tr>
+<td><code class="notranslate">NOT EXISTS</code> for universal quantification</td>
+<td>2</td>
+</tr>
+</tbody>
+</table></markdown-accessiblity-table>
+<p dir="auto">The CI log prints the row count of each table after loading and of every query, so the<br>
+output of a passing build shows the database actually populated:</p>
+<pre class="notranslate"><code class="notranslate">src/01-schema.sql: 4 statements
+src/02-seed.sql: 45 statements
+  Equipos     4 rows     Encuentros   10 rows
+  Jugadores  20 rows     Faltas       11 rows
+20 queries, all executed
+</code></pre>
+<h2 dir="auto" id="what-i-learned">What I learned</h2>
+<ul dir="auto">
+<li><strong>Naming constraints costs nothing and pays every time something breaks.</strong> The first<br>
+version of the schema let Oracle name them. The first failed insert produced<br>
+<code class="notranslate">ORA-02290: check constraint (SYS_C0011234) violated</code>, which tells you nothing.</li>
+<li><strong>A composite primary key is a modelling decision, not a shortcut.</strong> Keying <code class="notranslate">Encuentros</code><br>
+on the two teams and the date is what makes a duplicate fixture impossible without a<br>
+single trigger. The cost lands on <code class="notranslate">Faltas</code>, whose foreign key is four columns wide.</li>
+<li><strong>"Every" is a double negation, and the empty case is where it bites.</strong> Writing <em>won all<br>
+home matches</em> as <em>no home match that was not won</em> is the easy half. The half I got wrong<br>
+first is that a team with no home matches at all passes that test, so the query needs a<br>
+second <code class="notranslate">EXISTS</code> to rule it out.</li>
+<li><strong>Parsing is not testing.</strong> <code class="notranslate">sqlfluff</code> was happy with a query that referenced a column I<br>
+had renamed. Running it against a real Oracle caught it in a second, which is why CI now<br>
+does that.</li>
+<li><strong>Notes are not a place to keep code.</strong> Four fifths of the SQL I wrote for this course sat<br>
+in a Markdown document where nothing could parse it, run it or check it. Pulling it out<br>
+was thirty lines of Python. Not doing it for a year was the mistake.</li>
+</ul>
+<h3 dir="auto" id="known-limitations">Known limitations</h3>
+<ul dir="auto">
+<li><strong>No PL/SQL.</strong> Despite what a repository about Oracle might suggest, there are no stored<br>
+procedures, functions, triggers or packages here. The course covered DDL, DML, queries,<br>
+views, the catalogue and indexes. The name of this repository says <code class="notranslate">sql</code> for that reason.</li>
+<li><strong>The queries are checked for execution, not for correctness.</strong> CI proves each one runs<br>
+and returns rows. Nothing asserts that the rows are the right ones — that would need<br>
+expected result sets, which were never written.</li>
+<li><strong><code class="notranslate">src/exercises/</code> is parsed, not executed.</strong> Those chapters query the example databases<br>
+used in the course notes — <code class="notranslate">plantilla</code>, <code class="notranslate">proveedor</code>, <code class="notranslate">pieza</code>, <code class="notranslate">ventas</code> — and no schema for<br>
+them survives. Only the basketball pipeline runs against Oracle.</li>
+<li><strong>Seven blocks in <code class="notranslate">src/exercises/</code> are commented out.</strong> They document SQL grammar<br>
+(<code class="notranslate">UPDATE t SET a = v [WHERE &lt;cond&gt;];</code>) rather than being runnable, and are marked<br>
+<code class="notranslate">syntax, not runnable</code>.</li>
+<li><strong><code class="notranslate">src/workbook/scratch-template.sql</code> and <code class="notranslate">scratch-first-table.sql</code> are not SQL.</strong> They<br>
+hold <code class="notranslate">DESCRIBE</code>, a SQL*Plus client command, so no SQL parser reads them. They are listed<br>
+in <code class="notranslate">.sqlfluffignore</code> and skipped by <code class="notranslate">make parse</code>. Nine lines of scratch, kept because<br>
+they were part of the submission.</li>
+<li><strong>The seed data is small on purpose</strong>: 4 teams, 20 players, 10 matches. Enough to make<br>
+every query return something, not enough to say anything about performance.</li>
+<li><strong>Style rules are disabled</strong>, see <code class="notranslate">.sqlfluff</code>. Reformatting delivered coursework to<br>
+satisfy a linter would misrepresent what was handed in.</li>
+</ul>
+<h2 dir="auto" id="author-and-licence">Author and licence</h2>
+<p dir="auto">Ismael Sallami Moreno. Released under the MIT licence (see <a target="_blank" rel="noopener noreferrer" href="https://github.com/Ismael-Sallami/oracle-sql-exercises/blob/main/LICENSE"><code class="notranslate">LICENSE</code></a>).</p>

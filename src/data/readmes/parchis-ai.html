@@ -1,0 +1,151 @@
+<p dir="auto"><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/e33b9a8c0e7597eddea4bc9442c9193c78bb91748ac432793b91fc127db6f0a0/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f432532422532422d31372d303035393943"><img loading="lazy" decoding="async" src="https://camo.githubusercontent.com/e33b9a8c0e7597eddea4bc9442c9193c78bb91748ac432793b91fc127db6f0a0/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f432532422532422d31372d303035393943" alt="C++" data-canonical-src="https://img.shields.io/badge/C%2B%2B-17-00599C" style="max-width: 100%;"></a><br>
+<a target="_blank" rel="noopener noreferrer" href="https://github.com/Ismael-Sallami/parchis-ai/actions/workflows/ci.yml"><img loading="lazy" decoding="async" src="https://camo.githubusercontent.com/1d95c08f2f6da851beea0eb838ae2461721cfece7de1409baa252608454b8f3d/68747470733a2f2f696d672e736869656c64732e696f2f6769746875622f616374696f6e732f776f726b666c6f772f7374617475732f49736d61656c2d53616c6c616d692f706172636869732d61692f63692e796d6c3f6272616e63683d6d61696e266c6f676f3d676974687562266c6162656c3d637070636865636b" alt="cppcheck" data-canonical-src="https://img.shields.io/github/actions/workflow/status/Ismael-Sallami/parchis-ai/ci.yml?branch=main&amp;logo=github&amp;label=cppcheck" style="max-width: 100%;"></a><br>
+<a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/f94c5fd447e0fcdb57a248775dc35882bfe62c7b8a301d7f72b2fbd0df3d4839/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f6c6963656e73652d4d49542d346331"><img loading="lazy" decoding="async" src="https://camo.githubusercontent.com/f94c5fd447e0fcdb57a248775dc35882bfe62c7b8a301d7f72b2fbd0df3d4839/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f6c6963656e73652d4d49542d346331" alt="license" data-canonical-src="https://img.shields.io/badge/license-MIT-4c1" style="max-width: 100%;"></a></p>
+<p dir="auto">An adversarial-search player for ParCheckers, a deterministic Parcheesi variant where each<br>
+player owns two colours and picks which die to use every turn.</p>
+<h2 dir="auto" id="context">Context</h2>
+<p dir="auto">Coursework for <strong>Inteligencia Artificial</strong>, year 3 of the double degree in Computer Science<br>
+and Business Administration, University of Granada (2024-25). Solo work.</p>
+<p dir="auto">The game engine, board model, dice, turn management and GUI are <strong>course-provided material</strong><br>
+and are not in this repository. What is here is the file the assignment asks you to write:<br>
+the AI player.</p>
+<h2 dir="auto" id="the-problem">The problem</h2>
+<p dir="auto">The player has to choose a move before a time limit, and within a cap on generated and<br>
+evaluated nodes that the framework enforces (<code class="notranslate">NodeCounter</code>). Each turn it picks a colour, a<br>
+piece and one of the available dice. Three built-in opponents ("ninjas") are the benchmark:<br>
+the score is out of 6, because there are three ninjas and each match is played twice, once<br>
+starting and once receiving.</p>
+<h2 dir="auto" id="the-solution">The solution</h2>
+<p dir="auto">Minimax with alpha-beta pruning, and four search variants layered on top of it. <code class="notranslate">think()</code><br>
+selects one by player id, so the same file can be compiled once and run as four different<br>
+players:</p>
+<markdown-accessiblity-table><table role="table">
+<thead>
+<tr>
+<th>id</th>
+<th>Search</th>
+<th>Heuristic</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>Alpha-beta</td>
+<td><code class="notranslate">ValoracionTest</code></td>
+</tr>
+<tr>
+<td>1</td>
+<td>Alpha-beta + probabilistic pruning + quiescence</td>
+<td><code class="notranslate">HeuristicaMejorada</code></td>
+</tr>
+<tr>
+<td>2</td>
+<td>The above + move ordering + dynamic depth</td>
+<td><code class="notranslate">HeuristicaMejorada</code></td>
+</tr>
+<tr>
+<td>3</td>
+<td>Alpha-beta</td>
+<td><code class="notranslate">PruebaH</code></td>
+</tr>
+</tbody>
+</table></markdown-accessiblity-table>
+<p dir="auto">The pieces that do the work:</p>
+<ul dir="auto">
+<li><strong>Alpha-beta to depth 8</strong> (<code class="notranslate">PROFUNDIDAD_ALFABETA</code>), against depth 4 for plain minimax.</li>
+<li><strong>Probabilistic pruning.</strong> Instead of cutting only when <code class="notranslate">alpha &gt;= beta</code>, it also cuts when<br>
+<code class="notranslate">beta - alpha &lt; epsilon</code> (0.3 by default). Trades a little accuracy for depth.</li>
+<li><strong>Move ordering.</strong> Children are sorted by the heuristic, descending in MAX and ascending<br>
+in MIN, so the bounds tighten earlier and more branches get cut.</li>
+<li><strong>Dynamic depth.</strong> The depth is raised or lowered from the branching factor of the node<br>
+(<code class="notranslate">UMBRAL_RAM_BAJA</code> 3, <code class="notranslate">UMBRAL_RAM_ALTA</code> 8), to spend the time budget where the tree is<br>
+narrow.</li>
+<li><strong>Quiescence search</strong> up to 3 extra plies (<code class="notranslate">MAX_PROFUNDIDAD_QUIETUD</code>) at the leaves,<br>
+following only tactical moves, so the search does not stop right before a capture.</li>
+<li><strong>Weighted heuristics.</strong> Progress to goal, pieces on safe squares, pieces home, own and<br>
+enemy barriers, and threat of capture, each with its own weight constant.</li>
+</ul>
+<p dir="auto">Chance is part of the game, not an extra layer: the die is one more branch in the tree,<br>
+because the framework exposes which dice are available in the current state.</p>
+<h2 dir="auto" id="layout">Layout</h2>
+<pre class="notranslate"><code class="notranslate">src/AIPlayer.cpp   the engine, 1,467 lines: searches, heuristics and think()
+src/AIPlayer.h     class declarations, including the six Heuristic subclasses
+docs/report.pdf    the write-up handed in, with the reasoning behind each variant
+</code></pre>
+<h2 dir="auto" id="requirements">Requirements</h2>
+<ul dir="auto">
+<li>A C++17 compiler (g++ 11 or later).</li>
+<li>The ParCheckers framework of the subject, which provides <code class="notranslate">Parchis.h</code>, <code class="notranslate">Player.h</code>,<br>
+<code class="notranslate">Heuristic.h</code>, <code class="notranslate">Attributes.h</code> and <code class="notranslate">NodeCounter</code>. It also needs SFML for the GUI.</li>
+</ul>
+<h2 dir="auto" id="build-and-run">Build and run</h2>
+<p dir="auto">This repository does not build on its own, and it is not meant to: without the framework<br>
+there is no <code class="notranslate">Parchis</code> class to search over. To run it, drop these two files into a checkout<br>
+of the course framework, where the assignment expects them:</p>
+<div class="highlight highlight-source-shell" dir="auto"><pre class="notranslate">cp src/AIPlayer.cpp src/AIPlayer.h <span class="pl-k">&lt;</span>framework<span class="pl-k">&gt;</span>/src/personal/
+<span class="pl-c1">cd</span> <span class="pl-k">&lt;</span>framework<span class="pl-k">&gt;</span> <span class="pl-k">&amp;&amp;</span> ./install.sh          <span class="pl-c"><span class="pl-c">#</span> builds with cmake and SFML</span>
+./build/parchis --p1 0 --p2 1           <span class="pl-c"><span class="pl-c">#</span> player ids pick the variants of the table above</span></pre></div>
+<p dir="auto">The include paths in <code class="notranslate">AIPlayer.h</code> are relative (<code class="notranslate">../../include/model/...</code>), so the files<br>
+have to sit in <code class="notranslate">src/personal/</code>.</p>
+<p dir="auto">What runs here without the framework is the static analysis:</p>
+<div class="highlight highlight-source-shell" dir="auto"><pre class="notranslate">cppcheck --std=c++17 --enable=warning,style,performance --suppress=missingInclude src/</pre></div>
+<h2 dir="auto" id="results">Results</h2>
+<p dir="auto">From the write-up, playing the full round against the three ninjas both as first and second<br>
+player:</p>
+<markdown-accessiblity-table><table role="table">
+<thead>
+<tr>
+<th>id</th>
+<th>Search</th>
+<th>Heuristic</th>
+<th>Score</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Alpha-beta + probabilistic + quiescence</td>
+<td><code class="notranslate">HeuristicaMejorada</code></td>
+<td><strong>4 / 6</strong></td>
+</tr>
+<tr>
+<td>3</td>
+<td>Alpha-beta</td>
+<td><code class="notranslate">PruebaH</code></td>
+<td>3 / 6</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Alpha-beta + probabilistic + ordering + dynamic depth</td>
+<td><code class="notranslate">HeuristicaMejorada</code></td>
+<td>1 / 6</td>
+</tr>
+</tbody>
+</table></markdown-accessiblity-table>
+<p dir="auto">The best player is not the one with the most machinery. Stacking ordering and dynamic depth<br>
+on top of probabilistic pruning made each move slower, and the extra cost bought nothing<br>
+because the heuristic, not the search, was the limit.</p>
+<h2 dir="auto" id="what-i-learned">What I learned</h2>
+<ul dir="auto">
+<li>A cheap heuristic with a plain alpha-beta beat more ninjas than an elaborate heuristic with<br>
+four optimisations on top. Search depth cannot fix an evaluation function that measures the<br>
+wrong thing.</li>
+<li>Move ordering only pays off when the heuristic ranks moves well. Sorting by a mediocre<br>
+evaluation reorders the tree without improving the cut-offs.</li>
+<li><strong>Limitations of what is here, kept as handed in:</strong>
+<ul dir="auto">
+<li><code class="notranslate">think()</code> has no <code class="notranslate">default</code> branch. With an id outside 0–3 no search runs and no move is<br>
+chosen. The four ids used in the assignment are covered, nothing else is.</li>
+<li><code class="notranslate">valor</code> is assigned in every branch of <code class="notranslate">think()</code> and never read.</li>
+<li>Several searches and heuristics (<code class="notranslate">Minimax</code>, <code class="notranslate">Minimax_Limitado</code>, <code class="notranslate">Heur1</code>, <code class="notranslate">Heur2</code>,<br>
+<code class="notranslate">HeuristicaNueva</code>, <code class="notranslate">Poda_AlfaBeta_Mejorada</code>) are experiments that <code class="notranslate">think()</code> never calls.<br>
+They stayed in on purpose, so the write-up could point at them.</li>
+<li>Some weights are non-const globals that <code class="notranslate">ajustarPesosDinamicamente</code> mutates, while<br>
+<code class="notranslate">think()</code> is declared <code class="notranslate">const</code>. It works because one process plays one game, and it would<br>
+not survive two searches running at once.</li>
+<li>Identifiers and comments are in Spanish, the language the subject is taught in.</li>
+</ul>
+</li>
+</ul>
+<h2 dir="auto" id="author-and-licence">Author and licence</h2>
+<p dir="auto">Ismael Sallami Moreno. Released under the MIT licence (see <code class="notranslate">LICENSE</code>).</p>

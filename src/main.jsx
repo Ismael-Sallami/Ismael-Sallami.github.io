@@ -24,6 +24,9 @@ if (redirect && redirect !== '/') {
 // Smooth scroll (disabled when user prefers reduced motion)
 if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
   const lenis = new Lenis({ duration: 1.1, smoothWheel: true })
+  // ScrollToTop needs it: Lenis owns the scroll position, so window.scrollTo on its own
+  // is undone on the next frame.
+  window.__lenis = lenis
   function raf(time) {
     lenis.raf(time)
     requestAnimationFrame(raf)

@@ -11,6 +11,7 @@
     "check:documents": "node scripts/check-documents.mjs",
     "check:numbers": "node scripts/check-numbers.mjs",
     "sync:contributions": "node scripts/sync-contributions.mjs",
+    "sync:projects": "node scripts/sync-projects.mjs",
     "gen:readme": "node scripts/gen-readme.mjs"
   },
   "dependencies": {

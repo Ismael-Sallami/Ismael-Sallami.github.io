@@ -1,0 +1,94 @@
+/* The floating link to the repository on a project page.
+ *
+ * It sits at z-45: above the nav (z-40) so it stays reachable while the README scrolls
+ * under it, and below the film grain (z-50), which covers the whole viewport and should
+ * not have holes cut in it. The grain carries pointer-events:none, so being underneath
+ * it costs nothing.
+ *
+ * The animation is CSS rather than framer-motion on purpose. An endless framer-motion
+ * loop keeps a JS animation frame running for as long as the page is open, and the
+ * three.js scene is already competing for the main thread; these run on the compositor.
+ *
+ * The keyframes are declared here rather than reusing Tailwind's `spin`: that one is
+ * only emitted into the stylesheet when an `animate-spin` class appears in the scanned
+ * source, so relying on it would leave the ring silently motionless.
+ */
+
+.orbit-fab {
+  background: hsla(225, 30%, 10%, 0.85);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid hsla(0, 0%, 100%, 0.1);
+  color: var(--ivory);
+  /* Keeps the halo's negative z-index inside the button instead of behind the page. */
+  isolation: isolate;
+}
+
+/* the halo, breathing */
+.orbit-fab::after {
+  content: '';
+  position: absolute;
+  inset: -10px;
+  z-index: -1;
+  border-radius: 999px;
+  background: radial-gradient(closest-side, hsla(160, 95%, 55%, 0.38), transparent 72%);
+  animation: orbit-breathe 4.5s ease-in-out infinite;
+}
+
+/* the gradient ring: a conic gradient masked down to a 2px band */
+.orbit-ring {
+  position: absolute;
+  inset: -2px;
+  border-radius: 999px;
+  background: conic-gradient(
+    from 0deg,
+    transparent 0deg,
+    var(--accent) 90deg,
+    var(--accent2) 210deg,
+    transparent 310deg
+  );
+  -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 2px), #000 calc(100% - 2px));
+  mask: radial-gradient(farthest-side, transparent calc(100% - 2px), #000 calc(100% - 2px));
+  animation: orbit-spin 6s linear infinite;
+}
+
+/* the dot: pinned to the top edge of a full-size box that turns the other way, so it
+   reads as overtaking the gradient rather than riding along with it. No offset-path,
+   which Safari only picked up recently. */
+.orbit-track {
+  position: absolute;
+  inset: 0;
+  border-radius: 999px;
+  animation: orbit-spin 6s linear infinite reverse;
+}
+
+.orbit-dot {
+  position: absolute;
+  top: -3px;
+  left: 50%;
+  width: 6px;
+  height: 6px;
+  margin-left: -3px;
+  border-radius: 999px;
+  background: var(--accent2);
+  box-shadow: 0 0 10px 2px hsla(190, 95%, 60%, 0.75);
+}
+
+@keyframes orbit-spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes orbit-breathe {
+  0%, 100% { opacity: 0.45; transform: scale(1); }
+  50%      { opacity: 0.95; transform: scale(1.14); }
+}
+
+/* Same object, no movement: the ring keeps its gradient, the dot parks at twelve
+   o'clock and the halo holds a steady middle brightness. */
+@media (prefers-reduced-motion: reduce) {
+  .orbit-ring,
+  .orbit-track,
+  .orbit-fab::after { animation: none; }
+  .orbit-fab::after { opacity: 0.55; }
+  .orbit-fab { transition: none; }
+}

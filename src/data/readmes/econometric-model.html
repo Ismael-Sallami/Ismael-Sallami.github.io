@@ -1,0 +1,121 @@
+<p dir="auto"><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/bff76f256c7cb22c98d20da985b6d08065937de097e23263a3885e79baf63224/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f507974686f6e2d332e31322d333737364142"><img loading="lazy" decoding="async" src="https://camo.githubusercontent.com/bff76f256c7cb22c98d20da985b6d08065937de097e23263a3885e79baf63224/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f507974686f6e2d332e31322d333737364142" alt="Python" data-canonical-src="https://img.shields.io/badge/Python-3.12-3776AB" style="max-width: 100%;"></a><br>
+<a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/f9be35c008357abc1519987f3a55a785b421090d977442fee0abf4015de4647e/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f73746174736d6f64656c732d302e31342d346337326230"><img loading="lazy" decoding="async" src="https://camo.githubusercontent.com/f9be35c008357abc1519987f3a55a785b421090d977442fee0abf4015de4647e/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f73746174736d6f64656c732d302e31342d346337326230" alt="statsmodels" data-canonical-src="https://img.shields.io/badge/statsmodels-0.14-4c72b0" style="max-width: 100%;"></a><br>
+<a target="_blank" rel="noopener noreferrer" href="https://github.com/Ismael-Sallami/econometric-model/actions/workflows/ci.yml"><img loading="lazy" decoding="async" src="https://camo.githubusercontent.com/821421bc8bde07233e971137097e1c6b32e45ec21e421721ea2b76623217bfc9/68747470733a2f2f696d672e736869656c64732e696f2f6769746875622f616374696f6e732f776f726b666c6f772f7374617475732f49736d61656c2d53616c6c616d692f65636f6e6f6d65747269632d6d6f64656c2f63692e796d6c3f6272616e63683d6d61696e266c6f676f3d676974687562266c6162656c3d636865636b73" alt="checks" data-canonical-src="https://img.shields.io/github/actions/workflow/status/Ismael-Sallami/econometric-model/ci.yml?branch=main&amp;logo=github&amp;label=checks" style="max-width: 100%;"></a><br>
+<a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/f94c5fd447e0fcdb57a248775dc35882bfe62c7b8a301d7f72b2fbd0df3d4839/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f6c6963656e73652d4d49542d346331"><img loading="lazy" decoding="async" src="https://camo.githubusercontent.com/f94c5fd447e0fcdb57a248775dc35882bfe62c7b8a301d7f72b2fbd0df3d4839/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f6c6963656e73652d4d49542d346331" alt="license" data-canonical-src="https://img.shields.io/badge/license-MIT-4c1" style="max-width: 100%;"></a></p>
+<p dir="auto">An OLS model that estimates body weight from habits and personal traits, and the three<br>
+diagnostics that decide whether its coefficients can be believed.</p>
+<h2 dir="auto" id="context">Context</h2>
+<p dir="auto">Coursework for <strong>Econometrics</strong>, year 3 of the double degree in Computer Science and<br>
+Business Administration, University of Granada (2024-25). Team work with <strong>José Ángel Carretero<br>
+Montes</strong> and <strong>Fernando José Gracia Choin</strong>: the three of us sign every report in <code class="notranslate">docs/</code>.</p>
+<h2 dir="auto" id="the-problem">The problem</h2>
+<p dir="auto">Given 2.111 records with seventeen variables about diet, activity, transport and family<br>
+history, estimate weight and say which factors actually matter.</p>
+<p dir="auto">The estimation is the easy half. A regression always returns coefficients; the work is<br>
+showing they mean something, which is where multicollinearity, heteroscedasticity and<br>
+autocorrelation come in: each one breaks a different assumption, and each one breaks the<br>
+model in a different way.</p>
+<h2 dir="auto" id="the-solution">The solution</h2>
+<p dir="auto"><strong>The model.</strong> Ordinary least squares with <code class="notranslate">statsmodels</code>, weight as the dependent variable<br>
+and twelve regressors: age, height, family history of overweight, high-calorie food, vegetable<br>
+intake, main meals a day, eating between meals, water, physical activity, screen time,<br>
+alcohol and means of transport. The categorical ones are label-encoded before entering the<br>
+matrix.</p>
+<p dir="auto"><strong>The diagnostics</strong>, each with its own report in <code class="notranslate">docs/</code>:</p>
+<markdown-accessiblity-table><table role="table">
+<thead>
+<tr>
+<th>Check</th>
+<th>What it looks for</th>
+<th>How</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Multicollinearity</td>
+<td>Regressors that carry the same information</td>
+<td>Variance inflation factors and the correlation matrix</td>
+</tr>
+<tr>
+<td>Heteroscedasticity</td>
+<td>Residual variance that grows with the fitted value</td>
+<td>Residual plots and formal tests</td>
+</tr>
+<tr>
+<td>Autocorrelation</td>
+<td>Residuals that carry information from the previous one</td>
+<td>Durbin-Watson</td>
+</tr>
+</tbody>
+</table></markdown-accessiblity-table>
+<p dir="auto">The preliminary model and the final one are separate documents on purpose: the second one<br>
+exists because the first one failed a diagnostic.</p>
+<h2 dir="auto" id="layout">Layout</h2>
+<pre class="notranslate"><code class="notranslate">src/model.py       the analysis, exported from Colab
+src/model.ipynb    the same notebook, with its output
+data/              the obesity dataset, 2.111 rows
+docs/              the four reports, the presentation charts and the dataset description
+tools/check.py     the check the CI runs
+</code></pre>
+<h2 dir="auto" id="requirements">Requirements</h2>
+<ul dir="auto">
+<li>Python 3.12 with <code class="notranslate">pandas</code>, <code class="notranslate">numpy</code>, <code class="notranslate">statsmodels</code>, <code class="notranslate">scipy</code> and <code class="notranslate">matplotlib</code>.</li>
+</ul>
+<h2 dir="auto" id="build-and-run">Build and run</h2>
+<p dir="auto">The script is a Colab export: it mounts Google Drive and reads the dataset from there, so it<br>
+does not run unchanged outside Colab. Opening the notebook is the direct way, and the data is<br>
+now in the repository:</p>
+<div class="highlight highlight-source-shell" dir="auto"><pre class="notranslate">jupyter lab src/model.ipynb        <span class="pl-c"><span class="pl-c">#</span> the path to the dataset is data/obesity-dataset.csv</span>
+python3 tools/check.py             <span class="pl-c"><span class="pl-c">#</span> what the CI runs</span></pre></div>
+<h2 dir="auto" id="results">Results</h2>
+<p dir="auto">The fitted model, from <code class="notranslate">docs/econometric-model.pdf</code>:</p>
+<markdown-accessiblity-table><table role="table">
+<thead>
+<tr>
+<th>Measure</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>R²</td>
+<td>0,576</td>
+</tr>
+<tr>
+<td>Adjusted R²</td>
+<td>0,572</td>
+</tr>
+<tr>
+<td>F statistic</td>
+<td>177,5 (p &lt; 0,001)</td>
+</tr>
+</tbody>
+</table></markdown-accessiblity-table>
+<p dir="auto">The model explains 57,6 % of the variation in weight, and the F test says the regressors are<br>
+jointly significant. The gap between R² and its adjusted version is small, which means the<br>
+twelve variables are pulling their weight rather than padding the fit.</p>
+<p dir="auto">The CI prints, on every push:</p>
+<pre class="notranslate"><code class="notranslate">ok    src/model.py parses
+ok    src/model.ipynb: 74 cells, 36 of them code
+ok    data/obesity-dataset.csv: 2111 rows, 17 columns, all regressors present
+</code></pre>
+<h2 dir="auto" id="what-we-learned">What we learned</h2>
+<ul dir="auto">
+<li>Explaining 57 % of a person's weight from their habits is a decent fit and a bad predictor.<br>
+The interesting output is which coefficients survive the diagnostics, not the R².</li>
+<li>Label-encoding an ordinal variable such as "how often you eat between meals" imposes an<br>
+order and a distance on it. It is a modelling choice made in one line of code and worth a<br>
+paragraph of justification.</li>
+<li><strong>Limitations:</strong>
+<ul dir="auto">
+<li>The script cannot run outside Colab without editing the path it reads the dataset from.<br>
+That path is left as it was handed in, and the notebook plus the data in <code class="notranslate">data/</code> are the<br>
+way to reproduce the analysis.</li>
+<li>The dataset is partly synthetic: it comes with the source, and the reports say so.</li>
+<li>The reports and the comments are in Spanish.</li>
+</ul>
+</li>
+</ul>
+<h2 dir="auto" id="authors-and-licence">Authors and licence</h2>
+<p dir="auto">Ismael Sallami Moreno, José Ángel Carretero Montes and Fernando José Gracia Choin. Released<br>
+under the MIT licence (see <code class="notranslate">LICENSE</code>).</p>

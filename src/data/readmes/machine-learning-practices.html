@@ -1,0 +1,99 @@
+<p dir="auto"><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/bff76f256c7cb22c98d20da985b6d08065937de097e23263a3885e79baf63224/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f507974686f6e2d332e31322d333737364142"><img loading="lazy" decoding="async" src="https://camo.githubusercontent.com/bff76f256c7cb22c98d20da985b6d08065937de097e23263a3885e79baf63224/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f507974686f6e2d332e31322d333737364142" alt="Python" data-canonical-src="https://img.shields.io/badge/Python-3.12-3776AB" style="max-width: 100%;"></a><br>
+<a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/25881c3215c0f7fa3eaa76394e5c5419e38440a42d0c194f7ecd731f7e06a200/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f7363696b69742d2d6c6561726e2d312e352d463739333145"><img loading="lazy" decoding="async" src="https://camo.githubusercontent.com/25881c3215c0f7fa3eaa76394e5c5419e38440a42d0c194f7ecd731f7e06a200/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f7363696b69742d2d6c6561726e2d312e352d463739333145" alt="scikit-learn" data-canonical-src="https://img.shields.io/badge/scikit--learn-1.5-F7931E" style="max-width: 100%;"></a><br>
+<a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/a48c82afe86f5f27aa5fd799e03531b424050b43a5b972ff52ad243f71ec898d/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f4b657261732d332d443030303030"><img loading="lazy" decoding="async" src="https://camo.githubusercontent.com/a48c82afe86f5f27aa5fd799e03531b424050b43a5b972ff52ad243f71ec898d/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f4b657261732d332d443030303030" alt="Keras" data-canonical-src="https://img.shields.io/badge/Keras-3-D00000" style="max-width: 100%;"></a><br>
+<a target="_blank" rel="noopener noreferrer" href="https://github.com/Ismael-Sallami/machine-learning-practices/actions/workflows/ci.yml"><img loading="lazy" decoding="async" src="https://camo.githubusercontent.com/5f36e23ae6f84740ceecad2dd6147a4e8528f5a48606eed267230b97430d3b96/68747470733a2f2f696d672e736869656c64732e696f2f6769746875622f616374696f6e732f776f726b666c6f772f7374617475732f49736d61656c2d53616c6c616d692f6d616368696e652d6c6561726e696e672d7072616374696365732f63692e796d6c3f6272616e63683d6d61696e266c6f676f3d676974687562266c6162656c3d636865636b73" alt="checks" data-canonical-src="https://img.shields.io/github/actions/workflow/status/Ismael-Sallami/machine-learning-practices/ci.yml?branch=main&amp;logo=github&amp;label=checks" style="max-width: 100%;"></a><br>
+<a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/f94c5fd447e0fcdb57a248775dc35882bfe62c7b8a301d7f72b2fbd0df3d4839/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f6c6963656e73652d4d49542d346331"><img loading="lazy" decoding="async" src="https://camo.githubusercontent.com/f94c5fd447e0fcdb57a248775dc35882bfe62c7b8a301d7f72b2fbd0df3d4839/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f6c6963656e73652d4d49542d346331" alt="license" data-canonical-src="https://img.shields.io/badge/license-MIT-4c1" style="max-width: 100%;"></a></p>
+<p dir="auto">Four notebooks that go from a logistic regression to a sequence-to-sequence chatbot, each<br>
+one explaining why the model was chosen before showing that it works.</p>
+<h2 dir="auto" id="context">Context</h2>
+<p dir="auto">Coursework for <strong>Machine Learning</strong>, year 4 of the double degree in Computer Science and<br>
+Business Administration, University of Granada (2025-26). The three practices are solo<br>
+work; the final project is joint work with <strong>Jesús Rodríguez González</strong>.</p>
+<h2 dir="auto" id="the-problem">The problem</h2>
+<p dir="auto">Each practice picks a family of methods and asks the same thing: choose a model, justify the<br>
+choice, tune it and measure it honestly. The interesting part is not fitting the model, it is<br>
+deciding what counts as a good result for each kind of problem, which is different when<br>
+labels exist, when they do not, and when the input is a sequence.</p>
+<h2 dir="auto" id="the-solution">The solution</h2>
+<markdown-accessiblity-table><table role="table">
+<thead>
+<tr>
+<th>Notebook</th>
+<th>Problem</th>
+<th>What it uses</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code class="notranslate">practice-1-supervised-learning</code></td>
+<td>Classification with labels</td>
+<td>Logistic regression, k-nearest neighbours, SVM and random forest, compared after a <code class="notranslate">GridSearchCV</code> and a proper train/test split</td>
+</tr>
+<tr>
+<td><code class="notranslate">practice-2-unsupervised-learning</code></td>
+<td>Structure without labels</td>
+<td>K-Means and DBSCAN for clustering, Apriori and FP-Growth for association rules</td>
+</tr>
+<tr>
+<td><code class="notranslate">practice-3-deep-learning</code></td>
+<td>Images and text</td>
+<td>A Keras network on MNIST, and sentiment analysis on the IMDB reviews</td>
+</tr>
+<tr>
+<td><code class="notranslate">project-seq2seq-chatbot</code></td>
+<td>Conversation</td>
+<td>An encoder-decoder with LSTM, trained to answer rather than to classify</td>
+</tr>
+</tbody>
+</table></markdown-accessiblity-table>
+<p dir="auto">The notebooks are mostly prose: 63 markdown cells against 17 of code in the first one, 92<br>
+against 27 in the second. That ratio is deliberate. The code that fits a model is four lines;<br>
+the part worth keeping is why that model and what the numbers mean.</p>
+<h2 dir="auto" id="layout">Layout</h2>
+<pre class="notranslate"><code class="notranslate">src/     the four notebooks, one per practice and one for the project
+docs/    the notes handed in with the first two practices
+tools/   the check the CI runs
+</code></pre>
+<h2 dir="auto" id="requirements">Requirements</h2>
+<ul dir="auto">
+<li>Python 3.12, <code class="notranslate">scikit-learn</code>, <code class="notranslate">pandas</code>, <code class="notranslate">numpy</code>, <code class="notranslate">matplotlib</code>, <code class="notranslate">mlxtend</code> and <code class="notranslate">keras</code>.</li>
+<li>The notebooks were written for Google Colab and run there without installing anything.</li>
+</ul>
+<h2 dir="auto" id="build-and-run">Build and run</h2>
+<div class="highlight highlight-source-shell" dir="auto"><pre class="notranslate">jupyter lab src/practice-1-supervised-learning.ipynb</pre></div>
+<p dir="auto">Or open any of them in Colab. The datasets come from the libraries themselves —<br>
+<code class="notranslate">keras.datasets.imdb</code>, <code class="notranslate">keras.datasets.mnist</code>— or are downloaded by the notebook, so there<br>
+is no data directory to prepare.</p>
+<p dir="auto">What runs without the datasets is the check:</p>
+<div class="highlight highlight-source-shell" dir="auto"><pre class="notranslate">python3 tools/check-notebooks.py</pre></div>
+<h2 dir="auto" id="results">Results</h2>
+<p dir="auto">The CI output on every push:</p>
+<pre class="notranslate"><code class="notranslate">ok    src/practice-1-supervised-learning.ipynb: 80 cells, 17 of them code
+ok    src/practice-2-unsupervised-learning.ipynb: 119 cells, 27 of them code
+ok    src/practice-3-deep-learning.ipynb: 45 cells, 12 of them code
+ok    src/project-seq2seq-chatbot.ipynb: 29 cells, 9 of them code
+
+4 notebooks are valid and their code parses
+</code></pre>
+<p dir="auto">Every notebook keeps its outputs, so the metrics, the confusion matrices and the plots are<br>
+visible on GitHub without running anything.</p>
+<h2 dir="auto" id="what-i-learned">What I learned</h2>
+<ul dir="auto">
+<li>The metric is part of the modelling. Accuracy on an unbalanced problem, or the silhouette<br>
+of a clustering nobody can interpret, are numbers that look like results and are not.</li>
+<li>Deep learning did not replace the earlier practices, it changed the questions. On tabular<br>
+data a random forest with a grid search was still the thing to beat.</li>
+<li><strong>Limitations:</strong>
+<ul dir="auto">
+<li>The notebooks cannot be executed in the CI: their datasets are downloaded at runtime and<br>
+training the chatbot needs a GPU. The check validates the file and parses every code<br>
+cell, and the badge says <code class="notranslate">checks</code>, not <code class="notranslate">tests</code>.</li>
+<li>Outputs are committed, which is what makes them readable on GitHub and also what makes<br>
+the diffs unreadable. It is a trade, and the reader won.</li>
+<li>Text and comments are in Spanish.</li>
+</ul>
+</li>
+</ul>
+<h2 dir="auto" id="author-and-licence">Author and licence</h2>
+<p dir="auto">Ismael Sallami Moreno. The final project is joint work with Jesús Rodríguez González.<br>
+Released under the MIT licence (see <code class="notranslate">LICENSE</code>).</p>

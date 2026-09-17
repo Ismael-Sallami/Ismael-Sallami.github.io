@@ -1,0 +1,190 @@
+<p dir="auto"><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/e13ddc9e549b44863cb618b70fc94b44cbda13dff03dc62afbc0a50ee31a8a8c/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f6a6176612d31372d303037333936"><img loading="lazy" decoding="async" src="https://camo.githubusercontent.com/e13ddc9e549b44863cb618b70fc94b44cbda13dff03dc62afbc0a50ee31a8a8c/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f6a6176612d31372d303037333936" alt="java" data-canonical-src="https://img.shields.io/badge/java-17-007396" style="max-width: 100%;"></a><br>
+<a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/860f0e7f3b2bdfcf5d2c0e4790f4f4711963c8e695f21f53e1b1c12eada36062/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f727562792d332e322d434333343244"><img loading="lazy" decoding="async" src="https://camo.githubusercontent.com/860f0e7f3b2bdfcf5d2c0e4790f4f4711963c8e695f21f53e1b1c12eada36062/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f727562792d332e322d434333343244" alt="ruby" data-canonical-src="https://img.shields.io/badge/ruby-3.2-CC342D" style="max-width: 100%;"></a><br>
+<a target="_blank" rel="noopener noreferrer" href="https://github.com/Ismael-Sallami/irrgarten/actions/workflows/ci.yml"><img loading="lazy" decoding="async" src="https://camo.githubusercontent.com/bcab87633f3283b068f4d34a6b57c0fd6ce93d89fb22971181193a00b9105e88/68747470733a2f2f696d672e736869656c64732e696f2f6769746875622f616374696f6e732f776f726b666c6f772f7374617475732f49736d61656c2d53616c6c616d692f69727267617274656e2f63692e796d6c3f6272616e63683d6d61696e266c6f676f3d676974687562266c6162656c3d6275696c64" alt="build" data-canonical-src="https://img.shields.io/github/actions/workflow/status/Ismael-Sallami/irrgarten/ci.yml?branch=main&amp;logo=github&amp;label=build" style="max-width: 100%;"></a><br>
+<a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/f94c5fd447e0fcdb57a248775dc35882bfe62c7b8a301d7f72b2fbd0df3d4839/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f6c6963656e73652d4d49542d346331"><img loading="lazy" decoding="async" src="https://camo.githubusercontent.com/f94c5fd447e0fcdb57a248775dc35882bfe62c7b8a301d7f72b2fbd0df3d4839/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f6c6963656e73652d4d49542d346331" alt="license" data-canonical-src="https://img.shields.io/badge/license-MIT-4c1" style="max-width: 100%;"></a></p>
+<p dir="auto">A turn-based dungeon game, built twice: once in Java and once in Ruby, from the same<br>
+class design.</p>
+<h2 dir="auto" id="context">Context</h2>
+<p dir="auto">Coursework for <strong>PDOO — Object Oriented Programming and Design</strong>, year 3 of the double<br>
+degree in Computer Science and Business Administration, University of Granada (2024–2025).<br>
+Solo work.</p>
+<p dir="auto">The course builds one project across five practicals. Each one adds a layer to the same<br>
+design, and the last two ask for the same model in a second language. That constraint is<br>
+the point of the assignment: you cannot paper over a weak design, because you have to<br>
+express it twice.</p>
+<h2 dir="auto" id="the-problem">The problem</h2>
+<p dir="auto">Build a game where several players move through a labyrinth, fight the monsters they walk<br>
+into, and race to reach the exit. The rules:</p>
+<ul dir="auto">
+<li>The labyrinth is a grid with walls, monsters, players and one exit.</li>
+<li>On each turn a player moves up, down, left or right. Walking into a monster starts a<br>
+fight.</li>
+<li>A fight is a series of rounds. Each side rolls its attack, the defender rolls to block,<br>
+and whoever runs out of tries loses.</li>
+<li>Players collect weapons and shields, which add to attack and defence and wear out after a<br>
+few uses.</li>
+<li>The game ends when a player reaches the exit or the round limit runs out.</li>
+</ul>
+<p dir="auto">Two design constraints came with it: <strong>every random decision goes through a single <code class="notranslate">Dice</code><br>
+class</strong>, and the game core must not know what the interface looks like.</p>
+<h2 dir="auto" id="the-solution">The solution</h2>
+<p dir="auto"><strong>One place for randomness.</strong> <code class="notranslate">Dice</code> holds every random draw in the game: where characters<br>
+spawn, how much damage a hit does, whether a shield is discarded. Nothing else calls a<br>
+random number generator. That is what makes the game reproducible and testable at all — if<br>
+random draws were scattered across ten classes, no test could pin down behaviour.</p>
+<p dir="auto"><strong>What a monster and a player share, and where they split.</strong> Both stand on a cell, have<br>
+health and can fight, so that goes in an abstract base. Only the player carries weapons,<br>
+shields and a name, so that stays in <code class="notranslate">Player</code>:</p>
+<pre class="notranslate"><code class="notranslate">LabyrinthCharacter (abstract)     position, health, attack, defend, fight
+├── Monster
+└── Player                        + name, number, weapons, shields
+    └── FuzzyPlayer               same player, picks its move at random
+</code></pre>
+<p dir="auto"><code class="notranslate">FuzzyPlayer</code> extends <code class="notranslate">Player</code> and only overrides how the next move is chosen. Every other<br>
+rule is inherited untouched. It is what lets the game play itself while testing, without a<br>
+second copy of the rules.</p>
+<p dir="auto"><strong>Weapons and shields are the same thing.</strong> Both add power, both wear out, both get<br>
+discarded. <code class="notranslate">CombatElement</code> holds that behaviour, and <code class="notranslate">Weapon</code> and <code class="notranslate">Shield</code> only differ in<br>
+what they contribute to. In Java the decks that hand them out are one generic class bounded<br>
+by that base:</p>
+<div class="highlight highlight-source-java" dir="auto"><pre class="notranslate"><span class="pl-k">abstract</span> <span class="pl-k">class</span> <span class="pl-s1">CardDeck</span>&lt;<span class="pl-smi">T</span> <span class="pl-k">extends</span> <span class="pl-smi">CombatElement</span>&gt;
+    ├── <span class="pl-s1">WeaponCardDeck</span> <span class="pl-k">extends</span> <span class="pl-smi">CardDeck</span>&lt;<span class="pl-smi">Weapon</span>&gt;
+    └── <span class="pl-s1">ShieldCardDeck</span> <span class="pl-k">extends</span> <span class="pl-smi">CardDeck</span>&lt;<span class="pl-smi">Shield</span>&gt;</pre></div>
+<p dir="auto">The Ruby version has no equivalent. Without generics the deck buys much less, and the<br>
+practical that introduced it only asked for Java.</p>
+<p dir="auto"><strong>The core does not know about the screen.</strong> <code class="notranslate">Controller</code> runs the turn loop and holds a<br>
+<code class="notranslate">UI view</code>, an interface. <code class="notranslate">GraphicUI</code> implements it with Swing. No model class imports<br>
+anything from the UI package, so the game core never learns what a screen is.</p>
+<p dir="auto">The idea works, the execution is half done: <code class="notranslate">TextUI</code> prints the board to the terminal but<br>
+never declares <code class="notranslate">implements UI</code>, so <code class="notranslate">Controller</code> cannot take it. That is why the text UI is<br>
+commented out in <code class="notranslate">Main</code> instead of being a one-line swap. See<br>
+<a href="#known-limitations">known limitations</a>.</p>
+<p dir="auto"><code class="notranslate">GameState</code> exists for the same reason: instead of letting the UI reach into the model, the<br>
+game hands out a flat snapshot of the board, the players, the monsters and the log.</p>
+<h2 dir="auto" id="layout">Layout</h2>
+<pre class="notranslate"><code class="notranslate">src/java/irrgarten/       Java version: model, controller, text UI and Swing UI
+src/ruby/irrgarten/       Ruby version: same model, text UI only
+src/exercises/            62 theory exercises from the problem sets, Java and Ruby
+docs/diagrams/            class diagrams handed in for practical 4
+docs/assignment/          the exam brief
+docs/latex/               the theory write-ups src/exercises is generated from
+docs/notes/               two worked explanations written alongside them
+docs/variants/            alternative builds kept for exam practice, see its README
+tools/                    the extractor
+Makefile                  build and run, both languages
+</code></pre>
+<p dir="auto"><code class="notranslate">src/exercises/</code> is the other half of the course. The game is the project; the problem sets<br>
+are where the design ideas were worked out first:</p>
+<markdown-accessiblity-table><table role="table">
+<thead>
+<tr>
+<th>Folder</th>
+<th>Files</th>
+<th>Topic</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code class="notranslate">problem-set-1/</code></td>
+<td>6</td>
+<td>classes, references, copying</td>
+</tr>
+<tr>
+<td><code class="notranslate">problem-set-2/</code></td>
+<td>1</td>
+<td>associations</td>
+</tr>
+<tr>
+<td><code class="notranslate">problem-set-3/</code></td>
+<td>34</td>
+<td>inheritance hierarchies, abstract classes, polymorphism</td>
+</tr>
+<tr>
+<td><code class="notranslate">visibility/</code></td>
+<td>16</td>
+<td>access modifiers, packages, encapsulation</td>
+</tr>
+<tr>
+<td><code class="notranslate">inheritance/</code></td>
+<td>5</td>
+<td>slide exercises on overriding</td>
+</tr>
+</tbody>
+</table></markdown-accessiblity-table>
+<p dir="auto">They came out of the same LaTeX documents the PDFs are built from, using each listing's<br>
+<code class="notranslate">style=customjava</code> or <code class="notranslate">style=customrb</code> to pick the language.</p>
+<p dir="auto">The four earlier practicals (P1 to P4) are <strong>not</strong> in the tree. They were delivered as zip<br>
+archives holding mostly generated Javadoc, <code class="notranslate">.class</code> files and NetBeans project files, and<br>
+their sources are superseded by <code class="notranslate">src/</code>. They are attached to the<br>
+<a target="_blank" rel="noopener noreferrer" href="https://github.com/Ismael-Sallami/irrgarten/releases/tag/v1.0"><code class="notranslate">v1.0</code> release</a> instead, so<br>
+the record is kept without carrying 8 MB of build output in every clone.</p>
+<h2 dir="auto" id="requirements">Requirements</h2>
+<ul dir="auto">
+<li><strong>JDK 17</strong> — tested with OpenJDK 17.0.19. The sources target Java 11 and compile on both.</li>
+<li><strong>Ruby 3.2</strong> — tested with Ruby 3.2.3. Standard library only.</li>
+<li><strong>make</strong></li>
+</ul>
+<p dir="auto">No external libraries. The Swing UI ships with the JDK.</p>
+<h2 dir="auto" id="build-and-run">Build and run</h2>
+<div class="highlight highlight-source-shell" dir="auto"><pre class="notranslate"><span class="pl-c"><span class="pl-c">#</span> Java: compile</span>
+make build-java
+
+<span class="pl-c"><span class="pl-c">#</span> Java: play. Main wires the Swing UI, so this opens a window</span>
+make run-java
+
+<span class="pl-c"><span class="pl-c">#</span> Java: run the practical 1 checks</span>
+make test-java
+
+<span class="pl-c"><span class="pl-c">#</span> Ruby: play in the terminal</span>
+make run-ruby
+
+<span class="pl-c"><span class="pl-c">#</span> Rebuild the API docs into build/javadoc</span>
+make docs-java</pre></div>
+<p dir="auto"><code class="notranslate">make run-ruby</code> needs a real terminal: the text UI reads single keypresses through<br>
+<code class="notranslate">io/console</code>, so it fails if you pipe input into it.</p>
+<h2 dir="auto" id="results">Results</h2>
+<p dir="auto">The Ruby build renders the labyrinth in the terminal. <code class="notranslate">-</code> is a free cell, <code class="notranslate">X</code> a wall, <code class="notranslate">M</code> a<br>
+monster, and a digit is the player with that number:</p>
+<pre class="notranslate"><code class="notranslate">nRows: 7, nCols: 7, exitRow: 6, exitCol: 6
+ Laberinto:
+ [ - ] [ - ] [ - ] [ - ] [ - ] [ - ] [ - ]
+ [ - ] [ - ] [ M ] [ - ] [ X ] [ - ] [ - ]
+ [ - ] [ M ] [ - ] [ - ] [ X ] [ - ] [ - ]
+ [ - ] [ - ] [ - ] [ M ] [ - ] [ - ] [ - ]
+ [ 0 ] [ - ] [ - ] [ - ] [ - ] [ - ] [ X ]
+</code></pre>
+<p dir="auto">The Java build shows the same board in a Swing window.</p>
+<p dir="auto">The class diagrams handed in for practical 4 are in <a target="_blank" rel="noopener noreferrer" href="https://github.com/Ismael-Sallami/irrgarten/blob/main/docs/diagrams"><code class="notranslate">docs/diagrams/</code></a>:<br>
+<code class="notranslate">DC-P4-1.pdf</code> is the full diagram and <code class="notranslate">P4-1.pdf</code> the written design notes.</p>
+<h2 dir="auto" id="what-i-learned">What I learned</h2>
+<ul dir="auto">
+<li><strong>Writing the same design twice is the real exercise.</strong> The two versions match everywhere<br>
+the design was about the model, and drift apart exactly where it leaned on a language<br>
+feature. <code class="notranslate">CardDeck&lt;T&gt;</code> is the clearest case: it is a Java answer, and Ruby never grew one.</li>
+<li><strong>One <code class="notranslate">Dice</code> class was worth more than any test.</strong> Funnelling every random draw through<br>
+one place turned "the game does something odd sometimes" into a bug I could actually find.</li>
+<li><strong>Half an abstraction is worth less than none.</strong> I wrote the <code class="notranslate">UI</code> interface, pointed<br>
+<code class="notranslate">Controller</code> at it, and then never made <code class="notranslate">TextUI</code> implement it. The design is right and the<br>
+code does not honour it, so the swap I designed for is a comment in <code class="notranslate">Main</code>. Declaring an<br>
+interface is the easy half.</li>
+<li><strong>The tests are not tests.</strong> <code class="notranslate">TestP1</code> prints values to stdout and I check them by eye.<br>
+That was enough to hand in and it is not enough to trust. Proper assertions were the<br>
+obvious next step and I did not take it.</li>
+</ul>
+<h3 dir="auto" id="known-limitations">Known limitations</h3>
+<ul dir="auto">
+<li><strong><code class="notranslate">TextUI</code> does not implement <code class="notranslate">UI</code>.</strong> <code class="notranslate">Controller</code> takes a <code class="notranslate">UI</code>, so the text interface<br>
+cannot be passed to it. <code class="notranslate">Main.java</code> hardcodes <code class="notranslate">GraphicUI</code> and leaves the <code class="notranslate">TextUI</code> lines<br>
+commented out. Fixing it is one <code class="notranslate">implements UI</code> plus whatever signatures do not line up.</li>
+<li><strong>The Ruby version stops earlier than the Java one.</strong> No <code class="notranslate">CardDeck</code>, no weapon or shield<br>
+decks, no graphic UI. Only Java has the complete game.</li>
+<li><strong><code class="notranslate">src/ruby/irrgarten/test_p1.rb</code> fails.</strong> It calls <code class="notranslate">gamestate1.getlabyrinth()</code>, a<br>
+Java-style name left over from the port; <code class="notranslate">GameState</code> exposes <code class="notranslate">attr_reader :labyrinth</code>.<br>
+The game itself runs fine.</li>
+<li><strong><code class="notranslate">src/java/irrgarten/TestP2.java</code> is commented out in full</strong>, so it never compiles into a<br>
+class. Its Ruby counterpart, <code class="notranslate">test_p2.rb</code>, does exist.</li>
+<li><strong><code class="notranslate">GameCharacter</code> is an enum, not a class.</strong> It tags a cell as <code class="notranslate">PLAYER</code> or <code class="notranslate">MONSTER</code>. The<br>
+name suggests a base class and it is not one.</li>
+</ul>
+<h2 dir="auto" id="author-and-licence">Author and licence</h2>
+<p dir="auto">Ismael Sallami Moreno. Released under the MIT licence (see <a target="_blank" rel="noopener noreferrer" href="https://github.com/Ismael-Sallami/irrgarten/blob/main/LICENSE"><code class="notranslate">LICENSE</code></a>).</p>

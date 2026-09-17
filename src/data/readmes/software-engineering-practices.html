@@ -1,0 +1,98 @@
+<p dir="auto"><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/20a44fdd8506c89e54a51c8b806aedfec5046a4d363bc0b5925b1046a6d37403/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f4c615465582d5465582532304c6976652d303038303830"><img loading="lazy" decoding="async" src="https://camo.githubusercontent.com/20a44fdd8506c89e54a51c8b806aedfec5046a4d363bc0b5925b1046a6d37403/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f4c615465582d5465582532304c6976652d303038303830" alt="LaTeX" data-canonical-src="https://img.shields.io/badge/LaTeX-TeX%20Live-008080" style="max-width: 100%;"></a><br>
+<a target="_blank" rel="noopener noreferrer" href="https://github.com/Ismael-Sallami/software-engineering-practices/actions/workflows/ci.yml"><img loading="lazy" decoding="async" src="https://camo.githubusercontent.com/573e9880115b250bd814ae50f94871a117f5e04bff539fb5103a8a2effab0644/68747470733a2f2f696d672e736869656c64732e696f2f6769746875622f616374696f6e732f776f726b666c6f772f7374617475732f49736d61656c2d53616c6c616d692f736f6674776172652d656e67696e656572696e672d7072616374696365732f63692e796d6c3f6272616e63683d6d61696e266c6f676f3d676974687562266c6162656c3d6275696c64" alt="build" data-canonical-src="https://img.shields.io/github/actions/workflow/status/Ismael-Sallami/software-engineering-practices/ci.yml?branch=main&amp;logo=github&amp;label=build" style="max-width: 100%;"></a><br>
+<a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/f94c5fd447e0fcdb57a248775dc35882bfe62c7b8a301d7f72b2fbd0df3d4839/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f6c6963656e73652d4d49542d346331"><img loading="lazy" decoding="async" src="https://camo.githubusercontent.com/f94c5fd447e0fcdb57a248775dc35882bfe62c7b8a301d7f72b2fbd0df3d4839/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f6c6963656e73652d4d49542d346331" alt="license" data-canonical-src="https://img.shields.io/badge/license-MIT-4c1" style="max-width: 100%;"></a></p>
+<p dir="auto">The requirements, models and reports of a tourism management system, written by a team of<br>
+four and compiled from LaTeX sources on every push.</p>
+<h2 dir="auto" id="context">Context</h2>
+<p dir="auto">Coursework for <strong>Software Engineering Fundamentals</strong>, year 3 of the double degree in<br>
+Computer Science and Business Administration, University of Granada (2024-25). Team work<br>
+with <strong>Julián Carrión Tovar</strong>, <strong>Alicia Ruiz Gómez</strong> and <strong>Jesús Rodríguez González</strong>; the<br>
+third practice splits<br>
+the chapters by author.</p>
+<h2 dir="auto" id="the-problem">The problem</h2>
+<p dir="auto">Specify a system before building it. The subject asks for the artefacts an analyst produces<br>
+in front of a client: actors, use cases with their descriptions, hierarchies, package<br>
+diagrams and a glossary that stops two people from meaning different things by the same<br>
+word.</p>
+<p dir="auto">The system is a tourism management platform: tour packages, clients and bookings, payments<br>
+and invoicing, and a web portal.</p>
+<h2 dir="auto" id="the-solution">The solution</h2>
+<markdown-accessiblity-table><table role="table">
+<thead>
+<tr>
+<th>Deliverable</th>
+<th>What it contains</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Practice 1</td>
+<td>The first modelling exercises, kept in <strong>three different layouts</strong> of the same content, from a plain document to the <code class="notranslate">classicthesis</code> template</td>
+</tr>
+<tr>
+<td>Practice 2, parts 1 and 2</td>
+<td>Actors, use case hierarchy, use case diagrams and their descriptions, the package diagram and the glossary</td>
+</tr>
+<tr>
+<td>Practice 3, parts 1 and 2</td>
+<td>The conceptual diagram and the four subsystems, split by author</td>
+</tr>
+</tbody>
+</table></markdown-accessiblity-table>
+<p dir="auto">Everything is LaTeX with <code class="notranslate">classicthesis</code>, <code class="notranslate">minted</code> for code and a shared bibliography style.<br>
+Practice 1 keeping three layouts is not an accident: they include the same chapter files, so<br>
+changing a chapter changes all three documents.</p>
+<h2 dir="auto" id="layout">Layout</h2>
+<pre class="notranslate"><code class="notranslate">docs/practice-1              the chapters, and one of the three layouts
+docs/practice-1-format-b     the same content in a second layout
+docs/practice-1-format-c     and in a third
+docs/practice-2-part-1..2    actors, use cases, packages and glossary
+docs/practice-3-part-1..2    conceptual diagram and subsystems
+tools/build-docs.sh          builds the seven reports
+</code></pre>
+<h2 dir="auto" id="requirements">Requirements</h2>
+<ul dir="auto">
+<li>A TeX Live installation with <code class="notranslate">classicthesis</code>, <code class="notranslate">minted</code> and Pygments.</li>
+<li><code class="notranslate">latexmk</code>, and <code class="notranslate">-shell-escape</code> enabled, which <code class="notranslate">minted</code> needs.</li>
+</ul>
+<h2 dir="auto" id="build-and-run">Build and run</h2>
+<div class="highlight highlight-source-shell" dir="auto"><pre class="notranslate">bash tools/build-docs.sh          <span class="pl-c"><span class="pl-c">#</span> the seven reports, the same as the CI</span></pre></div>
+<p dir="auto">Or one at a time:</p>
+<div class="highlight highlight-source-shell" dir="auto"><pre class="notranslate"><span class="pl-c1">cd</span> docs/practice-2-part-1 <span class="pl-k">&amp;&amp;</span> latexmk -pdf -shell-escape main.tex</pre></div>
+<p dir="auto">The CI runs inside the <code class="notranslate">texlive/texlive</code> image and uploads the seven PDFs as an artifact, so<br>
+the built documents can be downloaded from any run without installing TeX.</p>
+<h2 dir="auto" id="results">Results</h2>
+<p dir="auto">What the build prints:</p>
+<pre class="notranslate"><code class="notranslate">ok    docs/practice-1/Practica1.pdf  114 KB
+ok    docs/practice-1-format-b/p.pdf  147 KB
+ok    docs/practice-1-format-c/main.pdf  147 KB
+ok    docs/practice-2-part-1/main.pdf  562 KB
+ok    docs/practice-2-part-2/main.pdf  194 KB
+ok    docs/practice-3-part-1/main.pdf  740 KB
+ok    docs/practice-3-part-2/main.pdf  85 KB
+every report builds
+</code></pre>
+<h2 dir="auto" id="what-we-learned">What we learned</h2>
+<ul dir="auto">
+<li>A glossary is not filler. Half the corrections between deliverables came from two people<br>
+using the same word with different scopes, and the glossary is where that gets settled.</li>
+<li>Splitting chapters by author only works if the layout is shared. The three formats of<br>
+practice 1 include the same chapter files, so the content has one home and the format is a<br>
+decision taken outside it.</li>
+<li><strong>Limitations:</strong>
+<ul dir="auto">
+<li><code class="notranslate">docs/practice-3-part-1</code> compiles but reports a missing figure, <code class="notranslate">figures/ugrA4.pdf</code>, the<br>
+cover background, which was never committed: the document comes out with its cover in<br>
+draft. The build asserts that a PDF is produced rather than the exit code, and says why.</li>
+<li>When the folders were renamed to English, two documents of practice 1 kept pointing at<br>
+the old sibling name in their <code class="notranslate">\input</code> lines. Those paths were updated; nothing else in<br>
+the sources was touched.</li>
+<li>The blank Word templates that came with the assignment, repeated in four deliverables,<br>
+are not published here: they belong to the teaching staff.</li>
+<li>The reports are in Spanish, the language of the subject.</li>
+</ul>
+</li>
+</ul>
+<h2 dir="auto" id="authors-and-licence">Authors and licence</h2>
+<p dir="auto">Ismael Sallami Moreno, Julián Carrión Tovar, Alicia Ruiz Gómez and Jesús Rodríguez González.<br>
+Released under the MIT licence (see <code class="notranslate">LICENSE</code>).</p>
