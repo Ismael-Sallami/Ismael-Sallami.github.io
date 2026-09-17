@@ -10,7 +10,7 @@
 import { readFileSync, writeFileSync } from 'node:fs'
 
 const projectsSrc = readFileSync('src/data/projects.js', 'utf8')
-const skillsSrc = readFileSync('src/data/skills.js', 'utf8')
+const skills = JSON.parse(readFileSync('src/data/skills.generated.json', 'utf8'))
 const generated = JSON.parse(readFileSync('src/data/contributions.generated.json', 'utf8'))
 const contribSrc = readFileSync('src/data/contributions.js', 'utf8')
 
@@ -54,20 +54,13 @@ const contribBlock = [
 ].join('\n')
 
 // Skills carry a category, not a score, grouped the way the site and the CV group them.
-const CATEGORY_LABEL = {
-  languages: 'Languages',
-  infra: 'Infrastructure & deployment',
-  web: 'Web',
-  data: 'Data & computation',
-  writing: 'Technical writing',
-  spoken: 'Spoken',
-}
-const skills = [...skillsSrc.matchAll(/name: '([^']+)'(?:,\s*\n\s*nameEn: '[^']+')?,\s*\n?\s*category: '(\w+)'/g)]
-  .map((m) => ({ name: m[1], category: m[2] }))
+// The headings come from the sheet along with the skills, so the README cannot end up
+// calling a group something the site does not.
+const categories = JSON.parse(readFileSync('src/data/skills.categories.generated.json', 'utf8'))
 
-const skillsBlock = Object.entries(CATEGORY_LABEL)
-  .map(([category, label]) => {
-    const names = skills.filter((s) => s.category === category).map((s) => s.name)
+const skillsBlock = categories
+  .map(({ slug, en: label }) => {
+    const names = skills.filter((s) => s.category === slug).map((s) => s.name)
     return names.length ? `**${label}** — ${names.join(' · ')}` : null
   })
   .filter(Boolean)
@@ -83,6 +76,18 @@ readme = readme.replace(
   `$1${contribBlock}\n$2`
 )
 readme = readme.replace(/(## Skills\n\n)[\s\S]*?(\n## Licence)/, `$1${skillsBlock}\n$2`)
+
+// The counts in the "Where the content lives" table used to be typed by hand, so they
+// went stale the moment either list changed. The site counts them at render time; this
+// makes the README agree.
+readme = readme.replace(
+  /(\| `src\/data\/projects\.js` \| the )\d+( projects)/,
+  `$1${projects.length}$2`,
+)
+readme = readme.replace(
+  /(\| `src\/data\/skills\.generated\.json` \| the )\d+( skills)/,
+  `$1${skills.length}$2`,
+)
 writeFileSync('README.md', readme)
 console.log(
   `${projects.length} projects (${featured.length} featured), ` +

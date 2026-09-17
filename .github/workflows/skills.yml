@@ -1,0 +1,48 @@
+# Refreshes the skills list from the Google Sheet it is written in.
+#
+# Same sheet as the experience timeline, a different tab. Skills move far less often than
+# roles, so this runs weekly rather than daily; the manual trigger covers the rest.
+#
+# The commit this pushes lands on main, which triggers the deploy workflow. Nothing is
+# committed when nothing changed.
+name: Sync skills
+
+on:
+  schedule:
+    - cron: '30 6 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: sync-skills
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      # No npm ci: the script runs on Node's own fetch and nothing else.
+      - run: node scripts/sync-skills.mjs
+
+      # The README quotes the list and the count, so it goes with them.
+      - run: node scripts/gen-readme.mjs
+
+      - name: Commit if anything moved
+        run: |
+          git config user.name  "Ismael"
+          git config user.email "${{ github.actor_id }}+${{ github.actor }}@users.noreply.github.com"
+          git add -A src/data/skills.generated.json README.md
+          if git diff --cached --quiet; then
+            echo "No change."
+            exit 0
+          fi
+          git commit -m "chore: refresh the skills list from the sheet"
+          git pull --rebase origin main
+          git push

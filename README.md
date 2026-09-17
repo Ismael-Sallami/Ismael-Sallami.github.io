@@ -23,7 +23,7 @@ touching.
 | `src/data/contributions.js` | descriptions of the open source work; the numbers come from the API |
 | `src/data/experience.generated.json` | the roles in the Home timeline, written in a Google Sheet |
 | `src/data/documents.js` | the titles of the CVs and certifications under `docs/` |
-| `src/data/skills.js` | the 30 skills, grouped by what each one is |
+| `src/data/skills.generated.json` | the 30 skills, grouped by what each one is; written in the same sheet |
 | `src/i18n/strings.js` | every other string, in both languages |
 
 A role with an empty end date is still open, which is what draws the hollow dot at
@@ -33,51 +33,11 @@ and the repository it comes from, and the count is read out of
 `contributions.generated.json` when the page renders, so it cannot disagree with the
 contributions table.
 
+How to add a project, a role, a skill or a CV is in [MAINTAINING.md](MAINTAINING.md).
+
 The `featured` flag in `projects.js` picks what the front page shows and which
 cards span two columns. Six are set. Keep them at the top of the array: a wide
 card landing on an odd column leaves a hole in the grid.
-
-## Adding a role to the timeline
-
-The roles live in a Google Sheet rather than in this repository, so adding a job is
-a row in a spreadsheet. `scripts/sync-experience.mjs` reads the sheet every morning,
-rewrites `experience.generated.json`, and the commit it pushes triggers a deploy.
-Run the workflow by hand from the Actions tab if the wait is too long.
-
-Two rows per role, one per language, paired by `id`. An English cell left empty
-falls back to the Spanish one, which is why most of them are empty. Only the
-Spanish row is read for `publicar`, `fin`, `cifra_enlace` and `cifra_fuente`, since
-those describe the role rather than its wording.
-
-Nothing is written when anything looks wrong, so a bad row leaves the last good
-timeline in place rather than replacing it with half of one. The message names the
-row and the column. The one worth knowing in advance: Sheets will turn `2026-08-24`
-into a date value and export it as `24/08/2026`, so import with "Convert text to
-numbers, dates and formulas" switched off, or set the `fin` column to plain text.
-
-```bash
-npm run sync:experience
-```
-
-## Adding a CV or a certification
-
-Copy the file into `docs/CVs/` or `docs/certificates/` and build. A glob in
-`documents.js` finds it, so the CV menu and the certifications page pick it up
-without any code change. PDFs and PNGs both work; a PDF previews in an iframe and
-an image as an image.
-
-The one thing a glob cannot guess is the title, so add the file to the `labels`
-map in `documents.js`. Skip that and the site falls back to a title made out of
-the file name, and `npm run check:documents` fails the build telling you which
-file is missing one. `--fix` writes the placeholder for you:
-
-```bash
-npm run check:documents
-node scripts/check-documents.mjs --fix
-```
-
-It also rejects a name with spaces or accents, which turns into `%20` and `%C3%B3`
-once it is a URL.
 
 ## Figures quoted from other repositories
 
