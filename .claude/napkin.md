@@ -59,7 +59,13 @@
    Do instead: a wide card landing on an odd grid column leaves a hole. Six are set,
    and three of them already sit mid-array. Auto-generated projects are appended last
    and never featured, so they cannot make it worse.
-6. **[2026-09-17] Tailwind preflight strips list markers and only emits used keyframes**
+6. **[2026-09-18] The timeline roles live in a Google Sheet, not in the repo**
+   Do instead: `experience.generated.json` is output; never hand-edit it. Edit the sheet
+   (id 1XmP8a4ymvgE0CZkxIFF9o2C3d10jqu3d8CHXoUGcajk, two rows per role, one per
+   language) and run `npm run sync:experience`. An empty English cell must omit the key,
+   not emit "": `localizeRole` spreads `en` over the role, so a present-but-empty key
+   blanks the Spanish text instead of falling back to it.
+7. **[2026-09-17] Tailwind preflight strips list markers and only emits used keyframes**
    Do instead: injected HTML (a README) needs `list-style` asked for again, or lists
    render as loose paragraphs. And `animation: spin` only exists in the stylesheet if
    an `animate-spin` class appears in scanned source, so a hand-written CSS animation

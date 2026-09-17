@@ -108,7 +108,30 @@ a { color: inherit; text-decoration: none; }
   color: transparent;
 }
 
+
+/* The dot that closes the timeline, on the role that has no end date. It breathes, so
+   the one thing on that list that is still true reads as alive. Same family as the
+   halo on the orbit button, at a smaller scale. */
+.timeline-open {
+  box-shadow: 0 0 0 0 hsla(160, 95%, 55%, 0.45);
+  animation: timeline-pulse 2.6s ease-out infinite;
+}
+
+@keyframes timeline-pulse {
+  0%   { box-shadow: 0 0 0 0 hsla(160, 95%, 55%, 0.45); }
+  70%  { box-shadow: 0 0 0 9px hsla(160, 95%, 55%, 0); }
+  100% { box-shadow: 0 0 0 0 hsla(160, 95%, 55%, 0); }
+}
+
+/* Kept last on purpose: these override the rules above, and with equal specificity
+   the later rule is the one that wins. */
 @media (prefers-reduced-motion: reduce) {
   .grain { animation: none; }
   html { scroll-behavior: auto; }
+  /* The dot keeps a steady ring instead of pulsing: still marked as the open one,
+     without anything moving. */
+  .timeline-open {
+    animation: none;
+    box-shadow: 0 0 0 4px hsla(160, 95%, 55%, 0.18);
+  }
 }
