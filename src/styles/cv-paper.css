@@ -211,6 +211,9 @@
      applied to whole sections: a section longer than a page cannot honour it, and the
      engine answers by leaving half a page blank. */
   .cv-entry { break-inside: avoid; page-break-inside: avoid }
+  /* Six lines always fit on a page, and split it once left three of them alone on a
+     sheet of their own. */
+  .cv-skills { break-inside: avoid; page-break-inside: avoid }
   .cv-entry li { break-inside: avoid }
   .cv-section > h2 { break-after: avoid; page-break-after: avoid }
   .cv-row { break-after: avoid; page-break-after: avoid }

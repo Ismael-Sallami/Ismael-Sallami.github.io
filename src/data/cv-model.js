@@ -14,9 +14,10 @@ import { profile, education, localizeEducation, short } from './profile.js'
 import { experience, localizeRole } from './experience.js'
 import { mergeProjects, localizeProject } from './projects.js'
 import { contributions, localizeContribution } from './contributions.js'
+import { certificates, localizeDocument } from './documents.js'
 import { CATEGORIES, byCategory, categoryLabel, skillName, skillDisplay } from './skills.js'
 
-export const SECTIONS = ['education', 'experience', 'projects', 'contributions', 'skills']
+export const SECTIONS = ['education', 'experience', 'projects', 'contributions', 'certifications', 'skills']
 
 // Stable identity per item. The obvious choices are wrong in two places: a hand-written
 // project card with no repository has `slug: null`, and skills have no id at all.
@@ -30,6 +31,8 @@ export function itemKey(section, item) {
       return item.slug ?? item.url.toLowerCase()
     case 'contributions':
       return `${item.upstream}/${item.project}`
+    case 'certifications':
+      return item.file
     case 'skills':
       return item.slug
     default:
@@ -44,6 +47,9 @@ export function sectionItems(lang) {
     experience: experience.map((r) => localizeRole(r, lang)),
     projects: mergeProjects().map((p) => localizeProject(p, lang)),
     contributions: contributions.map((c) => localizeContribution(c, lang)),
+    // Whatever is in docs/certificates/. The same glob the certifications page reads, so
+    // dropping a file in there puts it here too.
+    certifications: certificates.map((d) => localizeDocument(d, lang)),
     // Skills are picked a category at a time. Thirty checkboxes is not a choice, it is a
     // chore, and a CV groups them anyway.
     skills: CATEGORIES.map((slug) => ({ slug, label: categoryLabel(slug, lang) })),
@@ -119,9 +125,24 @@ export function buildCvModel(excluded, lang) {
       entries: contrib.map((c) => ({
         left: c.project,
         leftNote: c.upstream,
-        right: [c.prs && `${c.prs} PR`, c.commits && `${c.commits} commits`].filter(Boolean).join(' · '),
+        right: [
+          c.prs && `${c.prs} ${c.prs === 1 ? 'PR' : 'PRs'}`,
+          c.commits && `${c.commits} ${c.commits === 1 ? 'commit' : 'commits'}`,
+        ]
+          .filter(Boolean)
+          .join(' · '),
         bullets: [c.desc].filter(Boolean),
       })),
+    })
+  }
+
+  const certs = keep('certifications')
+  if (certs.length > 0) {
+    sections.push({
+      id: 'certifications',
+      // One line each, no bullets: the title is the whole claim, and a paragraph under it
+      // would be padding.
+      entries: certs.map((c) => ({ left: c.title, right: c.year ?? '', bullets: [] })),
     })
   }
 

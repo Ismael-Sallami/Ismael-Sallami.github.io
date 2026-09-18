@@ -19,7 +19,8 @@ const certificateFiles = import.meta.glob('../../docs/certificates/*.{pdf,png,jp
   eager: true,
 })
 
-// Titles and the one-line note under each CV. `note` is only used by the CV menu.
+// Titles and the one-line note under each CV. `note` is only used by the CV menu, and
+// `year` only by the certifications section of the generated CV; both are optional.
 export const labels = {
   'Ismael_Sallami_Moreno_CV_EN.pdf': {
     es: 'CV general',
@@ -42,14 +43,17 @@ export const labels = {
   'oracle-oci-ai-foundations-2025.pdf': {
     es: 'Oracle Cloud Infrastructure 2025 Certified AI Foundations Associate',
     en: 'Oracle Cloud Infrastructure 2025 Certified AI Foundations Associate',
+    year: '2025',
   },
   'gsoc-2026-mifos-initiative.pdf': {
     es: 'Google Summer of Code 2026 · The Mifos Initiative',
     en: 'Google Summer of Code 2026 · The Mifos Initiative',
+    year: '2026',
   },
   'ahrefs-marketing-platform-2026.png': {
     es: "Certified in Ahrefs' Marketing Platform",
     en: "Certified in Ahrefs' Marketing Platform",
+    year: '2026',
   },
 }
 
@@ -108,5 +112,5 @@ export function localizeDocument(doc, lang) {
   const { label } = doc
   const title = label ? (lang === 'en' ? label.en : label.es) : titleFromFileName(doc.file)
   const note = label ? (lang === 'en' ? label.noteEn : label.noteEs) : undefined
-  return { ...doc, title, note }
+  return { ...doc, title, note, year: label?.year }
 }

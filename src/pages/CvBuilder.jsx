@@ -32,6 +32,7 @@ const labelFor = (section, item) => {
   if (section === 'education') return `${item.degree} — ${item.school}`
   if (section === 'contributions') return `${item.project} (${item.upstream})`
   if (section === 'skills') return item.label
+  if (section === 'certifications') return item.title
   return item.title
 }
 
