@@ -57,10 +57,10 @@ for (const { file, folder } of onDisk) {
   }
 }
 
+// Not a problem any more. A file with no entry is titled from its own name, which is the
+// ordinary way to add one: copy it in and it shows up. An entry in `labels` is for when
+// the derived title is not good enough, which is mostly acronyms.
 const missing = onDisk.filter(({ file }) => !labelled.has(file))
-for (const { file, folder } of missing) {
-  problems.push(`docs/${folder}/${file} — no entry in labels, so it would be titled "${titleFromFileName(file)}"`)
-}
 
 const diskNames = new Set(onDisk.map((d) => d.file))
 for (const file of labelled) {
@@ -70,7 +70,10 @@ for (const file of labelled) {
 }
 
 if (problems.length === 0) {
-  console.log(`${onDisk.length} documents, all labelled and safely named.`)
+  console.log(`${onDisk.length} documents, all safely named.`)
+  for (const { file, folder } of missing) {
+    console.log(`  docs/${folder}/${file} → "${titleFromFileName(file)}"  (derived; write a title if that reads badly)`)
+  }
   process.exit(0)
 }
 
@@ -90,6 +93,6 @@ if (fix && missing.length) {
 
 console.error('Problems with the documents under docs/:\n')
 for (const p of problems) console.error(`  ${p}`)
-console.error('\nAdd the titles in src/data/documents.js, or run:')
+console.error('\nFix the names, or write the titles in src/data/documents.js:')
 console.error('  node scripts/check-documents.mjs --fix')
 process.exit(1)

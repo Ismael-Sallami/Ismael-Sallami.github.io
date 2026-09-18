@@ -72,14 +72,25 @@ const certificateOrder = [
 
 const IMAGE_EXTENSIONS = ['png', 'jpg', 'jpeg']
 
-// "gsoc-2026-mifos-initiative.pdf" -> "Gsoc 2026 Mifos Initiative". Only a stand-in
-// until the file gets a real entry in `labels`.
+// "gsoc-2026-mifos-initiative.pdf" -> "Gsoc 2026 Mifos Initiative".
+//
+// This is the normal case, not a stand-in: dropping a file into docs/ is all it takes for
+// it to appear with a readable title. An entry in `labels` is for when the derived one is
+// not good enough, which is mostly acronyms — "Oci Ai" instead of "OCI AI" — and anything
+// that wants an accent or a character a file name cannot carry.
 export function titleFromFileName(file) {
   return file
     .replace(/\.[^.]+$/, '')
     .replace(/[_-]+/g, ' ')
     .trim()
     .replace(/\b\w/g, (c) => c.toUpperCase())
+}
+
+// A four-digit run in the file name is the year the certificate is from. Bounded so a
+// version number or a resolution cannot be mistaken for one.
+export function yearFromFileName(file) {
+  const match = file.replace(/\.[^.]+$/, '').match(/(?:^|[_-])(19|20)(\d{2})(?:[_-]|$)/)
+  return match ? `${match[1]}${match[2]}` : undefined
 }
 
 function build(modules, order) {
@@ -112,5 +123,6 @@ export function localizeDocument(doc, lang) {
   const { label } = doc
   const title = label ? (lang === 'en' ? label.en : label.es) : titleFromFileName(doc.file)
   const note = label ? (lang === 'en' ? label.noteEn : label.noteEs) : undefined
-  return { ...doc, title, note, year: label?.year }
+  // A written year wins, and the file name answers when there is none.
+  return { ...doc, title, note, year: label?.year ?? yearFromFileName(doc.file) }
 }

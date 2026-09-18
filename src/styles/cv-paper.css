@@ -107,30 +107,6 @@
 .cv-skills li { margin: 1.5pt 0 }
 .cv-skills b { font-weight: 700 }
 
-/* ---- page guides, on screen only ---- */
-
-/* A line every page height, so twenty-seven projects are visibly four pages rather than
-   a number someone has to trust. */
-.cv-paper.has-guides {
-  background-image: repeating-linear-gradient(
-    to bottom,
-    transparent 0,
-    transparent calc(297mm - 1px),
-    rgba(180, 40, 40, 0.5) calc(297mm - 1px),
-    rgba(180, 40, 40, 0.5) 297mm
-  );
-}
-
-.cv-paper.is-letter.has-guides {
-  background-image: repeating-linear-gradient(
-    to bottom,
-    transparent 0,
-    transparent calc(279mm - 1px),
-    rgba(180, 40, 40, 0.5) calc(279mm - 1px),
-    rgba(180, 40, 40, 0.5) 279mm
-  );
-}
-
 /* ---- printing ----
  *
  * This block has to win, and on this site that is not automatic. index.css ends with its

@@ -40,7 +40,6 @@ export default function CvBuilder() {
   const { t, lang } = useI18n()
   const [excluded, setExcluded] = useState(load)
   const [paper, setPaper] = useState('a4')
-  const [guides, setGuides] = useState(true)
   const [mobileView, setMobileView] = useState('pick')
   const [pages, setPages] = useState(1)
   const paperRef = useRef(null)
@@ -182,16 +181,6 @@ export default function CvBuilder() {
                     </select>
                   </label>
 
-                  <label className="flex cursor-pointer items-center gap-2.5 text-sm text-cool">
-                    <input
-                      type="checkbox"
-                      checked={guides}
-                      onChange={() => setGuides((v) => !v)}
-                      className="h-4 w-4 accent-[hsl(160,95%,55%)]"
-                    />
-                    {t('cv.preview')} · {t('cv.pages')}
-                  </label>
-
                   <p aria-live="polite" className="text-sm text-ivory">
                     {t('cv.approx')} {pages} {pages === 1 ? t('cv.page') : t('cv.pages')}
                   </p>
@@ -220,7 +209,7 @@ export default function CvBuilder() {
               tabIndex={0}
               className={`cv-preview ${mobileView === 'preview' ? '' : 'hidden'} overflow-auto md:block`}
             >
-              <CvPaper model={model} paper={paper} guides={guides} innerRef={paperRef} />
+              <CvPaper model={model} paper={paper} innerRef={paperRef} />
             </div>
           </div>
         </section>

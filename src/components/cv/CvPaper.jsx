@@ -2,14 +2,14 @@ import { useI18n } from '../../i18n/LanguageContext.jsx'
 
 // The document. It only reads the model, so everything about what goes in lives in
 // cv-model.js and everything about how it looks lives in cv-paper.css.
-export default function CvPaper({ model, paper, guides, innerRef }) {
+export default function CvPaper({ model, paper, innerRef }) {
   const { t } = useI18n()
   const { header, sections } = model
 
   return (
     <article
       ref={innerRef}
-      className={`cv-paper ${paper === 'letter' ? 'is-letter' : ''} ${guides ? 'has-guides' : ''}`}
+      className={`cv-paper ${paper === 'letter' ? 'is-letter' : ''}`}
       lang={undefined}
     >
       <header className="cv-head">
