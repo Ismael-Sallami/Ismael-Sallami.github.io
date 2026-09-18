@@ -35,7 +35,7 @@ export const education = [
     en: {
       school: 'University of Granada',
       place: 'Granada, Spain',
-      degree: 'Double Degree in Computer Engineering and Business Administration',
+      degree: 'Double Degree in Computer Science and Business Administration',
       dates: 'Sep 2022 — Jun 2027 (expected)',
     },
   },
@@ -46,7 +46,7 @@ export function degreeBadge(lang) {
   const e = education[0]
   if (!e) return ''
   return lang === 'en'
-    ? 'Double Degree in Computer Engineering + Business · UGR'
+    ? 'Double Degree in Computer Science + Business · UGR'
     : 'Doble grado Informática + ADE · UGR'
 }
 
