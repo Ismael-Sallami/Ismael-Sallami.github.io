@@ -29,6 +29,12 @@ import projectDefault from '../../assets/images/project-default.svg'
 
 import generated from './projects.generated.json'
 
+// Covers drawn by scripts/render-covers.mjs for repositories that have no card here and
+// no image uploaded to GitHub. Eager, because the grid shows them all at once.
+const covers = import.meta.glob('./project-images/*.svg', {
+  query: '?url', import: 'default', eager: true,
+})
+
 export const projects = [
   {
     title: 'Laboratorio de infraestructura con Ansible',
@@ -395,7 +401,10 @@ function fromGenerated(g) {
     desc: g.description ?? '',
     tag: g.language ?? g.topics[0] ?? 'Código',
     url: g.url,
-    img: projectDefault,
+    // In order: an image uploaded to the repository under Settings, Social preview;
+    // then one drawn for it; then the plain placeholder. The first is linked straight
+    // from GitHub's CDN rather than committed, since they run to about 600 KB each.
+    img: g.cover ?? covers[`./project-images/${g.slug}.svg`] ?? projectDefault,
     featured: false,
     slug: g.slug,
     hasReadme: g.hasReadme,

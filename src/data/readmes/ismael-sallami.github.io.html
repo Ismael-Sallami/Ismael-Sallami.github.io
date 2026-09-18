@@ -25,16 +25,16 @@ touching.</p>
 <td>descriptions of the open source work; the numbers come from the API</td>
 </tr>
 <tr>
-<td><code class="notranslate">src/data/experience.js</code></td>
-<td>the three roles in the Home timeline</td>
+<td><code class="notranslate">src/data/experience.generated.json</code></td>
+<td>the roles in the Home timeline, written in a Google Sheet</td>
 </tr>
 <tr>
 <td><code class="notranslate">src/data/documents.js</code></td>
 <td>the titles of the CVs and certifications under <code class="notranslate">docs/</code></td>
 </tr>
 <tr>
-<td><code class="notranslate">src/data/skills.js</code></td>
-<td>the 30 skills, grouped by what each one is</td>
+<td><code class="notranslate">src/data/skills.generated.json</code></td>
+<td>the 30 skills, grouped by what each one is; written in the same sheet</td>
 </tr>
 <tr>
 <td><code class="notranslate">src/i18n/strings.js</code></td>
@@ -42,27 +42,16 @@ touching.</p>
 </tr>
 </tbody>
 </table></markdown-accessiblity-table>
-<p dir="auto">A role in <code class="notranslate">experience.js</code> with <code class="notranslate">end: null</code> is still open, which is what draws the<br>
-hollow dot at the end of the timeline. The three roles overlap on purpose, so each<br>
-one prints its own date range. The GSoC figure is read out of<br>
-<code class="notranslate">contributions.generated.json</code> rather than typed, so it cannot disagree with the<br>
+<p dir="auto">A role with an empty end date is still open, which is what draws the hollow dot at<br>
+the end of the timeline. The roles overlap on purpose, so each one prints its own<br>
+date range. The GSoC figure is never typed as a number: the sheet holds <code class="notranslate">{prs} PRs</code><br>
+and the repository it comes from, and the count is read out of<br>
+<code class="notranslate">contributions.generated.json</code> when the page renders, so it cannot disagree with the<br>
 contributions table.</p>
+<p dir="auto">How to add a project, a role, a skill or a CV is in <a target="_blank" rel="noopener noreferrer" href="https://github.com/Ismael-Sallami/Ismael-Sallami.github.io/blob/main/MAINTAINING.md">MAINTAINING.md</a>.</p>
 <p dir="auto">The <code class="notranslate">featured</code> flag in <code class="notranslate">projects.js</code> picks what the front page shows and which<br>
 cards span two columns. Six are set. Keep them at the top of the array: a wide<br>
 card landing on an odd column leaves a hole in the grid.</p>
-<h2 dir="auto" id="adding-a-cv-or-a-certification">Adding a CV or a certification</h2>
-<p dir="auto">Copy the file into <code class="notranslate">docs/CVs/</code> or <code class="notranslate">docs/certificates/</code> and build. A glob in<br>
-<code class="notranslate">documents.js</code> finds it, so the CV menu and the certifications page pick it up<br>
-without any code change. PDFs and PNGs both work; a PDF previews in an iframe and<br>
-an image as an image.</p>
-<p dir="auto">The one thing a glob cannot guess is the title, so add the file to the <code class="notranslate">labels</code><br>
-map in <code class="notranslate">documents.js</code>. Skip that and the site falls back to a title made out of<br>
-the file name, and <code class="notranslate">npm run check:documents</code> fails the build telling you which<br>
-file is missing one. <code class="notranslate">--fix</code> writes the placeholder for you:</p>
-<div class="highlight highlight-source-shell" dir="auto"><pre class="notranslate">npm run check:documents
-node scripts/check-documents.mjs --fix</pre></div>
-<p dir="auto">It also rejects a name with spaces or accents, which turns into <code class="notranslate">%20</code> and <code class="notranslate">%C3%B3</code><br>
-once it is a URL.</p>
 <h2 dir="auto" id="figures-quoted-from-other-repositories">Figures quoted from other repositories</h2>
 <p dir="auto">Some project descriptions quote a count that lives in another repository: the size<br>
 of the catalogue in <code class="notranslate">algorithms-and-patterns</code>, the page count of the 3-Partition<br>
