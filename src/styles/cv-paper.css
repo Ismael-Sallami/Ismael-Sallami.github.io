@@ -1,0 +1,221 @@
+/* The printed document, and everything the site has to stop doing while it prints.
+ *
+ * Loaded only by the CV page, so none of this weighs on the rest of the site.
+ *
+ * Two things here look like over-engineering and are not.
+ *
+ * The paper is sized in points and millimetres rather than rem. The site's scale is built
+ * on a 16px root, and a CV is set at 10pt; mixing the two means the line height is right
+ * on screen and wrong on paper.
+ *
+ * The serif is the system stack, not Fraunces. Fraunces is a display face with SOFT and
+ * WONK axes, and at body size it reads like a magazine cover rather than a CV. Georgia is
+ * on every machine that will open this, costs nothing to load, and prints predictably.
+ */
+
+.cv-paper {
+  --ink: #111;
+  --rule: #111;
+  width: 210mm;
+  min-height: 297mm;
+  padding: 14mm 15mm;
+  margin: 0 auto;
+  background: #fff;
+  color: var(--ink);
+  font: 10pt/1.34 Georgia, 'Liberation Serif', 'Times New Roman', serif;
+  box-shadow: 0 24px 60px -24px rgba(0, 0, 0, 0.6);
+}
+
+.cv-paper.is-letter {
+  width: 216mm;
+  min-height: 279mm;
+}
+
+/* ---- header ---- */
+
+.cv-head {
+  text-align: center;
+  padding-bottom: 6pt;
+}
+
+.cv-head h1 {
+  font-size: 22pt;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  margin: 0;
+}
+
+.cv-head ul {
+  list-style: none;
+  margin: 5pt 0 0;
+  padding: 0;
+  font-size: 9pt;
+}
+
+.cv-head li { display: inline }
+.cv-head li + li::before { content: ' | '; color: #555 }
+.cv-head a { color: var(--ink); text-decoration: underline }
+
+/* ---- sections ---- */
+
+.cv-section { margin-top: 10pt }
+
+.cv-section > h2 {
+  font-size: 11pt;
+  font-weight: 400;
+  font-variant: small-caps;
+  letter-spacing: 0.06em;
+  margin: 0 0 4pt;
+  padding-bottom: 1.5pt;
+  /* A border and not a filled div: Chrome prints with background graphics off by
+     default, so a coloured block disappears and a border does not. */
+  border-bottom: 0.6pt solid var(--rule);
+}
+
+.cv-entry { margin: 0 0 6pt }
+.cv-entry:last-child { margin-bottom: 0 }
+
+/* Each row is one line, left and right. Kept to a single line on purpose: a flex
+   container does not fragment internally in Chromium, so a two-line row would be pushed
+   whole to the next page and leave a gap. */
+.cv-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 8pt;
+}
+
+.cv-row__left { font-weight: 700 }
+.cv-row__right { white-space: nowrap; font-size: 9.5pt }
+.cv-row--sub .cv-row__left { font-weight: 400; font-style: italic }
+.cv-row--sub .cv-row__right { font-style: italic }
+.cv-note { font-weight: 400; font-style: italic }
+.cv-note::before { content: ' | '; font-style: normal; color: #555 }
+
+.cv-entry ul {
+  margin: 2pt 0 0;
+  padding-left: 12pt;
+  list-style: none;
+}
+
+.cv-entry li { position: relative; margin: 1.5pt 0 }
+.cv-entry li::before { content: '–'; position: absolute; left: -10pt }
+
+/* ---- skills ---- */
+
+.cv-skills { margin: 0; padding: 0; list-style: none }
+.cv-skills li { margin: 1.5pt 0 }
+.cv-skills b { font-weight: 700 }
+
+/* ---- page guides, on screen only ---- */
+
+/* A line every page height, so twenty-seven projects are visibly four pages rather than
+   a number someone has to trust. */
+.cv-paper.has-guides {
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent 0,
+    transparent calc(297mm - 1px),
+    rgba(180, 40, 40, 0.5) calc(297mm - 1px),
+    rgba(180, 40, 40, 0.5) 297mm
+  );
+}
+
+.cv-paper.is-letter.has-guides {
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent 0,
+    transparent calc(279mm - 1px),
+    rgba(180, 40, 40, 0.5) calc(279mm - 1px),
+    rgba(180, 40, 40, 0.5) 279mm
+  );
+}
+
+/* ---- printing ----
+ *
+ * This block has to win, and on this site that is not automatic. index.css ends with its
+ * reduced-motion block precisely because equal specificity is settled by order, and the
+ * paper sits inside a framer-motion wrapper that writes `transform` and `opacity` inline.
+ * A transformed ancestor becomes a containing block and degrades fragmentation in
+ * Chromium, so those two are overridden rather than trusted.
+ *
+ * Measured before writing any of it: printing the site as it stood produced the whole dark
+ * page, nav and 3D canvas included, in a 67 MB PDF for one sheet. None of these elements
+ * hides itself, because the project had no print rules at all.
+ */
+@media print {
+  @page {
+    size: A4;
+    margin: 12mm 14mm;
+  }
+
+  .cv-paper.is-letter { width: auto }
+
+  html, body {
+    overflow: visible !important;
+    height: auto !important;
+    background: #fff !important;
+    color: #000 !important;
+  }
+
+  /* The fixed layers. The grain sits at z-index 50, so left alone it prints over the
+     document rather than behind it. */
+  /* `header` on its own also matched the document's own <header>, which took the name
+     and the contact line out of the PDF without any other sign that it had happened. */
+  .mesh-bg,
+  .grain,
+  header:not(.cv-head),
+  footer,
+  canvas,
+  .cv-chrome {
+    display: none !important;
+  }
+
+  main { position: static !important }
+
+  /* framer-motion writes these inline; a stylesheet rule with !important still wins. */
+  .cv-print-root {
+    transform: none !important;
+    opacity: 1 !important;
+  }
+
+  .cv-shell {
+    display: block !important;
+    padding: 0 !important;
+    max-width: none !important;
+  }
+
+  /* display, not just overflow. The mobile switch hides one column with Tailwind's
+     `hidden` and brings it back with `md:block`, and printing lays the page out at paper
+     width, which is below that breakpoint: without this the sheet is display:none and the
+     PDF comes out blank. It did, at 865 bytes. */
+  .cv-preview {
+    display: block !important;
+    overflow: visible !important;
+    height: auto !important;
+    padding: 0 !important;
+  }
+
+  .cv-paper {
+    width: auto !important;
+    min-height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    box-shadow: none !important;
+    background: none !important;
+    background-image: none !important;
+    font-size: 10pt;
+  }
+
+  /* An entry never splits, and a heading never sits alone at the foot of a page. Not
+     applied to whole sections: a section longer than a page cannot honour it, and the
+     engine answers by leaving half a page blank. */
+  .cv-entry { break-inside: avoid; page-break-inside: avoid }
+  .cv-entry li { break-inside: avoid }
+  .cv-section > h2 { break-after: avoid; page-break-after: avoid }
+  .cv-row { break-after: avoid; page-break-after: avoid }
+  p, li { orphans: 2; widows: 2 }
+
+  /* Underlined links are noise on paper; the address is already written out. */
+  .cv-head a { text-decoration: none }
+}

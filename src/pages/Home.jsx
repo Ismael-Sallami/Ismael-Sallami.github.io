@@ -8,6 +8,7 @@ import SkillGroups from '../components/SkillGroups.jsx'
 import Timeline from '../components/Timeline.jsx'
 import ContactForm from '../components/ContactForm.jsx'
 import { mergeProjects, localizeProject } from '../data/projects.js'
+import { profile, degreeBadge } from '../data/profile.js'
 import { useI18n } from '../i18n/LanguageContext.jsx'
 import portrait from '../../assets/images/ismael-sallami.png'
 
@@ -53,7 +54,7 @@ export default function Home() {
               variants={rise}
               className="mb-5 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-sm text-cool"
             >
-              <GraduationCap size={15} className="text-accent" /> {t('hero.badge')}
+              <GraduationCap size={15} className="text-accent" /> {degreeBadge(lang)}
             </motion.p>
 
             <motion.h1 variants={rise} className="font-display text-5xl leading-[0.95] tracking-tightest md:text-7xl">
@@ -83,7 +84,7 @@ export default function Home() {
                 <a href="https://github.com/Ismael-Sallami" target="_blank" rel="noopener noreferrer" aria-label="GitHub" className="text-cool transition-colors hover:text-accent">
                   <Github size={22} />
                 </a>
-                <a href="https://es.linkedin.com/in/ismael-sallami-moreno-2257072b9" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="text-cool transition-colors hover:text-accent">
+                <a href={profile.linkedin} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="text-cool transition-colors hover:text-accent">
                   <Linkedin size={22} />
                 </a>
               </div>

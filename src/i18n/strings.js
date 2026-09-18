@@ -5,7 +5,6 @@ export const dict = {
   es: {
     nav: { home: 'Inicio', projects: 'Proyectos', skills: 'Habilidades', certificates: 'Certificaciones', cv: 'CV', cvMenu: 'Elegir CV' },
     hero: {
-      badge: 'Doble grado Informática + ADE · UGR',
       titleParts: [
         { t: 'Construyo ' },
         { t: 'tecnología', a: true },
@@ -93,13 +92,40 @@ export const dict = {
       notFound: 'No existe ningún proyecto con esa dirección.',
       openOnGithub: 'Ábrelo en GitHub',
     },
+    cv: {
+      menuTitle: 'Crear uno a medida',
+      menuNote: 'Eliges qué entra y lo exportas',
+      kicker: 'Currículum',
+      title: 'Monta el tuyo',
+      intro:
+        'Todo lo que hay en esta web, disponible para armar un CV. Sale todo marcado; quita lo que no venga a cuento para lo que estés buscando.',
+      include: 'Qué incluir',
+      preview: 'Vista previa',
+      all: 'Todo',
+      none: 'Nada',
+      export: 'Exportar a PDF',
+      exportNote:
+        'Se abre el diálogo de impresión. Elige «Guardar como PDF», márgenes predeterminados y desactiva cabeceras y pies.',
+      pages: 'páginas',
+      page: 'página',
+      approx: 'aprox.',
+      language: 'Idioma del CV',
+      paper: 'Papel',
+      empty: 'No has dejado nada marcado.',
+      sections: {
+        education: 'Formación',
+        experience: 'Experiencia',
+        projects: 'Proyectos',
+        contributions: 'Contribuciones',
+        skills: 'Habilidades',
+      },
+    },
     common: { viewProject: 'Ver proyecto' },
   },
 
   en: {
     nav: { home: 'Home', projects: 'Projects', skills: 'Skills', certificates: 'Certifications', cv: 'CV', cvMenu: 'Choose a CV' },
     hero: {
-      badge: 'Double Degree in Computer Engineering + Business · UGR',
       titleParts: [
         { t: 'I build ' },
         { t: 'technology', a: true },
@@ -184,6 +210,34 @@ export const dict = {
       readmeFailed: 'The README could not be loaded.',
       notFound: 'No project lives at that address.',
       openOnGithub: 'Open it on GitHub',
+    },
+    cv: {
+      menuTitle: 'Build one to fit',
+      menuNote: 'Pick what goes in, then export',
+      kicker: 'Résumé',
+      title: 'Build your own',
+      intro:
+        'Everything on this site, ready to assemble into a CV. It starts with everything ticked; take out whatever does not belong in the one you are sending.',
+      include: 'What to include',
+      preview: 'Preview',
+      all: 'All',
+      none: 'None',
+      export: 'Export to PDF',
+      exportNote:
+        'This opens the print dialog. Choose "Save as PDF", keep the default margins and turn headers and footers off.',
+      pages: 'pages',
+      page: 'page',
+      approx: 'about',
+      language: 'CV language',
+      paper: 'Paper',
+      empty: 'Nothing is ticked.',
+      sections: {
+        education: 'Education',
+        experience: 'Experience',
+        projects: 'Projects',
+        contributions: 'Contributions',
+        skills: 'Skills',
+      },
     },
     common: { viewProject: 'View project' },
   },

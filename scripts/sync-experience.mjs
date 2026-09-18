@@ -82,7 +82,7 @@ function checkEnd(id, value) {
 
 async function validRoutes() {
   const projects = JSON.parse(await readFile(PROJECTS, 'utf8'))
-  return new Set(['/', '/projects', '/skills', '/certificates', ...projects.map((p) => `/projects/${p.slug}`)])
+  return new Set(['/', '/projects', '/skills', '/certificates', '/cv', ...projects.map((p) => `/projects/${p.slug}`)])
 }
 
 function checkLink(id, value, routes) {
@@ -100,7 +100,7 @@ function checkLink(id, value, routes) {
   // unknown path there. The link would look broken without being broken.
   if (!routes.has(value)) {
     throw new Fail(
-      `${id}: la ruta interna "${value}" no existe.\n  Válidas: /, /projects, /skills, /certificates y /projects/<slug>.`,
+      `${id}: la ruta interna "${value}" no existe.\n  Válidas: /, /projects, /skills, /certificates, /cv y /projects/<slug>.`,
     )
   }
   return { to: value }
