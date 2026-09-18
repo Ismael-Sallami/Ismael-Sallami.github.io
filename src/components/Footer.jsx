@@ -1,5 +1,6 @@
 import { Github, Linkedin } from 'lucide-react'
 import { useI18n } from '../i18n/LanguageContext.jsx'
+import { profile } from '../data/profile.js'
 
 export default function Footer() {
   const { t } = useI18n()
@@ -13,7 +14,7 @@ export default function Footer() {
 
         <div className="flex items-center gap-4">
           <a
-            href="https://github.com/Ismael-Sallami"
+            href={profile.github}
             target="_blank"
             rel="noopener noreferrer"
             aria-label="GitHub"
@@ -22,7 +23,7 @@ export default function Footer() {
             <Github size={20} />
           </a>
           <a
-            href="https://es.linkedin.com/in/ismael-sallami-moreno-2257072b9"
+            href={profile.linkedin}
             target="_blank"
             rel="noopener noreferrer"
             aria-label="LinkedIn"

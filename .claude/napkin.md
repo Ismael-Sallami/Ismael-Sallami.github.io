@@ -80,7 +80,15 @@
    match, a browser render buys nothing over an SVG. Also: hash with `>>>`, never `>>` —
    a signed shift on a real repo name goes negative, the hue comes out `undefined`, and
    one bad value kills the whole CSS gradient list silently.
-9. **[2026-09-17] Tailwind preflight strips list markers and only emits used keyframes**
+9. **[2026-09-18] Printing this site needs work; verify the PDF, never the preview**
+   Do instead: nothing hides itself in print. Before the CV page there were zero `@media
+   print` rules and one page came out at 67 MB with the nav and the 3D canvas in it. Three
+   traps, all hit: `header` as a selector also matched the document's own `<header>` and
+   silently dropped the name; Tailwind's responsive `hidden`/`md:block` hides the sheet
+   because printing lays out at paper width, giving an 865-byte blank PDF; and Playwright's
+   `emulateMedia` persists across calls, so a stale `screen` override makes a clean PDF
+   look broken. Always check the built PDF with `pdfinfo` and `pdftotext`.
+10. **[2026-09-17] Tailwind preflight strips list markers and only emits used keyframes**
    Do instead: injected HTML (a README) needs `list-style` asked for again, or lists
    render as loose paragraphs. And `animation: spin` only exists in the stylesheet if
    an `animate-spin` class appears in scanned source, so a hand-written CSS animation

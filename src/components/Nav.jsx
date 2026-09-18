@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { Link, NavLink, useLocation } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Menu, X, Download, ChevronDown } from 'lucide-react'
+import { Menu, X, Download, ChevronDown, SlidersHorizontal } from 'lucide-react'
 import { cvs, localizeDocument } from '../data/documents.js'
 import { useI18n } from '../i18n/LanguageContext.jsx'
 
@@ -29,14 +29,27 @@ function LangToggle({ className = '' }) {
   )
 }
 
-// The CV button. With more than one file in docs/CVs/ it opens a menu to pick from;
-// with exactly one it stays a plain download link, because a menu of one is a nuisance.
+// What the CV menu offers, in one place. It used to be built twice, here and again in the
+// mobile menu below, which is how the two drifted: an entry added to one was missing from
+// the other.
+//
+// The builder goes first because it is the one that reflects whatever the site says today;
+// the three files under docs/CVs/ are snapshots, better written but frozen.
+function cvItems(lang, t) {
+  return [
+    { kind: 'route', key: 'builder', to: '/cv', title: t('cv.menuTitle'), note: t('cv.menuNote') },
+    ...cvs.map((raw) => ({ kind: 'file', key: raw.file, ...localizeDocument(raw, lang) })),
+  ]
+}
+
+// The CV button. With more than one entry it opens a menu to pick from; with exactly one
+// it stays a plain download link, because a menu of one is a nuisance.
 function CvMenu() {
   const { t, lang } = useI18n()
   const [open, setOpen] = useState(false)
   const wrapRef = useRef(null)
   const buttonRef = useRef(null)
-  const files = cvs.map((c) => localizeDocument(c, lang))
+  const items = cvItems(lang, t)
 
   useEffect(() => {
     if (!open) return
@@ -57,13 +70,13 @@ function CvMenu() {
     }
   }, [open])
 
-  if (files.length === 0) return null
+  if (items.length === 0) return null
 
-  if (files.length === 1) {
+  if (items.length === 1) {
     return (
       <a
-        href={files[0].url}
-        download={files[0].file}
+        href={items[0].url}
+        download={items[0].file}
         className="flex items-center gap-1.5 rounded-full bg-accent px-4 py-2 text-sm font-semibold text-void transition-transform hover:scale-105"
       >
         <Download size={16} /> {t('nav.cv')}
@@ -98,22 +111,29 @@ function CvMenu() {
             <p className="px-3 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-cool">
               {t('nav.cvMenu')}
             </p>
-            {files.map((f) => (
-              <a
-                key={f.file}
-                href={f.url}
-                download={f.file}
-                role="menuitem"
-                onClick={() => setOpen(false)}
-                className="flex items-start gap-2.5 rounded-xl px-3 py-2.5 text-left transition-colors hover:bg-white/8"
-              >
-                <Download size={15} className="mt-1 shrink-0 text-accent" />
-                <span>
-                  <span className="block text-sm font-medium text-ivory">{f.title}</span>
-                  {f.note && <span className="block text-xs text-cool">{f.note}</span>}
-                </span>
-              </a>
-            ))}
+            {items.map((f) => {
+              const Item = f.kind === 'route' ? Link : 'a'
+              const props =
+                f.kind === 'route'
+                  ? { to: f.to }
+                  : { href: f.url, download: f.file }
+              const Icon = f.kind === 'route' ? SlidersHorizontal : Download
+              return (
+                <Item
+                  key={f.key}
+                  {...props}
+                  role="menuitem"
+                  onClick={() => setOpen(false)}
+                  className="flex items-start gap-2.5 rounded-xl px-3 py-2.5 text-left transition-colors hover:bg-white/8"
+                >
+                  <Icon size={15} className="mt-1 shrink-0 text-accent" />
+                  <span>
+                    <span className="block text-sm font-medium text-ivory">{f.title}</span>
+                    {f.note && <span className="block text-xs text-cool">{f.note}</span>}
+                  </span>
+                </Item>
+              )
+            })}
           </motion.div>
         )}
       </AnimatePresence>
@@ -219,21 +239,22 @@ export default function Nav() {
                 {t('nav.cvMenu')}
               </p>
               <ul className="space-y-2">
-                {cvs.map((raw) => {
-                  const f = localizeDocument(raw, lang)
+                {cvItems(lang, t).map((f) => {
+                  const Item = f.kind === 'route' ? Link : 'a'
+                  const props = f.kind === 'route' ? { to: f.to } : { href: f.url, download: f.file }
+                  const Icon = f.kind === 'route' ? SlidersHorizontal : Download
                   return (
-                    <li key={f.file}>
-                      <a
-                        href={f.url}
-                        download={f.file}
+                    <li key={f.key}>
+                      <Item
+                        {...props}
                         className="flex items-start gap-2.5 rounded-xl border border-white/12 bg-white/5 px-3 py-2.5"
                       >
-                        <Download size={15} className="mt-1 shrink-0 text-accent" />
+                        <Icon size={15} className="mt-1 shrink-0 text-accent" />
                         <span>
                           <span className="block text-sm font-medium text-ivory">{f.title}</span>
                           {f.note && <span className="block text-xs text-cool">{f.note}</span>}
                         </span>
-                      </a>
+                      </Item>
                     </li>
                   )
                 })}

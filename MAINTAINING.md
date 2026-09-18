@@ -120,6 +120,30 @@ forgotten topic surfaces on its own. If one should never appear, add it to
 npm run check:repos
 ```
 
+## Building a CV from the site
+
+`/cv` assembles one out of whatever the site already knows: education, the roles, the
+projects, the contributions and the skills. Everything starts ticked; untick what does not
+belong in the one being sent. The sheet at the bottom is the real document at its real
+width, and a line across it marks where each page ends.
+
+Exporting opens the browser's print dialog, where the choice is "Save as PDF". Three
+settings matter and the browser does not remember them: **Margins → Default**, **Headers
+and footers → off**, and **Scale → 100%**. With headers on, every page carries the URL and
+the date.
+
+The selection is remembered in this browser between visits. It is stored as what was taken
+out rather than what was left in, so a project added by the daily sync arrives **included**
+instead of quietly missing.
+
+Nothing about the CV is written twice: the name, the contact lines and the degree all come
+from `src/data/profile.js`, which is also where the badge under the name on the home page
+reads from. That file exists because the degree had already ended up with four different
+names across the site and the LaTeX CV.
+
+The three PDFs in the CV menu are untouched by any of this. They are hand-written and
+better argued; this is for when something specific is needed now.
+
 ## Adding a CV or a certification
 
 Copy the file into `docs/CVs/` or `docs/certificates/` and build. A glob in
