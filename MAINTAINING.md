@@ -84,9 +84,29 @@ gh repo edit Ismael-Sallami/<repo> --add-topic portfolio
 ```
 
 It arrives with what GitHub knows: the title from its README's first heading, the
-description from the repository, the main language as its tag, and a default image. To
-give it a proper image and Spanish copy, add a card to `src/data/projects.js`; a
-hand-written card wins over the generated data on every field it sets.
+description from the repository and the main language as its tag. To give it Spanish copy
+of your own, add a card to `src/data/projects.js`; a hand-written card wins over the
+generated data on every field it sets.
+
+### The cover image
+
+Three sources, in this order:
+
+1. **An image uploaded to the repository.** On GitHub go to the repository, Settings,
+   General, scroll to *Social preview*, and upload one at 1280×640. The sync finds it on
+   its own, and it is also what people see when the repository link is shared anywhere.
+   The image is linked from GitHub rather than copied here: they run to about 600 KB each
+   and committing one per repository would put megabytes of binary into the history.
+2. **One drawn for it**, if nothing was uploaded. Colours and composition come from a
+   hash of the name, so every repository gets a different picture and the same repository
+   always gets the same one.
+3. The plain placeholder, only if something went wrong.
+
+One thing worth knowing before picking an image: **the card prints the project's name
+over the bottom of its own cover.** An image with its own title across the bottom ends up
+with two sets of words on top of each other. The drawn ones carry no text for exactly
+that reason, and it is why they are SVG: with no typography to match, rendering them in a
+browser bought nothing over a kilobyte of gradient.
 
 The write-up on the project page is the repository's own README, rendered through
 GitHub's markdown endpoint so it looks the same as it does on GitHub. Editing the README

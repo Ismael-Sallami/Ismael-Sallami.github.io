@@ -17,6 +17,8 @@
 import { writeFile, readFile, mkdir, readdir, unlink } from 'node:fs/promises'
 import { execFileSync } from 'node:child_process'
 
+import { projectImage } from './lib/project-image.mjs'
+
 const OWNER = 'Ismael-Sallami'
 
 // A repository carrying this topic shows up on the site on its own. It is opt-in on
@@ -27,6 +29,7 @@ const PROJECTS = new URL('../src/data/projects.js', import.meta.url)
 const EXCLUDE = new URL('../src/data/projects.exclude.json', import.meta.url)
 const OUTPUT = new URL('../src/data/projects.generated.json', import.meta.url)
 const READMES = new URL('../src/data/readmes/', import.meta.url)
+const COVERS = new URL('../src/data/project-images/', import.meta.url)
 
 // The endpoint takes the markdown in the request body and rejects what is too big. No
 // README here is anywhere near this, so hitting it means something is wrong.
@@ -54,6 +57,36 @@ const headers = {
 // an hour), but a secondary limit is triggered by bursts rather than by volume, so the
 // calls are spaced out and a 403 or 429 is waited out rather than retried blindly.
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms))
+
+// One query for every repository at once. The custom social preview is not in the REST
+// API, but GraphQL exposes both whether there is one and where it lives.
+async function coverUrls(slugs) {
+  if (slugs.length === 0) return new Map()
+
+  const fields = slugs.map((s, i) => {
+    const [owner, name] = s.split('/')
+    return `r${i}: repository(owner: ${JSON.stringify(owner)}, name: ${JSON.stringify(name)}) { usesCustomOpenGraphImage openGraphImageUrl }`
+  })
+
+  const res = await fetch('https://api.github.com/graphql', {
+    method: 'POST',
+    headers: { ...headers, 'content-type': 'application/json' },
+    body: JSON.stringify({ query: `{ ${fields.join('\n')} }` }),
+  })
+  if (!res.ok) throw new Error(`${res.status} ${res.statusText} on graphql`)
+
+  const { data, errors } = await res.json()
+  // A repository that cannot be read here is not worth stopping the whole sync for: it
+  // just means no custom cover, which is the same as the common case.
+  if (errors) for (const e of errors) console.warn(`  graphql: ${e.message}`)
+
+  const out = new Map()
+  slugs.forEach((slug, i) => {
+    const r = data?.[`r${i}`]
+    if (r?.usesCustomOpenGraphImage) out.set(slug.toLowerCase(), r.openGraphImageUrl)
+  })
+  return out
+}
 
 async function api(path, { raw = false, text = false, method = 'GET', body } = {}) {
   const url = path.startsWith('http') ? path : `https://api.github.com${path}`
@@ -226,7 +259,13 @@ for (const repo of await reposWithTopic()) {
 
 const records = []
 const files = new Map()
+const covers = new Map()
 const warnings = []
+
+const hasCard = new Set(
+  [...(await manualUrls())].map((u) => parseRepoUrl(u)).filter(Boolean)
+    .map((p) => `${p.owner}/${p.repo}`.toLowerCase()),
+)
 
 for (const { owner, repo, url } of wanted.values()) {
   if (skip.has(`${owner}/${repo}`.toLowerCase())) continue
@@ -253,6 +292,7 @@ for (const { owner, repo, url } of wanted.values()) {
   const readme = await renderReadme(meta)
   if (readme) files.set(slug, readme.html)
 
+
   records.push({
     url,
     slug,
@@ -270,6 +310,23 @@ for (const { owner, repo, url } of wanted.values()) {
   })
 
   console.log(`  ${meta.full_name}${readme ? '' : '  (no README)'}`)
+}
+
+// The image someone uploaded under Settings, Social preview. It is only looked up for
+// repositories with no hand-written card, since a card already names its own image and
+// nothing generated is allowed to override that.
+const autoSlugs = records.filter((r) => !hasCard.has(r.fullName.toLowerCase())).map((r) => r.fullName)
+const uploaded = await coverUrls(autoSlugs)
+for (const r of records) {
+  const url = uploaded.get(r.fullName.toLowerCase())
+  // Nothing uploaded and no card: draw one, so a grid of new repositories does not come
+  // out as a row of identical placeholders.
+  if (!url && !hasCard.has(r.fullName.toLowerCase())) covers.set(r.slug, projectImage(r.name))
+  // Linked rather than downloaded: these run to about 600 KB each, and committing one
+  // per repository would put megabytes of binary into the history for no gain. The URL
+  // carries a hash of the file, so replacing the image changes it and the next sync
+  // picks that up.
+  if (url) r.cover = url
 }
 
 records.sort((a, b) => a.slug.localeCompare(b.slug))
@@ -290,9 +347,19 @@ for (const [slug, html] of files) {
   await writeFile(new URL(`${slug}.html`, READMES), `${html.trim()}\n`)
 }
 
+await mkdir(COVERS, { recursive: true })
+const oldCovers = (await readdir(COVERS)).filter((f) => f.endsWith('.svg'))
+for (const file of oldCovers) {
+  if (!covers.has(file.replace(/\.svg$/, ''))) await unlink(new URL(file, COVERS))
+}
+for (const [slug, svg] of covers) {
+  await writeFile(new URL(`${slug}.svg`, COVERS), svg)
+}
+
 await writeFile(OUTPUT, `${JSON.stringify(records, null, 2)}\n`)
 
 console.log(`\n${records.length} projects written to src/data/projects.generated.json`)
 console.log(`${files.size} READMEs written to src/data/readmes/`)
+console.log(`${uploaded.size} use an image uploaded to GitHub, ${covers.size} got one drawn`)
 for (const [slug, reason] of skip) console.log(`skipped ${slug}: ${reason}`)
 for (const w of warnings) console.warn(`WARNING  ${w}`)

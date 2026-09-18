@@ -73,7 +73,14 @@
    and delete ten README lines without an error. Always run `node scripts/gen-readme.mjs
    && git diff README.md` after touching any data file. It now also fills the counts in
    the content table, so those cannot go stale either.
-8. **[2026-09-17] Tailwind preflight strips list markers and only emits used keyframes**
+8. **[2026-09-18] A project cover must carry no text; the card prints the title over it**
+   Do instead: ProjectCard lays its name across the bottom of its own cover, so artwork
+   with a title in it renders two sets of words on top of each other. Tried it twice
+   before seeing it, once in SVG and once rendered in a browser. With no typography to
+   match, a browser render buys nothing over an SVG. Also: hash with `>>>`, never `>>` —
+   a signed shift on a real repo name goes negative, the hue comes out `undefined`, and
+   one bad value kills the whole CSS gradient list silently.
+9. **[2026-09-17] Tailwind preflight strips list markers and only emits used keyframes**
    Do instead: injected HTML (a README) needs `list-style` asked for again, or lists
    render as loose paragraphs. And `animation: spin` only exists in the stylesheet if
    an `animate-spin` class appears in scanned source, so a hand-written CSS animation
