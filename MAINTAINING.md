@@ -174,9 +174,6 @@ The check no longer fails over a missing title, but it still fails over a name w
 space or an accent, which turns into `%20` and `%C3%B3` once it is a URL, and over a
 label pointing at a file that is not there.
 
-It also rejects a name with spaces or accents, which turns into `%20` and `%C3%B3` once
-it is a URL.
-
 ## When a sync fails
 
 It fails loudly and changes nothing. The message names the row and the column, and the
