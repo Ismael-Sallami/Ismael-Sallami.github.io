@@ -124,8 +124,11 @@ npm run check:repos
 
 `/cv` assembles one out of whatever the site already knows: education, the roles, the
 projects, the contributions and the skills. Everything starts ticked; untick what does not
-belong in the one being sent. The sheet at the bottom is the real document at its real
-width, and a line across it marks where each page ends.
+belong in the one being sent. The sheet beside the checkboxes is the real document at
+its real width, and the count above the button says how many pages it comes to.
+
+A certification dropped into `docs/certificates/` shows up here too, in its own section,
+without anything else being edited.
 
 Exporting opens the browser's print dialog, where the choice is "Save as PDF". Three
 settings matter and the browser does not remember them: **Margins → Default**, **Headers
@@ -151,15 +154,25 @@ Copy the file into `docs/CVs/` or `docs/certificates/` and build. A glob in
 any code change. PDFs and PNGs both work; a PDF previews in an iframe and an image as an
 image.
 
-The one thing a glob cannot guess is the title, so add the file to the `labels` map in
-`documents.js`. Skip that and the site falls back to a title made out of the file name,
-and `npm run check:documents` fails the build telling you which file is missing one.
-`--fix` writes the placeholder for you:
+The title comes from the file name: `gsoc-2026-mifos-initiative.pdf` becomes "Gsoc 2026
+Mifos Initiative", dashes and underscores both read as spaces. A four-digit year in the
+name is picked up as the year, which is what the CV prints beside a certification.
+
+So name the file the way you want it read, and that is the whole job.
+
+Write a title in the `labels` map of `documents.js` only when the derived one is not good
+enough. That is mostly acronyms, where "Oracle Oci Ai Foundations" wants to be "Oracle
+Cloud Infrastructure … AI Foundations Associate", and anything needing an accent or a
+character a file name cannot carry. A written title always wins.
 
 ```bash
-npm run check:documents
+npm run check:documents          # lists what each file will be called
 node scripts/check-documents.mjs --fix
 ```
+
+The check no longer fails over a missing title, but it still fails over a name with a
+space or an accent, which turns into `%20` and `%C3%B3` once it is a URL, and over a
+label pointing at a file that is not there.
 
 It also rejects a name with spaces or accents, which turns into `%20` and `%C3%B3` once
 it is a URL.
