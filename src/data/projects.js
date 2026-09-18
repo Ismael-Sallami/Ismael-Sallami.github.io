@@ -179,8 +179,8 @@ export const projects = [
     url: 'https://elblogdeismael.github.io/',
     img: libros,
     en: {
-      title: 'Computer Engineering + Business Double Degree Blog',
-      desc: 'Website with content and resources from the double degree in Computer Engineering and Business Administration.',
+      title: 'Computer Science + Business Double Degree Blog',
+      desc: 'Website with content and resources from the double degree in Computer Science and Business Administration.',
       tag: 'Web',
     },
   },
