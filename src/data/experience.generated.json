@@ -15,7 +15,7 @@
     "figure": {
       "value": "{prs} PRs",
       "label": "mergeados upstream · {commits} commits",
-      "url": "https://github.com/openMF/mifos-gazelle/commits?author=Ismael-Sallami",
+      "url": "https://summerofcode.withgoogle.com/programs/2026/projects/RppPk6jU",
       "source": "openMF/mifos-gazelle"
     },
     "en": {
@@ -80,6 +80,42 @@
       "desc": "A funded six-month placement on energy efficiency in AI infrastructure, on the GPU-Lab-UGR cluster. Paused for Google Summer of Code and picked up again in October.",
       "figureValue": "6 months",
       "figureLabel": "of funding, and the basis of the undergraduate thesis"
+    }
+  },
+  {
+    "id": "mifos-oss",
+    "role": "Open Source Contributor",
+    "org": "The Mifos Initiative",
+    "place": "Remoto",
+    "dates": "Ene 2026 — Actualidad",
+    "end": null,
+    "tags": [
+      "Python",
+      "Bash",
+      "Git",
+      "Integration Testing"
+    ],
+    "desc": "Contribuciones iniciales y análisis de la arquitectura del ecosistema Mifos mediante el envío de pull requests y la ejecución de pruebas de integración, lo que propició mi selección para Google Summer of Code 2026. Continuidad activa en el repositorio para profundizar en la plataforma.",
+    "figure": {
+      "value": "{prs}",
+      "label": "PRs enviadas · {commits} commits",
+      "url": "https://github.com/openMF/mifos-gazelle/commits?author=Ismael-Sallami",
+      "source": "openMF/mifos-gazelle"
+    },
+    "en": {
+      "role": "Open Source Contributor",
+      "org": "The Mifos Initiative",
+      "place": "Remote",
+      "dates": "Jan 2026 — Present",
+      "tags": [
+        "Python",
+        "Bash",
+        "Git",
+        "Integration Testing"
+      ],
+      "desc": "Early contributions and architecture research across the Mifos platform, submitting initial pull requests and running integration tests that led to my selection for Google Summer of Code 2026. Ongoing contributions continue to further refine domain knowledge.",
+      "figureValue": "{prs}",
+      "figureLabel": "PRs submitted · {commits} commits"
     }
   }
 ]
