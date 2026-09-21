@@ -225,12 +225,21 @@ async function buildRoles(records) {
     throw new Fail('Ninguna fila con publicar = si. No se escribe nada; se mantiene lo ya commiteado.')
   }
 
-  // The file's own comment treats this as load-bearing: "the role still open ends the
-  // list", because the hollow dot is what closes the timeline. Worth saying out loud, not
-  // worth refusing to publish over.
-  const openAt = roles.findIndex((r) => r.end === null)
-  if (openAt !== -1 && openAt !== roles.length - 1) {
-    console.warn(`WARNING  ${roles[openAt].id} sigue abierto pero no es el último; el punto hueco quedará en medio de la línea.`)
+  // The hollow dot marks a role with no end date, and the timeline reads best when those
+  // close it rather than interrupting it. More than one at a time is perfectly ordinary
+  // and not worth a word: two jobs can overlap, and they do here. What is worth saying is
+  // a finished role sitting below an open one, which puts a hollow dot mid-line and looks
+  // like a drawing fault rather than a fact.
+  // Below means later in the list: the order runs oldest first, so finished roles at the
+  // top are exactly where they belong.
+  const firstOpen = roles.findIndex((r) => r.end === null)
+  const closedBelow = firstOpen === -1 ? [] : roles.slice(firstOpen + 1).filter((r) => r.end !== null)
+  if (closedBelow.length > 0) {
+    const names = closedBelow.map((r) => r.id).join(', ')
+    console.warn(
+      `WARNING  ${names} ${closedBelow.length === 1 ? 'ya terminó y está' : 'ya terminaron y están'} por encima de un puesto abierto; ` +
+      `el punto hueco quedará en medio de la línea. Mueve las filas para que los abiertos cierren la lista.`,
+    )
   }
 
   return roles
