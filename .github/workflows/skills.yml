@@ -14,6 +14,7 @@ on:
 
 permissions:
   contents: write
+  actions: write
 
 concurrency:
   group: sync-skills
@@ -34,15 +35,30 @@ jobs:
       # The README quotes the list and the count, so it goes with them.
       - run: node scripts/gen-readme.mjs
 
-      - name: Commit if anything moved
+      - id: commit
+        name: Commit if anything moved
         run: |
           git config user.name  "Ismael"
           git config user.email "${{ github.actor_id }}+${{ github.actor }}@users.noreply.github.com"
           git add -A src/data/skills.generated.json README.md
           if git diff --cached --quiet; then
             echo "No change."
+            echo "changed=false" >> "$GITHUB_OUTPUT"
             exit 0
           fi
+          echo "changed=true" >> "$GITHUB_OUTPUT"
           git commit -m "chore: refresh the skills list from the sheet"
           git pull --rebase origin main
           git push
+
+      # A push made with the default GITHUB_TOKEN does not start another workflow. That is
+      # deliberate on GitHub's part, to stop workflows triggering each other in a loop, and
+      # it means the `on: push` in deploy.yml never saw any of these commits: the data
+      # reached the site only when some unrelated push happened to redeploy it.
+      #
+      # workflow_dispatch is the documented exception, so the deploy is asked for by name.
+      - name: Deploy the change
+        if: steps.commit.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh workflow run deploy.yml

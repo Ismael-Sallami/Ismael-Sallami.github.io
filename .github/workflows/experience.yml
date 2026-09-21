@@ -15,6 +15,7 @@ on:
 
 permissions:
   contents: write
+  actions: write
 
 concurrency:
   group: sync-experience
@@ -32,7 +33,8 @@ jobs:
       # No npm ci: the script runs on Node's own fetch and nothing else.
       - run: node scripts/sync-experience.mjs
 
-      - name: Commit if anything moved
+      - id: commit
+        name: Commit if anything moved
         run: |
           git config user.name  "Ismael"
           git config user.email "${{ github.actor_id }}+${{ github.actor }}@users.noreply.github.com"
@@ -41,10 +43,24 @@ jobs:
           git add -A src/data/experience.generated.json
           if git diff --cached --quiet; then
             echo "No change."
+            echo "changed=false" >> "$GITHUB_OUTPUT"
             exit 0
           fi
+          echo "changed=true" >> "$GITHUB_OUTPUT"
           git commit -m "chore: refresh the experience timeline from the sheet"
           # The projects workflow pushes to the same branch an hour and a half earlier,
           # and a slow run could still overlap.
           git pull --rebase origin main
           git push
+
+      # A push made with the default GITHUB_TOKEN does not start another workflow. That is
+      # deliberate on GitHub's part, to stop workflows triggering each other in a loop, and
+      # it means the `on: push` in deploy.yml never saw any of these commits: the data
+      # reached the site only when some unrelated push happened to redeploy it.
+      #
+      # workflow_dispatch is the documented exception, so the deploy is asked for by name.
+      - name: Deploy the change
+        if: steps.commit.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh workflow run deploy.yml
