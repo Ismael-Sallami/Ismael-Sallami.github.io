@@ -97,7 +97,7 @@
     ],
     "desc": "Contribuciones iniciales y análisis de la arquitectura del ecosistema Mifos mediante el envío de pull requests y la ejecución de pruebas de integración, lo que propició mi selección para Google Summer of Code 2026. Continuidad activa en el repositorio para profundizar en la plataforma.",
     "figure": {
-      "value": "{prs}",
+      "value": "{prs} PRs",
       "label": "PRs enviadas · {commits} commits",
       "url": "https://github.com/openMF/mifos-gazelle/commits?author=Ismael-Sallami",
       "source": "openMF/mifos-gazelle"
