@@ -13,7 +13,7 @@
     ],
     "desc": "Integré OpenSPP como cuarto Digital Public Good de la herramienta de despliegue en Kubernetes de Mifos, con su Helm chart escrito de cero porque no existía ninguno. El alta pasó de un docker-compose a mano a una sola orden.",
     "figure": {
-      "value": "{prs} PRs",
+      "value": "20 PRs",
       "label": "mergeados upstream · {commits} commits",
       "url": "https://summerofcode.withgoogle.com/programs/2026/projects/RppPk6jU",
       "source": "openMF/mifos-gazelle"
@@ -113,9 +113,7 @@
         "Git",
         "Integration Testing"
       ],
-      "desc": "Early contributions and architecture research across the Mifos platform, submitting initial pull requests and running integration tests that led to my selection for Google Summer of Code 2026. Ongoing contributions continue to further refine domain knowledge.",
-      "figureValue": "{prs}",
-      "figureLabel": "PRs submitted · {commits} commits"
+      "desc": "Early contributions and architecture research across the Mifos platform, submitting initial pull requests and running integration tests that led to my selection for Google Summer of Code 2026. Ongoing contributions continue to further refine domain knowledge."
     }
   }
 ]
