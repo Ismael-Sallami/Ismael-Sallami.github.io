@@ -22,24 +22,6 @@ const certificateFiles = import.meta.glob('../../docs/certificates/*.{pdf,png,jp
 // Titles and the one-line note under each CV. `note` is only used by the CV menu, and
 // `year` only by the certifications section of the generated CV; both are optional.
 export const labels = {
-  'Ismael_Sallami_Moreno_CV_EN.pdf': {
-    es: 'CV general',
-    en: 'General CV',
-    noteEs: 'Inglés · perfil completo',
-    noteEn: 'English · full profile',
-  },
-  'Ismael_Sallami_Moreno_CV_ES.pdf': {
-    es: 'CV en español',
-    en: 'CV in Spanish',
-    noteEs: 'Español · perfil completo',
-    noteEn: 'Spanish · full profile',
-  },
-  'Ismael_Sallami_Moreno_CV_SWE.pdf': {
-    es: 'CV técnico',
-    en: 'Engineering CV',
-    noteEs: 'Inglés · infraestructura y algoritmos',
-    noteEn: 'English · infrastructure and algorithms',
-  },
   'oracle-oci-ai-foundations-2025.pdf': {
     es: 'Oracle Cloud Infrastructure 2025 Certified AI Foundations Associate',
     en: 'Oracle Cloud Infrastructure 2025 Certified AI Foundations Associate',
@@ -58,11 +40,8 @@ export const labels = {
 }
 
 // The order the site shows them in. Anything not listed goes after, alphabetically.
-const cvOrder = [
-  'Ismael_Sallami_Moreno_CV_EN.pdf',
-  'Ismael_Sallami_Moreno_CV_ES.pdf',
-  'Ismael_Sallami_Moreno_CV_SWE.pdf',
-]
+// Nothing to order while docs/CVs/ is empty; a file dropped back in sorts by name.
+const cvOrder = []
 
 const certificateOrder = [
   'gsoc-2026-mifos-initiative.pdf',

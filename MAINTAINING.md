@@ -171,8 +171,21 @@ node scripts/check-documents.mjs --fix
 ```
 
 The check no longer fails over a missing title, but it still fails over a name with a
-space or an accent, which turns into `%20` and `%C3%B3` once it is a URL, and over a
-label pointing at a file that is not there.
+space or an accent, which turns into `%20` and `%C3%B3` once it is a URL, and over a title
+left behind after its file was deleted.
+
+**Deleting** one is the same job in reverse. A document with no written title just goes;
+nothing else knows about it. One that has a title leaves that title pointing at nothing,
+which is an error on purpose, since it might equally be a typo in a file name that means
+the title never applied. Clear it with:
+
+```bash
+node scripts/check-documents.mjs --fix
+```
+
+Deleting the last file in `docs/CVs/` or `docs/certificates/` removes the folder too, since
+git does not track an empty one. That is a valid state and the site copes: with no CVs at
+all, the CV button stops being a menu and goes straight to the builder.
 
 ## When a sync fails
 

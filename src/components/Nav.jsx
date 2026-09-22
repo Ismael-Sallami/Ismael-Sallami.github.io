@@ -72,13 +72,23 @@ function CvMenu() {
 
   if (items.length === 0) return null
 
+  // One entry means no menu, because a menu of one is a nuisance. That entry is not
+  // necessarily a file: with nothing in docs/CVs/ the builder is the only thing left, and
+  // reading `url` and `file` off it produced a button that led nowhere.
   if (items.length === 1) {
+    const only = items[0]
+    const className =
+      'flex items-center gap-1.5 rounded-full bg-accent px-4 py-2 text-sm font-semibold text-void transition-transform hover:scale-105'
+
+    if (only.kind === 'route') {
+      return (
+        <Link to={only.to} className={className}>
+          <SlidersHorizontal size={16} /> {t('nav.cv')}
+        </Link>
+      )
+    }
     return (
-      <a
-        href={items[0].url}
-        download={items[0].file}
-        className="flex items-center gap-1.5 rounded-full bg-accent px-4 py-2 text-sm font-semibold text-void transition-transform hover:scale-105"
-      >
+      <a href={only.url} download={only.file} className={className}>
         <Download size={16} /> {t('nav.cv')}
       </a>
     )

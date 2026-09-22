@@ -36,7 +36,15 @@ const labelled = new Set([...labelsBlock[0].matchAll(/^ {2}'([^']+)':/gm)].map((
 
 const onDisk = []
 for (const folder of FOLDERS) {
-  const files = await readdir(folder)
+  // Git does not track an empty directory, so removing the last file in one removes the
+  // directory with it. That is a folder with nothing in it, not a broken checkout, and it
+  // used to crash here with a bare ENOENT stack trace.
+  let files = []
+  try {
+    files = await readdir(folder)
+  } catch (err) {
+    if (err.code !== 'ENOENT') throw err
+  }
   for (const file of files) {
     if (file.startsWith('.')) continue
     onDisk.push({ file, folder: folder.pathname.split('/').filter(Boolean).slice(-1)[0] })
@@ -63,10 +71,9 @@ for (const { file, folder } of onDisk) {
 const missing = onDisk.filter(({ file }) => !labelled.has(file))
 
 const diskNames = new Set(onDisk.map((d) => d.file))
-for (const file of labelled) {
-  if (!diskNames.has(file)) {
-    problems.push(`labels has '${file}' but no such file exists under docs/`)
-  }
+const orphans = [...labelled].filter((file) => !diskNames.has(file))
+for (const file of orphans) {
+  problems.push(`labels has '${file}' but no such file exists under docs/`)
 }
 
 if (problems.length === 0) {
@@ -77,22 +84,26 @@ if (problems.length === 0) {
   process.exit(0)
 }
 
-if (fix && missing.length) {
-  const additions = missing
-    .map(({ file }) => {
-      const title = titleFromFileName(file)
-      return `  '${file}': {\n    es: '${title}',\n    en: '${title}',\n  },`
-    })
-    .join('\n')
-  const patched = source.replace(labelsBlock[0], labelsBlock[0].replace(/\n\}$/, `\n${additions}\n}`))
-  await writeFile(DOCUMENTS, patched)
-  console.log(`Added ${missing.length} placeholder entries to labels. Write the real titles in:`)
-  for (const { file } of missing) console.log(`  ${file}`)
+// Deleting a document leaves its title behind, and a title pointing at nothing is the one
+// thing here that cannot be guessed away: it might be a deletion, or it might be a typo in
+// a file name that means the title never applies. So it stays an error, and --fix clears
+// it in one command rather than making anyone hunt through the map.
+if (fix && orphans.length) {
+  let block = labelsBlock[0]
+  for (const file of orphans) {
+    const entry = new RegExp(`  '${file.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}': \\{[\\s\\S]*?\\n  \\},\\n`)
+    block = block.replace(entry, '')
+  }
+  await writeFile(DOCUMENTS, source.replace(labelsBlock[0], block))
+  console.log(`Removed ${orphans.length} ${orphans.length === 1 ? 'title' : 'titles'} for files that are gone:`)
+  for (const file of orphans) console.log(`  ${file}`)
+  console.log('\nCheck whether any of them is still listed in cvOrder or certificateOrder.')
   process.exit(0)
 }
 
 console.error('Problems with the documents under docs/:\n')
 for (const p of problems) console.error(`  ${p}`)
-console.error('\nFix the names, or write the titles in src/data/documents.js:')
+console.error('\nA title left behind after deleting its file can be cleared with:')
 console.error('  node scripts/check-documents.mjs --fix')
+console.error('A bad file name has to be renamed by hand.')
 process.exit(1)
