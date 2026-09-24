@@ -44,7 +44,15 @@ jobs:
           echo "changed=true" >> "$GITHUB_OUTPUT"
           git config user.name  "Ismael"
           git config user.email "${{ github.actor_id }}+${{ github.actor }}@users.noreply.github.com"
-          git add src/data/contributions.generated.json README.md
+          # These files are generated whole on every run, so there is never anything to
+          # merge: the version just produced is the correct one by definition. Rebasing one
+          # against a main that moved could only ever produce a conflict, and did.
+          #
+          # Moving HEAD to origin/main and staging the generated paths from the working
+          # tree gives a commit that applies cleanly whatever else landed meanwhile.
+          git fetch origin main
+          git reset --mixed origin/main
+          git add -A src/data/contributions.generated.json README.md
           git commit -m "chore: refresh the open source contribution counts"
           git push
 

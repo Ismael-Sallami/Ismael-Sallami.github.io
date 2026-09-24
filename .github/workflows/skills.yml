@@ -40,6 +40,14 @@ jobs:
         run: |
           git config user.name  "Ismael"
           git config user.email "${{ github.actor_id }}+${{ github.actor }}@users.noreply.github.com"
+          # These files are generated whole on every run, so there is never anything to
+          # merge: the version just produced is the correct one by definition. Rebasing one
+          # against a main that moved could only ever produce a conflict, and did.
+          #
+          # Moving HEAD to origin/main and staging the generated paths from the working
+          # tree gives a commit that applies cleanly whatever else landed meanwhile.
+          git fetch origin main
+          git reset --mixed origin/main
           git add -A src/data/skills.generated.json README.md
           if git diff --cached --quiet; then
             echo "No change."
@@ -48,7 +56,6 @@ jobs:
           fi
           echo "changed=true" >> "$GITHUB_OUTPUT"
           git commit -m "chore: refresh the skills list from the sheet"
-          git pull --rebase origin main
           git push
 
       # A push made with the default GITHUB_TOKEN does not start another workflow. That is
