@@ -92,7 +92,18 @@ function checkLink(id, value, routes) {
   if (/^\s*(javascript|data|vbscript):/i.test(value)) {
     throw new Fail(`${id}: "cifra_enlace" usa un esquema que no se permite.`)
   }
-  if (value.startsWith('https://') || value.startsWith('http://')) return { url: value }
+  if (value.startsWith('https://') || value.startsWith('http://')) {
+    // GitHub rate-limits the commits list for visitors without a session and answers 429,
+    // so a link there looks broken to exactly the people being sent to check the work.
+    if (/github\.com\/[^/]+\/[^/]+\/commits\?author=/.test(value)) {
+      console.warn(
+        `WARNING  ${id}: "cifra_enlace" apunta a la lista de commits, que GitHub limita y ` +
+        `devuelve 429 a quien no tenga sesión.\n` +
+        `         Usa la de PRs: .../pulls?q=is%3Apr+author%3AIsmael-Sallami`,
+      )
+    }
+    return { url: value }
+  }
   if (!value.startsWith('/')) {
     throw new Fail(`${id}: "cifra_enlace" es "${value}"; debe empezar por https:// o por /.`)
   }

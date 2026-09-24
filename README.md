@@ -121,10 +121,10 @@ filtered to my commits. The numbers come from the API, refreshed weekly.
 
 | Project | Upstream | Language | Merged PRs | My commits |
 | --- | --- | --- | ---: | ---: |
-| [mifos-gazelle](https://github.com/openMF/mifos-gazelle/commits?author=Ismael-Sallami) | openMF | Shell | 21 | 46 |
-| [mifos-x-reporting-plugin-birt](https://github.com/openMF/mifos-x-reporting-plugin-birt/commits?author=Ismael-Sallami) | openMF | Java | 2 | 5 |
-| [mifos-reporting-plugin](https://github.com/openMF/mifos-reporting-plugin/commits?author=Ismael-Sallami) | openMF | Java | 2 | 2 |
-| [cbioportal-frontend](https://github.com/cBioPortal/cbioportal-frontend/commits?author=Ismael-Sallami) | cBioPortal | TypeScript | 1 | 1 |
+| [mifos-gazelle](https://github.com/openMF/mifos-gazelle/pulls?q=is%3Apr+author%3AIsmael-Sallami) | openMF | Shell | 21 | 46 |
+| [mifos-x-reporting-plugin-birt](https://github.com/openMF/mifos-x-reporting-plugin-birt/pulls?q=is%3Apr+author%3AIsmael-Sallami) | openMF | Java | 2 | 5 |
+| [mifos-reporting-plugin](https://github.com/openMF/mifos-reporting-plugin/pulls?q=is%3Apr+author%3AIsmael-Sallami) | openMF | Java | 2 | 2 |
+| [cbioportal-frontend](https://github.com/cBioPortal/cbioportal-frontend/pulls?q=is%3Apr+author%3AIsmael-Sallami) | cBioPortal | TypeScript | 1 | 1 |
 
 ## Skills
 

@@ -42,7 +42,11 @@ export const contributions = generated.map((row) => {
     prs: row.prs,
     commits: row.commits,
     // The upstream commit list filtered to my authorship, which is the checkable part.
-    url: `https://github.com/${slug}/commits?author=Ismael-Sallami`,
+    // The pull request list and not the commit list. GitHub rate-limits the commits view
+    // hard for anyone without a session, and it answered 429 on every try, including on
+    // repositories that have nothing to do with this site. The PR list answers 200, is
+    // just as specific, and matches the number printed next to it.
+    url: `https://github.com/${slug}/pulls?q=is%3Apr+author%3AIsmael-Sallami`,
     ...meta[slug],
   }
 })
