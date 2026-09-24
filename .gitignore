@@ -6,3 +6,6 @@ dist
 
 # Playwright MCP scratch output
 .playwright-mcp
+
+# Local agent notes, not part of the project
+.claude

@@ -44,6 +44,14 @@ jobs:
           # Staged first, then compared against the index: the README of a repository
           # that has only just been given the topic is a new file, and `git diff` on its
           # own does not see one.
+          # These files are generated whole on every run, so there is never anything to
+          # merge: the version just produced is the correct one by definition. Rebasing one
+          # against a main that moved could only ever produce a conflict, and did.
+          #
+          # Moving HEAD to origin/main and staging the generated paths from the working
+          # tree gives a commit that applies cleanly whatever else landed meanwhile.
+          git fetch origin main
+          git reset --mixed origin/main
           git add -A src/data/projects.generated.json src/data/readmes
           if git diff --cached --quiet; then
             echo "No change."
@@ -52,9 +60,6 @@ jobs:
           fi
           echo "changed=true" >> "$GITHUB_OUTPUT"
           git commit -m "chore: refresh the project READMEs from GitHub"
-          # The contributions workflow pushes to the same branch, so the two can collide
-          # on the week their schedules meet.
-          git pull --rebase origin main
           git push
 
       # A push made with the default GITHUB_TOKEN does not start another workflow. That is

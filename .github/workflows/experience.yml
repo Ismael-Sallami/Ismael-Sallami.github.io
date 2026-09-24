@@ -38,6 +38,14 @@ jobs:
         run: |
           git config user.name  "Ismael"
           git config user.email "${{ github.actor_id }}+${{ github.actor }}@users.noreply.github.com"
+          # These files are generated whole on every run, so there is never anything to
+          # merge: the version just produced is the correct one by definition. Rebasing one
+          # against a main that moved could only ever produce a conflict, and did.
+          #
+          # Moving HEAD to origin/main and staging the generated paths from the working
+          # tree gives a commit that applies cleanly whatever else landed meanwhile.
+          git fetch origin main
+          git reset --mixed origin/main
           # Staged first, then compared against the index, so a file that did not exist
           # before is still seen: `git diff` alone does not report an untracked file.
           git add -A src/data/experience.generated.json
@@ -48,9 +56,6 @@ jobs:
           fi
           echo "changed=true" >> "$GITHUB_OUTPUT"
           git commit -m "chore: refresh the experience timeline from the sheet"
-          # The projects workflow pushes to the same branch an hour and a half earlier,
-          # and a slow run could still overlap.
-          git pull --rebase origin main
           git push
 
       # A push made with the default GITHUB_TOKEN does not start another workflow. That is
