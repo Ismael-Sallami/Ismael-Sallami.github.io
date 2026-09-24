@@ -43,11 +43,13 @@ export const labels = {
 // Nothing to order while docs/CVs/ is empty; a file dropped back in sorts by name.
 const cvOrder = []
 
-const certificateOrder = [
-  'gsoc-2026-mifos-initiative.pdf',
-  'oracle-oci-ai-foundations-2025.pdf',
-  'ahrefs-marketing-platform-2026.png',
-]
+// Certifications sort themselves, newest first, from the year in the file name. The list
+// used to be written out by hand, so a new one landed at the bottom behind three older
+// ones, which is the opposite of what anybody wants to see first.
+//
+// A file with no year in its name goes after the dated ones rather than pretending to be
+// current, and ties fall back to the name so the order never wobbles between builds.
+const certificateOrder = []
 
 const IMAGE_EXTENSIONS = ['png', 'jpg', 'jpeg']
 
@@ -72,7 +74,7 @@ export function yearFromFileName(file) {
   return match ? `${match[1]}${match[2]}` : undefined
 }
 
-function build(modules, order) {
+function build(modules, order, { byYear = false } = {}) {
   return Object.entries(modules)
     .map(([path, url]) => {
       const file = path.split('/').pop()
@@ -90,12 +92,19 @@ function build(modules, order) {
       if (ai !== -1 && bi !== -1) return ai - bi
       if (ai !== -1) return -1
       if (bi !== -1) return 1
+      if (byYear) {
+        const ay = yearFromFileName(a.file)
+        const by = yearFromFileName(b.file)
+        if (ay && by && ay !== by) return by.localeCompare(ay)
+        if (ay && !by) return -1
+        if (!ay && by) return 1
+      }
       return a.file.localeCompare(b.file)
     })
 }
 
 export const cvs = build(cvFiles, cvOrder)
-export const certificates = build(certificateFiles, certificateOrder)
+export const certificates = build(certificateFiles, certificateOrder, { byYear: true })
 
 // Title and note for the active language, falling back to ES and then to the file name.
 export function localizeDocument(doc, lang) {

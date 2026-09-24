@@ -49,7 +49,7 @@ const contribBlock = [
   '| --- | --- | --- | ---: | ---: |',
   ...generated.map((r) => {
     const slug = `${r.owner}/${r.repo}`
-    return `| [${r.repo}](https://github.com/${slug}/commits?author=Ismael-Sallami) | ${r.owner} | ${r.lang ?? '—'} | ${r.prs} | ${r.commits} |`
+    return `| [${r.repo}](https://github.com/${slug}/pulls?q=is%3Apr+author%3AIsmael-Sallami) | ${r.owner} | ${r.lang ?? '—'} | ${r.prs} | ${r.commits} |`
   }),
 ].join('\n')
 

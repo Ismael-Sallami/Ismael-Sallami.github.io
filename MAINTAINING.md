@@ -174,6 +174,11 @@ The check no longer fails over a missing title, but it still fails over a name w
 space or an accent, which turns into `%20` and `%C3%B3` once it is a URL, and over a title
 left behind after its file was deleted.
 
+Certifications sort themselves newest first, from the year in the file name. A file with
+no year in it goes after the dated ones, so `certificado-algo-2026.pdf` lands at the top
+and `certificado-algo.pdf` at the bottom. Putting the year in the name is worth the two
+seconds.
+
 **Deleting** one is the same job in reverse. A document with no written title just goes;
 nothing else knows about it. One that has a title leaves that title pointing at nothing,
 which is an error on purpose, since it might equally be a typo in a file name that means
@@ -186,6 +191,21 @@ node scripts/check-documents.mjs --fix
 Deleting the last file in `docs/CVs/` or `docs/certificates/` removes the folder too, since
 git does not track an empty one. That is a valid state and the site copes: with no CVs at
 all, the CV button stops being a menu and goes straight to the builder.
+
+## Links that check your work
+
+A figure can link to the evidence, and the link to use is the pull request list:
+
+```
+https://github.com/<owner>/<repo>/pulls?q=is%3Apr+author%3AIsmael-Sallami
+```
+
+Not the commit list. GitHub rate-limits `…/commits?author=` hard for anyone browsing
+without a session and answers 429, which means the link looks broken to exactly the people
+being sent to verify something. Measured: the commits view returns 429 even on repositories
+unrelated to this site, while the PR list returns 200.
+
+The experience sync warns if a `cifra_enlace` in the sheet points at the commits view.
 
 ## When a sync fails
 
