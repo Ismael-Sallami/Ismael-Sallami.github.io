@@ -16,16 +16,22 @@ words matter more than the data.
 | CVs and certifications | drop the file in `docs/` | on commit |
 | Everything else (titles, menus) | `src/i18n/strings.js` | on commit |
 
-Every sync commits to `main` only when something actually changed, and that commit is
-what triggers a deploy. Nothing is ever written when a source cannot be read, so a bad
-sheet or an API outage leaves the last good version serving the site.
+Every sync commits to `main` only when something actually changed, and then asks for a
+deploy by name. It has to ask: a push made with the default `GITHUB_TOKEN` does not start
+another workflow, which GitHub does deliberately so workflows cannot trigger each other in
+a loop. For weeks that meant the syncs committed and nothing published, and the data only
+reached the site when some unrelated push happened to redeploy it.
+
+Nothing is ever written when a source cannot be read, so a bad sheet or an API outage
+leaves the last good version serving the site.
 
 ## Adding a role to the timeline
 
 The roles live in a Google Sheet rather than in this repository, so adding a job is a
 row in a spreadsheet. `scripts/sync-experience.mjs` reads the sheet every morning,
-rewrites `experience.generated.json`, and the commit it pushes triggers a deploy. Run
-the workflow by hand from the Actions tab if the wait is too long.
+rewrites `experience.generated.json`, commits it and asks for a deploy. Run the workflow by
+hand from the Actions tab if the wait is too long: that is **Run workflow**, not *Re-run all
+jobs*, which replays the old run against the code as it was then.
 
 Two rows per role, one per language, paired by `id`. An English cell left empty falls
 back to the Spanish one, which is why most of them are empty. Only the Spanish row is
@@ -144,8 +150,10 @@ from `src/data/profile.js`, which is also where the badge under the name on the 
 reads from. That file exists because the degree had already ended up with four different
 names across the site and the LaTeX CV.
 
-The three PDFs in the CV menu are untouched by any of this. They are hand-written and
-better argued; this is for when something specific is needed now.
+`docs/CVs/` is empty, so the builder is the whole of the CV menu and the button in the nav
+goes straight to it. Dropping a PDF back into that folder puts it in the menu beside
+"Build one to fit", which is worth doing for a version written by hand and argued better
+than anything assembled from a checklist.
 
 ## Adding a CV or a certification
 
