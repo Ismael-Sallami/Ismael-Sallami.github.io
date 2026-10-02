@@ -148,6 +148,29 @@
     "hasReadme": true
   },
   {
+    "url": "https://github.com/Ismael-Sallami/diffchecker",
+    "slug": "diffchecker",
+    "fullName": "Ismael-Sallami/diffchecker",
+    "name": "diffchecker",
+    "headline": "diffchecker",
+    "description": "A text comparison tool that runs entirely in the browser: compare two files, merge them block by block and download the result, with nothing leaving the machine.",
+    "language": "JavaScript",
+    "topics": [
+      "browser-tool",
+      "diff",
+      "merge-tool",
+      "myers-algorithm",
+      "no-dependencies",
+      "portfolio",
+      "static-site",
+      "text-comparison",
+      "vanilla-javascript"
+    ],
+    "homepage": null,
+    "pushedAt": "2026-08-18",
+    "hasReadme": true
+  },
+  {
     "url": "https://github.com/Ismael-Sallami/early-courses",
     "slug": "early-courses",
     "fullName": "Ismael-Sallami/early-courses",
@@ -187,6 +210,29 @@
     ],
     "homepage": null,
     "pushedAt": "2026-09-11",
+    "hasReadme": true
+  },
+  {
+    "url": "https://github.com/Ismael-Sallami/gittomd",
+    "slug": "gittomd",
+    "fullName": "Ismael-Sallami/gittomd",
+    "name": "gittomd",
+    "headline": "gittomd",
+    "description": "Turn a GitHub repository (public or private) or a local folder into one Markdown file with the tree and every file, to give to an AI as context. CLI and browser version, no dependencies.",
+    "language": "JavaScript",
+    "topics": [
+      "ai-context",
+      "cli",
+      "github",
+      "llm",
+      "markdown",
+      "no-dependencies",
+      "portfolio",
+      "repository-to-text",
+      "vanilla-javascript"
+    ],
+    "homepage": "https://elblogdeismael.github.io/gittomd/",
+    "pushedAt": "2026-09-26",
     "hasReadme": true
   },
   {
@@ -260,7 +306,7 @@
     "language": "HTML",
     "topics": [],
     "homepage": null,
-    "pushedAt": "2026-10-01",
+    "pushedAt": "2026-10-02",
     "hasReadme": true
   },
   {
@@ -357,6 +403,21 @@
     "topics": [],
     "homepage": null,
     "pushedAt": "2026-06-27",
+    "hasReadme": true
+  },
+  {
+    "url": "https://github.com/Ismael-Sallami/murmur",
+    "slug": "murmur",
+    "fullName": "Ismael-Sallami/murmur",
+    "name": "murmur",
+    "headline": "🎙️ Murmur",
+    "description": null,
+    "language": "Python",
+    "topics": [
+      "portfolio"
+    ],
+    "homepage": null,
+    "pushedAt": "2026-09-28",
     "hasReadme": true
   },
   {

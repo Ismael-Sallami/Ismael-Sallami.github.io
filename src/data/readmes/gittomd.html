@@ -1,0 +1,129 @@
+<p dir="auto"><a target="_blank" rel="noopener noreferrer" href="https://github.com/Ismael-Sallami/gittomd/actions/workflows/ci.yml"><img loading="lazy" decoding="async" src="https://github.com/Ismael-Sallami/gittomd/actions/workflows/ci.yml/badge.svg" alt="tests" style="max-width: 100%;"></a></p>
+<p dir="auto">Turn a GitHub repository, public or private, or a local folder into a single<br>
+Markdown file: a summary, the folder tree and the content of every file. Give<br>
+that file to an AI and it has the whole project in front of it.</p>
+<div class="highlight highlight-source-shell" dir="auto"><pre class="notranslate">curl -fsSL https://raw.githubusercontent.com/Ismael-Sallami/gittomd/main/install.sh <span class="pl-k">|</span> bash
+gittomd owner/repo</pre></div>
+<p dir="auto">There is also a web version that runs in the browser:<br>
+<a target="_blank" rel="noopener noreferrer" href="https://elblogdeismael.github.io/gittomd/" rel="nofollow">elblogdeismael.github.io/gittomd</a>.</p>
+<h2 dir="auto" id="context">Context</h2>
+<p dir="auto">Built for <a target="_blank" rel="noopener noreferrer" href="https://elblogdeismael.github.io" rel="nofollow">El Blog de Ismael</a>, next to three<br>
+other small tools. I kept pasting files one by one into a chat to ask questions<br>
+about a project, and the AI kept missing the file that mattered. Tools like<br>
+gitingest and repomix already solve this; I wanted one with no dependencies,<br>
+that asks before giving up on a private repo, and that shares its code with a<br>
+page on the blog. Solo work.</p>
+<h2 dir="auto" id="the-problem">The problem</h2>
+<p dir="auto">Putting a repository into one text file sounds like <code class="notranslate">cat</code>, but a few details<br>
+decide whether the result is useful:</p>
+<ul dir="auto">
+<li><strong>What to leave out.</strong> Lock files, images, minified bundles and<br>
+<code class="notranslate">node_modules</code> can be most of a repo by size and tell an AI nothing.</li>
+<li><strong>Code blocks inside files.</strong> A README with its own fenced code closes the<br>
+Markdown block early and the rest of the document is broken.</li>
+<li><strong>Private repos.</strong> GitHub answers 404 both for a repo that does not exist<br>
+and for a private one when you are not signed in, so a tool cannot tell<br>
+them apart on its own.</li>
+<li><strong>The browser.</strong> GitHub's sign-in endpoints and its archive downloads do not<br>
+allow calls from a web page, so the web version cannot work the same way as<br>
+the command line.</li>
+</ul>
+<h2 dir="auto" id="the-solution">The solution</h2>
+<p dir="auto">The core is plain JavaScript with no Node APIs, so the command line and the<br>
+web page run the same code. It decides file by file what goes in, using only<br>
+paths and sizes, so the web page can filter before downloading anything:</p>
+<ul dir="auto">
+<li>folders like <code class="notranslate">node_modules</code>, <code class="notranslate">.git</code> or <code class="notranslate">__pycache__</code>, lock files, binary<br>
+extensions, minified files and files over 512 KB are skipped;</li>
+<li><code class="notranslate">.gitignore</code> files (nested ones too) and a <code class="notranslate">.gittomdignore</code> of your own are<br>
+applied, with the usual glob rules and <code class="notranslate">!</code> to re-include;</li>
+<li>a file that turns out to be binary once downloaded (a NUL byte, or bytes that<br>
+are not UTF-8) is skipped as well.</li>
+</ul>
+<p dir="auto">Skipped files still appear in the tree and in a table with the reason, so the<br>
+AI knows they exist. Each file goes in a code block whose fence is <strong>one<br>
+backtick longer than the longest run inside the file</strong>, so nothing in the file<br>
+can close it.</p>
+<p dir="auto">On a 404 the command asks whether the repo is private. If you say yes it uses,<br>
+in order: your GitHub CLI session (<code class="notranslate">gh auth token</code>), a browser sign-in with<br>
+GitHub's device flow, or a token you paste. A token given with <code class="notranslate">--token</code>,<br>
+<code class="notranslate">GITHUB_TOKEN</code> or <code class="notranslate">gittomd login</code> is used from the start. The command line<br>
+downloads one tarball per repo, so it needs three API calls in total.</p>
+<p dir="auto">The web page asks for a read-only token instead, keeps it in the tab's session<br>
+storage and sends it only to <code class="notranslate">api.github.com</code>. Public files come from<br>
+<code class="notranslate">raw.githubusercontent.com</code>, which does not count against the API limit.</p>
+<h2 dir="auto" id="install">Install</h2>
+<div class="highlight highlight-source-shell" dir="auto"><pre class="notranslate">curl -fsSL https://raw.githubusercontent.com/Ismael-Sallami/gittomd/main/install.sh <span class="pl-k">|</span> bash</pre></div>
+<p dir="auto">It needs Node.js 18 or newer. It puts the code in <code class="notranslate">~/.local/share/gittomd</code> and<br>
+the command in <code class="notranslate">~/.local/bin</code>, without sudo. <code class="notranslate">bash install.sh --uninstall</code><br>
+removes it.</p>
+<p dir="auto">Without the script:</p>
+<div class="highlight highlight-source-shell" dir="auto"><pre class="notranslate">npm install -g github:Ismael-Sallami/gittomd   <span class="pl-c"><span class="pl-c">#</span> install</span>
+npx github:Ismael-Sallami/gittomd owner/repo   <span class="pl-c"><span class="pl-c">#</span> run once without installing</span></pre></div>
+<h2 dir="auto" id="usage">Usage</h2>
+<div class="highlight highlight-source-shell" dir="auto"><pre class="notranslate">gittomd owner/repo                             <span class="pl-c"><span class="pl-c">#</span> writes repo.md</span>
+gittomd https://github.com/owner/repo/tree/dev/docs
+gittomd owner/repo@v2.0 -o context.md
+gittomd <span class="pl-c1">.</span> --exclude <span class="pl-s"><span class="pl-pds">"</span>tests/,*.snap<span class="pl-pds">"</span></span> --copy     <span class="pl-c"><span class="pl-c">#</span> a local folder, to the clipboard</span>
+gittomd owner/repo --include <span class="pl-s"><span class="pl-pds">"</span>src/**,*.md<span class="pl-pds">"</span></span>
+gittomd owner/repo --split 100k                <span class="pl-c"><span class="pl-c">#</span> repo-1.md, repo-2.md...</span>
+gittomd owner/repo --stdout <span class="pl-k">|</span> wc -c
+gittomd login                                  <span class="pl-c"><span class="pl-c">#</span> save a token for private repos</span></pre></div>
+<p dir="auto">The document holds only the repository: a summary, the tree, the files and<br>
+the list of what was left out. Its headings follow the system language (<code class="notranslate">--lang es</code> or<br>
+<code class="notranslate">--lang en</code> to choose). Every option is described in<br>
+<a target="_blank" rel="noopener noreferrer" href="https://github.com/Ismael-Sallami/gittomd/blob/main/docs/usage.md"><code class="notranslate">docs/usage.md</code></a> and in <code class="notranslate">gittomd --help</code>.</p>
+<h2 dir="auto" id="layout">Layout</h2>
+<pre class="notranslate"><code class="notranslate">bin/gittomd.js        the command
+src/core/             shared by the command and the web page, no Node APIs
+  filters.js          what goes in and why the rest does not
+  gitignore.js        glob and .gitignore matching
+  markdown.js         the document: summary, tree, files, skipped table
+  tree.js             the ASCII folder tree
+  github.js           URL parsing and the GitHub REST calls
+  languages.js        file extension to code block language
+  tokens.js           token estimate and size parsing
+  i18n.js             Spanish and English texts
+src/node/             the command only: tarball reader, sign-in, prompts
+web/                  the web page, with the core bundled as one script
+scripts/build-web.mjs bundles src/core into web/js/gittomd-core.js
+install.sh            the one-line installer
+tests/                node:test suites
+</code></pre>
+<h2 dir="auto" id="requirements">Requirements</h2>
+<p dir="auto">Node.js 18 or newer. <strong>No dependencies</strong>: no <code class="notranslate">npm install</code>, no bundler, no<br>
+build step for the command. The web page is static HTML and two scripts.</p>
+<h2 dir="auto" id="build-and-run">Build and run</h2>
+<div class="highlight highlight-source-shell" dir="auto"><pre class="notranslate">git clone https://github.com/Ismael-Sallami/gittomd.git
+<span class="pl-c1">cd</span> gittomd
+
+node bin/gittomd.js owner/repo       <span class="pl-c"><span class="pl-c">#</span> run without installing</span>
+npm <span class="pl-c1">test</span>                             <span class="pl-c"><span class="pl-c">#</span> the test suites</span>
+npm run build:web                    <span class="pl-c"><span class="pl-c">#</span> rebuild web/js/gittomd-core.js after changing src/core</span>
+python3 -m http.server -d web 8000   <span class="pl-c"><span class="pl-c">#</span> the web page at http://localhost:8000</span></pre></div>
+<h2 dir="auto" id="results">Results</h2>
+<pre class="notranslate"><code class="notranslate">node --test: 23 tests, 0 failures (Node 18, 20 and 22 in CI)
+</code></pre>
+<p dir="auto">The tests cover the fences with backticks inside files, blank lines kept as<br>
+they are, <code class="notranslate">.gitignore</code> rules (nested, negated, folder only), binary detection,<br>
+the tar reader with long pax paths, the device flow polling, argument parsing<br>
+and a full run of the command on a temporary folder. CI also checks that the<br>
+web bundle matches <code class="notranslate">src/core</code>, lints the installer with shellcheck and installs<br>
+it into an empty home.</p>
+<h2 dir="auto" id="what-i-learned">What I learned</h2>
+<ul dir="auto">
+<li><strong>Filtering on paths first pays twice.</strong> The web page can show the file list<br>
+and skip binaries before downloading a single byte, and the command line<br>
+never reads the files it will drop.</li>
+<li><strong>A 404 is an answer about access, not about existence.</strong> Asking the user is<br>
+the only honest way to go on, and it is cheap.</li>
+<li><strong>The limitation</strong>: token counts are an estimate (about four characters per<br>
+token), not a real tokenizer. And a very large repository can still be too<br>
+big for any model; <code class="notranslate">--include</code>, <code class="notranslate">--subdir</code> and <code class="notranslate">--split</code> are the way out.</li>
+</ul>
+<h2 dir="auto" id="author-and-licence">Author and licence</h2>
+<p dir="auto">Ismael Sallami Moreno. Released under the MIT licence (see <code class="notranslate">LICENSE</code>).</p>
+<p dir="auto">The web version is deployed at<br>
+<a target="_blank" rel="noopener noreferrer" href="https://elblogdeismael.github.io/gittomd/" rel="nofollow">elblogdeismael.github.io/gittomd</a>.<br>
+That site keeps its own copy of <code class="notranslate">web/</code>: <strong>if the core changes, run<br>
+<code class="notranslate">npm run build:web</code> and copy <code class="notranslate">web/js/gittomd-core.js</code> there too.</strong></p>

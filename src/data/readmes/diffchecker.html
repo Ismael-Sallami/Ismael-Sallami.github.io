@@ -1,0 +1,92 @@
+<p dir="auto">A text comparison tool that runs entirely in the browser: compare two files, merge<br>
+them block by block and download the result, with nothing leaving the machine.</p>
+<h2 dir="auto" id="context">Context</h2>
+<p dir="auto">Built for <a target="_blank" rel="noopener noreferrer" href="https://elblogdeismael.github.io" rel="nofollow">El Blog de Ismael</a>, an archive of<br>
+university coursework, alongside two other browser-only tools. It exists because<br>
+comparing two versions of a set of notes meant either pasting them into a website<br>
+or installing something, and neither was acceptable for coursework that is not<br>
+mine to upload. Solo work.</p>
+<h2 dir="auto" id="the-problem">The problem</h2>
+<p dir="auto">A diff viewer is easy to get half right. The hard parts are three:</p>
+<ul dir="auto">
+<li><strong>Long files.</strong> A naïve edit-distance algorithm is quadratic and stops being<br>
+usable well before the sizes people actually compare.</li>
+<li><strong>Moved blocks.</strong> A minimal diff is not the same as a readable one. When a<br>
+paragraph moves, the shortest edit script tends to shred it into unrelated<br>
+insertions and deletions.</li>
+<li><strong>Merging.</strong> Showing a difference is one thing; letting someone pick sides block<br>
+by block and hand back a file is another, and that file has to be exactly right.</li>
+</ul>
+<h2 dir="auto" id="the-solution">The solution</h2>
+<p dir="auto">The engine is <strong>Myers (1986)</strong>, greedy with a trace, run over the lines after the<br>
+options have normalised them. When the edit distance blows up it stops, splits the<br>
+work at <strong>anchors of unique common lines</strong> — the idea behind patience diff — and<br>
+recurses. That keeps it usable on long inputs and, as a side effect, produces far<br>
+more readable blocks when text has been moved around.</p>
+<p dir="auto">The decision that shapes the rest of the code is this one:</p>
+<blockquote>
+<p dir="auto">What the engine returns is not only what gets painted. It is also what the<br>
+download button writes.</p>
+</blockquote>
+<p dir="auto">So <code class="notranslate">merge()</code> works over the same rows that are displayed, rather than<br>
+recomputing anything, and the test suite checks that taking one whole side back<br>
+returns that side <strong>byte for byte</strong>. A defect here is the worst kind: the screen<br>
+looks right and the downloaded file is not.</p>
+<p dir="auto">The engine is exposed as <code class="notranslate">window.DIFF</code> in the browser and through<br>
+<code class="notranslate">module.exports</code> under Node. That second half is not decoration — it is what<br>
+allows the tests to run the real thing instead of parsing it.</p>
+<h2 dir="auto" id="layout">Layout</h2>
+<pre class="notranslate"><code class="notranslate">src/index.html        the page
+src/js/diff.js        the engine: Myers with a trace, anchors when it blows up
+src/js/app.js         the interface: panels, merging, files, theme
+src/assets/           favicon, social image and the stylesheet
+tests/                the engine's property checks
+docs/usage.md         what each control does
+</code></pre>
+<p dir="auto"><code class="notranslate">src/assets/css/tool.css</code> comes from the blog's design system, where it is<br>
+concatenated from three layers. It is copied here so the tool runs from a clean<br>
+clone; it is edited in the blog, not here.</p>
+<h2 dir="auto" id="requirements">Requirements</h2>
+<p dir="auto">Node 20 or newer to run the tests. Nothing to install: <strong>there are no<br>
+dependencies</strong>, no CDN and no build step.</p>
+<h2 dir="auto" id="build-and-run">Build and run</h2>
+<div class="highlight highlight-source-shell" dir="auto"><pre class="notranslate">git clone https://github.com/Ismael-Sallami/diffchecker.git
+<span class="pl-c1">cd</span> diffchecker
+
+<span class="pl-c"><span class="pl-c">#</span> Use it: any static server, or just open the file</span>
+python3 -m http.server -d src 8000    <span class="pl-c"><span class="pl-c">#</span> then http://localhost:8000</span>
+
+<span class="pl-c"><span class="pl-c">#</span> Test it</span>
+node tests/check-diff-engine.mjs</pre></div>
+<h2 dir="auto" id="results">Results</h2>
+<pre class="notranslate"><code class="notranslate">Diff engine: 16 fixed cases, 200 random pairs (seed 20260814),
+plus options and word level checks.
+Every property holds.
+</code></pre>
+<p dir="auto">The cases come from a seeded pseudo-random source, so a failure is reproducible:<br>
+rerun with the seed the report prints. Every property is checked by comparing<br>
+whole strings, never counts — two outputs with the same number of lines are not<br>
+the same output.</p>
+<p dir="auto">The properties checked are the ones that would let a wrong file be written:<br>
+taking all of the left side returns the left input, the same for the right, an<br>
+unchanged pair produces no blocks, and the row list and the merge always agree.</p>
+<h2 dir="auto" id="what-i-learned">What I learned</h2>
+<ul dir="auto">
+<li><strong>A minimal diff and a readable diff are different goals.</strong> Myers gives the<br>
+first. The anchors give the second, and the two only coexist because the<br>
+algorithm falls back to them instead of being replaced by them.</li>
+<li><strong>Testing the thing that ships beats testing a copy of it.</strong> Making the engine<br>
+loadable from Node was a few lines and turned the test suite from a<br>
+reimplementation into a check of the real code.</li>
+<li><strong>The limitation</strong>: comparison is line-based, with word-level highlighting<br>
+inside a changed line. It has no notion of syntax, so moving a function in a<br>
+source file reads as a deletion and an insertion in different places even when<br>
+the anchors keep the blocks tidy. Nor does it handle binary input or files<br>
+large enough to matter for memory — everything is held as strings.</li>
+</ul>
+<h2 dir="auto" id="author-and-licence">Author and licence</h2>
+<p dir="auto">Ismael Sallami Moreno. Released under the MIT licence (see <code class="notranslate">LICENSE</code>).</p>
+<p dir="auto">Deployed at <a target="_blank" rel="noopener noreferrer" href="https://elblogdeismael.github.io/diffchecker/" rel="nofollow">elblogdeismael.github.io/diffchecker</a>,<br>
+which is why the canonical URL and the navigation in <code class="notranslate">src/index.html</code> point<br>
+there. That site keeps its own copy of this code: <strong>if the engine changes, both<br>
+have to change.</strong></p>

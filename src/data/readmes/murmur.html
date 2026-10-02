@@ -1,0 +1,191 @@
+<blockquote>
+<p dir="auto"><strong>Sistema inteligente open-source para captura de clases, transcripción con Whisper, generación de apuntes académicos con LLMs y sincronización mediante Model Context Protocol (MCP) a Notion, Obsidian y LaTeX.</strong></p>
+</blockquote>
+<p dir="auto"><a target="_blank" rel="noopener noreferrer" href="https://github.com/Ismael-Sallami/murmur/blob/main/LICENSE"><img loading="lazy" decoding="async" src="https://camo.githubusercontent.com/08cef40a9105b6526ca22088bc514fbfdbc9aac1ddbf8d4e6c750e3a88a44dca/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f4c6963656e73652d4d49542d626c75652e737667" alt="License: MIT" data-canonical-src="https://img.shields.io/badge/License-MIT-blue.svg" style="max-width: 100%;"></a><br>
+<a target="_blank" rel="noopener noreferrer" href="https://www.python.org/downloads/" rel="nofollow"><img loading="lazy" decoding="async" src="https://camo.githubusercontent.com/93a33cfc2339ec3fa9be792576576fbaafc42b0c7031285662b02f3aca1e1c59/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f707974686f6e2d332e31302b2d626c75652e737667" alt="Python 3.10+" data-canonical-src="https://img.shields.io/badge/python-3.10+-blue.svg" style="max-width: 100%;"></a><br>
+<a target="_blank" rel="noopener noreferrer" href="https://fastapi.tiangolo.com" rel="nofollow"><img loading="lazy" decoding="async" src="https://camo.githubusercontent.com/4045578ca71c45bb003b8dbb693341b821a7396b82c64c226a252011bf36dc50/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f466173744150492d302e3131302b2d3030393638382e737667" alt="FastAPI" data-canonical-src="https://img.shields.io/badge/FastAPI-0.110+-009688.svg" style="max-width: 100%;"></a><br>
+<a target="_blank" rel="noopener noreferrer" href="https://github.com/openai/whisper"><img loading="lazy" decoding="async" src="https://camo.githubusercontent.com/873435d0b1fd6131ff5e1dc9f16372faaeca5ca8a4c7622a7e9950c546f1267c/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f4153522d57686973706572253230436c6f75642532302532462532304c6f63616c2d6f72616e67652e737667" alt="Whisper" data-canonical-src="https://img.shields.io/badge/ASR-Whisper%20Cloud%20%2F%20Local-orange.svg" style="max-width: 100%;"></a><br>
+<a target="_blank" rel="noopener noreferrer" href="https://modelcontextprotocol.io" rel="nofollow"><img loading="lazy" decoding="async" src="https://camo.githubusercontent.com/2d6ee4a7cdced8d8dcc0d9242620544e956ea96509d35c32851328c20a327a7c/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f50726f746f636f6c2d4d6f64656c253230436f6e7465787425323050726f746f636f6c2d707572706c652e737667" alt="MCP" data-canonical-src="https://img.shields.io/badge/Protocol-Model%20Context%20Protocol-purple.svg" style="max-width: 100%;"></a></p>
+<hr>
+<h2 dir="auto" id="-qué-es-murmur">🌟 ¿Qué es Murmur?</h2>
+<p dir="auto">Murmur nace de una necesidad real compartida por estudiantes, investigadores y opositores: <strong>asistir a clase sin tener que elegir entre escuchar al profesor o dejarse la muñeca escribiendo apuntes a medias</strong>.</p>
+<p dir="auto">Con Murmur puedes:</p>
+<ol dir="auto">
+<li><strong>Grabar desde cualquier dispositivo:</strong> Abre la aplicación web (PWA) en tu <strong>móvil, tablet o portátil</strong> mientras estás en el aula.</li>
+<li><strong>Protección anti-fallos:</strong> El audio se transmite y sincroniza en trozos (<em>chunks</em>) seguros cada minuto; si el móvil se queda sin batería en mitad de una clase de 2 horas, no se pierde lo anterior.</li>
+<li><strong>Transcripción Whisper ultrarrápida:</strong> Utiliza Whisper en la nube (Groq Cloud en segundos) o en local (<code class="notranslate">faster-whisper</code> con Silero-VAD).</li>
+<li><strong>Apuntes con Método Cornell:</strong> Cualquier LLM (Llama 3.3, Claude 3.5, Gemini 2.0 Flash o GPT-4o) sintetiza la transcripción eliminando muletillas, extrayendo definiciones, formulando ecuaciones matemáticas en LaTeX y destacando preguntas de examen.</li>
+<li><strong>Conexión MCP Multicanal:</strong> Exporta con un clic a tu bóveda de <strong>Obsidian</strong> (con wikilinks y frontmatter), genera un documento <strong>LaTeX / PDF</strong> maquetado o publica en <strong>Notion</strong>.</li>
+</ol>
+<hr>
+<h2 dir="auto" id="-arquitectura-del-sistema">🏗️ Arquitectura del Sistema</h2>
+<section class="js-render-needs-enrichment render-needs-enrichment position-relative" data-identity="cd721b10-f38c-461d-8d03-6f42892391bb" data-host="https://viewscreen.githubusercontent.com" data-src="https://viewscreen.githubusercontent.com/markdown/mermaid?docs_host=https%3A%2F%2Fdocs.github.com" data-type="mermaid" aria-label="mermaid rendered output container">
+  <div class="js-render-enrichment-target" data-json="{&quot;data&quot;:&quot;flowchart TD\n    subgraph Dispositivos [\&quot;Captura Multi-dispositivo\&quot;]\n        M[\&quot;📱 Móvil / Tablet (PWA)\&quot;]\n        PC[\&quot;💻 Portátil / Sobremesa\&quot;]\n        File[\&quot;📁 Grabadora de voz (.m4a, .mp3, .wav)\&quot;]\n    end\n\n    subgraph Backend [\&quot;Servidor Murmur (FastAPI)\&quot;]\n        Ingest[\&quot;Módulo de Ingesta &amp; Chunks (WebM / Opus)\&quot;]\n        FFmpeg[\&quot;Procesador &amp; Normalizador (ffmpeg 16kHz mono)\&quot;]\n        WhisperEngine{\&quot;Motor Whisper\&quot;}\n        LocalW[\&quot;faster-whisper (CTranslate2 + Silero-VAD)\&quot;]\n        CloudW[\&quot;Groq Whisper API (whisper-large-v3)\&quot;]\n        LLMClient[\&quot;Router LLM (Groq / Anthropic / Gemini / Ollama)\&quot;]\n    end\n\n    subgraph Exportacion [\&quot;Conectores MCP (Model Context Protocol)\&quot;]\n        MCP[\&quot;MCP Dispatcher\&quot;]\n        Obsidian[\&quot;💎 Obsidian Vault (Wikilinks + YAML)\&quot;]\n        LaTeX[\&quot;📐 LaTeX / Compilador PDF\&quot;]\n        Notion[\&quot;📑 Notion Database\&quot;]\n    end\n\n    Dispositivos --&gt;|Streaming Chunks o Upload| Ingest\n    Ingest --&gt; FFmpeg\n    FFmpeg --&gt; WhisperEngine\n    WhisperEngine --&gt; LocalW\n    WhisperEngine --&gt; CloudW\n    LocalW &amp; CloudW --&gt;|Transcripción .txt| LLMClient\n    LLMClient --&gt;|Apuntes Cornell + Fórmulas| MCP\n    MCP --&gt; Obsidian\n    MCP --&gt; LaTeX\n    MCP --&gt; Notion\n&quot;}" data-plain="flowchart TD
+    subgraph Dispositivos [&quot;Captura Multi-dispositivo&quot;]
+        M[&quot;📱 Móvil / Tablet (PWA)&quot;]
+        PC[&quot;💻 Portátil / Sobremesa&quot;]
+        File[&quot;📁 Grabadora de voz (.m4a, .mp3, .wav)&quot;]
+    end
+
+    subgraph Backend [&quot;Servidor Murmur (FastAPI)&quot;]
+        Ingest[&quot;Módulo de Ingesta &amp; Chunks (WebM / Opus)&quot;]
+        FFmpeg[&quot;Procesador &amp; Normalizador (ffmpeg 16kHz mono)&quot;]
+        WhisperEngine{&quot;Motor Whisper&quot;}
+        LocalW[&quot;faster-whisper (CTranslate2 + Silero-VAD)&quot;]
+        CloudW[&quot;Groq Whisper API (whisper-large-v3)&quot;]
+        LLMClient[&quot;Router LLM (Groq / Anthropic / Gemini / Ollama)&quot;]
+    end
+
+    subgraph Exportacion [&quot;Conectores MCP (Model Context Protocol)&quot;]
+        MCP[&quot;MCP Dispatcher&quot;]
+        Obsidian[&quot;💎 Obsidian Vault (Wikilinks + YAML)&quot;]
+        LaTeX[&quot;📐 LaTeX / Compilador PDF&quot;]
+        Notion[&quot;📑 Notion Database&quot;]
+    end
+
+    Dispositivos --&gt;|Streaming Chunks o Upload| Ingest
+    Ingest --&gt; FFmpeg
+    FFmpeg --&gt; WhisperEngine
+    WhisperEngine --&gt; LocalW
+    WhisperEngine --&gt; CloudW
+    LocalW &amp; CloudW --&gt;|Transcripción .txt| LLMClient
+    LLMClient --&gt;|Apuntes Cornell + Fórmulas| MCP
+    MCP --&gt; Obsidian
+    MCP --&gt; LaTeX
+    MCP --&gt; Notion
+" dir="auto">
+    <div class="render-plaintext-hidden" dir="auto">
+      <pre lang="mermaid" aria-label="Raw mermaid code" class="notranslate">flowchart TD
+    subgraph Dispositivos ["Captura Multi-dispositivo"]
+        M["📱 Móvil / Tablet (PWA)"]
+        PC["💻 Portátil / Sobremesa"]
+        File["📁 Grabadora de voz (.m4a, .mp3, .wav)"]
+    end
+
+    subgraph Backend ["Servidor Murmur (FastAPI)"]
+        Ingest["Módulo de Ingesta &amp; Chunks (WebM / Opus)"]
+        FFmpeg["Procesador &amp; Normalizador (ffmpeg 16kHz mono)"]
+        WhisperEngine{"Motor Whisper"}
+        LocalW["faster-whisper (CTranslate2 + Silero-VAD)"]
+        CloudW["Groq Whisper API (whisper-large-v3)"]
+        LLMClient["Router LLM (Groq / Anthropic / Gemini / Ollama)"]
+    end
+
+    subgraph Exportacion ["Conectores MCP (Model Context Protocol)"]
+        MCP["MCP Dispatcher"]
+        Obsidian["💎 Obsidian Vault (Wikilinks + YAML)"]
+        LaTeX["📐 LaTeX / Compilador PDF"]
+        Notion["📑 Notion Database"]
+    end
+
+    Dispositivos --&gt;|Streaming Chunks o Upload| Ingest
+    Ingest --&gt; FFmpeg
+    FFmpeg --&gt; WhisperEngine
+    WhisperEngine --&gt; LocalW
+    WhisperEngine --&gt; CloudW
+    LocalW &amp; CloudW --&gt;|Transcripción .txt| LLMClient
+    LLMClient --&gt;|Apuntes Cornell + Fórmulas| MCP
+    MCP --&gt; Obsidian
+    MCP --&gt; LaTeX
+    MCP --&gt; Notion
+</pre>
+    </div>
+  </div>
+  <span class="js-render-enrichment-loader d-flex flex-justify-center flex-items-center width-full" style="min-height:100px" role="presentation">
+    <span data-view-component="true">
+  <svg style="box-sizing: content-box; color: var(--color-icon-primary);" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true" data-view-component="true" class="octospinner mx-auto tmp-mx-auto anim-rotate">
+    <circle cx="8" cy="8" r="7" stroke="currentColor" stroke-opacity="0.25" stroke-width="2" vector-effect="non-scaling-stroke" fill="none"></circle>
+    <path d="M15 8a7.002 7.002 0 00-7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" vector-effect="non-scaling-stroke"></path>
+</svg>    <span class="sr-only">Loading</span>
+</span>
+  </span>
+</section>
+
+<hr>
+<h2 dir="auto" id="-instalación-en-un-solo-comando">🚀 Instalación en un Solo Comando</h2>
+<h3 dir="auto" id="opción-1-instalación-rápida-con-un-solo-comando-recomendado">Opción 1: Instalación Rápida con un solo comando (Recomendado)</h3>
+<p dir="auto">En tu terminal Linux o macOS:</p>
+<div class="highlight highlight-source-shell" dir="auto"><pre class="notranslate">curl -fsSL https://raw.githubusercontent.com/Ismael-Sallami/murmur/main/install.sh <span class="pl-k">|</span> bash</pre></div>
+<p dir="auto">O clonando el repositorio manualmente:</p>
+<div class="highlight highlight-source-shell" dir="auto"><pre class="notranslate">git clone https://github.com/Ismael-Sallami/murmur.git
+<span class="pl-c1">cd</span> murmur
+./install.sh</pre></div>
+<p dir="auto">El instalador comprobará <code class="notranslate">python3</code>, <code class="notranslate">ffmpeg</code> y configurará un entorno aislado con <code class="notranslate">uv</code> en menos de 15 segundos.</p>
+<h3 dir="auto" id="opción-2-con-docker-compose">Opción 2: Con Docker Compose</h3>
+<p dir="auto">Si prefieres aislar todo en contenedores:</p>
+<div class="highlight highlight-source-shell" dir="auto"><pre class="notranslate">docker compose up -d</pre></div>
+<p dir="auto">Abre tu navegador en <code class="notranslate">http://localhost:8000</code> (o desde tu móvil conectado a la misma red Wi-Fi: <code class="notranslate">http://IP_DE_TU_PC:8000</code>).</p>
+<hr>
+<h2 dir="auto" id="-configuración-env">⚙️ Configuración (.env)</h2>
+<p dir="auto">Copia el fichero <code class="notranslate">.env.example</code> a <code class="notranslate">.env</code> y configura los proveedores que prefieras:</p>
+<div class="highlight highlight-source-shell" dir="auto"><pre class="notranslate">cp .env.example .env</pre></div>
+<p dir="auto">Parámetros principales:</p>
+<div class="highlight highlight-source-dotenv" dir="auto"><pre class="notranslate"><span class="pl-c"><span class="pl-c">#</span> Transcripción Whisper</span>
+<span class="pl-v">WHISPER_PROVIDER</span><span class="pl-k">=</span><span class="pl-s">groq</span>          <span class="pl-c"><span class="pl-c">#</span> 'groq', 'openai' o 'faster-whisper'</span>
+<span class="pl-v">GROQ_API_KEY</span><span class="pl-k">=</span><span class="pl-s">gsk_...</span>           <span class="pl-c"><span class="pl-c">#</span> Obtén tu clave gratis en https://console.groq.com</span>
+
+<span class="pl-c"><span class="pl-c">#</span> Generación de Apuntes (LLM)</span>
+<span class="pl-v">LLM_PROVIDER</span><span class="pl-k">=</span><span class="pl-s">groq</span>              <span class="pl-c"><span class="pl-c">#</span> 'groq', 'anthropic', 'gemini', 'openai', 'ollama'</span>
+<span class="pl-v">LLM_MODEL</span><span class="pl-k">=</span><span class="pl-s">llama-3.3-70b-versatile</span>
+
+<span class="pl-c"><span class="pl-c">#</span> Destinos de Exportación</span>
+<span class="pl-v">OBSIDIAN_VAULT_PATH</span><span class="pl-k">=</span><span class="pl-s">/home/usuario/Documentos/MiBovedaObsidian</span>
+<span class="pl-v">NOTION_API_KEY</span><span class="pl-k">=</span><span class="pl-s">secret_...</span>
+<span class="pl-v">NOTION_DATABASE_ID</span><span class="pl-k">=</span><span class="pl-s">...</span></pre></div>
+<hr>
+<h2 dir="auto" id="-uso-en-el-aula-y-conexión-móvil">📱 Uso en el Aula y Conexión Móvil</h2>
+<ol dir="auto">
+<li>
+<p dir="auto"><strong>Inicia Murmur con soporte SSL en tu PC:</strong></p>
+<div class="highlight highlight-source-shell" dir="auto"><pre class="notranslate">murmur --ssl</pre></div>
+<blockquote>
+<p dir="auto"><strong>Nota de seguridad:</strong> Los navegadores móviles (Chrome en Android y Safari en iOS) requieren una conexión segura (HTTPS) para habilitar el acceso al micrófono en redes locales. Murmur genera automáticamente un certificado local autofirmado para tu red.</p>
+</blockquote>
+</li>
+<li>
+<p dir="auto"><strong>Abre Murmur en tu móvil o tablet:</strong></p>
+<ul dir="auto">
+<li>Conéctate a la misma red Wi-Fi que tu PC (o mediante VPN como Tailscale).</li>
+<li>Abre el navegador y accede a <code class="notranslate">https://&lt;IP_DE_TU_PC&gt;:8000</code> (ejemplo: <code class="notranslate">https://172.17.64.141:8000</code>).</li>
+<li>Acepta la excepción del certificado local en la primera conexión.</li>
+</ul>
+</li>
+<li>
+<p dir="auto"><strong>Configura la clase:</strong> Escribe la asignatura (ej. <em>Cálculo II</em>) y el tema.</p>
+</li>
+<li>
+<p dir="auto"><strong>Pulsa "Iniciar Dictado en Vivo":</strong> Concede permiso de micrófono en el móvil y déjalo sobre el pupitre. El sistema transmitirá la voz en tiempo real con códec Opus de alta fidelidad.</p>
+</li>
+<li>
+<p dir="auto"><strong>Finaliza y Estructura:</strong> Pulsa "Finalizar y Estructurar Ficheros". Murmur organizará automáticamente en tu PC la transcripción literal, apuntes Cornell, fórmulas LaTeX y metadatos en <code class="notranslate">data/clases/</code>.</p>
+</li>
+<li>
+<p dir="auto"><strong>Exporta y Sincroniza:</strong> Envía las notas a tu Vault de Obsidian, compila a PDF académico o crea una página en Notion mediante MCP con un solo clic.</p>
+</li>
+</ol>
+<hr>
+<h2 dir="auto" id="-estructura-del-repositorio">🛠️ Estructura del Repositorio</h2>
+<pre lang="text" class="notranslate"><code class="notranslate">murmur/
+├── murmur/
+│   ├── api/              # Endpoints FastAPI (Audio, Apuntes, Exportación)
+│   ├── core/             # AudioManager (ffmpeg) y WhisperEngine
+│   ├── llm/              # Cliente multi-modelo y plantillas de prompts
+│   ├── mcp/              # Adaptadores MCP para Obsidian, LaTeX y Notion
+│   ├── config.py         # Configuración centralizada con Pydantic
+│   └── main.py           # Servidor ASGI y comando CLI
+├── frontend/             # Progressive Web App (HTML, Tailwind CSS, JS)
+├── docker-compose.yml    # Despliegue con Docker
+├── Dockerfile            # Imagen optimizada con ffmpeg
+├── install.sh            # Script instalador para Linux/macOS
+├── pyproject.toml        # Dependencias y metadatos del paquete
+└── README.md
+</code></pre>
+<hr>
+<h2 dir="auto" id="-autores-y-contribuidores">👥 Autores y Contribuidores</h2>
+<ul dir="auto">
+<li><strong><a target="_blank" rel="noopener noreferrer" href="https://github.com/Ismael-Sallami">Ismael Sallami</a></strong> — Arquitectura, motor de audio Whisper, adaptadores MCP y backend.</li>
+<li><strong><a target="_blank" rel="noopener noreferrer" href="https://github.com/Aliciarg04">Alicia Ruiz</a></strong> (<a target="_blank" rel="noopener noreferrer" href="https://github.com/Aliciarg04">@Aliciarg04</a>) — Diseño de interfaz web en modo concentración y experiencia visual.</li>
+</ul>
+<hr>
+<h2 dir="auto" id="-licencia">📄 Licencia</h2>
+<p dir="auto">Este proyecto está bajo la Licencia <strong>MIT</strong>. Consulta el archivo <code class="notranslate">LICENSE</code> para más detalles.</p>
