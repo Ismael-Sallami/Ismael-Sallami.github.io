@@ -74,44 +74,40 @@ requirements.txt          the dependencies
 <li>For OCR only: <code class="notranslate">pytesseract</code> 0.3.13+, <code class="notranslate">Pillow</code> 10+, and Tesseract installed on the system</li>
 </ul>
 <h2 dir="auto" id="build-and-run">Build and run</h2>
-<pre lang="bash" class="notranslate"><code class="notranslate">python3 -m venv .venv &amp;&amp; source .venv/bin/activate
+<div class="highlight highlight-source-shell" dir="auto"><pre class="notranslate">python3 -m venv .venv <span class="pl-k">&amp;&amp;</span> <span class="pl-c1">source</span> .venv/bin/activate
 pip install -r requirements.txt
 
-python3 src/pdf_to_md.py document.pdf                 # writes ./document/
-python3 src/pdf_to_md.py document.pdf --output out    # somewhere else
-python3 src/pdf_to_md.py scanned.pdf --ocr            # scans, Spanish and English
-</code></pre>
+python3 src/pdf_to_md.py document.pdf                 <span class="pl-c"><span class="pl-c">#</span> writes ./document/</span>
+python3 src/pdf_to_md.py document.pdf --output out    <span class="pl-c"><span class="pl-c">#</span> somewhere else</span>
+python3 src/pdf_to_md.py scanned.pdf --ocr            <span class="pl-c"><span class="pl-c">#</span> scans, Spanish and English</span></pre></div>
 <p dir="auto">OCR needs Tesseract and its language models:</p>
-<pre lang="bash" class="notranslate"><code class="notranslate">sudo apt install tesseract-ocr tesseract-ocr-spa
-</code></pre>
+<div class="highlight highlight-source-shell" dir="auto"><pre class="notranslate">sudo apt install tesseract-ocr tesseract-ocr-spa</pre></div>
 <p dir="auto">Running the tests:</p>
-<pre lang="bash" class="notranslate"><code class="notranslate">pip install pytest ruff
+<div class="highlight highlight-source-shell" dir="auto"><pre class="notranslate">pip install pytest ruff
 pytest -q
-ruff check .
-</code></pre>
+ruff check <span class="pl-c1">.</span></pre></div>
 <p dir="auto">The full list of options is in <a target="_blank" rel="noopener noreferrer" href="https://github.com/Ismael-Sallami/pdf2md/blob/main/docs/usage.md"><code class="notranslate">docs/usage.md</code></a>.</p>
 <h2 dir="auto" id="results">Results</h2>
 <p dir="auto">Converting <code class="notranslate">tests/fixtures/sample.pdf</code>, which is what the CI does on every push:</p>
-<pre lang="markdown" class="notranslate"><code class="notranslate">---
-title: "Sample Document"
-author: "Ismael Sallami Moreno"
-pages: 1
-source: sample.pdf
----
+<div class="highlight highlight-text-md" dir="auto"><pre class="notranslate"><span class="pl-s">---</span>
+<span class="pl-ent">title</span>: <span class="pl-s"><span class="pl-pds">"</span>Sample Document<span class="pl-pds">"</span></span>
+<span class="pl-ent">author</span>: <span class="pl-s"><span class="pl-pds">"</span>Ismael Sallami Moreno<span class="pl-pds">"</span></span>
+<span class="pl-ent">pages</span>: <span class="pl-c1">1</span>
+<span class="pl-ent">source</span>: <span class="pl-s">sample.pdf</span>
+<span class="pl-s">---</span>
 
-# Sample Document
+<span class="pl-mh"># <span class="pl-en">Sample Document</span></span>
 
-## First Section
+<span class="pl-mh">## <span class="pl-en">First Section</span></span>
 
 A paragraph of body text at the usual size.
 
-| Language | Extension |
-| --- | --- |
-| Python | .py |
-| Markdown | .md |
+<span class="pl-ml">|</span> Language <span class="pl-ml">|</span> Extension <span class="pl-ml">|</span>
+<span class="pl-ml">|</span> --- <span class="pl-ml">|</span> --- <span class="pl-ml">|</span>
+<span class="pl-ml">|</span> Python <span class="pl-ml">|</span> .py <span class="pl-ml">|</span>
+<span class="pl-ml">|</span> Markdown <span class="pl-ml">|</span> .md <span class="pl-ml">|</span>
 
-![Imagen página 1](images/page_01_img_001.png)
-</code></pre>
+<span class="pl-s">![</span>Imagen página 1<span class="pl-s">]</span><span class="pl-s">(</span><span class="pl-corl">images/page_01_img_001.png</span><span class="pl-s">)</span></pre></div>
 <p dir="auto">The 28 pt title became <code class="notranslate">#</code> and the 24 pt one <code class="notranslate">##</code> without either being tagged as a heading<br>
 anywhere in the PDF; the ruled table came back as GFM; and the embedded image was written to<br>
 <code class="notranslate">images/</code> and linked.</p>
