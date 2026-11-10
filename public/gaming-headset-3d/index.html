@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>AETHER NOVA PRO // 90MM PLANAR MAGNETIC ACOUSTIC TELEMETRY LAB</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%2307090e'/%3E%3Ccircle cx='16' cy='16' r='10' fill='none' stroke='%2300f0ff' stroke-width='2.5'/%3E%3Ccircle cx='16' cy='16' r='4' fill='%23ff9e00'/%3E%3C/svg%3E" />
+
+    <!-- Tipografías Industriales y de Telemetría (Orbitron, Rajdhani, JetBrains Mono) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Orbitron:wght@500;700;800;900&family=Rajdhani:wght@500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <script type="module" crossorigin src="./assets/index-335D1SA7.js"></script>
+    <link rel="modulepreload" crossorigin href="./assets/gsap-DdEiTQuA.js">
+    <link rel="modulepreload" crossorigin href="./assets/three-CGz1X85c.js">
+    <link rel="stylesheet" crossorigin href="./assets/index-B1EhLfZd.css">
+  </head>
+  <body data-theme="cyber-cyan">
+    <!-- Retícula Técnica Milimétrica y Viñeta de Laboratorio -->
+    <div class="lab-backdrop" aria-hidden="true">
+      <div class="lab-grid-fine"></div>
+      <div class="lab-grid-major"></div>
+      <div class="lab-radial-glow"></div>
+      <div class="lab-crosshair lab-crosshair--tl"></div>
+      <div class="lab-crosshair lab-crosshair--tr"></div>
+      <div class="lab-crosshair lab-crosshair--bl"></div>
+      <div class="lab-crosshair lab-crosshair--br"></div>
+    </div>
+
+    <!-- Lienzo 3D Fijo (WebGL2 Viewport) -->
+    <div id="viewport-wrapper" aria-label="Visor 3D Interactivo AETHER NOVA PRO">
+      <canvas id="webgl-canvas"></canvas>
+    </div>
+
+    <!-- Capa de Callouts Técnicos 3D Proyectados en Coordenadas de Pantalla -->
+    <div id="callout-layer" aria-live="polite"></div>
+
+    <!-- ===================================================================
+         INTERFAZ FIJA CYBER-LUXURY HUD (TELEMETRÍA, CONTROLES E INSPECTOR)
+         =================================================================== -->
+    <header id="hud-top-bar" class="hud-panel">
+      <!-- Bloque de Identidad de Marca -->
+      <div class="brand-cluster">
+        <div class="brand-badge">
+          <span class="status-led"></span>
+          <span class="brand-code">SYS-90MM // REV 4.2</span>
+        </div>
+        <div class="brand-titles">
+          <h1 class="brand-name">AETHER <span class="accent-slash">//</span> NOVA PRO</h1>
+          <span class="brand-subtitle">ACOUSTIC TELEMETRY &amp; AXIAL EXPLOSION LAB</span>
+        </div>
+      </div>
+
+      <!-- Telemetría Axial y Rendimiento WebGL en Vivo -->
+      <div class="telemetry-strip" aria-label="Métricas de Telemetría en Tiempo Real">
+        <div class="telemetry-cell">
+          <span class="telemetry-label">EXPLOSIÓN AXIAL</span>
+          <strong id="hud-explosion-pct" class="telemetry-value accent-text">00.0%</strong>
+        </div>
+        <div class="telemetry-cell">
+          <span class="telemetry-label">APERTURA MECÁNICA</span>
+          <strong id="hud-axial-mm" class="telemetry-value">000.0 mm</strong>
+        </div>
+        <div class="telemetry-cell">
+          <span class="telemetry-label">ESTRATO ACTIVO</span>
+          <strong id="hud-active-stratum" class="telemetry-value">S0 // ALL</strong>
+        </div>
+        <div class="telemetry-cell telemetry-cell--engine">
+          <span class="telemetry-label">MOTOR WEBGL2</span>
+          <strong id="hud-engine-stats" class="telemetry-value">60 FPS // 28 PRT</strong>
+        </div>
+      </div>
+
+      <!-- Controles de Modo de Renderizado, Tema Lumínico y Banco de Audio -->
+      <div class="hud-controls-cluster">
+        <!-- Selector de Modo de Vista -->
+        <div class="control-group" role="group" aria-label="Modo de Renderizado 3D">
+          <span class="control-group-label">RENDER MODE</span>
+          <div class="segmented-buttons">
+            <button type="button" class="hud-btn is-active" data-render-mode="pbr">
+              [PBR]
+            </button>
+            <button type="button" class="hud-btn" data-render-mode="wireframe">
+              [WIREFRAME]
+            </button>
+            <button type="button" class="hud-btn" data-render-mode="xray">
+              [X-RAY]
+            </button>
+          </div>
+        </div>
+
+        <!-- Selector de Tema Lumínico -->
+        <div class="control-group" role="group" aria-label="Tema Lumínico de Laboratorio">
+          <span class="control-group-label">LUMEN THEME</span>
+          <div class="segmented-buttons">
+            <button type="button" class="hud-btn is-active" data-theme-key="cyber-cyan">
+              [CYAN]
+            </button>
+            <button type="button" class="hud-btn" data-theme-key="amber-lab">
+              [AMBER]
+            </button>
+            <button type="button" class="hud-btn" data-theme-key="phantom-violet">
+              [VIOLET]
+            </button>
+          </div>
+        </div>
+
+        <!-- Sintetizador Acústico en Vivo -->
+        <div class="control-group control-group--audio" role="group" aria-label="Sintetizador Acústico Planar">
+          <div class="audio-header-row">
+            <button type="button" id="btn-audio-toggle" class="hud-btn hud-btn--cta">
+              <span class="audio-dot"></span>
+              <span id="btn-audio-label">[TEST 90MM AUDIO]</span>
+            </button>
+          </div>
+          <div class="segmented-buttons audio-preset-row">
+            <button
+              type="button"
+              class="hud-btn hud-btn--mini is-active"
+              data-audio-preset="sub-bass"
+              data-freq-hz="28"
+            >
+              20Hz Sub
+            </button>
+            <button
+              type="button"
+              class="hud-btn hud-btn--mini"
+              data-audio-preset="reference"
+              data-freq-hz="440"
+            >
+              440Hz Ref
+            </button>
+            <button
+              type="button"
+              class="hud-btn hud-btn--mini"
+              data-audio-preset="fazor-air"
+              data-freq-hz="14000"
+            >
+              14kHz Air
+            </button>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- ===================================================================
+         MATRIZ LATERAL DE LOS 7 ESTRATOS (STRATUM INSPECTOR DOCK)
+         =================================================================== -->
+    <aside id="stratum-dock" class="hud-panel" aria-label="Selector de Estratos de Ingeniería">
+      <div class="dock-header">
+        <span class="dock-kicker">AXIAL LAYER MATRIX</span>
+        <h2 class="dock-title">STRATUM DOCK</h2>
+      </div>
+      <div class="stratum-buttons-list" role=" toolbar">
+        <button type="button" class="stratum-btn is-active" data-stratum="0">
+          <span class="stratum-index">ALL</span>
+          <span class="stratum-name">FULL 28-PART MATRIX</span>
+          <span class="stratum-offset">0.0 mm</span>
+        </button>
+        <button type="button" class="stratum-btn" data-stratum="1">
+          <span class="stratum-index">S1</span>
+          <span class="stratum-name">01 EARPAD</span>
+          <span class="stratum-offset">+68.5 mm</span>
+        </button>
+        <button type="button" class="stratum-btn" data-stratum="2">
+          <span class="stratum-index">S2</span>
+          <span class="stratum-name">02 FAZOR</span>
+          <span class="stratum-offset">+46.0 mm</span>
+        </button>
+        <button type="button" class="stratum-btn" data-stratum="3">
+          <span class="stratum-index">S3</span>
+          <span class="stratum-name">03 PLANAR 90MM</span>
+          <span class="stratum-offset">+18.0 mm</span>
+        </button>
+        <button type="button" class="stratum-btn" data-stratum="4">
+          <span class="stratum-index">S4</span>
+          <span class="stratum-name">04 CHAMBER</span>
+          <span class="stratum-offset">-22.5 mm</span>
+        </button>
+        <button type="button" class="stratum-btn" data-stratum="5">
+          <span class="stratum-index">S5</span>
+          <span class="stratum-name">05 DSP PCB</span>
+          <span class="stratum-offset">-48.0 mm</span>
+        </button>
+        <button type="button" class="stratum-btn" data-stratum="6">
+          <span class="stratum-index">S6</span>
+          <span class="stratum-name">06 HOT-SWAP</span>
+          <span class="stratum-offset">-76.0 mm</span>
+        </button>
+        <button type="button" class="stratum-btn" data-stratum="7">
+          <span class="stratum-index">S7</span>
+          <span class="stratum-name">07 CNC YOKE</span>
+          <span class="stratum-offset">+92.0 mm</span>
+        </button>
+      </div>
+      <div class="dock-footer">
+        <span class="dock-hint">CLIC EN ESTRATO O PIEZA 3D PARA AISLAR</span>
+      </div>
+    </aside>
+
+    <!-- ===================================================================
+         TARJETA DE INSPECCIÓN DE COMPONENTE + ANALIZADOR DE RESPUESTA SPL
+         =================================================================== -->
+    <aside id="component-inspector" class="hud-panel" aria-live="polite">
+      <div class="inspector-top-bar">
+        <span id="inspector-code" class="inspector-code">SYS-FULL-28 // STRATUM 00</span>
+        <button type="button" id="btn-reset-focus" class="hud-btn hud-btn--mini" title="Restaurar vista de todos los estratos">
+          [RESET VIEW]
+        </button>
+      </div>
+
+      <h2 id="inspector-title" class="inspector-title">
+        MATRIZ COMPLETA DE 28 COMPONENTES
+      </h2>
+      <p id="inspector-material" class="inspector-material">
+        Aluminio CNC 6061-T6 / Neodimio N50 / Poliimida 1.8 µm / Fibra de Carbono
+      </p>
+      <p id="inspector-description" class="inspector-description">
+        Vista integral del conjunto acústico, electromagnético y estructural de los auriculares AETHER NOVA PRO en configuración simétrica de doble copa.
+      </p>
+
+      <!-- Rejilla de 4 Métricas Clave del Componente / Estrato -->
+      <div id="inspector-metrics-grid" class="inspector-metrics-grid">
+        <div class="metric-box">
+          <span class="metric-label">COMPONENTES CAD</span>
+          <strong class="metric-val">28 PIEZAS</strong>
+        </div>
+        <div class="metric-box">
+          <span class="metric-label">APERTURA AXIAL MÁX.</span>
+          <strong class="metric-val">184.0 mm</strong>
+        </div>
+        <div class="metric-box">
+          <span class="metric-label">RESPUESTA FRECUENCIA</span>
+          <strong class="metric-val">10 Hz – 50 kHz</strong>
+        </div>
+        <div class="metric-box">
+          <span class="metric-label">DISTORSIÓN ARMÓNICA</span>
+          <strong class="metric-val">&lt; 0.05% @ 100dB</strong>
+        </div>
+      </div>
+
+      <!-- Analizador Dinámico de Curva de Respuesta en Frecuencia (10 Hz - 50 kHz) -->
+      <div class="frequency-analyzer-block">
+        <div class="analyzer-header">
+          <span class="analyzer-title">HARMONIC RESPONSE // 10 Hz – 50 kHz</span>
+          <span id="analyzer-live-badge" class="analyzer-badge">IDLE TELEMETRY</span>
+        </div>
+
+        <canvas
+          id="frequency-chart-canvas"
+          width="360"
+          height="135"
+          aria-label="Gráfico comparativo de respuesta en frecuencia Planar Magnetic 90mm vs Dinámico 40mm"
+        ></canvas>
+
+        <div class="analyzer-legend">
+          <span class="legend-item">
+            <i class="legend-dot legend-dot--planar"></i>
+            90mm Planar Uniforce (THD &lt;0.05%)
+          </span>
+          <span class="legend-item">
+            <i class="legend-dot legend-dot--dynamic"></i>
+            40mm Dynamic Driver Convencional
+          </span>
+        </div>
+      </div>
+    </aside>
+
+    <!-- ===================================================================
+         SLIDER MANUAL DE DESPIECE RÁPIDO (MANUAL SCRUB OVERRIDE) EN EL PIE
+         =================================================================== -->
+    <footer id="hud-bottom-bar" class="hud-panel">
+      <div class="scrub-header-info">
+        <span class="scrub-kicker">MANUAL SCRUB OVERRIDE</span>
+        <strong id="scrub-chapter-indicator" class="scrub-chapter-indicator">
+          CHP 01 // CHASIS ENSAMBLADO
+        </strong>
+      </div>
+
+      <div class="scrub-slider-container">
+        <span class="scrub-bound">0% LOCKED</span>
+        <div class="scrub-track-wrapper">
+          <input
+            type="range"
+            id="manual-explode-slider"
+            min="0"
+            max="100"
+            step="0.1"
+            value="0"
+            aria-label="Control deslizante de despiece axial manual de 0% a 100%"
+          />
+          <div class="scrub-ticks" aria-hidden="true">
+            <span>S1</span>
+            <span>S2</span>
+            <span>S3</span>
+            <span>S4</span>
+            <span>S5</span>
+            <span>S6</span>
+            <span>S7</span>
+          </div>
+        </div>
+        <span class="scrub-bound">100% AXIAL</span>
+      </div>
+
+      <div class="scrub-actions">
+        <button type="button" id="btn-auto-explode" class="hud-btn hud-btn--cta">
+          [AUTO-EXPLODE / ASSEMBLE]
+        </button>
+      </div>
+    </footer>
+
+    <!-- ===================================================================
+         CONTENEDOR NARRATIVO DE SCROLL (6 CAPÍTULOS A LO LARGO DE 650VH)
+         Sincronizado mediante GSAP ScrollTrigger (scrub: 1.2)
+         =================================================================== -->
+    <main id="scroll-container">
+      <!-- Capítulo 01 (0% - 16%) -->
+      <section
+        id="chapter-01"
+        class="scroll-chapter is-active"
+        data-chapter-index="0"
+        data-stratum="0"
+      >
+        <article class="chapter-card hud-panel">
+          <div class="chapter-meta">
+            <span class="chapter-num">CHAPTER 01 // 00% – 16%</span>
+            <span class="chapter-code">CHP-01 // CHASSIS NOMINAL</span>
+          </div>
+          <h2 class="chapter-title">AETHER NOVA PRO // CHASIS ENSAMBLADO</h2>
+          <h3 class="chapter-subtitle">
+            Arquitectura Acústica Planar Magnetic de 90 mm &amp; Exoesqueleto CNC
+          </h3>
+          <p class="chapter-body">
+            En estado nominal ensamblado, el chasis unibody de aluminio 6061-T6 y el arco de acero PVD conforman una jaula acústica hermética libre de resonancias parásitas. Al iniciar la secuencia de telemetría, los anillos difusores ARGB se energizan y las tapas magnéticas exteriores preparan el desacople axial.
+          </p>
+          <div class="chapter-metrics">
+            <div class="chapter-metric-item">
+              <span>ESTADO MECÁNICO</span>
+              <strong>NOMINAL LOCKED</strong>
+            </div>
+            <div class="chapter-metric-item">
+              <span>MASA OPERATIVA</span>
+              <strong>338 g (Con Celda)</strong>
+            </div>
+            <div class="chapter-metric-item">
+              <span>ATENUACIÓN HÍBRIDA</span>
+              <strong>-38.0 dB SPL</strong>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <!-- Capítulo 02 (16% - 34%) -->
+      <section
+        id="chapter-02"
+        class="scroll-chapter"
+        data-chapter-index="1"
+        data-stratum="2"
+      >
+        <article class="chapter-card hud-panel">
+          <div class="chapter-meta">
+            <span class="chapter-num">CHAPTER 02 // 16% – 34%</span>
+            <span class="chapter-code">CHP-02 // THERMO-ACOUSTIC &amp; FAZOR</span>
+          </div>
+          <h2 class="chapter-title">ESTRATO 01-02 // SELLADO TERMO-ACÚSTICO &amp; GUÍA FAZOR</h2>
+          <h3 class="chapter-subtitle">
+            Almohadillas de Gel Endotérmico, Bayoneta MagLock y Bafle de 15°
+          </h3>
+          <p class="chapter-body">
+            Las almohadillas viscoelásticas de 65 kg/m³ se separan revelando el anillo de retención de 8 imanes N48. Detrás emerge la placa deflectora inclinada 15° en fibra de carbono y la matriz de 7 elementos triangulares Fazor, diseñados para eliminar la difracción de alta frecuencia antes de que el sonido alcance el canal auditivo.
+          </p>
+          <div class="chapter-metrics">
+            <div class="chapter-metric-item">
+              <span>INCLINACIÓN BAFLE</span>
+              <strong>15.0° ERGONOMIC</strong>
+            </div>
+            <div class="chapter-metric-item">
+              <span>MATRIZ FAZOR</span>
+              <strong>7 ELEMENTOS / COPA</strong>
+            </div>
+            <div class="chapter-metric-item">
+              <span>DELTA TÉRMICO GEL</span>
+              <strong>-3.8 °C ESTABLE</strong>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <!-- Capítulo 03 (34% - 56%) -->
+      <section
+        id="chapter-03"
+        class="scroll-chapter"
+        data-chapter-index="2"
+        data-stratum="3"
+      >
+        <article class="chapter-card hud-panel">
+          <div class="chapter-meta">
+            <span class="chapter-num">CHAPTER 03 // 34% – 56%</span>
+            <span class="chapter-code">CHP-03 // 90MM PLANAR CORE</span>
+          </div>
+          <h2 class="chapter-title">ESTRATO 03 // MOTOR PLANAR MAGNETIC DE 90MM</h2>
+          <h3 class="chapter-subtitle">
+            Doble Matriz Neodimio N50H Fluxor Push-Pull &amp; Diafragma de 1.8 µm
+          </h3>
+          <p class="chapter-body">
+            La cámara se aproxima al corazón electromagnético: dos estatores de imanes de neodimio N50H en configuración Fluxor concentran un campo de 1.45 Tesla sobre el diafragma iridiscente Uniforce de apenas 1.8 micras. Al excitar las pistas de aluminio grabadas por plasma, toda la superficie impulsa un frente de onda plano con distorsión inferior al 0.05%.
+          </p>
+          <div class="chapter-metrics">
+            <div class="chapter-metric-item">
+              <span>FLUJO MAGNÉTICO</span>
+              <strong>1.45 TESLA (N50H)</strong>
+            </div>
+            <div class="chapter-metric-item">
+              <span>DIAFRAGMA ACTIVO</span>
+              <strong>90 mm / 1.8 µm</strong>
+            </div>
+            <div class="chapter-metric-item">
+              <span>THD @ 100dB SPL</span>
+              <strong>0.042% ULTRA-LINEAR</strong>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <!-- Capítulo 04 (56% - 74%) -->
+      <section
+        id="chapter-04"
+        class="scroll-chapter"
+        data-chapter-index="3"
+        data-stratum="5"
+      >
+        <article class="chapter-card hud-panel">
+          <div class="chapter-meta">
+            <span class="chapter-num">CHAPTER 04 // 56% – 74%</span>
+            <span class="chapter-code">CHP-04 // ISO-CHAMBER &amp; DSP PCB</span>
+          </div>
+          <h2 class="chapter-title">ESTRATO 04-05 // CÁMARA SELLADA &amp; DSP DUAL-WIRELESS</h2>
+          <h3 class="chapter-subtitle">
+            Recinto Helmholtz Óptico, PCB de 6 Capas ENIG y DAC 24-Bit/96kHz
+          </h3>
+          <p class="chapter-body">
+            Detrás del motor planar se abre la cúpula de policarbonato óptico con su anillo absorbente Helmholtz. En el estrato electrónico, la PCB anular de 6 capas con pistas de oro 24K aloja el convertidor DAC de 24-bit/96kHz, el coprocesador neuronal para cancelación activa de 4 micrófonos y el enlace inalámbrico de 2.4 GHz (9.4 ms).
+          </p>
+          <div class="chapter-metrics">
+            <div class="chapter-metric-item">
+              <span>DAC / DSP CORE</span>
+              <strong>24-BIT / 96 kHz</strong>
+            </div>
+            <div class="chapter-metric-item">
+              <span>LATENCIA ENLACE</span>
+              <strong>9.4 ms (2.4GHz ULL)</strong>
+            </div>
+            <div class="chapter-metric-item">
+              <span>RANGO DINÁMICO</span>
+              <strong>124 dB DNR</strong>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <!-- Capítulo 05 (74% - 90%) -->
+      <section
+        id="chapter-05"
+        class="scroll-chapter"
+        data-chapter-index="4"
+        data-stratum="6"
+      >
+        <article class="chapter-card hud-panel">
+          <div class="chapter-meta">
+            <span class="chapter-num">CHAPTER 05 // 74% – 90%</span>
+            <span class="chapter-code">CHP-05 // HOT-SWAP &amp; EXOSKELETON</span>
+          </div>
+          <h2 class="chapter-title">ESTRATO 06-07 // ENERGÍA HOT-SWAP &amp; CINEMÁTICA CNC</h2>
+          <h3 class="chapter-subtitle">
+            Cartucho Li-Ion Extraíble en Caliente, Micrófono Boom y Cardán 2-Ejes
+          </h3>
+          <p class="chapter-body">
+            En la copa derecha, el cartucho Li-Ion de 1050 mAh se desliza axialmente sobre contactos Pogo de oro mientras un supercondensador mantiene el sistema encendido durante 18 segundos. Simultáneamente, el micrófono boom hipercardioide se despliega y el arco de acero para muelles PVD se eleva junto a las horquillas CNC.
+          </p>
+          <div class="chapter-metrics">
+            <div class="chapter-metric-item">
+              <span>ENERGÍA HOT-SWAP</span>
+              <strong>1050 mAh + 18s CAP</strong>
+            </div>
+            <div class="chapter-metric-item">
+              <span>HORQUILLAS CARDÁN</span>
+              <strong>ALUMINIO 6061-T6</strong>
+            </div>
+            <div class="chapter-metric-item">
+              <span>MICRÓFONO BOOM</span>
+              <strong>CLEARCAST FIG-8</strong>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <!-- Capítulo 06 (90% - 100%) -->
+      <section
+        id="chapter-06"
+        class="scroll-chapter"
+        data-chapter-index="5"
+        data-stratum="0"
+      >
+        <article class="chapter-card hud-panel">
+          <div class="chapter-meta">
+            <span class="chapter-num">CHAPTER 06 // 90% – 100%</span>
+            <span class="chapter-code">CHP-06 // FULL AXIAL MATRIX</span>
+          </div>
+          <h2 class="chapter-title">BLUEPRINT COMPLETO // 28 COMPONENTES EN MATRIZ AXIAL</h2>
+          <h3 class="chapter-subtitle">
+            Apertura Máxima de 184 mm, Inspección Individual y Telemetría Acústica
+          </h3>
+          <p class="chapter-body">
+            Con la matriz axial desplegada al 100% (184.0 mm de separación total), los 7 estratos y 28 componentes quedan suspendidos en simetría isométrica. Utiliza el selector lateral de estratos, haz clic directamente sobre cualquier pieza del modelo 3D o ejecuta el sintetizador acústico Planar Magnetic en tiempo real.
+          </p>
+          <div class="chapter-metrics">
+            <div class="chapter-metric-item">
+              <span>APERTURA AXIAL</span>
+              <strong>184.0 mm (100%)</strong>
+            </div>
+            <div class="chapter-metric-item">
+              <span>INSPECCIÓN RAYCAST</span>
+              <strong>28 PIEZAS ACTIVAS</strong>
+            </div>
+            <div class="chapter-metric-item">
+              <span>BANCO DE AUDIO</span>
+              <strong>WEB AUDIO SYNTH READY</strong>
+            </div>
+          </div>
+        </article>
+      </section>
+    </main>
+
+  </body>
+</html>
