@@ -1,3 +1,6 @@
+<p align="center" dir="auto">
+  <a target="_blank" rel="noopener noreferrer" href="https://github.com/Ismael-Sallami/personal-finance-manager/blob/main/docs/media/logo.svg"><img loading="lazy" decoding="async" src="https://raw.githubusercontent.com/Ismael-Sallami/personal-finance-manager/main/docs/media/logo.svg" width="120" alt="Personal Finance Manager logo: a gold coin sprouting a leaf" style="max-width: 100%;"></a>
+</p>
 <p dir="auto">Self-hosted web app to track expenses, income, investments and net worth, with a<br>
 Telegram bot to log entries and pull reports from your phone.</p>
 <p dir="auto"><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/8820d9bf84e23754356b5b0fd887a8966f98510a9ba4fabb01907b7c6c4e03b4/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f707974686f6e2d332e31322d626c7565"><img loading="lazy" decoding="async" src="https://camo.githubusercontent.com/8820d9bf84e23754356b5b0fd887a8966f98510a9ba4fabb01907b7c6c4e03b4/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f707974686f6e2d332e31322d626c7565" alt="Python" data-canonical-src="https://img.shields.io/badge/python-3.12-blue" style="max-width: 100%;"></a><br>
@@ -13,6 +16,60 @@ is the same; only the data is yours.</p>
 <p dir="auto">It is built for <strong>one user</strong>. There is a single login, and every page assumes<br>
 the data belongs to that person. That is a deliberate simplification, not a<br>
 missing feature.</p>
+<hr>
+<h2 dir="auto" id="two-ways-to-use-it">Two ways to use it</h2>
+<p dir="auto">You choose how entries get in. Everything else (reports, net worth, the bot's<br>
+summaries) works the same in both.</p>
+<markdown-accessiblity-table><table role="table">
+<thead>
+<tr>
+<th></th>
+<th><strong>Manual mode</strong> (default)</th>
+<th><strong>Bank mode</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Turned on by</td>
+<td>leaving <code class="notranslate">EB_APP_ID</code> / <code class="notranslate">EB_PRIVATE_KEY</code> empty</td>
+<td>setting both (<code class="notranslate">ENTRY_MODE=auto</code>)</td>
+</tr>
+<tr>
+<td>How entries arrive</td>
+<td>you keep notes on your phone and paste them to the bot (or to the web import) at the end of the month</td>
+<td>a daily <strong>read-only PSD2</strong> sync pulls movements and balances from your banks</td>
+</tr>
+<tr>
+<td>What you do</td>
+<td>write <code class="notranslate">Groceries: 15-1+3</code> lines</td>
+<td>categorise the few new merchants with buttons; the app learns</td>
+</tr>
+<tr>
+<td>Cash</td>
+<td>typed like any entry</td>
+<td>still typed by hand</td>
+</tr>
+<tr>
+<td>Cost</td>
+<td>none</td>
+<td>a free Enable Banking account in restricted mode</td>
+</tr>
+</tbody>
+</table></markdown-accessiblity-table>
+<p dir="auto">Both can run at once: bank movements and hand-typed entries live in the same<br>
+table, and <code class="notranslate">ENTRY_MODE=manual</code> forces the bank features off even if the<br>
+credentials are present. Bank mode setup is in<br>
+<a target="_blank" rel="noopener noreferrer" href="https://github.com/Ismael-Sallami/personal-finance-manager/blob/main/docs/BANK_SYNC.md"><code class="notranslate">docs/BANK_SYNC.md</code></a>. Bank commands answer "bank sync is<br>
+off" while it is not configured.</p>
+<hr>
+<h2 dir="auto" id="demo">Demo</h2>
+<p dir="auto">Bank mode in the Telegram bot.</p>
+<p dir="auto"><strong><code class="notranslate">/pace</code>: where the month is heading</strong></p>
+<p dir="auto"><a target="_blank" rel="noopener noreferrer" href="https://github.com/Ismael-Sallami/personal-finance-manager/blob/main/docs/media/bot-pace.gif"><img loading="lazy" decoding="async" src="https://raw.githubusercontent.com/Ismael-Sallami/personal-finance-manager/main/docs/media/bot-pace.gif" alt="/pace" data-animated-image="" style="max-width: 100%;"></a></p>
+<p dir="auto"><strong><code class="notranslate">/pending</code>: categorise a new merchant once, the app remembers</strong></p>
+<p dir="auto"><a target="_blank" rel="noopener noreferrer" href="https://github.com/Ismael-Sallami/personal-finance-manager/blob/main/docs/media/bot-pending.gif"><img loading="lazy" decoding="async" src="https://raw.githubusercontent.com/Ismael-Sallami/personal-finance-manager/main/docs/media/bot-pending.gif" alt="/pending" data-animated-image="" style="max-width: 100%;"></a></p>
+<p dir="auto"><strong>Automatic month-end close with a chart</strong></p>
+<p dir="auto"><a target="_blank" rel="noopener noreferrer" href="https://github.com/Ismael-Sallami/personal-finance-manager/blob/main/docs/media/bot-month-close.gif"><img loading="lazy" decoding="async" src="https://raw.githubusercontent.com/Ismael-Sallami/personal-finance-manager/main/docs/media/bot-month-close.gif" alt="Month close" data-animated-image="" style="max-width: 100%;"></a></p>
 <hr>
 <h2 dir="auto" id="full-project-report">Full project report</h2>
 <p dir="auto">A 51-page report walks through the whole project: the design decisions and why<br>
@@ -57,6 +114,21 @@ evolution chart.</li>
 <li>Excel: monthly and yearly.</li>
 <li>PDF with embedded charts: monthly, yearly, any range of months, and a net<br>
 worth report.</li>
+</ul>
+<p dir="auto"><strong>Bank mode</strong> (optional, <a target="_blank" rel="noopener noreferrer" href="https://github.com/Ismael-Sallami/personal-finance-manager/blob/main/docs/BANK_SYNC.md"><code class="notranslate">docs/BANK_SYNC.md</code></a>)</p>
+<ul dir="auto">
+<li>Daily read-only sync of movements and balances through Enable Banking (PSD2,<br>
+Account Information only). No payments, nothing stored at the aggregator.</li>
+<li>Automatic categories: a table of base categories plus rules the app learns<br>
+when you answer <code class="notranslate">/pending</code>. Bizum is never auto-classified.</li>
+<li>Transfers between your own accounts are detected and excluded from every sum.</li>
+<li>Refunds (money coming in under an expense category) subtract from that<br>
+expense instead of inflating income.</li>
+<li>Month pace and projection, comparison with last month, top merchants,<br>
+subscription detection with price-rise alerts, unusual-charge alerts and<br>
+monthly budgets with 80 % / 100 % warnings.</li>
+<li>Warning before each bank consent expires, and an automatic month-end close<br>
+with a chart.</li>
 </ul>
 <p dir="auto"><strong>Telegram bot</strong></p>
 <ul dir="auto">
@@ -216,6 +288,26 @@ enough to try everything. Set it to a Postgres URL for real use.</p>
 <td>Authorises <code class="notranslate">/tasks/*</code>. Empty disables those endpoints.</td>
 <td>empty</td>
 </tr>
+<tr>
+<td><code class="notranslate">ENTRY_MODE</code></td>
+<td><code class="notranslate">auto</code> (bank if <code class="notranslate">EB_*</code> are set), <code class="notranslate">manual</code> or <code class="notranslate">bank</code>.</td>
+<td><code class="notranslate">auto</code></td>
+</tr>
+<tr>
+<td><code class="notranslate">EB_APP_ID</code></td>
+<td>Enable Banking application id (bank mode).</td>
+<td>empty</td>
+</tr>
+<tr>
+<td><code class="notranslate">EB_PRIVATE_KEY</code></td>
+<td>Content of the application's <code class="notranslate">.pem</code> (bank mode).</td>
+<td>empty</td>
+</tr>
+<tr>
+<td><code class="notranslate">BANK_SYNC_FROM</code></td>
+<td>Do not import movements before this date (<code class="notranslate">yyyy-mm-dd</code>).</td>
+<td>start of the month</td>
+</tr>
 </tbody>
 </table></markdown-accessiblity-table>
 <hr>
@@ -302,7 +394,11 @@ going unnoticed.</li>
 </tr>
 <tr>
 <td><code class="notranslate">POST /tasks/reminder</code></td>
-<td>last day of the month, 20:00</td>
+<td>days 28 to 31, 20:00 (it only sends on the last day; <code class="notranslate">?force=1</code> sends anyway)</td>
+</tr>
+<tr>
+<td><code class="notranslate">POST /tasks/banksync</code></td>
+<td>daily, 08:00 (bank mode only)</td>
 </tr>
 </tbody>
 </table></markdown-accessiblity-table>
@@ -375,8 +471,41 @@ database recreate the user with <code class="notranslate">python -m scripts.seed
 <td><code class="notranslate">/detailed [period]</code></td>
 <td>Full PDF: net worth, categories, cashflow</td>
 </tr>
+<tr>
+<td><code class="notranslate">/pace</code></td>
+<td>Spent so far, projection and comparison with last month</td>
+</tr>
+<tr>
+<td><code class="notranslate">/merchants [mm/yyyy]</code></td>
+<td>Where the money goes</td>
+</tr>
+<tr>
+<td><code class="notranslate">/subscriptions</code></td>
+<td>Detected monthly charges and yearly cost</td>
+</tr>
+<tr>
+<td><code class="notranslate">/pending</code></td>
+<td>Categorise new movements with buttons (it learns)</td>
+</tr>
+<tr>
+<td><code class="notranslate">/budget [category amount]</code></td>
+<td>Show budgets or set one (<code class="notranslate">0</code> removes it)</td>
+</tr>
+<tr>
+<td><code class="notranslate">/categories</code></td>
+<td>Your categories and the base ones created on their own</td>
+</tr>
+<tr>
+<td><code class="notranslate">/sync</code>, <code class="notranslate">/connections</code></td>
+<td>Bank mode: fetch now, connected banks and days left</td>
+</tr>
+<tr>
+<td><code class="notranslate">/connect</code>, <code class="notranslate">/disconnect</code></td>
+<td>Bank mode: connect, renew or revoke a bank</td>
+</tr>
 </tbody>
 </table></markdown-accessiblity-table>
+<p dir="auto">Typing <code class="notranslate">/</code> shows the list (the bot registers its commands with Telegram on boot).</p>
 <p dir="auto">Any other text is read as expense lines and previewed before saving.</p>
 <hr>
 <h2 dir="auto" id="security">Security</h2>
@@ -409,17 +538,18 @@ crept to the top of a module: move it inside the function that uses it.</p>
   main.py       config.py  db.py  models.py  auth.py  security.py  templating.py
   format.py     scheduler.py
   routers/      dashboard, expenses, investments, banks, reports, tasks,
-                telegram, auth_routes
+                telegram, auth_routes, bank_sync
   services/
     parsers/    myinvestor, traderepublic, kraken, dispatch
     reports/    excel.py  pdf.py  charts.py  generate.py
     aggregation.py  pnl.py  prices.py  symbol_lookup.py  contributions.py
     backup.py   bot.py     expenses_parse.py
+    bank_sync.py  enablebanking.py  insights.py  bot_banks.py
   templates/    static/
 migrations/     Alembic
 scripts/        seed.py  backup.py
 tests/
-docs/           ARCHITECTURE.md  DEPLOYMENT.md
+docs/           ARCHITECTURE.md  DEPLOYMENT.md  BANK_SYNC.md
 informe/        LaTeX sources of the project report + informe.pdf
 </code></pre>
 <hr>
