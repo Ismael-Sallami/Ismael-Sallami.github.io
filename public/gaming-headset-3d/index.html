@@ -15,10 +15,10 @@
       rel="stylesheet"
     />
 
-    <script type="module" crossorigin src="./assets/index-335D1SA7.js"></script>
+    <script type="module" crossorigin src="./assets/index-C0o1O52F.js"></script>
     <link rel="modulepreload" crossorigin href="./assets/gsap-DdEiTQuA.js">
     <link rel="modulepreload" crossorigin href="./assets/three-CGz1X85c.js">
-    <link rel="stylesheet" crossorigin href="./assets/index-B1EhLfZd.css">
+    <link rel="stylesheet" crossorigin href="./assets/index-ZzmiTlRW.css">
   </head>
   <body data-theme="cyber-cyan">
     <!-- Retícula Técnica Milimétrica y Viñeta de Laboratorio -->
@@ -56,93 +56,106 @@
         </div>
       </div>
 
-      <!-- Telemetría Axial y Rendimiento WebGL en Vivo -->
-      <div class="telemetry-strip" aria-label="Métricas de Telemetría en Tiempo Real">
-        <div class="telemetry-cell">
-          <span class="telemetry-label">EXPLOSIÓN AXIAL</span>
-          <strong id="hud-explosion-pct" class="telemetry-value accent-text">00.0%</strong>
-        </div>
-        <div class="telemetry-cell">
-          <span class="telemetry-label">APERTURA MECÁNICA</span>
-          <strong id="hud-axial-mm" class="telemetry-value">000.0 mm</strong>
-        </div>
-        <div class="telemetry-cell">
-          <span class="telemetry-label">ESTRATO ACTIVO</span>
-          <strong id="hud-active-stratum" class="telemetry-value">S0 // ALL</strong>
-        </div>
-        <div class="telemetry-cell telemetry-cell--engine">
-          <span class="telemetry-label">MOTOR WEBGL2</span>
-          <strong id="hud-engine-stats" class="telemetry-value">60 FPS // 28 PRT</strong>
-        </div>
+      <!-- Acciones de Cabecera Móvil (Botones Compactos para Abrir Inspector y Menú) -->
+      <div class="mobile-header-actions">
+        <button type="button" id="btn-mobile-inspector" class="hud-btn hud-btn--mini" aria-label="Abrir inspector de especificaciones">
+          [SPECS]
+        </button>
+        <button type="button" id="btn-mobile-menu" class="hud-btn hud-btn--cta" aria-label="Abrir menú de controles y telemetría" aria-expanded="false">
+          [MENÚ]
+        </button>
       </div>
 
-      <!-- Controles de Modo de Renderizado, Tema Lumínico y Banco de Audio -->
-      <div class="hud-controls-cluster">
-        <!-- Selector de Modo de Vista -->
-        <div class="control-group" role="group" aria-label="Modo de Renderizado 3D">
-          <span class="control-group-label">RENDER MODE</span>
-          <div class="segmented-buttons">
-            <button type="button" class="hud-btn is-active" data-render-mode="pbr">
-              [PBR]
-            </button>
-            <button type="button" class="hud-btn" data-render-mode="wireframe">
-              [WIREFRAME]
-            </button>
-            <button type="button" class="hud-btn" data-render-mode="xray">
-              [X-RAY]
-            </button>
+      <!-- Menú Colapsable Táctico (Controles + Telemetría) -->
+      <div id="hud-collapsible-menu" class="hud-collapsible-menu">
+        <!-- Telemetría Axial y Rendimiento WebGL en Vivo -->
+        <div class="telemetry-strip" aria-label="Métricas de Telemetría en Tiempo Real">
+          <div class="telemetry-cell">
+            <span class="telemetry-label">EXPLOSIÓN AXIAL</span>
+            <strong id="hud-explosion-pct" class="telemetry-value accent-text">00.0%</strong>
+          </div>
+          <div class="telemetry-cell">
+            <span class="telemetry-label">APERTURA MECÁNICA</span>
+            <strong id="hud-axial-mm" class="telemetry-value">000.0 mm</strong>
+          </div>
+          <div class="telemetry-cell">
+            <span class="telemetry-label">ESTRATO ACTIVO</span>
+            <strong id="hud-active-stratum" class="telemetry-value">S0 // ALL</strong>
+          </div>
+          <div class="telemetry-cell telemetry-cell--engine">
+            <span class="telemetry-label">MOTOR WEBGL2</span>
+            <strong id="hud-engine-stats" class="telemetry-value">60 FPS // 28 PRT</strong>
           </div>
         </div>
 
-        <!-- Selector de Tema Lumínico -->
-        <div class="control-group" role="group" aria-label="Tema Lumínico de Laboratorio">
-          <span class="control-group-label">LUMEN THEME</span>
-          <div class="segmented-buttons">
-            <button type="button" class="hud-btn is-active" data-theme-key="cyber-cyan">
-              [CYAN]
-            </button>
-            <button type="button" class="hud-btn" data-theme-key="amber-lab">
-              [AMBER]
-            </button>
-            <button type="button" class="hud-btn" data-theme-key="phantom-violet">
-              [VIOLET]
-            </button>
+        <!-- Controles de Modo de Renderizado, Tema Lumínico y Banco de Audio -->
+        <div class="hud-controls-cluster">
+          <!-- Selector de Modo de Vista -->
+          <div class="control-group" role="group" aria-label="Modo de Renderizado 3D">
+            <span class="control-group-label">RENDER MODE</span>
+            <div class="segmented-buttons">
+              <button type="button" class="hud-btn is-active" data-render-mode="pbr">
+                [PBR]
+              </button>
+              <button type="button" class="hud-btn" data-render-mode="wireframe">
+                [WIREFRAME]
+              </button>
+              <button type="button" class="hud-btn" data-render-mode="xray">
+                [X-RAY]
+              </button>
+            </div>
           </div>
-        </div>
 
-        <!-- Sintetizador Acústico en Vivo -->
-        <div class="control-group control-group--audio" role="group" aria-label="Sintetizador Acústico Planar">
-          <div class="audio-header-row">
-            <button type="button" id="btn-audio-toggle" class="hud-btn hud-btn--cta">
-              <span class="audio-dot"></span>
-              <span id="btn-audio-label">[TEST 90MM AUDIO]</span>
-            </button>
+          <!-- Selector de Tema Lumínico -->
+          <div class="control-group" role="group" aria-label="Tema Lumínico de Laboratorio">
+            <span class="control-group-label">LUMEN THEME</span>
+            <div class="segmented-buttons">
+              <button type="button" class="hud-btn is-active" data-theme-key="cyber-cyan">
+                [CYAN]
+              </button>
+              <button type="button" class="hud-btn" data-theme-key="amber-lab">
+                [AMBER]
+              </button>
+              <button type="button" class="hud-btn" data-theme-key="phantom-violet">
+                [VIOLET]
+              </button>
+            </div>
           </div>
-          <div class="segmented-buttons audio-preset-row">
-            <button
-              type="button"
-              class="hud-btn hud-btn--mini is-active"
-              data-audio-preset="sub-bass"
-              data-freq-hz="28"
-            >
-              20Hz Sub
-            </button>
-            <button
-              type="button"
-              class="hud-btn hud-btn--mini"
-              data-audio-preset="reference"
-              data-freq-hz="440"
-            >
-              440Hz Ref
-            </button>
-            <button
-              type="button"
-              class="hud-btn hud-btn--mini"
-              data-audio-preset="fazor-air"
-              data-freq-hz="14000"
-            >
-              14kHz Air
-            </button>
+
+          <!-- Sintetizador Acústico en Vivo -->
+          <div class="control-group control-group--audio" role="group" aria-label="Sintetizador Acústico Planar">
+            <div class="audio-header-row">
+              <button type="button" id="btn-audio-toggle" class="hud-btn hud-btn--cta">
+                <span class="audio-dot"></span>
+                <span id="btn-audio-label">[TEST 90MM AUDIO]</span>
+              </button>
+            </div>
+            <div class="segmented-buttons audio-preset-row">
+              <button
+                type="button"
+                class="hud-btn hud-btn--mini is-active"
+                data-audio-preset="sub-bass"
+                data-freq-hz="28"
+              >
+                20Hz Sub
+              </button>
+              <button
+                type="button"
+                class="hud-btn hud-btn--mini"
+                data-audio-preset="reference"
+                data-freq-hz="440"
+              >
+                440Hz Ref
+              </button>
+              <button
+                type="button"
+                class="hud-btn hud-btn--mini"
+                data-audio-preset="fazor-air"
+                data-freq-hz="14000"
+              >
+                14kHz Air
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -209,9 +222,14 @@
     <aside id="component-inspector" class="hud-panel" aria-live="polite">
       <div class="inspector-top-bar">
         <span id="inspector-code" class="inspector-code">SYS-FULL-28 // STRATUM 00</span>
-        <button type="button" id="btn-reset-focus" class="hud-btn hud-btn--mini" title="Restaurar vista de todos los estratos">
-          [RESET VIEW]
-        </button>
+        <div class="inspector-top-actions">
+          <button type="button" id="btn-reset-focus" class="hud-btn hud-btn--mini" title="Restaurar vista de todos los estratos">
+            [RESET]
+          </button>
+          <button type="button" id="btn-close-inspector" class="hud-btn hud-btn--mini inspector-close-btn" title="Cerrar panel de especificaciones" aria-label="Cerrar inspector">
+            ✕
+          </button>
+        </div>
       </div>
 
       <h2 id="inspector-title" class="inspector-title">
