@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 560" width="1400" height="560">
+  <title>gittomd: Empaqueta un repositorio Git en un único archivo Markdown para contexto de IA</title>
+  <rect width="1400" height="560" fill="#0a0d16"/>
+  <g stroke="#1b2436" stroke-width="1" opacity="0.55">
+    <line x1="50" y1="0" x2="50" y2="560"/><line x1="150" y1="0" x2="150" y2="560"/>
+    <line x1="250" y1="0" x2="250" y2="560"/><line x1="350" y1="0" x2="350" y2="560"/>
+    <line x1="450" y1="0" x2="450" y2="560"/><line x1="550" y1="0" x2="550" y2="560"/>
+    <line x1="650" y1="0" x2="650" y2="560"/><line x1="750" y1="0" x2="750" y2="560"/>
+    <line x1="850" y1="0" x2="850" y2="560"/><line x1="950" y1="0" x2="950" y2="560"/>
+    <line x1="1050" y1="0" x2="1050" y2="560"/><line x1="1150" y1="0" x2="1150" y2="560"/>
+    <line x1="1250" y1="0" x2="1250" y2="560"/><line x1="1350" y1="0" x2="1350" y2="560"/>
+    <line x1="0" y1="50" x2="1400" y2="50"/><line x1="0" y1="150" x2="1400" y2="150"/>
+    <line x1="0" y1="250" x2="1400" y2="250"/><line x1="0" y1="350" x2="1400" y2="350"/>
+    <line x1="0" y1="450" x2="1400" y2="450"/><line x1="0" y1="550" x2="1400" y2="550"/>
+  </g>
+
+  <!-- Panel Izquierdo: Árbol de archivos del repositorio Git -->
+  <rect x="120" y="100" width="360" height="360" rx="12" fill="#0d1220" stroke="#f59e0b" stroke-width="2.5"/>
+  <rect x="120" y="100" width="360" height="42" rx="12" fill="#241b10"/>
+  <circle cx="150" cy="121" r="5" fill="#f59e0b"/>
+  <rect x="170" y="115" width="160" height="12" rx="3" fill="#f59e0b" opacity="0.8"/>
+
+  <!-- Estructura de árbol -->
+  <g stroke="#f59e0b" stroke-width="1.8" fill="none" opacity="0.7">
+    <line x1="160" y1="180" x2="160" y2="400"/>
+    <line x1="160" y1="210" x2="190" y2="210"/>
+    <line x1="160" y1="260" x2="190" y2="260"/>
+    <line x1="160" y1="310" x2="190" y2="310"/>
+    <line x1="160" y1="360" x2="190" y2="360"/>
+    <line x1="190" y1="260" x2="190" y2="290"/>
+    <line x1="190" y1="290" x2="220" y2="290"/>
+  </g>
+  <g fill="#f59e0b">
+    <rect x="200" y="204" width="70" height="12" rx="3" opacity="0.9"/>
+    <rect x="200" y="254" width="90" height="12" rx="3" opacity="0.9"/>
+    <rect x="230" y="284" width="110" height="12" rx="3" fill="#fbbf24" opacity="0.8"/>
+    <rect x="200" y="304" width="80" height="12" rx="3" opacity="0.9"/>
+    <rect x="200" y="354" width="100" height="12" rx="3" opacity="0.9"/>
+  </g>
+  <g fill="#94a3b8" opacity="0.4">
+    <rect x="280" y="206" width="120" height="8" rx="2"/>
+    <rect x="300" y="256" width="90" height="8" rx="2"/>
+    <rect x="290" y="306" width="130" height="8" rx="2"/>
+    <rect x="310" y="356" width="80" height="8" rx="2"/>
+  </g>
+
+  <!-- Flujo central de transformación -->
+  <g stroke="#f59e0b" stroke-width="3" fill="none">
+    <path d="M480 280 C580 280, 580 280, 680 280" stroke-dasharray="8,6"/>
+    <polygon points="680,274 695,280 680,286" fill="#f59e0b"/>
+  </g>
+  <circle cx="585" cy="280" r="28" fill="#1e1810" stroke="#f59e0b" stroke-width="2"/>
+  <text x="568" y="287" font-family="monospace" font-size="20" font-weight="bold" fill="#f59e0b">.md</text>
+
+  <!-- Panel Derecho: Archivo Markdown resultante unificado -->
+  <rect x="760" y="90" width="520" height="380" rx="12" fill="#0d1220" stroke="#38bdf8" stroke-width="2.5"/>
+  <rect x="760" y="90" width="520" height="42" rx="12" fill="#131e2b"/>
+  <circle cx="790" cy="111" r="5" fill="#38bdf8"/>
+  <rect x="810" y="105" width="220" height="12" rx="3" fill="#38bdf8" opacity="0.8"/>
+
+  <!-- Contenido Markdown estructurado -->
+  <g fill="#38bdf8">
+    <text x="800" y="175" font-family="monospace" font-size="20" font-weight="bold"># Repository Context</text>
+    <rect x="800" y="195" width="160" height="14" rx="4" opacity="0.7"/>
+    <rect x="970" y="195" width="110" height="14" rx="4" fill="#34d399" opacity="0.8"/>
+  </g>
+  <g fill="#94a3b8" opacity="0.5">
+    <rect x="800" y="230" width="440" height="8" rx="2"/>
+    <rect x="800" y="248" width="380" height="8" rx="2"/>
+    <rect x="800" y="266" width="410" height="8" rx="2"/>
+  </g>
+
+  <!-- Bloque de código embebido -->
+  <rect x="790" y="295" width="460" height="145" rx="8" fill="#070a10" stroke="#1e293b" stroke-width="1.5"/>
+  <g fill="#38bdf8" opacity="0.7">
+    <rect x="815" y="315" width="120" height="9" rx="2"/>
+    <rect x="815" y="335" width="180" height="9" rx="2"/>
+    <rect x="815" y="355" width="260" height="9" rx="2" fill="#34d399"/>
+    <rect x="815" y="375" width="210" height="9" rx="2"/>
+    <rect x="815" y="395" width="140" height="9" rx="2"/>
+    <rect x="815" y="415" width="90" height="9" rx="2"/>
+  </g>
+</svg>

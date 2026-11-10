@@ -26,6 +26,12 @@ import neetcode from '../../assets/images/neetcode.svg'
 import earlyCourses from '../../assets/images/early_courses.svg'
 import algorithmDesign from '../../assets/images/algorithm_design.svg'
 import projectDefault from '../../assets/images/project-default.svg'
+import asusTufA15 from '../../assets/images/asus_tuf_a15.png'
+import gamingHeadset3d from '../../assets/images/gaming_headset_3d.png'
+import pulevaHealth from '../../assets/images/puleva_health.jpg'
+import murmurImg from '../../assets/images/murmur.svg'
+import diffcheckerImg from '../../assets/images/diffchecker.svg'
+import gittomdImg from '../../assets/images/gittomd.svg'
 
 import generated from './projects.generated.json'
 
@@ -36,6 +42,80 @@ const covers = import.meta.glob('./project-images/*.svg', {
 })
 
 export const projects = [
+  {
+    title: 'ASUS TUF A15 · Despiece 3D interactivo',
+    desc: 'Laboratorio de telemetría y despiece cinemático en 3D del ASUS TUF Gaming A15 (FA507) en Three.js y React. Desmontaje paramétrico capa a capa por coordenadas al hacer scroll (turbinas Arc Flow de 84 aspas, disipador de cobre sinterizado, die Ryzen 7 y RTX 4060, batería de 90Wh y teclado WASD), tacómetro radial de RPM en tiempo real, HUD estilo Armoury Crate y síntesis acústica con Web Audio API.',
+    tag: '3D · WebGL · Three.js',
+    url: 'https://github.com/Ismael-Sallami/asus-tuf-a15-3d',
+    img: asusTufA15,
+    featured: true,
+    en: {
+      title: 'ASUS TUF A15 · 3D Hardware Teardown',
+      desc: 'Interactive 3D hardware teardown and scrollytelling laboratory for the ASUS TUF Gaming A15 (FA507) built with Three.js and React. Parametric layer-by-layer disassembly on scroll (84-blade Arc Flow fans, sintered copper heatpipes, Ryzen 7 + RTX 4060 dies, 90Wh battery, and WASD deck), live RPM tachometer, Armoury Crate telemetry HUD, and procedural Web Audio API synthesis.',
+      tag: '3D · WebGL · Three.js',
+    },
+  },
+  {
+    title: 'AETHER NOVA PRO · Telemetría acústica 3D',
+    desc: 'Inspección de ingeniería acústica en 3D de unos auriculares magnéticos planares de 90 mm. Modelado paramétrico de 7 estratos y 28 piezas, cinemática de despiece sincronizada con GSAP ScrollTrigger, propagación holográfica de frentes de onda en tiempo real, modos PBR/Wireframe/Rayos X y analizador FFT interactivo con Web Audio API.',
+    tag: '3D · WebGL · Audio API',
+    url: 'https://github.com/Ismael-Sallami/gaming-headset-3d',
+    img: gamingHeadset3d,
+    featured: true,
+    en: {
+      title: 'AETHER NOVA PRO · 3D Acoustic Telemetry Lab',
+      desc: 'Interactive 3D acoustic engineering lab for 90mm planar magnetic headphones. Parametric assembly with 7 strata and 28 decoupled components, cinematic scroll-linked explosion via GSAP ScrollTrigger, real-time holographic acoustic wavefront propagation, PBR/Wireframe/X-Ray inspection modes, and live Web Audio API FFT analyzer.',
+      tag: '3D · WebGL · Audio API',
+    },
+  },
+  {
+    title: 'Puleva Health · Salud líquida en 3D',
+    desc: 'Propuesta ganadora del Hackathon UGR × Lactalis Puleva 2026. Plataforma web interactiva con renderizado 3D de monodosis en Three.js, simulación de fluidos lácteos, spot audiovisual de 67 segundos programado con Remotion y recorrido interactivo por las rutinas del consumidor.',
+    tag: 'Three.js · React · Remotion',
+    url: 'https://github.com/Ismael-Sallami/puleva-health',
+    img: pulevaHealth,
+    en: {
+      title: 'Puleva Health · 3D Liquid Nutrition',
+      desc: 'Winning innovation proposal for the UGR × Lactalis Puleva 2026 Hackathon. Interactive web platform featuring Three.js 3D single-dose packaging, fluid simulation, a 67-second programmatic video spot built with Remotion, and an interactive daily routine walkthrough.',
+      tag: 'Three.js · React · Remotion',
+    },
+  },
+  {
+    title: 'Murmur · Transcripción y notas Cornell con MCP',
+    desc: 'Captura de audio resiliente en el aula con ingesta en streaming por chunks, transcripción acelerada con Whisper (Groq Cloud y local con CTranslate2 + Silero-VAD), síntesis estructurada de apuntes mediante LLMs y sincronización bidireccional por Model Context Protocol (MCP) hacia Obsidian, LaTeX y Notion.',
+    tag: 'Python · Whisper · MCP',
+    url: 'https://github.com/Ismael-Sallami/murmur',
+    img: murmurImg,
+    en: {
+      title: 'Murmur · Lecture Transcription & Cornell Notes via MCP',
+      desc: 'Resilient lecture audio capture with chunk streaming, accelerated Whisper transcription (Groq Cloud and local CTranslate2 + Silero-VAD), structured LLM Cornell note synthesis, and multi-channel Model Context Protocol (MCP) synchronization to Obsidian, LaTeX, and Notion.',
+      tag: 'Python · Whisper · MCP',
+    },
+  },
+  {
+    title: 'Diffchecker · Comparador y fusión en navegador',
+    desc: 'Herramienta de comparación de texto y fusión bloque a bloque que corre íntegramente en el navegador bajo el algoritmo de Myers. Cero dependencias externas y privacidad absoluta sin envío de datos al servidor.',
+    tag: 'JavaScript · Algoritmos',
+    url: 'https://github.com/Ismael-Sallami/diffchecker',
+    img: diffcheckerImg,
+    en: {
+      title: 'Diffchecker · In-Browser Diff & Merge Tool',
+      desc: 'Client-side text diff and block-by-block merge utility powered by the Myers difference algorithm. Zero dependencies and complete privacy with all operations executing locally on the browser engine.',
+      tag: 'JavaScript · Algorithms',
+    },
+  },
+  {
+    title: 'gittomd · Repositorio a Markdown para contexto LLM',
+    desc: 'Empaqueta repositorios completos de GitHub o directorios locales en un único archivo Markdown estructurado con árbol de ficheros y código fuente listo para alimentar ventanas de contexto de modelos de lenguaje. Disponible como CLI y herramienta web.',
+    tag: 'CLI · Markdown · LLM',
+    url: 'https://github.com/Ismael-Sallami/gittomd',
+    img: gittomdImg,
+    en: {
+      title: 'gittomd · Repo-to-Markdown for LLM Context',
+      desc: 'Packs full GitHub repositories or local directories into a single structured Markdown file with file tree and highlighted source code, optimized for LLM context windows. Available both as CLI and browser tool without external dependencies.',
+      tag: 'CLI · Markdown · LLM',
+    },
+  },
   {
     title: 'Laboratorio de infraestructura con Ansible',
     desc: 'Aprovisionamiento de un laboratorio Rocky Linux: playbooks que crean usuarios y servidores web, Prometheus y Grafana midiéndolos, y un plan de JMeter que los somete a carga. Las claves no viven en el repositorio, las genera un script.',

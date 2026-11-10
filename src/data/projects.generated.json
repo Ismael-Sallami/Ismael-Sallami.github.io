@@ -127,6 +127,26 @@
     "hasReadme": true
   },
   {
+    "url": "https://github.com/Ismael-Sallami/asus-tuf-a15-3d",
+    "slug": "asus-tuf-a15-3d",
+    "fullName": "Ismael-Sallami/asus-tuf-a15-3d",
+    "name": "asus-tuf-a15-3d",
+    "headline": "ASUS TUF Gaming A15 — 3D Hardware Teardown &amp; Scrollytelling Experience",
+    "description": "Interactive 3D hardware teardown and scrollytelling experience for the ASUS TUF Gaming A15 (FA507)",
+    "language": null,
+    "topics": [
+      "gsap",
+      "portfolio",
+      "react",
+      "scrollytelling",
+      "threejs",
+      "webgl"
+    ],
+    "homepage": null,
+    "pushedAt": "2026-11-10",
+    "hasReadme": true
+  },
+  {
     "url": "https://github.com/Ismael-Sallami/concurrency-mpi",
     "slug": "concurrency-mpi",
     "fullName": "Ismael-Sallami/concurrency-mpi",
@@ -210,6 +230,26 @@
     ],
     "homepage": null,
     "pushedAt": "2026-09-11",
+    "hasReadme": true
+  },
+  {
+    "url": "https://github.com/Ismael-Sallami/gaming-headset-3d",
+    "slug": "gaming-headset-3d",
+    "fullName": "Ismael-Sallami/gaming-headset-3d",
+    "name": "gaming-headset-3d",
+    "headline": "AETHER NOVA PRO — 3D Planar Magnetic Headset &amp; Acoustic Telemetry Lab",
+    "description": "Interactive 3D Exploded View & Acoustic Telemetry Lab for the AETHER NOVA PRO 90mm Planar Magnetic Headset",
+    "language": null,
+    "topics": [
+      "audio-api",
+      "gsap",
+      "portfolio",
+      "scrollytelling",
+      "threejs",
+      "webgl"
+    ],
+    "homepage": "https://ismael-sallami.github.io",
+    "pushedAt": "2026-11-10",
     "hasReadme": true
   },
   {
@@ -306,7 +346,7 @@
     "language": "HTML",
     "topics": [],
     "homepage": null,
-    "pushedAt": "2026-11-09",
+    "pushedAt": "2026-11-10",
     "hasReadme": true
   },
   {
