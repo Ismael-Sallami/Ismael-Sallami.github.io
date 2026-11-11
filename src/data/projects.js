@@ -204,13 +204,13 @@ export const projects = [
     },
   },
   {
-    title: 'pdf-to-md',
+    title: 'pdf2md',
     desc: 'Conversor de PDF a Markdown por línea de órdenes. La extracción va en cascada: primero la capa de texto, luego el análisis de disposición y sólo al final OCR, que es órdenes de magnitud más lento y sobra en los documentos que no lo necesitan.',
     tag: 'Python · CLI',
-    url: 'https://github.com/Ismael-Sallami/pdf-to-md',
+    url: 'https://github.com/Ismael-Sallami/pdf2md',
     img: pdfToMd,
     en: {
-      title: 'pdf-to-md',
+      title: 'pdf2md',
       desc: 'A command-line PDF to Markdown converter. Extraction is layered: the text layer first, then layout analysis, and OCR only at the end, since it is orders of magnitude slower and wasted on documents that do not need it.',
       tag: 'Python · CLI',
     },
@@ -280,7 +280,7 @@ export const projects = [
     title: 'md2html · Test Generator',
     desc: 'Convierte preguntas escritas en Markdown en un test HTML que se corrige solo: baraja, califica y muestra la explicación de cada respuesta. El resultado es un único fichero que funciona sin servidor, y sus doce temas son los mismos que usa la versión web.',
     tag: 'Tooling',
-    url: 'https://github.com/Ismael-Sallami/md2html-testGenerator',
+    url: 'https://github.com/Ismael-Sallami/md2html',
     img: testGen,
     en: {
       title: 'md2html · Test Generator',
