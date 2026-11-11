@@ -65,6 +65,18 @@ export const dict = {
       pr: 'PR',
       prs: 'PRs',
     },
+    xerjRecognition: {
+      kicker: 'Reconocimiento Open Source',
+      title: 'Indexado en XERJ Corpus Hub',
+      intro:
+        'XERJ es un motor de búsqueda open-source nativo de IA para agentes de código. Su Corpus Hub público indexa implementaciones de referencia que los agentes consultan y reutilizan como ejemplos probados al enfrentarse a problemas de desarrollo.',
+      cta: 'Ver perfil en XERJ Hub',
+      detail:
+        'Seleccionado el desarrollo de animaciones de scroll parallax y pipeline dinámico en el estudio web del repositorio murmur, como ejemplo de referencia para agentes de programación.',
+      stats: '12 ficheros · ~1.200 líneas en TypeScript y JavaScript · Licencia MIT',
+      selectedCommit: 'Commit seleccionado',
+      verifiedContributor: 'Contribuidor verificado en XERJ Corpus Hub',
+    },
     skillsPage: {
       kicker: 'Stack',
       title: 'Habilidades',
@@ -186,6 +198,18 @@ export const dict = {
       commits: 'commits',
       pr: 'PR',
       prs: 'PRs',
+    },
+    xerjRecognition: {
+      kicker: 'Open Source Recognition',
+      title: 'Indexed in XERJ Corpus Hub',
+      intro:
+        'XERJ is an open-source AI-native search engine for coding agents. Its public Corpus Hub indexes reference implementations that AI agents search and retrieve as worked examples when solving programming tasks.',
+      cta: 'View profile on XERJ Hub',
+      detail:
+        'Selected for the scroll parallax animations and dynamic pipeline implementation in the murmur web studio, serving as a worked reference example for AI coding agents.',
+      stats: '12 files · ~1,200 lines in TypeScript & JavaScript · MIT License',
+      selectedCommit: 'Selected commit',
+      verifiedContributor: 'Verified contributor on XERJ Corpus Hub',
     },
     skillsPage: {
       kicker: 'Stack',

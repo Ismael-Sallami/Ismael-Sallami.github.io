@@ -18,6 +18,7 @@ export const profile = {
   github: 'https://github.com/Ismael-Sallami',
   linkedin: 'https://es.linkedin.com/in/ismael-sallami-moreno-2257072b9',
   site: 'https://ismael-sallami.github.io',
+  xerj: 'https://hub.xerj.org/contributors/Ismael-Sallami',
 }
 
 // Shown without the scheme, which is noise on paper.

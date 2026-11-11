@@ -1,5 +1,5 @@
 import { Link, useParams } from 'react-router-dom'
-import { ArrowLeft, ArrowUpRight, Calendar, Code2 } from 'lucide-react'
+import { ArrowLeft, ArrowUpRight, Calendar, Code2, Sparkles } from 'lucide-react'
 
 import PageWrap from '../components/PageWrap.jsx'
 import ReadmeView from '../components/ReadmeView.jsx'
@@ -98,7 +98,76 @@ export default function ProjectDetail() {
                 {t('project.repository')}
                 <ArrowUpRight size={15} />
               </a>
+              {project.recognition && (
+                <a
+                  href={project.recognition.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 font-medium text-purple-300 transition-colors hover:text-purple-200"
+                >
+                  <Sparkles size={15} className="text-purple-400" />
+                  {lang === 'en' ? project.recognition.badgeEn : project.recognition.badge}
+                  <ArrowUpRight size={14} />
+                </a>
+              )}
             </div>
+
+            {project.recognition && (
+              <div className="mt-8 rounded-2xl border border-purple-500/25 bg-gradient-to-r from-purple-500/10 via-purple-500/5 to-transparent p-5 backdrop-blur-sm">
+                <div className="flex flex-wrap items-center justify-between gap-3">
+                  <div className="flex items-center gap-2">
+                    <Sparkles size={18} className="text-purple-400" />
+                    <h3 className="font-display text-lg text-ivory">
+                      {lang === 'en' ? project.recognition.titleEn : project.recognition.title}
+                    </h3>
+                  </div>
+                  <a
+                    href={project.recognition.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group inline-flex items-center gap-1.5 rounded-full border border-purple-400/30 bg-purple-500/15 px-3.5 py-1 text-xs font-semibold text-purple-200 transition-all hover:bg-purple-500/30 hover:border-purple-300"
+                  >
+                    <span>{lang === 'en' ? 'Contributor Profile' : 'Perfil de contribuidor'}</span>
+                    <ArrowUpRight size={13} className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                  </a>
+                </div>
+
+                <p className="mt-2.5 text-sm text-cool">
+                  {lang === 'en' ? project.recognition.descEn : project.recognition.desc}
+                </p>
+
+                <div className="mt-4 flex flex-wrap items-center justify-between gap-3 border-t border-white/5 pt-3 text-xs text-cool">
+                  <div className="flex flex-wrap items-center gap-2">
+                    <span className="text-ivory font-medium">
+                      {lang === 'en' ? 'Selected commit:' : 'Commit seleccionado:'}
+                    </span>
+                    <a
+                      href={project.recognition.commitUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="font-mono text-purple-300 hover:underline"
+                    >
+                      {project.recognition.commit}
+                    </a>
+                    <span>·</span>
+                    <span>12 files · ~1,200 lines (TypeScript, JavaScript)</span>
+                  </div>
+                  <a
+                    href={project.recognition.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="shrink-0"
+                  >
+                    <img
+                      src={project.recognition.badgeUrl}
+                      alt="XERJ Corpus Hub contributor"
+                      className="h-5"
+                      loading="lazy"
+                    />
+                  </a>
+                </div>
+              </div>
+            )}
           </div>
         </header>
 

@@ -54,9 +54,17 @@ export default function ProjectCard({ project, index, large = false }) {
       <div className="absolute inset-0 bg-gradient-to-t from-void via-void/70 to-transparent" />
 
       <div className="relative z-10 p-6">
-        <span className="inline-block rounded-full border border-accent/40 bg-accent/10 px-3 py-1 text-xs font-medium text-accent">
-          {project.tag}
-        </span>
+        <div className="flex flex-wrap items-center gap-2">
+          <span className="inline-block rounded-full border border-accent/40 bg-accent/10 px-3 py-1 text-xs font-medium text-accent">
+            {project.tag}
+          </span>
+          {project.recognition && (
+            <span className="inline-flex items-center gap-1.5 rounded-full border border-purple-400/30 bg-purple-500/15 px-2.5 py-1 text-xs font-medium text-purple-300">
+              <span className="h-1.5 w-1.5 rounded-full bg-purple-400 animate-pulse" />
+              XERJ Corpus Hub
+            </span>
+          )}
+        </div>
         <h3 className={`mt-3 font-display tracking-tightest ${large ? 'text-3xl' : 'text-2xl'}`}>
           {project.title}
         </h3>
