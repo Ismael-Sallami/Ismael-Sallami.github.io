@@ -37,6 +37,11 @@ export const labels = {
     en: "Certified in Ahrefs' Marketing Platform",
     year: '2026',
   },
+  'hackathon-innovacion-puleva-ugr-2026.pdf': {
+    es: 'Hackathon de Innovación · Cátedra Lactalis Puleva - UGR',
+    en: 'Innovation Hackathon · Lactalis Puleva - UGR Chair',
+    year: '2026',
+  },
 }
 
 // The order the site shows them in. Anything not listed goes after, alphabetically.
