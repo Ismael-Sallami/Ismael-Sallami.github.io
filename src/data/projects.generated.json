@@ -133,7 +133,7 @@
     "name": "asus-tuf-a15-3d",
     "headline": "ASUS TUF Gaming A15 — 3D Hardware Teardown &amp; Scrollytelling Experience",
     "description": "Interactive 3D hardware teardown and scrollytelling experience for the ASUS TUF Gaming A15 (FA507)",
-    "language": null,
+    "language": "TypeScript",
     "topics": [
       "gsap",
       "portfolio",
@@ -239,7 +239,7 @@
     "name": "gaming-headset-3d",
     "headline": "AETHER NOVA PRO — 3D Planar Magnetic Headset &amp; Acoustic Telemetry Lab",
     "description": "Interactive 3D Exploded View & Acoustic Telemetry Lab for the AETHER NOVA PRO 90mm Planar Magnetic Headset",
-    "language": null,
+    "language": "JavaScript",
     "topics": [
       "audio-api",
       "gsap",
