@@ -1,20 +1,20 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="800" height="600" role="img" aria-label="">
   <defs>
     <linearGradient id="base" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="hsl(190, 45%, 10%)"/>
+      <stop offset="0" stop-color="hsl(160, 45%, 10%)"/>
       <stop offset="1" stop-color="hsl(265, 50%, 8%)"/>
     </linearGradient>
-    <radialGradient id="a" cx="32%" cy="25%" r="55%">
-      <stop offset="0" stop-color="hsl(190, 95%, 52%)" stop-opacity="0.90"/>
-      <stop offset="1" stop-color="hsl(190, 95%, 52%)" stop-opacity="0"/>
+    <radialGradient id="a" cx="43%" cy="43%" r="55%">
+      <stop offset="0" stop-color="hsl(160, 95%, 52%)" stop-opacity="0.90"/>
+      <stop offset="1" stop-color="hsl(160, 95%, 52%)" stop-opacity="0"/>
     </radialGradient>
-    <radialGradient id="b" cx="83%" cy="54%" r="52%">
+    <radialGradient id="b" cx="87%" cy="76%" r="52%">
       <stop offset="0" stop-color="hsl(265, 92%, 58%)" stop-opacity="0.76"/>
       <stop offset="1" stop-color="hsl(265, 92%, 58%)" stop-opacity="0"/>
     </radialGradient>
     <radialGradient id="c" cx="50%" cy="108%" r="60%">
-      <stop offset="0" stop-color="hsl(190, 95%, 48%)" stop-opacity="0.40"/>
-      <stop offset="1" stop-color="hsl(190, 95%, 48%)" stop-opacity="0"/>
+      <stop offset="0" stop-color="hsl(160, 95%, 48%)" stop-opacity="0.40"/>
+      <stop offset="1" stop-color="hsl(160, 95%, 48%)" stop-opacity="0"/>
     </radialGradient>
   </defs>
   <rect width="800" height="600" fill="url(#base)"/>
@@ -22,7 +22,7 @@
   <rect width="800" height="600" fill="url(#b)"/>
   <rect width="800" height="600" fill="url(#c)"/>
   <g fill="none" stroke="hsl(0, 0%, 100%)" stroke-opacity="0.14" stroke-width="1.5">
-    <circle cx="375" cy="315" r="215"/>
-    <circle cx="652" cy="482" r="320"/>
+    <circle cx="430" cy="387" r="215"/>
+    <circle cx="668" cy="548" r="320"/>
   </g>
 </svg>

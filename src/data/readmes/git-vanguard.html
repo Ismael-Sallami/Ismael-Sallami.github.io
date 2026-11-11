@@ -1,0 +1,256 @@
+<p dir="auto"><a target="_blank" rel="noopener noreferrer" href="https://github.com/Ismael-Sallami/git-vanguard/blob/main/LICENSE"><img loading="lazy" decoding="async" src="https://camo.githubusercontent.com/b3edce6c037b61d94c3f092382f5334a5a8513bf787a5c5fe54057fa583499f5/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f6c6963656e6369612d4d49542d626c75652e737667" alt="Licencia MIT" data-canonical-src="https://img.shields.io/badge/licencia-MIT-blue.svg" style="max-width: 100%;"></a><br>
+<a target="_blank" rel="noopener noreferrer" href="https://kernel.org" rel="nofollow"><img loading="lazy" decoding="async" src="https://camo.githubusercontent.com/dc466c65af9861ff0d900ad62ece219baf72c40a79481498d09e2a06587c110e/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f706c617461666f726d612d4c696e75782d6f72616e67652e737667" alt="Plataforma" data-canonical-src="https://img.shields.io/badge/plataforma-Linux-orange.svg" style="max-width: 100%;"></a><br>
+<a target="_blank" rel="noopener noreferrer" href="https://www.rust-lang.org" rel="nofollow"><img loading="lazy" decoding="async" src="https://camo.githubusercontent.com/6c24ad25b963e9a05431c6b9a92bc79dc417c5c028d672c264aa0b424dfbcc7b/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f6c656e6775616a652d52757374253230312e39352b2d7265642e737667" alt="Lenguaje" data-canonical-src="https://img.shields.io/badge/lenguaje-Rust%201.95+-red.svg" style="max-width: 100%;"></a><br>
+<a target="_blank" rel="noopener noreferrer" href="https://ratatui.rs" rel="nofollow"><img loading="lazy" decoding="async" src="https://camo.githubusercontent.com/7e14abc239f767bb754abc2c37fc2d73a48b7ddee45ca5455664b692278f15a7/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f6d6f746f722d52617461747569253230302e32392d6379616e2e737667" alt="TUI Engine" data-canonical-src="https://img.shields.io/badge/motor-Ratatui%200.29-cyan.svg" style="max-width: 100%;"></a><br>
+<a target="_blank" rel="noopener noreferrer" href="https://ismael-sallami.github.io/git-vanguard/" rel="nofollow"><img loading="lazy" decoding="async" src="https://camo.githubusercontent.com/6c4fbaa6d0217ea857d925334448fab6da02059d587bff42ed83a863a84bb38e/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f7765622d6769742d2d76616e67756172642d626c7565" alt="Live Demo" data-canonical-src="https://img.shields.io/badge/web-git--vanguard-blue" style="max-width: 100%;"></a></p>
+<blockquote>
+<p dir="auto">🌐 <strong>Landing y Documentación Web:</strong> <a target="_blank" rel="noopener noreferrer" href="https://ismael-sallami.github.io/git-vanguard/" rel="nofollow">ismael-sallami.github.io/git-vanguard</a></p>
+</blockquote>
+<p dir="auto"><strong>GitVanguard</strong> (<code class="notranslate">vanguard</code> o alias <code class="notranslate">gv</code>) es un controlador de Git en terminal (TUI) de alto rendimiento, desarrollado desde cero en <strong>Rust</strong> exclusivamente para entornos <strong>Linux</strong>.</p>
+<p dir="auto">Diseñado desde cero para ofrecer una velocidad de renderizado implacable (&lt;5 ms por frame, sin sobrecargas de recolección de basura) y una suite completa de capacidades avanzadas: <strong>Time Machine</strong> para navegación visual y restauración instantánea del <code class="notranslate">reflog</code>, el escudo de seguridad proactivo <strong>Sentinel Shield</strong> contra fugas accidentales de secretos, un asistente integrado de <strong>Conventional Commits</strong> y un centro de mando nativo para <strong>Git Worktrees</strong>.</p>
+<pre class="notranslate"><code class="notranslate">╭────────────────────────────────────────────────────────────────────────────────────────────────────────╮
+│ GITVANGUARD v0.1 │ [1. Archivos] │ 2. Ramas │ 3. Historial │ 4. Worktrees │ 5. Stash │ 6. Time Machine │
+├──────────────────────────────────────────┬─────────────────────────────────────────────────────────────┤
+│ Cambios de Trabajo [Unstaged: 2]         │ Inspección de Diferencias (Diff)                            │
+│ * [M] src/main.rs                        │    1 │ diff --git a/src/main.rs b/src/main.rs               │
+│   [?] .env.local                         │    2 │ --- a/src/main.rs                                    │
+│                                          │    3 │ +++ b/src/main.rs                                    │
+├──────────────────────────────────────────┤    4 │ @@ -45,3 +45,9 @@                                    │
+│ Cambios Preparados [Staged: 1]           │    5 │ // Sentinel Shield: verificación activa              │
+│ * [M] src/sentinel.rs                    │    6 │ +pub fn scan_diff(diff: &amp;str) -&gt; Vec&lt;Finding&gt;        │
+│                                          │    7 │ +    let compiled = get_compiled_rules();            │
+╰──────────────────────────────────────────┴─────────────────────────────────────────────────────────────╯
+  Tab: Pestaña │ Space: Stage/Checkout │ c: Commit │ C: Conv. Commit │ U: Rebobinar │ q: Salir
+</code></pre>
+<hr>
+<h2 dir="auto" id="innovaciones-fundamentales">Innovaciones Fundamentales</h2>
+<h3 dir="auto" id="1-sentinel-shield-escudo-anti-fugas-pre-commit">1. Sentinel Shield: Escudo Anti-Fugas Pre-Commit</h3>
+<p dir="auto">A diferencia de otros clientes TUI que permiten commitear código ciegamente, GitVanguard incorpora un analizador estático en tiempo real sobre los cambios preparados (<code class="notranslate">staged</code>). Detecta e intercepta automáticamente:</p>
+<ul dir="auto">
+<li>Claves de API (OpenAI, AWS Access Keys, Google Cloud, Stripe).</li>
+<li>Tokens personales de GitHub (<code class="notranslate">ghp_...</code>, <code class="notranslate">github_pat_...</code>) y Slack (<code class="notranslate">xoxb-...</code>).</li>
+<li>Claves privadas criptográficas (RSA, OpenSSH, PGP, certificados <code class="notranslate">.pem</code>).</li>
+<li>Ficheros de variables de entorno no ignorados (<code class="notranslate">.env</code>, <code class="notranslate">.env.local</code>, <code class="notranslate">credentials.json</code>).</li>
+</ul>
+<p dir="auto">Si se detecta un patrón de riesgo, GitVanguard bloquea preventivamente el commit y muestra un panel de auditoría indicando archivo, línea exacta y extracto ofuscado.</p>
+<h3 dir="auto" id="2-time-machine-navegador-visual-de-reflog-con-undo-en-1-tecla">2. Time Machine: Navegador Visual de Reflog con Undo en 1 Tecla</h3>
+<p dir="auto">El <code class="notranslate">reflog</code> de Git es el salvavidas definitivo ante errores, pero su inspección mediante CLI es engorrosa. Time Machine expone cada salto temporal (<code class="notranslate">checkout</code>, <code class="notranslate">commit</code>, <code class="notranslate">rebase</code>, <code class="notranslate">reset</code>, <code class="notranslate">merge</code>) con:</p>
+<ul dir="auto">
+<li>Fecha relativa legible.</li>
+<li>Resumen de la acción ejecutada.</li>
+<li>Diff contextual instantáneo en el viewport contiguo.</li>
+<li><strong>Restauración instantánea con tecla <code class="notranslate">U</code></strong>: rebobina el repositorio al instante histórico exacto con confirmación protegida.</li>
+</ul>
+<h3 dir="auto" id="3-hub-de-mando-para-git-worktrees">3. Hub de Mando para Git Worktrees</h3>
+<p dir="auto">Los árboles de trabajo vinculados (<em>worktrees</em>) son el estándar de la ingeniería moderna para trabajar en ramas paralelas sin perder el estado del directorio de trabajo. GitVanguard ofrece un panel dedicado para:</p>
+<ul dir="auto">
+<li>Visualizar todos los worktrees activos y sus ramas asociadas.</li>
+<li>Crear nuevos worktrees vinculados en un solo atajo (<code class="notranslate">n</code>).</li>
+<li>Desvincular y limpiar worktrees obsoletos (<code class="notranslate">d</code>).</li>
+</ul>
+<h3 dir="auto" id="4-asistente-semántico-conventional-commits">4. Asistente Semántico Conventional Commits</h3>
+<p dir="auto">Un asistente modal paso a paso para estandarizar el historial de versiones según la especificación <em>Conventional Commits</em>:</p>
+<ul dir="auto">
+<li>Selector rápido de tipo: <code class="notranslate">feat</code>, <code class="notranslate">fix</code>, <code class="notranslate">refactor</code>, <code class="notranslate">perf</code>, <code class="notranslate">docs</code>, <code class="notranslate">style</code>, <code class="notranslate">test</code>, <code class="notranslate">chore</code>, <code class="notranslate">ci</code>.</li>
+<li>Ámbito opcional: <code class="notranslate">(auth)</code>, <code class="notranslate">(ui)</code>, <code class="notranslate">(engine)</code>.</li>
+<li>Indicador visual de <em>Breaking Change</em> (<code class="notranslate">!</code>).</li>
+<li>Contador de caracteres con aviso dinámico de la regla de oro 50/72 caracteres.</li>
+</ul>
+<h3 dir="auto" id="5-zombie-branch-pruner">5. Zombie Branch Pruner</h3>
+<p dir="auto">Identifica de forma automática e instantánea las ramas locales cuyos commits ya han sido completamente fusionados en la rama principal (<code class="notranslate">main</code>/<code class="notranslate">master</code>), permitiendo su depuración en lote de forma segura mediante confirmación.</p>
+<hr>
+<h2 dir="auto" id="instalación-en-linux">Instalación en Linux</h2>
+<p dir="auto">GitVanguard se distribuye mediante un script instalador universal que detecta la arquitectura del procesador (<code class="notranslate">x86_64</code> o <code class="notranslate">aarch64</code>), configura los permisos y genera los alias necesarios:</p>
+<div class="highlight highlight-source-shell" dir="auto"><pre class="notranslate">curl -fsSL https://raw.githubusercontent.com/Ismael-Sallami/git-vanguard/main/install.sh <span class="pl-k">|</span> bash</pre></div>
+<h3 dir="auto" id="compilación-desde-código-fuente-rust">Compilación desde Código Fuente (Rust)</h3>
+<p dir="auto">Si dispones de la cadena de herramientas de Rust:</p>
+<div class="highlight highlight-source-shell" dir="auto"><pre class="notranslate"><span class="pl-c"><span class="pl-c">#</span> Clonar el repositorio</span>
+git clone https://github.com/Ismael-Sallami/git-vanguard.git
+<span class="pl-c1">cd</span> git-vanguard
+
+<span class="pl-c"><span class="pl-c">#</span> Compilar en modo release optimizado</span>
+cargo build --release
+
+<span class="pl-c"><span class="pl-c">#</span> Instalar en tu PATH local</span>
+cp target/release/vanguard <span class="pl-k">~</span>/.local/bin/
+ln -sf <span class="pl-k">~</span>/.local/bin/vanguard <span class="pl-k">~</span>/.local/bin/gv</pre></div>
+<hr>
+<h2 dir="auto" id="guía-de-atajos-de-teclado">Guía de Atajos de Teclado</h2>
+<h3 dir="auto" id="navegación-global">Navegación Global</h3>
+<markdown-accessiblity-table><table role="table">
+<thead>
+<tr>
+<th align="left">Atajo</th>
+<th align="left">Acción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code class="notranslate">Tab</code> / <code class="notranslate">BackTab</code></td>
+<td align="left">Alternar secuencialmente entre paneles principales</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">1</code> .. <code class="notranslate">6</code></td>
+<td align="left">Salto directo a pestañas (1: Archivos, 2: Ramas, 3: Commits, 4: Worktrees, 5: Stash, 6: Time Machine)</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">j</code> / <code class="notranslate">k</code> (o <code class="notranslate">↓</code> / <code class="notranslate">↑</code>)</td>
+<td align="left">Mover cursor verticalmente en listas</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">J</code> / <code class="notranslate">K</code></td>
+<td align="left">Desplazar el visor de diferencias (<em>Diff scroll</em>)</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">?</code></td>
+<td align="left">Abrir / cerrar manual interactivo de atajos</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">q</code></td>
+<td align="left">Salir de GitVanguard restaurando la terminal</td>
+</tr>
+</tbody>
+</table></markdown-accessiblity-table>
+<h3 dir="auto" id="gestión-de-archivos-y-staging-pestaña-1">Gestión de Archivos y Staging (Pestaña 1)</h3>
+<markdown-accessiblity-table><table role="table">
+<thead>
+<tr>
+<th align="left">Atajo</th>
+<th align="left">Acción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code class="notranslate">h</code> / <code class="notranslate">l</code> (o <code class="notranslate">←</code> / <code class="notranslate">→</code>)</td>
+<td align="left">Alternar foco entre lista <em>Unstaged</em> y <em>Staged</em></td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">Space</code></td>
+<td align="left">Preparar o despreparar archivo seleccionado (<em>Stage / Unstage</em>)</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">a</code></td>
+<td align="left">Preparar todos los cambios (<code class="notranslate">git add -A</code>)</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">u</code></td>
+<td align="left">Despreparar todos los cambios (<code class="notranslate">git reset</code>)</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">d</code></td>
+<td align="left">Descartar cambios del archivo con confirmación de seguridad</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">c</code></td>
+<td align="left">Abrir diálogo de commit estándar</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">C</code></td>
+<td align="left">Abrir Asistente Semántico <em>Conventional Commits</em></td>
+</tr>
+</tbody>
+</table></markdown-accessiblity-table>
+<h3 dir="auto" id="ramas-y-remotos-pestaña-2">Ramas y Remotos (Pestaña 2)</h3>
+<markdown-accessiblity-table><table role="table">
+<thead>
+<tr>
+<th align="left">Atajo</th>
+<th align="left">Acción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code class="notranslate">Space</code> / <code class="notranslate">Enter</code></td>
+<td align="left">Cambiar a la rama seleccionada (<em>Checkout</em>)</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">n</code></td>
+<td align="left">Crear nueva rama a partir del commit actual</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">d</code></td>
+<td align="left">Eliminar rama local</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">m</code></td>
+<td align="left">Fusionar (<em>Merge</em>) la rama seleccionada en la rama activa</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">r</code></td>
+<td align="left">Aplicar <em>Rebase</em> sobre la rama seleccionada</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">z</code></td>
+<td align="left"><em>Zombie Branch Pruner</em>: purgar ramas locales ya fusionadas</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">p</code> / <code class="notranslate">P</code></td>
+<td align="left">Sincronizar: <code class="notranslate">git pull</code> / <code class="notranslate">git push</code></td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">f</code></td>
+<td align="left">Obtener actualizaciones remotas (<code class="notranslate">git fetch --all --prune</code>)</td>
+</tr>
+</tbody>
+</table></markdown-accessiblity-table>
+<h3 dir="auto" id="worktrees-stashes-y-time-machine-pestañas-4-5-y-6">Worktrees, Stashes y Time Machine (Pestañas 4, 5 y 6)</h3>
+<markdown-accessiblity-table><table role="table">
+<thead>
+<tr>
+<th align="left">Atajo</th>
+<th align="left">Acción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code class="notranslate">n</code> (en Worktrees)</td>
+<td align="left">Vincular un nuevo Git Worktree</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">d</code> (en Worktrees)</td>
+<td align="left">Eliminar worktree secundario</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">s</code> (en Stash)</td>
+<td align="left">Guardar cambios actuales en el stash (<code class="notranslate">git stash save -u</code>)</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">p</code> / <code class="notranslate">a</code> (en Stash)</td>
+<td align="left">Aplicar y extraer (<code class="notranslate">pop</code>) o solo aplicar (<code class="notranslate">apply</code>)</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">d</code> (en Stash)</td>
+<td align="left">Descartar entrada del stash (<code class="notranslate">drop</code>)</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">U</code> (en Time Machine)</td>
+<td align="left"><strong>Restaurar estado temporal</strong>: rebobina HEAD al registro del reflog</td>
+</tr>
+</tbody>
+</table></markdown-accessiblity-table>
+<hr>
+<h2 dir="auto" id="arquitectura-técnica">Arquitectura Técnica</h2>
+<pre class="notranslate"><code class="notranslate">                       ┌───────────────────────────────┐
+                       │     GitVanguard (vanguard)    │
+                       └──────────────┬────────────────┘
+                                      │
+           ┌──────────────────────────┼──────────────────────────┐
+           ▼                          ▼                          ▼
+ ┌───────────────────┐      ┌───────────────────┐      ┌───────────────────┐
+ │   Capa TUI Rust   │      │   Sentinel Shield │      │   Motor Git CLI   │
+ │ ───────────────── │      │ ───────────────── │      │ ───────────────── │
+ │ • Ratatui 0.29    │      │ • Regex Analyzer  │      │ • Subprocesos POSIX│
+ │ • Crossterm 0.28  │      │ • Detección Claves│      │ • Porcelain v2    │
+ │ • Doble búfer     │      │ • Ficheros .env   │      │ • Respeto GPG/SSH │
+ │ • Render &lt; 5 ms   │      │ • Bloqueo Commit  │      │ • Zero-overhead   │
+ └───────────────────┘      └───────────────────┘      └───────────────────┘
+</code></pre>
+<ol dir="auto">
+<li><strong>Sin Dependencias Dinámicas Pesadas:</strong> Al ser un binario estático compilado en Rust nativo para Linux, no requiere intérpretes de Python, Node.js ni entornos de ejecución de Go.</li>
+<li><strong>Compatibilidad Absoluta con el Ecosistema Git:</strong> Al comunicarse de forma directa con el motor Git mediante streams optimizados (<code class="notranslate">status --porcelain=v2</code>, <code class="notranslate">for-each-ref</code>, <code class="notranslate">reflog</code>), preserva automáticamente el 100% de tus configuraciones globales (<code class="notranslate">~/.gitconfig</code>), claves SSH autenticadas, firmas criptográficas GPG/SSH y hooks del sistema.</li>
+</ol>
+<hr>
+<h2 dir="auto" id="licencia">Licencia</h2>
+<p dir="auto">Este proyecto está bajo la <a target="_blank" rel="noopener noreferrer" href="https://github.com/Ismael-Sallami/git-vanguard/blob/main/LICENSE">Licencia MIT</a>.</p>
+<p dir="auto">Desarrollado por <strong>Ismael Sallami Moreno</strong><br>
+<em>Doble Grado en Ingeniería Informática y ADE — Universidad de Granada</em></p>

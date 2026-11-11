@@ -1,0 +1,177 @@
+<p align="center" dir="auto">
+  <a target="_blank" rel="noopener noreferrer" href="https://github.com/Ismael-Sallami/agent-desktop-linux-cursor/blob/main/docs/logo.png"><img loading="lazy" decoding="async" src="https://raw.githubusercontent.com/Ismael-Sallami/agent-desktop-linux-cursor/main/docs/logo.png" alt="adc logo: the agent's own desktop window with its cursor" width="160" style="max-width: 100%;"></a>
+</p>
+<p dir="auto">An agent skill, Claude Code plugin and command-line tool (<code class="notranslate">adc</code>) that gives an AI agent its own<br>
+isolated Linux desktop. The agent operates real applications with a visible cursor, while the user<br>
+keeps working undisturbed on another workspace.</p>
+<p dir="auto"><a target="_blank" rel="noopener noreferrer" href="https://github.com/Ismael-Sallami/agent-desktop-linux-cursor/blob/main/docs/demo.gif"><img loading="lazy" decoding="async" src="https://raw.githubusercontent.com/Ismael-Sallami/agent-desktop-linux-cursor/main/docs/demo.gif" alt="The agent drawing in Excalidraw on its own private display, with the agent cursor and intent labels" data-animated-image="" style="max-width: 100%;"></a></p>
+<p dir="auto"><em>Recorded with <code class="notranslate">examples/excalidraw-demo.sh</code>: the agent draws on its private display while the<br>
+user's pointer and workspace remain untouched.</em></p>
+<h2 dir="auto" id="features">Features</h2>
+<ul dir="auto">
+<li><strong>Private display.</strong> A Xephyr display embedded in a window on the agent's own GNOME workspace<br>
+gives the agent its own pointer, keyboard focus and clipboard. Windows never appear on the<br>
+user's workspace and never take the user's focus.</li>
+<li><strong>Isolation.</strong> Applications run on a private D-Bus session restricted to an allow-list of<br>
+services (accessibility, dconf, gvfs), a private accessibility bus and isolated XDG directories.<br>
+Single-instance applications and notifications cannot leak onto the user's desktop.</li>
+<li><strong>Built-in accessibility engine.</strong> <code class="notranslate">adc snapshot</code> lists the interface as <code class="notranslate">role "name" @ref</code>;<br>
+<code class="notranslate">click</code>, <code class="notranslate">type</code>, <code class="notranslate">set-value</code>, <code class="notranslate">select</code>, <code class="notranslate">check</code>, <code class="notranslate">expand</code>, <code class="notranslate">find</code>, <code class="notranslate">wait</code> and <code class="notranslate">get</code> act on those<br>
+references. Works with GTK 3/4, Qt, Chrome and Electron. No external CLI or Node.js needed.</li>
+<li><strong>Human-like input.</strong> The pointer glides to each element before acting; typing uses the real<br>
+keyboard, so web pages receive genuine input events. Accents, <code class="notranslate">ñ</code>, emoji and line breaks work.</li>
+<li><strong>Vision.</strong> <code class="notranslate">adc see</code> captures the private display with a labelled coordinate grid for canvases,<br>
+games and anything without an accessibility tree.</li>
+<li><strong>Agent cursor.</strong> A click-through overlay shows the agent's pointer, an intent label, click<br>
+ripples, element outlines and a typing caret, with a distinct colour per agent.</li>
+<li><strong>Persistent browser profiles.</strong> Chrome runs with agent-owned profiles that keep site sessions.</li>
+<li><strong>User hand-off.</strong> <code class="notranslate">adc ask-user</code> raises a system notification for sign-ins, captchas and 2FA.<br>
+The user is taken to the agent workspace, completes the step and is returned where they were.</li>
+<li><strong>Recording.</strong> Sessions are recorded to MP4 without the user watching the agent workspace.</li>
+<li><strong>Shared mode.</strong> Optionally drive applications already open on the user's desktop, headless,<br>
+with a focus guard.</li>
+</ul>
+<h2 dir="auto" id="install">Install</h2>
+<p dir="auto">As a Claude Code plugin (puts <code class="notranslate">adc</code> on the PATH automatically):</p>
+<div class="highlight highlight-source-shell" dir="auto"><pre class="notranslate">claude plugin marketplace add Ismael-Sallami/skills
+claude plugin install agent-desktop-linux-cursor@sallami-skills</pre></div>
+<p dir="auto">As a skill for any agent (Claude Code, Codex, Cursor, Gemini CLI...):</p>
+<div class="highlight highlight-source-shell" dir="auto"><pre class="notranslate">npx skills add Ismael-Sallami/agent-desktop-linux-cursor
+<span class="pl-c"><span class="pl-c">#</span> or manually:</span>
+git clone https://github.com/Ismael-Sallami/agent-desktop-linux-cursor.git <span class="pl-k">~</span>/.claude/skills/agent-desktop-linux-cursor
+ln -s <span class="pl-k">~</span>/.claude/skills/agent-desktop-linux-cursor/scripts/adc <span class="pl-k">~</span>/.local/bin/adc</pre></div>
+<p dir="auto">Then check the machine:</p>
+<div class="highlight highlight-source-shell" dir="auto"><pre class="notranslate">adc doctor        <span class="pl-c"><span class="pl-c">#</span> lists missing packages and prints the apt install line</span></pre></div>
+<h2 dir="auto" id="requirements">Requirements</h2>
+<ul dir="auto">
+<li>Linux with an X11 session (tested on Ubuntu 24.04, GNOME Shell 46). Wayland is not supported.</li>
+<li>Python 3 with PyGObject (AT-SPI, GTK 3) and these packages:</li>
+</ul>
+<div class="highlight highlight-source-shell" dir="auto"><pre class="notranslate">sudo apt install xserver-xephyr openbox picom xdotool wmctrl x11-utils x11-xserver-utils \
+  x11-xkb-utils xclip imagemagick ffmpeg libnotify-bin python3-gi gir1.2-atspi-2.0 gir1.2-gtk-3.0</pre></div>
+<ul dir="auto">
+<li>Google Chrome or Chromium for <code class="notranslate">adc browser</code>.</li>
+</ul>
+<h2 dir="auto" id="usage">Usage</h2>
+<div class="highlight highlight-source-shell" dir="auto"><pre class="notranslate">adc start --nested --record <span class="pl-k">~</span>/Videos/session.mp4
+adc browser <span class="pl-s"><span class="pl-pds">"</span>https://www.linkedin.com/jobs/<span class="pl-pds">"</span></span> --name linkedin
+adc ask-user <span class="pl-s"><span class="pl-pds">"</span>Please sign in to LinkedIn<span class="pl-pds">"</span></span>        <span class="pl-c"><span class="pl-c">#</span> only needed once per profile</span>
+adc snapshot --app chrome -i --compact
+adc click @3fa1:e12 --label <span class="pl-s"><span class="pl-pds">"</span>Open job offer<span class="pl-pds">"</span></span>
+adc see --region 600,130,1000,260 --scale 0.5
+adc run gnome-text-editor
+adc write <span class="pl-s"><span class="pl-pds">"</span>Summary of the results<span class="pl-pds">"</span></span> --target <span class="pl-s"><span class="pl-pds">"</span>Text Editor<span class="pl-pds">"</span></span>
+adc key ctrl+s
+adc stop</pre></div>
+<p dir="auto">Run <code class="notranslate">adc --help</code> for the complete command list. A recorded demonstration is available in<br>
+<code class="notranslate">examples/excalidraw-demo.sh</code>.</p>
+<h2 dir="auto" id="modes">Modes</h2>
+<markdown-accessiblity-table><table role="table">
+<thead>
+<tr>
+<th></th>
+<th>Nested (<code class="notranslate">adc start --nested</code>)</th>
+<th>Shared (<code class="notranslate">adc start</code>)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Display</td>
+<td>Private Xephyr display on the agent workspace</td>
+<td>User's X server, agent workspace</td>
+</tr>
+<tr>
+<td>Input</td>
+<td>Real pointer and keyboard of the private display</td>
+<td>Headless accessibility actions only</td>
+</tr>
+<tr>
+<td>Isolation</td>
+<td>Complete</td>
+<td>Focus guard</td>
+</tr>
+<tr>
+<td>Vision and recording</td>
+<td>Yes</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Existing user applications</td>
+<td>Not reachable</td>
+<td>Reachable</td>
+</tr>
+</tbody>
+</table></markdown-accessiblity-table>
+<h2 dir="auto" id="safety">Safety</h2>
+<ul dir="auto">
+<li>The agent never uses the user's pointer, keyboard or clipboard, and never switches the user's<br>
+workspace.</li>
+<li>In shared mode, focus changes are refused unless the user explicitly allows them with<br>
+<code class="notranslate">ADC_ALLOW_PHYSICAL=1</code>.</li>
+<li>Credentials are always entered by the user through <code class="notranslate">adc ask-user</code>.</li>
+<li>Agent browser profiles are stored in <code class="notranslate">~/.local/share/adc/browsers</code> with mode <code class="notranslate">0700</code>. Cookies<br>
+are encrypted with Chrome's basic password store rather than the system keyring, so the<br>
+protection of these profiles relies on file permissions.</li>
+</ul>
+<h2 dir="auto" id="adc-pro">adc Pro</h2>
+<p dir="auto"><a target="_blank" rel="noopener noreferrer" href="https://www.agensi.io" rel="nofollow">adc Pro</a> is a paid edition with features for heavier automation:</p>
+<markdown-accessiblity-table><table role="table">
+<thead>
+<tr>
+<th></th>
+<th align="center">Free</th>
+<th align="center">Pro</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Private desktop, accessibility engine, vision, input, browser, hand-off, recording</td>
+<td align="center">✓</td>
+<td align="center">✓</td>
+</tr>
+<tr>
+<td>Set-of-marks screenshots (<code class="notranslate">marks</code>, <code class="notranslate">click-mark</code>)</td>
+<td align="center"></td>
+<td align="center">✓</td>
+</tr>
+<tr>
+<td>OCR: <code class="notranslate">find-text</code>, <code class="notranslate">click-text</code>, <code class="notranslate">wait-text</code></td>
+<td align="center"></td>
+<td align="center">✓</td>
+</tr>
+<tr>
+<td>Screen waits: <code class="notranslate">wait-stable</code>, <code class="notranslate">wait-change</code></td>
+<td align="center"></td>
+<td align="center">✓</td>
+</tr>
+<tr>
+<td>Guard for outward actions (send, pay, delete)</td>
+<td align="center"></td>
+<td align="center">✓</td>
+</tr>
+<tr>
+<td>Macros with variables (<code class="notranslate">macro record/play</code>)</td>
+<td align="center"></td>
+<td align="center">✓</td>
+</tr>
+<tr>
+<td>Journal and HTML session report, GIF export</td>
+<td align="center"></td>
+<td align="center">✓</td>
+</tr>
+<tr>
+<td>Parallel isolated sessions (<code class="notranslate">ADC_SESSION</code>)</td>
+<td align="center"></td>
+<td align="center">✓</td>
+</tr>
+<tr>
+<td>MCP server (<code class="notranslate">adc mcp</code>) for any MCP client</td>
+<td align="center"></td>
+<td align="center">✓</td>
+</tr>
+</tbody>
+</table></markdown-accessiblity-table>
+<h2 dir="auto" id="license">License</h2>
+<p dir="auto">MIT. See <a target="_blank" rel="noopener noreferrer" href="https://github.com/Ismael-Sallami/agent-desktop-linux-cursor/blob/main/LICENSE">LICENSE</a>. Earlier versions built on<br>
+<a target="_blank" rel="noopener noreferrer" href="https://github.com/vercel-labs/agent-desktop">agent-desktop</a>; since 2.0 <code class="notranslate">adc</code> ships its own<br>
+accessibility engine.</p>

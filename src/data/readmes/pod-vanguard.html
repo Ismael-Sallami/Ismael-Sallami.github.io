@@ -1,0 +1,146 @@
+<p dir="auto">Centro de Mando Web de Alto Rendimiento para Contenedores &amp; Pods en Linux.<br>
+Arquitectura de binario nativo estático en Rust con panel web reactivo embebido.</p>
+<blockquote>
+<p dir="auto">🌐 <strong>Landing y Documentación Web:</strong> <a target="_blank" rel="noopener noreferrer" href="https://ismael-sallami.github.io/pod-vanguard/" rel="nofollow">ismael-sallami.github.io/pod-vanguard</a></p>
+</blockquote>
+<p dir="auto">Autor: Ismael Sallami Moreno<br>
+Licencia: MIT</p>
+<hr>
+<pre class="notranslate"><code class="notranslate">================================================================================
+  P O D   V A N G U A R D  ::  CONTROL PLANE &amp; RUNTIME MONITOR
+  Plataforma: Linux (x86_64) | Arquitectura: Rust Core + Embedded Web Dashboard
+================================================================================
+</code></pre>
+<hr>
+<h2 dir="auto" id="1-visión-general">1. Visión General</h2>
+<p dir="auto">PodVanguard es una herramienta de observabilidad, auditoría de seguridad y gestión de infraestructura local para contenedores Docker y pods de Kubernetes en entornos Linux. Diseñado para ofrecer baja latencia, consumo mínimo de recursos y cero dependencias de ejecución en el host, compila todo el motor asíncrono y los activos del panel web dentro de un único ejecutable binario estático de ~4.5 MB.</p>
+<p dir="auto">No requiere runtimes externos en el host (sin Node.js, Python ni servicios de terceros adicionales). Solo interactúa directamente con el socket local de Docker (<code class="notranslate">/var/run/docker.sock</code>) y la configuración activa de Kubernetes (<code class="notranslate">~/.kube/config</code>).</p>
+<hr>
+<h2 dir="auto" id="2-capacidades-principales">2. Capacidades Principales</h2>
+<ul dir="auto">
+<li><strong>Gestión de Ciclo de Vida de Contenedores</strong>: Inicio, detención, reinicio, pausa y eliminación directa mediante llamadas asíncronas de bajo nivel a Docker/Podman vía socket UNIX.</li>
+<li><strong>Introspección de Kubernetes (K8s)</strong>: Detección automática del cluster local vía kubeconfig, visualización de namespaces, estado de pods, reinicios de réplicas y mapeo de nodos. Si no hay cluster disponible, opera de forma transparente en modo solo-Docker.</li>
+<li><strong>Sentinel Shield (Auditoría de Seguridad)</strong>: Detección heurística de riesgos en tiempo real:
+<ul dir="auto">
+<li>Variables de entorno con claves y tokens en texto plano (AWS, OpenAI, GitHub, claves privadas RSA/SSH).</li>
+<li>Contenedores ejecutándose como <code class="notranslate">root</code> (UID 0) o con bandera <code class="notranslate">--privileged</code>.</li>
+<li>Puertos de bases de datos y administración expuestos sin filtrar a <code class="notranslate">0.0.0.0</code> (Postgres, MySQL, Redis, Docker API).</li>
+<li>Ausencia de límites de memoria RAM (prevención de caídas por OOM-Killer).</li>
+</ul>
+</li>
+<li><strong>Pruner de Almacenamiento</strong>: Cálculo de espacio recuperable en disco (contenedores parados, imágenes huérfanas <em>dangling</em> y volúmenes sin vincular) con ejecución de saneamiento seguro en un solo clic.</li>
+<li><strong>Terminal Web Interactiva (PTY)</strong>: Sesión de consola interactiva en tiempo real sobre WebSockets (<code class="notranslate">/bin/sh</code> o <code class="notranslate">/bin/bash</code>) acoplada al interior de cualquier contenedor activo.</li>
+<li><strong>Transmisión de Registros (Live Logs)</strong>: Flujo en directo de <code class="notranslate">stdout</code> y <code class="notranslate">stderr</code> vía WebSockets, con filtrado dinámico mediante expresiones regulares (Regex) y auto-desplazamiento.</li>
+<li><strong>Topología de Red Vectorial</strong>: Grafo interactivo en lienzo tipo CAD para inspeccionar redes virtuales (bridge, host, overlay), puertos expuestos y volúmenes montados.</li>
+<li><strong>Telemetría de Recursos</strong>: Monitorización en vivo del uso de CPU y memoria RAM del host mediante instrumentación de hardware e indicadores de carga.</li>
+<li><strong>Command Palette Global (<code class="notranslate">Ctrl+K</code>)</strong>: Buscador flotante para cambio rápido de módulos y ejecución directa de acciones de control.</li>
+</ul>
+<hr>
+<h2 dir="auto" id="3-esquema-de-arquitectura">3. Esquema de Arquitectura</h2>
+<pre class="notranslate"><code class="notranslate">+-----------------------------------------------------------------------------+
+|                          PODVANGUARD CONTROL PLANE                          |
++-----------------------------------------------------------------------------+
+|                                                                             |
+|   +-----------------------+                    +------------------------+   |
+|   |   Web UI Dashboard    | &lt;--- WebSockets -- |   Axum HTTP/WS Engine  |   |
+|   |   (Single Page App)   |      REST JSON     |   (Rust Async Runtime) |   |
+|   +-----------------------+                    +------------------------+   |
+|               ^                                             |               |
+|               |                                             v               |
+|        (Embedded Assets)                       +------------------------+   |
+|        include_dir!                            |      Core Engines      |   |
+|                                                +------------------------+   |
+|                                                | - Bollard Docker Core  |   |
+|                                                | - K8s Config Inspector |   |
+|                                                | - Sentinel Shield      |   |
+|                                                | - Storage Pruner       |   |
+|                                                | - CAD Topology Engine  |   |
+|                                                +------------------------+   |
+|                                                             |               |
++-------------------------------------------------------------|---------------+
+                                                              v
+                                             +--------------------------------+
+                                             |        Kernel de Linux         |
+                                             |  - /var/run/docker.sock        |
+                                             |  - ~/.kube/config              |
+                                             |  - cgroups v2 / procfs         |
+                                             +--------------------------------+
+</code></pre>
+<hr>
+<h2 dir="auto" id="4-instalación">4. Instalación</h2>
+<h3 dir="auto" id="método-1-script-de-instalación-directa-recomendado">Método 1: Script de instalación directa (Recomendado)</h3>
+<p dir="auto">Descarga e instala el binario optimizado para Linux x86_64 directamente en <code class="notranslate">~/.local/bin</code>:</p>
+<div class="highlight highlight-source-shell" dir="auto"><pre class="notranslate">curl -fsSL https://raw.githubusercontent.com/Ismael-Sallami/pod-vanguard/main/install.sh <span class="pl-k">|</span> bash</pre></div>
+<h3 dir="auto" id="método-2-compilación-desde-código-fuente">Método 2: Compilación desde código fuente</h3>
+<p dir="auto"><strong>Requisitos previos:</strong></p>
+<ul dir="auto">
+<li>Sistema operativo Linux x86_64</li>
+<li>Toolchain de Rust (Cargo 1.80+)</li>
+<li>Node.js (v18+) y npm (exclusivamente para la generación previa de los activos web)</li>
+</ul>
+<div class="highlight highlight-source-shell" dir="auto"><pre class="notranslate"><span class="pl-c"><span class="pl-c">#</span> 1. Clonar el repositorio</span>
+git clone https://github.com/Ismael-Sallami/pod-vanguard.git
+<span class="pl-c1">cd</span> pod-vanguard
+
+<span class="pl-c"><span class="pl-c">#</span> 2. Compilar los activos de la interfaz web</span>
+<span class="pl-c1">cd</span> frontend
+npm install
+npm run build
+<span class="pl-c1">cd</span> ..
+
+<span class="pl-c"><span class="pl-c">#</span> 3. Compilar el binario release en Rust</span>
+cargo build --release
+
+<span class="pl-c"><span class="pl-c">#</span> El ejecutable compilado estará disponible en:</span>
+./target/release/pod-vanguard</pre></div>
+<hr>
+<h2 dir="auto" id="5-modo-de-uso">5. Modo de Uso</h2>
+<p dir="auto">Inicia el centro de mando ejecutando el binario:</p>
+<div class="highlight highlight-source-shell" dir="auto"><pre class="notranslate"><span class="pl-c"><span class="pl-c">#</span> Inicio por defecto en http://127.0.0.1:9090</span>
+pod-vanguard
+
+<span class="pl-c"><span class="pl-c">#</span> O utilizando el alias abreviado configurado por el instalador</span>
+pv
+
+<span class="pl-c"><span class="pl-c">#</span> Abrir automáticamente el navegador predeterminado en un puerto específico</span>
+pod-vanguard -p 8080 --open
+
+<span class="pl-c"><span class="pl-c">#</span> Escuchar en todas las interfaces de red locales</span>
+pod-vanguard -H 0.0.0.0 -p 9090</pre></div>
+<h3 dir="auto" id="parámetros-de-línea-de-comandos">Parámetros de Línea de Comandos</h3>
+<pre class="notranslate"><code class="notranslate">USO:
+    pod-vanguard [OPCIONES]
+
+OPCIONES:
+    -p, --port &lt;PUERTO&gt;    Puerto TCP de escucha para el servidor HTTP (por defecto: 9090)
+    -H, --host &lt;HOST&gt;      Dirección IP de enlace (por defecto: 127.0.0.1)
+        --open             Abre automáticamente el navegador predeterminado al iniciar
+    -v, --version          Muestra la versión de la herramienta y finaliza
+    -h, --help             Muestra este mensaje de ayuda
+</code></pre>
+<hr>
+<h2 dir="auto" id="6-atajos-de-teclado-del-dashboard">6. Atajos de Teclado del Dashboard</h2>
+<ul dir="auto">
+<li><code class="notranslate">Ctrl + K</code> / <code class="notranslate">Cmd + K</code>: Abre la paleta de comandos global para búsqueda y saltos directos.</li>
+<li><code class="notranslate">Escape</code>: Cierra modales, menús contextuales y la paleta de comandos.</li>
+<li><code class="notranslate">Enter</code>: Confirma órdenes en la terminal web interactiva o filtros de búsqueda.</li>
+<li><code class="notranslate">Flecha Arriba / Abajo</code>: Historial de comandos en la terminal integrada.</li>
+</ul>
+<hr>
+<h2 dir="auto" id="7-entorno-de-demostración-local">7. Entorno de Demostración Local</h2>
+<p dir="auto">Si deseas probar PodVanguard de inmediato con datos realistas (topología viva de red bridge, puertos mapeados, volúmenes de datos y auditoría de seguridad heurística Sentinel Shield), puedes utilizar el entorno de pruebas incluido:</p>
+<div class="highlight highlight-source-shell" dir="auto"><pre class="notranslate"><span class="pl-c"><span class="pl-c">#</span> 1. Levantar los 4 microservicios ligeros de prueba (api-gateway, auth-service, cache-redis, worker-queue)</span>
+./demo-env.sh start
+
+<span class="pl-c"><span class="pl-c">#</span> 2. Iniciar PodVanguard y abrir el panel de control en tu navegador</span>
+pv --open
+
+<span class="pl-c"><span class="pl-c">#</span> 3. Consultar el estado de los contenedores de prueba</span>
+./demo-env.sh status
+
+<span class="pl-c"><span class="pl-c">#</span> 4. Detener y limpiar los contenedores y volúmenes cuando termines</span>
+./demo-env.sh stop</pre></div>
+<hr>
+<h2 dir="auto" id="8-autor-y-licencia">8. Autor y Licencia</h2>
+<p dir="auto">Desarrollado por <strong>Ismael Sallami Moreno</strong>.<br>
+Distribuido bajo licencia de código abierto <strong>MIT</strong>.</p>

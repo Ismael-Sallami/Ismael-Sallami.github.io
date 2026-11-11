@@ -4,11 +4,11 @@
       <stop offset="0" stop-color="hsl(160, 45%, 10%)"/>
       <stop offset="1" stop-color="hsl(190, 50%, 8%)"/>
     </linearGradient>
-    <radialGradient id="a" cx="25%" cy="34%" r="55%">
+    <radialGradient id="a" cx="22%" cy="43%" r="55%">
       <stop offset="0" stop-color="hsl(160, 95%, 52%)" stop-opacity="0.90"/>
       <stop offset="1" stop-color="hsl(160, 95%, 52%)" stop-opacity="0"/>
     </radialGradient>
-    <radialGradient id="b" cx="78%" cy="61%" r="52%">
+    <radialGradient id="b" cx="80%" cy="71%" r="52%">
       <stop offset="0" stop-color="hsl(190, 92%, 58%)" stop-opacity="0.76"/>
       <stop offset="1" stop-color="hsl(190, 92%, 58%)" stop-opacity="0"/>
     </radialGradient>
@@ -22,7 +22,7 @@
   <rect width="800" height="600" fill="url(#b)"/>
   <rect width="800" height="600" fill="url(#c)"/>
   <g fill="none" stroke="hsl(0, 0%, 100%)" stroke-opacity="0.14" stroke-width="1.5">
-    <circle cx="340" cy="351" r="215"/>
-    <circle cx="632" cy="503" r="320"/>
+    <circle cx="325" cy="387" r="215"/>
+    <circle cx="640" cy="533" r="320"/>
   </g>
 </svg>

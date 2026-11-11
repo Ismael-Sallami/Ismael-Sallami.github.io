@@ -21,6 +21,30 @@
     "hasReadme": true
   },
   {
+    "url": "https://github.com/Ismael-Sallami/agent-desktop-linux-cursor",
+    "slug": "agent-desktop-linux-cursor",
+    "fullName": "Ismael-Sallami/agent-desktop-linux-cursor",
+    "name": "agent-desktop-linux-cursor",
+    "headline": "agent-desktop-linux-cursor",
+    "description": "Isolated Linux desktop for AI agents: private X display, built-in accessibility engine, visible agent cursor, user hand-off and recording. Skill + Claude Code plugin.",
+    "language": "Python",
+    "topics": [
+      "accessibility",
+      "agent-skills",
+      "ai-agents",
+      "claude-code",
+      "claude-code-plugin",
+      "computer-use",
+      "desktop-automation",
+      "linux",
+      "portfolio",
+      "x11"
+    ],
+    "homepage": null,
+    "pushedAt": "2026-11-09",
+    "hasReadme": true
+  },
+  {
     "url": "https://github.com/Ismael-Sallami/airline-routes-adt",
     "slug": "airline-routes-adt",
     "fullName": "Ismael-Sallami/airline-routes-adt",
@@ -253,6 +277,21 @@
     "hasReadme": true
   },
   {
+    "url": "https://github.com/Ismael-Sallami/git-vanguard",
+    "slug": "git-vanguard",
+    "fullName": "Ismael-Sallami/git-vanguard",
+    "name": "git-vanguard",
+    "headline": "GitVanguard",
+    "description": "Controlador Git TUI de alto rendimiento para Linux con Time Machine, Sentinel Secret Shield y gestión de Worktrees",
+    "language": "Rust",
+    "topics": [
+      "portfolio"
+    ],
+    "homepage": null,
+    "pushedAt": "2026-10-05",
+    "hasReadme": true
+  },
+  {
     "url": "https://github.com/Ismael-Sallami/gittomd",
     "slug": "gittomd",
     "fullName": "Ismael-Sallami/gittomd",
@@ -346,7 +385,7 @@
     "language": "HTML",
     "topics": [],
     "homepage": null,
-    "pushedAt": "2026-11-10",
+    "pushedAt": "2026-11-11",
     "hasReadme": true
   },
   {
@@ -370,7 +409,7 @@
     "hasReadme": true
   },
   {
-    "url": "https://github.com/Ismael-Sallami/md2html-testGenerator",
+    "url": "https://github.com/Ismael-Sallami/md2html",
     "slug": "md2html",
     "fullName": "Ismael-Sallami/md2html",
     "name": "md2html",
@@ -381,6 +420,7 @@
       "education",
       "html",
       "markdown",
+      "portfolio",
       "python",
       "quiz",
       "static-site",
@@ -541,7 +581,7 @@
     "hasReadme": true
   },
   {
-    "url": "https://github.com/Ismael-Sallami/pdf-to-md",
+    "url": "https://github.com/Ismael-Sallami/pdf2md",
     "slug": "pdf2md",
     "fullName": "Ismael-Sallami/pdf2md",
     "name": "pdf2md",
@@ -554,6 +594,7 @@
       "ocr",
       "pdf",
       "pdfplumber",
+      "portfolio",
       "pymupdf",
       "python"
     ],
@@ -580,6 +621,21 @@
     ],
     "homepage": null,
     "pushedAt": "2026-11-10",
+    "hasReadme": true
+  },
+  {
+    "url": "https://github.com/Ismael-Sallami/pod-vanguard",
+    "slug": "pod-vanguard",
+    "fullName": "Ismael-Sallami/pod-vanguard",
+    "name": "pod-vanguard",
+    "headline": "PodVanguard",
+    "description": "Centro de Mando Web de Alto Rendimiento para Contenedores & Pods en Linux",
+    "language": "JavaScript",
+    "topics": [
+      "portfolio"
+    ],
+    "homepage": null,
+    "pushedAt": "2026-10-05",
     "hasReadme": true
   },
   {
