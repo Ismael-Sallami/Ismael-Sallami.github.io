@@ -31,18 +31,6 @@ export default function Footer() {
           >
             <Linkedin size={20} />
           </a>
-          {profile.xerj && (
-            <a
-              href={profile.xerj}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="XERJ Corpus Hub"
-              title="XERJ Corpus Hub Contributor"
-              className="rounded-full border border-purple-500/30 bg-purple-500/10 px-2.5 py-0.5 text-xs font-semibold tracking-wide text-purple-300 transition-colors hover:border-purple-400 hover:text-purple-200"
-            >
-              XERJ·HUB
-            </a>
-          )}
         </div>
 
         <ul className="flex gap-5">

@@ -42,14 +42,14 @@ export default function ProjectCard({ project, index, large = false }) {
       transition={{ duration: 0.5, delay: (index % 4) * 0.07 }}
       style={{ transform: `perspective(900px) rotateX(${tilt.rx}deg) rotateY(${tilt.ry}deg)` }}
       className={`group relative flex flex-col justify-end overflow-hidden rounded-3xl border border-white/8 transition-shadow duration-300 hover:shadow-[0_20px_60px_-20px_rgba(11,217,154,0.45)] ${
-        large ? 'min-h-[26rem] md:col-span-2' : 'min-h-[20rem]'
+        large ? 'h-[26rem] md:col-span-2' : 'h-[22.5rem]'
       }`}
     >
       <img
         src={project.img}
         alt={project.title}
         loading="lazy"
-        className="absolute inset-0 h-full w-full object-cover opacity-50 transition-all duration-500 group-hover:scale-105 group-hover:opacity-65"
+        className="absolute inset-0 h-full w-full object-cover object-center opacity-50 transition-all duration-500 group-hover:scale-105 group-hover:opacity-65"
       />
       <div className="absolute inset-0 bg-gradient-to-t from-void via-void/70 to-transparent" />
 
@@ -68,7 +68,7 @@ export default function ProjectCard({ project, index, large = false }) {
         <h3 className={`mt-3 font-display tracking-tightest ${large ? 'text-3xl' : 'text-2xl'}`}>
           {project.title}
         </h3>
-        <p className="mt-2 max-w-md text-sm text-cool">{project.desc}</p>
+        <p className="mt-2 max-w-md text-sm text-cool line-clamp-3 leading-relaxed">{project.desc}</p>
         <span className="mt-4 inline-flex items-center gap-1 text-sm font-medium text-ivory">
           {t('common.viewProject')}
           <ArrowUpRight size={16} className="transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />

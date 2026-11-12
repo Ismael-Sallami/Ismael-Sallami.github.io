@@ -42,6 +42,11 @@ export const labels = {
     en: 'Innovation Hackathon · Lactalis Puleva - UGR Chair',
     year: '2026',
   },
+  'erasmus-practicas-irlanda-2026.pdf': {
+    es: 'Estancia Práctica Erasmus+ · Golden Moments (Cork, Irlanda)',
+    en: 'Erasmus+ Traineeship · Golden Moments (Cork, Ireland)',
+    year: '2026',
+  },
 }
 
 // The order the site shows them in. Anything not listed goes after, alphabetically.
