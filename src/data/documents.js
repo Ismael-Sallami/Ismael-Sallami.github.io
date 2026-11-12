@@ -19,6 +19,12 @@ const certificateFiles = import.meta.glob('../../docs/certificates/*.{pdf,png,jp
   eager: true,
 })
 
+const certificatePreviews = import.meta.glob('../assets/certificates/*.webp', {
+  query: '?url',
+  import: 'default',
+  eager: true,
+})
+
 // Titles and the one-line note under each CV. `note` is only used by the CV menu, and
 // `year` only by the certifications section of the generated CV; both are optional.
 export const labels = {
@@ -46,6 +52,11 @@ export const labels = {
     es: 'Estancia Práctica Erasmus+ · Golden Moments (Cork, Irlanda)',
     en: 'Erasmus+ Traineeship · Golden Moments (Cork, Ireland)',
     year: '2026',
+  },
+  'Certificado-Desarrollo-Con-IA.pdf': {
+    es: 'Iniciación al Desarrollo con IA · BIG school',
+    en: 'Introduction to AI Development · BIG school',
+    year: '2025',
   },
 }
 
@@ -84,14 +95,18 @@ export function yearFromFileName(file) {
   return match ? `${match[1]}${match[2]}` : undefined
 }
 
-function build(modules, order, { byYear = false } = {}) {
+function build(modules, order, { byYear = false, previews = {} } = {}) {
   return Object.entries(modules)
     .map(([path, url]) => {
       const file = path.split('/').pop()
       const extension = file.split('.').pop().toLowerCase()
+      const base = file.replace(/\.[^.]+$/, '')
+      const previewKey = `../assets/certificates/${base}.webp`
+      const previewUrl = previews[previewKey] ?? (IMAGE_EXTENSIONS.includes(extension) ? url : null)
       return {
         file,
         url,
+        previewUrl,
         kind: IMAGE_EXTENSIONS.includes(extension) ? 'image' : 'pdf',
         label: labels[file] ?? null,
       }
@@ -114,7 +129,7 @@ function build(modules, order, { byYear = false } = {}) {
 }
 
 export const cvs = build(cvFiles, cvOrder)
-export const certificates = build(certificateFiles, certificateOrder, { byYear: true })
+export const certificates = build(certificateFiles, certificateOrder, { byYear: true, previews: certificatePreviews })
 
 // Title and note for the active language, falling back to ES and then to the file name.
 export function localizeDocument(doc, lang) {

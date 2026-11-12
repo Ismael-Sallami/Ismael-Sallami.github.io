@@ -88,8 +88,11 @@ export const dict = {
     certificatesPage: {
       kicker: 'Documentos',
       title: 'Certificaciones',
-      intro: 'Certificaciones obtenidas. Puedes previsualizarlas aquí o descargarlas.',
+      intro: 'Certificaciones oficiales obtenidas. Visualiza cada credencial en alta resolución o descarga el documento original en PDF.',
       download: 'Descargar',
+      viewFull: 'Ver en detalle',
+      openPdf: 'Abrir PDF original',
+      close: 'Cerrar vista previa',
     },
     project: {
       back: 'Volver a proyectos',
@@ -222,8 +225,11 @@ export const dict = {
     certificatesPage: {
       kicker: 'Documents',
       title: 'Certifications',
-      intro: 'Certifications I have earned. You can preview them here or download them.',
+      intro: 'Official credentials and completed certificates. View each document in full resolution or download the original vector PDF.',
       download: 'Download',
+      viewFull: 'View full certificate',
+      openPdf: 'Open original PDF',
+      close: 'Close preview',
     },
     project: {
       back: 'Back to projects',
