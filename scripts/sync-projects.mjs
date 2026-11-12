@@ -236,9 +236,56 @@ async function renderReadme(meta) {
   return { headline, html: out }
 }
 
+// Auto-discovers any repositories of OWNER indexed in XERJ Corpus Hub so open-source
+// recognitions appear on the Projects page and inside the CV builder automatically.
+async function xerjRecognitions(owner) {
+  const out = new Map()
+  try {
+    const profileUrl = `https://hub.xerj.org/contributors/${owner}`
+    const res = await fetch(profileUrl)
+    if (!res.ok) return out
+    const html = await res.text()
+
+    const blocks = html.split('<div class="contrib">').slice(1)
+    for (const rawBlock of blocks) {
+      const block = rawBlock.split('</section>')[0] ?? rawBlock
+      const repoMatch = block.match(/<h3><a href="https:\/\/github\.com\/([^"]+)">([^<]+)<\/a><\/h3>/)
+      if (!repoMatch) continue
+      const fullName = repoMatch[1].trim()
+
+      const commitMatch = block.match(/<div class="commit"><a href="([^"]+)">([0-9a-f]{7,40})<\/a>\s*([^<]+)<\/div>/)
+      const statsMatch = block.match(/selected commit:\s*(\d+)\s*files\s*·\s*([\d,]+)\s*lines\s*·\s*([^·<]+)/i)
+      const corpusMatch = block.match(/href="\.\.\/corpus\/([^"]+)"/)
+      const dateMatch = block.match(/agreed\s+(\d{4}-\d{2}-\d{2})/)
+      const licenseMatch = block.match(/<span class="chip">(MIT|Apache-2\.0|GPL-3\.0|BSD-[23]-Clause|MPL-2\.0|ISC)<\/span>/)
+
+      out.set(fullName.toLowerCase(), {
+        source: 'XERJ Corpus Hub',
+        role: 'Corpus Hub Contributor',
+        url: profileUrl,
+        badgeUrl: `${profileUrl}/badge.svg`,
+        corpusSlug: corpusMatch ? corpusMatch[1].trim() : null,
+        corpusUrl: corpusMatch ? `https://hub.xerj.org/corpus/${corpusMatch[1].trim()}` : null,
+        commit: commitMatch ? commitMatch[2].trim() : null,
+        commitUrl: commitMatch ? commitMatch[1].trim() : null,
+        commitSummary: commitMatch ? commitMatch[3].replace(/&amp;/g, '&').replace(/&#x27;/g, "'").trim() : null,
+        files: statsMatch ? Number(statsMatch[1]) : null,
+        lines: statsMatch ? Number(statsMatch[2].replace(/,/g, '')) : null,
+        languages: statsMatch ? statsMatch[3].trim() : null,
+        license: licenseMatch ? licenseMatch[1] : 'MIT',
+        date: dateMatch ? dateMatch[1] : null,
+      })
+    }
+  } catch (err) {
+    console.warn(`  xerj recognition sync skipped: ${err.message}`)
+  }
+  return out
+}
+
 // --- gather ----------------------------------------------------------------------
 
 const skip = await excluded()
+const recognitions = await xerjRecognitions(OWNER)
 
 // Two sources, one set. The hand-written cards are always in, whether or not they carry
 // the topic, so nothing that is on the site today can fall off it. The topic only adds.
@@ -293,6 +340,8 @@ for (const { owner, repo, url } of wanted.values()) {
   if (readme) files.set(slug, readme.html)
 
 
+  const rec = recognitions.get(meta.full_name.toLowerCase())
+
   records.push({
     url,
     slug,
@@ -307,6 +356,7 @@ for (const { owner, repo, url } of wanted.values()) {
     // in the weekly diff for no gain: the page shows a date.
     pushedAt: meta.pushed_at.slice(0, 10),
     hasReadme: Boolean(readme),
+    ...(rec ? { recognition: rec } : {}),
   })
 
   console.log(`  ${meta.full_name}${readme ? '' : '  (no README)'}`)

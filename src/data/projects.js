@@ -32,6 +32,9 @@ import pulevaHealth from '../../assets/images/puleva_health.jpg'
 import murmurImg from '../../assets/images/murmur.svg'
 import diffcheckerImg from '../../assets/images/diffchecker.svg'
 import gittomdImg from '../../assets/images/gittomd.svg'
+import agentDesktopImg from '../../assets/images/agent_desktop.svg'
+import podVanguardImg from '../../assets/images/pod_vanguard.svg'
+import gitVanguardImg from '../../assets/images/git_vanguard.svg'
 
 import generated from './projects.generated.json'
 
@@ -43,16 +46,53 @@ const covers = import.meta.glob('./project-images/*.svg', {
 
 export const projects = [
   {
-    title: 'ASUS TUF A15 · Despiece 3D interactivo',
-    desc: 'Laboratorio de telemetría y despiece cinemático en 3D del ASUS TUF Gaming A15 (FA507) en Three.js y React. Desmontaje paramétrico capa a capa por coordenadas al hacer scroll (turbinas Arc Flow de 84 aspas, disipador de cobre sinterizado, die Ryzen 7 y RTX 4060, batería de 90Wh y teclado WASD), tacómetro radial de RPM en tiempo real, HUD estilo Armoury Crate y síntesis acústica con Web Audio API.',
+    title: 'ASUS TUF A15 · Despiece 3D e inventario Knolling',
+    desc: 'Desmontaje interactivo en 3D del ASUS TUF Gaming A15 (FA507) construido con Three.js, React 18 y TypeScript. Descomposición paramétrica de 16 subsistemas modulares desde el chasis sellado (0%), pasando por la apertura mecánica por capas explicada en vivo (1–65%), hasta una cuadrícula ortonormalizada Knolling 4 × 4 (100%) con ficha técnica bajo cada pieza y explorador 3D de placa base con 8 bloques funcionales.',
     tag: '3D · WebGL · Three.js',
     url: 'https://github.com/Ismael-Sallami/asus-tuf-a15-3d',
     img: asusTufA15,
     featured: true,
     en: {
-      title: 'ASUS TUF A15 · 3D Hardware Teardown',
-      desc: 'Interactive 3D hardware teardown and scrollytelling laboratory for the ASUS TUF Gaming A15 (FA507) built with Three.js and React. Parametric layer-by-layer disassembly on scroll (84-blade Arc Flow fans, sintered copper heatpipes, Ryzen 7 + RTX 4060 dies, 90Wh battery, and WASD deck), live RPM tachometer, Armoury Crate telemetry HUD, and procedural Web Audio API synthesis.',
+      title: 'ASUS TUF A15 · 3D Teardown & Knolling Explorer',
+      desc: 'Interactive 3D hardware teardown and knolling inventory for the ASUS TUF Gaming A15 (FA507) built with Three.js, React 18, and TypeScript. Decomposes 16 modular subsystems from a flush sealed chassis (0%), through layered mechanical extraction with live explanations (1–65%), into an orthonormalized 4 × 4 Knolling Grid (100%) with component explanations and an 8-block 3D Logic Board explorer.',
       tag: '3D · WebGL · Three.js',
+    },
+  },
+  {
+    title: 'Agent Desktop for Linux (adc) · Escritorio aislado para IA',
+    desc: 'Entorno de escritorio Linux aislado para agentes de IA con pantalla privada Xephyr, sesión D-Bus restringida, motor propio de accesibilidad AT-SPI (snapshot, click, type, select, wait sobre GTK 3/4, Qt, Chrome y Electron), cursor de agente visible con etiquetas de intención, transferencia segura al usuario para 2FA/captchas y grabación en MP4. Disponible como skill, plugin de Claude Code y edición Pro en Agensi.',
+    tag: 'Python · Linux · AI Agents',
+    url: 'https://github.com/Ismael-Sallami/agent-desktop-linux-cursor',
+    img: agentDesktopImg,
+    featured: true,
+    en: {
+      title: 'Agent Desktop for Linux (adc) · Isolated AI Desktop',
+      desc: 'Isolated Linux desktop environment for AI agents featuring a private Xephyr display, restricted D-Bus session, built-in AT-SPI accessibility engine (snapshot, click, type, select, wait across GTK 3/4, Qt, Chrome, and Electron), visible agent cursor with intent labels, user hand-off for 2FA/captchas, and MP4 session recording. Available as an agent skill, Claude Code plugin, and Pro edition on Agensi.',
+      tag: 'Python · Linux · AI Agents',
+    },
+  },
+  {
+    title: 'PodVanguard · Centro de mando de contenedores y pods',
+    desc: 'Panel de control web de alto rendimiento para la gestión y observabilidad de contenedores y pods en Linux. Supervisión en tiempo real de recursos por cgroups, topología de redes CNI, inspección de logs en streaming y control del ciclo de vida de servicios.',
+    tag: 'Linux · Contenedores · Web',
+    url: 'https://github.com/Ismael-Sallami/pod-vanguard',
+    img: podVanguardImg,
+    en: {
+      title: 'PodVanguard · Container & Pod Command Center',
+      desc: 'High-performance web command center for managing and observing Linux containers and pods. Real-time cgroups resource telemetry, CNI network topology inspection, live log streaming, and service lifecycle orchestration.',
+      tag: 'Linux · Containers · Web',
+    },
+  },
+  {
+    title: 'GitVanguard · Controlador Git TUI en Rust',
+    desc: 'Interfaz de terminal (TUI) de alto rendimiento escrita en Rust para flujos avanzados de Git en Linux: grafo DAG interactivo, Time Machine sobre el reflog con restauración instantánea de instantáneas, escudo pre-commit Sentinel Secret Shield por análisis de entropía y gestión paralela de Worktrees.',
+    tag: 'Rust · Git · TUI',
+    url: 'https://github.com/Ismael-Sallami/git-vanguard',
+    img: gitVanguardImg,
+    en: {
+      title: 'GitVanguard · High-Performance Rust Git TUI',
+      desc: 'High-performance terminal UI (TUI) written in Rust for advanced Git workflows on Linux: interactive commit DAG, reflog Time Machine with instant snapshot recovery, entropy-based Sentinel Secret Shield pre-commit scanner, and parallel Worktree management.',
+      tag: 'Rust · Git · TUI',
     },
   },
   {
@@ -86,18 +126,6 @@ export const projects = [
     tag: 'Python · Whisper · MCP',
     url: 'https://github.com/Ismael-Sallami/murmur',
     img: murmurImg,
-    recognition: {
-      badge: 'Indexado en XERJ Corpus Hub',
-      badgeEn: 'Indexed in XERJ Corpus Hub',
-      title: 'Contribuidor seleccionado · XERJ Corpus Hub',
-      titleEn: 'Selected Contributor · XERJ Corpus Hub',
-      desc: 'Implementación seleccionada como corpus de referencia de IA para agentes de código: animaciones de scroll parallax y pipeline dinámico en el estudio web (12 ficheros, ~1.200 líneas en TypeScript y JavaScript).',
-      descEn: 'Implementation selected as an AI reference corpus for coding agents: scroll parallax animations and dynamic pipeline in the web studio (12 files, ~1,200 lines in TypeScript & JavaScript).',
-      url: 'https://hub.xerj.org/contributors/Ismael-Sallami',
-      badgeUrl: 'https://hub.xerj.org/contributors/Ismael-Sallami/badge.svg',
-      commit: '672e056146',
-      commitUrl: 'https://github.com/Ismael-Sallami/murmur/commit/672e05614613301f152e1b9ef90c4cbdf2648272',
-    },
     en: {
       title: 'Murmur · Lecture Transcription & Cornell Notes via MCP',
       desc: 'Resilient lecture audio capture with chunk streaming, accelerated Whisper transcription (Groq Cloud and local CTranslate2 + Silero-VAD), structured LLM Cornell note synthesis, and multi-channel Model Context Protocol (MCP) synchronization to Obsidian, LaTeX, and Notion. Selected for XERJ Corpus Hub as an AI reference corpus for coding agents.',
@@ -487,7 +515,63 @@ const generatedByUrl = new Map(generated.map((g) => [keyOf(g.url), g]))
 const titleFromSlug = (slug) =>
   slug.replace(/[-_]+/g, ' ').replace(/\b\p{Ll}/gu, (c) => c.toUpperCase())
 
+function buildRecognition(g, manualRec) {
+  const auto = g?.recognition
+  if (!auto && !manualRec) return null
+
+  const source = manualRec?.source ?? auto?.source ?? 'XERJ Corpus Hub'
+  const files = manualRec?.files ?? auto?.files ?? 12
+  const lines = manualRec?.lines ?? auto?.lines ?? 1193
+  const languages = manualRec?.languages ?? auto?.languages ?? 'TypeScript & JavaScript'
+  const license = manualRec?.license ?? auto?.license ?? 'MIT'
+  const commit = manualRec?.commit ?? auto?.commit ?? null
+  const commitUrl = manualRec?.commitUrl ?? auto?.commitUrl ?? null
+  const corpusSlug = manualRec?.corpusSlug ?? auto?.corpusSlug ?? (g?.slug ? `ismael-sallami--${g.slug}` : null)
+  const corpusUrl = manualRec?.corpusUrl ?? auto?.corpusUrl ?? (corpusSlug ? `https://hub.xerj.org/corpus/${corpusSlug}` : null)
+  const url = manualRec?.url ?? auto?.url ?? 'https://hub.xerj.org/contributors/Ismael-Sallami'
+  const badgeUrl = manualRec?.badgeUrl ?? auto?.badgeUrl ?? 'https://hub.xerj.org/contributors/Ismael-Sallami/badge.svg'
+  const summary = auto?.commitSummary
+    ? auto.commitSummary.replace(/^feat:\s*/i, '').replace(/…$/, '').trim()
+    : null
+
+  const autoDescEs = summary
+    ? `Implementación seleccionada como corpus de referencia de IA para agentes de código: ${summary} (${files} ficheros, ~${lines.toLocaleString('es-ES')} líneas en ${languages}).`
+    : `Implementación seleccionada en ${source} como corpus de referencia de IA para agentes de programación (${files} ficheros, ~${lines.toLocaleString('es-ES')} líneas en ${languages}).`
+
+  const autoDescEn = summary
+    ? `Implementation selected as an AI reference corpus for coding agents (${files} files, ~${lines.toLocaleString('en-US')} lines in ${languages}).`
+    : `Implementation selected in ${source} as a reference corpus for AI coding agents (${files} files, ~${lines.toLocaleString('en-US')} lines in ${languages}).`
+
+  return {
+    id: `${source.toLowerCase().replace(/\s+/g, '-')}:${g?.slug ?? manualRec?.commit ?? 'repo'}`,
+    source,
+    role: manualRec?.role ?? auto?.role ?? 'Corpus Hub Contributor',
+    project: g?.name ?? manualRec?.project ?? 'murmur',
+    fullName: g?.fullName ?? manualRec?.fullName ?? 'Ismael-Sallami/murmur',
+    badge: manualRec?.badge ?? `Indexado en ${source}`,
+    badgeEn: manualRec?.badgeEn ?? `Indexed in ${source}`,
+    title: manualRec?.title ?? `Contribuidor seleccionado · ${source}`,
+    titleEn: manualRec?.titleEn ?? `Selected Contributor · ${source}`,
+    desc: manualRec?.desc ?? autoDescEs,
+    descEn: manualRec?.descEn ?? autoDescEn,
+    stats: manualRec?.stats ?? `${files} ficheros · ~${lines.toLocaleString('es-ES')} líneas en ${languages} · Licencia ${license}`,
+    statsEn: manualRec?.statsEn ?? `${files} files · ~${lines.toLocaleString('en-US')} lines in ${languages} · ${license} License`,
+    languages,
+    files,
+    lines,
+    license,
+    date: manualRec?.date ?? auto?.date ?? g?.pushedAt ?? null,
+    url,
+    badgeUrl,
+    commit,
+    commitUrl,
+    corpusSlug,
+    corpusUrl,
+  }
+}
+
 function fromGenerated(g) {
+  const recognition = buildRecognition(g, null)
   return {
     title: g.headline || titleFromSlug(g.name),
     desc: g.description ?? '',
@@ -503,6 +587,7 @@ function fromGenerated(g) {
     language: g.language,
     pushedAt: g.pushedAt,
     topics: g.topics,
+    ...(recognition ? { recognition } : {}),
     // The card text is GitHub's own description, which is written in English. Saying so
     // lets the page label it instead of passing it off as a translation.
     autoGenerated: true,
@@ -521,6 +606,7 @@ export function mergeProjects() {
     const key = keyOf(p.url)
     seen.add(key)
     const g = generatedByUrl.get(key)
+    const recognition = buildRecognition(g, p.recognition)
     merged.push({
       ...p,
       slug: g?.slug ?? null,
@@ -529,6 +615,7 @@ export function mergeProjects() {
       pushedAt: g?.pushedAt ?? null,
       topics: g?.topics ?? [],
       desc: pick(p.desc, g?.description ?? ''),
+      ...(recognition ? { recognition } : {}),
       autoGenerated: false,
     })
   }
@@ -546,4 +633,22 @@ const allProjects = mergeProjects()
 
 export function findProject(slug) {
   return allProjects.find((p) => p.slug === slug) ?? null
+}
+
+// Auto-collects every project that carries an open-source recognition (either synced
+// automatically from XERJ Corpus Hub in projects.generated.json or declared in projects.js).
+export function getRecognitions(lang = 'es') {
+  return mergeProjects()
+    .filter((p) => Boolean(p.recognition))
+    .map((p) => {
+      const r = p.recognition
+      const isEn = lang === 'en'
+      return {
+        ...r,
+        badge: isEn ? r.badgeEn : r.badge,
+        title: isEn ? r.titleEn : r.title,
+        desc: isEn ? r.descEn : r.desc,
+        stats: isEn ? r.statsEn : r.stats,
+      }
+    })
 }

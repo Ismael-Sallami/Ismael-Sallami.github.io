@@ -30,6 +30,7 @@ function load() {
 const labelFor = (section, item) => {
   if (section === 'experience') return `${item.role} — ${item.org}`
   if (section === 'education') return `${item.degree} — ${item.school}`
+  if (section === 'recognitions') return `${item.project} (${item.source})`
   if (section === 'contributions') return `${item.project} (${item.upstream})`
   if (section === 'skills') return item.label
   if (section === 'certifications') return item.title

@@ -41,7 +41,7 @@
       "x11"
     ],
     "homepage": null,
-    "pushedAt": "2026-11-09",
+    "pushedAt": "2026-11-12",
     "hasReadme": true
   },
   {
@@ -155,7 +155,7 @@
     "slug": "asus-tuf-a15-3d",
     "fullName": "Ismael-Sallami/asus-tuf-a15-3d",
     "name": "asus-tuf-a15-3d",
-    "headline": "ASUS TUF Gaming A15 — 3D Hardware Teardown &amp; Scrollytelling Experience",
+    "headline": "ASUS TUF Gaming A15 — 3D Hardware Teardown &amp; Knolling Explorer",
     "description": "Interactive 3D hardware teardown and scrollytelling experience for the ASUS TUF Gaming A15 (FA507)",
     "language": "TypeScript",
     "topics": [
@@ -167,7 +167,7 @@
       "webgl"
     ],
     "homepage": "https://ismael-sallami.github.io/asus-tuf-a15-3d/",
-    "pushedAt": "2026-11-10",
+    "pushedAt": "2026-11-12",
     "hasReadme": true
   },
   {
@@ -385,7 +385,7 @@
     "language": "HTML",
     "topics": [],
     "homepage": null,
-    "pushedAt": "2026-11-11",
+    "pushedAt": "2026-11-12",
     "hasReadme": true
   },
   {
@@ -498,7 +498,23 @@
     ],
     "homepage": null,
     "pushedAt": "2026-09-28",
-    "hasReadme": true
+    "hasReadme": true,
+    "recognition": {
+      "source": "XERJ Corpus Hub",
+      "role": "Corpus Hub Contributor",
+      "url": "https://hub.xerj.org/contributors/Ismael-Sallami",
+      "badgeUrl": "https://hub.xerj.org/contributors/Ismael-Sallami/badge.svg",
+      "corpusSlug": "ismael-sallami--murmur",
+      "corpusUrl": "https://hub.xerj.org/corpus/ismael-sallami--murmur",
+      "commit": "672e056146",
+      "commitUrl": "https://github.com/Ismael-Sallami/murmur/commit/672e05614613301f152e1b9ef90c4cbdf2648272",
+      "commitSummary": "feat: implementar animaciones de scroll parallax y pipeline dinámico …",
+      "files": 12,
+      "lines": 1193,
+      "languages": "TypeScript, JavaScript",
+      "license": "MIT",
+      "date": "2026-10-25"
+    }
   },
   {
     "url": "https://github.com/Ismael-Sallami/neetcode-submissions",
@@ -656,7 +672,7 @@
       "webgl"
     ],
     "homepage": "https://ismael-sallami.github.io/puleva-health/",
-    "pushedAt": "2026-10-30",
+    "pushedAt": "2026-11-11",
     "hasReadme": true
   },
   {

@@ -12,12 +12,20 @@
 
 import { profile, education, localizeEducation, short } from './profile.js'
 import { experience, localizeRole } from './experience.js'
-import { mergeProjects, localizeProject } from './projects.js'
+import { mergeProjects, localizeProject, getRecognitions } from './projects.js'
 import { contributions, localizeContribution } from './contributions.js'
 import { certificates, localizeDocument } from './documents.js'
 import { CATEGORIES, byCategory, categoryLabel, skillName, skillDisplay } from './skills.js'
 
-export const SECTIONS = ['education', 'experience', 'projects', 'contributions', 'certifications', 'skills']
+export const SECTIONS = [
+  'education',
+  'experience',
+  'projects',
+  'recognitions',
+  'contributions',
+  'certifications',
+  'skills',
+]
 
 // Stable identity per item. The obvious choices are wrong in two places: a hand-written
 // project card with no repository has `slug: null`, and skills have no id at all.
@@ -29,6 +37,8 @@ export function itemKey(section, item) {
       return item.id
     case 'projects':
       return item.slug ?? item.url.toLowerCase()
+    case 'recognitions':
+      return item.id
     case 'contributions':
       return `${item.upstream}/${item.project}`
     case 'certifications':
@@ -46,6 +56,7 @@ export function sectionItems(lang) {
     education: education.map((e) => localizeEducation(e, lang)),
     experience: experience.map((r) => localizeRole(r, lang)),
     projects: mergeProjects().map((p) => localizeProject(p, lang)),
+    recognitions: getRecognitions(lang),
     contributions: contributions.map((c) => localizeContribution(c, lang)),
     // Whatever is in docs/certificates/. The same glob the certifications page reads, so
     // dropping a file in there puts it here too.
@@ -114,6 +125,21 @@ export function buildCvModel(excluded, lang) {
         leftNote: p.tag,
         right: p.pushedAt ? p.pushedAt.slice(0, 4) : '',
         bullets: [p.desc].filter(Boolean),
+      })),
+    })
+  }
+
+  const recog = keep('recognitions')
+  if (recog.length > 0) {
+    sections.push({
+      id: 'recognitions',
+      entries: recog.map((r) => ({
+        left: `${r.project} (${r.fullName})`,
+        leftNote: r.source,
+        right: [r.commit && `commit ${r.commit}`, r.date ? r.date.slice(0, 4) : ''].filter(Boolean).join(' · '),
+        sub: r.title,
+        subRight: r.languages ?? '',
+        bullets: [r.desc].filter(Boolean),
       })),
     })
   }
