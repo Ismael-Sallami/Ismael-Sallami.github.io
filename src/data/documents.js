@@ -32,7 +32,7 @@ export const labels = {
     en: 'Google Summer of Code 2026 · The Mifos Initiative',
     year: '2026',
   },
-  'ahrefs-marketing-platform-2026.png': {
+  'ahrefs-marketing-platform-2026.pdf': {
     es: "Certified in Ahrefs' Marketing Platform",
     en: "Certified in Ahrefs' Marketing Platform",
     year: '2026',
