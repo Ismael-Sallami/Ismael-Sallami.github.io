@@ -385,7 +385,7 @@
     "language": "HTML",
     "topics": [],
     "homepage": null,
-    "pushedAt": "2026-11-12",
+    "pushedAt": "2026-11-13",
     "hasReadme": true
   },
   {
@@ -661,7 +661,7 @@
     "name": "puleva-health",
     "headline": "Puleva Health · Salud que se bebe",
     "description": "Puleva Health · Salud que se bebe — propuesta del Grupo 6 para el Hackathon UGR × Lactalis Puleva 2026 (web 3D, spot y business case)",
-    "language": "HTML",
+    "language": "JavaScript",
     "topics": [
       "hackathon",
       "marketing-strategy",

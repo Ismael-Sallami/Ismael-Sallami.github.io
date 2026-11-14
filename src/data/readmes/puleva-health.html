@@ -35,6 +35,82 @@
 <p dir="auto">Es una web estática sin dependencias de compilación:</p>
 <div class="highlight highlight-source-shell" dir="auto"><pre class="notranslate">python3 -m http.server 8000
 <span class="pl-c"><span class="pl-c">#</span> y abre http://localhost:8000</span></pre></div>
+<h2 dir="auto" id="presentaciones-de-la-final">Presentaciones de la final</h2>
+<p dir="auto">Dos versiones de la presentación para los directivos, en <code class="notranslate">deck/</code>. Se publican compiladas junto a la web:</p>
+<markdown-accessiblity-table><table role="table">
+<thead>
+<tr>
+<th>Versión</th>
+<th>Estilo</th>
+<th>Ver online</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Borrador 2</strong> · "Fanzine de la final"</td>
+<td>Risógrafo: papel, tintas fluorescentes, cómic. Sigue el guion de <code class="notranslate">presentacion/guion.md</code> (9:30, 3 ponentes)</td>
+<td><a target="_blank" rel="noopener noreferrer" href="https://ismael-sallami.github.io/puleva-health/deck/borrador2/" rel="nofollow">Abrir</a> · <a target="_blank" rel="noopener noreferrer" href="https://ismael-sallami.github.io/puleva-health/deck/borrador2/img/spot10.mp4" rel="nofollow">Spot "10 SEGUNDOS"</a></td>
+</tr>
+<tr>
+<td><strong>Borrador 1</strong></td>
+<td>Oscura, con bote 3D y leche simulada en GPU</td>
+<td><a target="_blank" rel="noopener noreferrer" href="https://ismael-sallami.github.io/puleva-health/deck/borrador1/" rel="nofollow">Abrir</a></td>
+</tr>
+</tbody>
+</table></markdown-accessiblity-table>
+<p dir="auto">Mejor en <strong>Chrome o Edge</strong>. Al abrirlas aparece una pantalla de inicio: <strong>Empezar en pantalla completa</strong> (o Enter) la pone a pantalla completa y activa el sonido.</p>
+<h3 dir="auto" id="cómo-se-maneja">Cómo se maneja</h3>
+<markdown-accessiblity-table><table role="table">
+<thead>
+<tr>
+<th>Tecla</th>
+<th>Acción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code class="notranslate">→</code> · espacio · clic</td>
+<td>Siguiente animación</td>
+</tr>
+<tr>
+<td><code class="notranslate">←</code> · clic derecho</td>
+<td>Paso anterior</td>
+</tr>
+<tr>
+<td><code class="notranslate">F</code> o botón ⛶</td>
+<td>Pantalla completa</td>
+</tr>
+<tr>
+<td><code class="notranslate">P</code></td>
+<td>Vista de ponente: notas del guion, cronómetro y saltar a cualquier diapositiva (ábrela en el portátil y proyecta la otra ventana)</td>
+</tr>
+<tr>
+<td><code class="notranslate">M</code></td>
+<td>Sonido sí / no</td>
+</tr>
+<tr>
+<td><code class="notranslate">B</code></td>
+<td>Pantalla en negro</td>
+</tr>
+<tr>
+<td><code class="notranslate">H</code></td>
+<td>Ayuda</td>
+</tr>
+</tbody>
+</table></markdown-accessiblity-table>
+<p dir="auto">Los mandos de presentación (los que tienen flechas o AvPág/RePág) funcionan sin configurar nada. La URL guarda dónde vas (<code class="notranslate">#diapositiva.paso</code>).</p>
+<h3 dir="auto" id="ejecutar-y-compilar-en-local">Ejecutar y compilar en local</h3>
+<p dir="auto">Hace falta <a target="_blank" rel="noopener noreferrer" href="https://nodejs.org" rel="nofollow">Node.js</a> 18 o superior.</p>
+<div class="highlight highlight-source-shell" dir="auto"><pre class="notranslate"><span class="pl-c1">cd</span> deck/borrador2          <span class="pl-c"><span class="pl-c">#</span> o deck/borrador1</span>
+npm install                <span class="pl-c"><span class="pl-c">#</span> solo la primera vez</span>
+npm run dev                <span class="pl-c"><span class="pl-c">#</span> modo desarrollo: borrador2 → http://localhost:5190 · borrador1 → http://localhost:5180</span>
+npm run build              <span class="pl-c"><span class="pl-c">#</span> versión final en dist/ (estática, se abre desde cualquier servidor)</span>
+npm run preview            <span class="pl-c"><span class="pl-c">#</span> sirve dist/ para comprobarla</span></pre></div>
+<p dir="auto"><code class="notranslate">dist/</code> funciona en cualquier carpeta de cualquier servidor estático, sin internet. Para presentar sin conexión: <code class="notranslate">npm run build &amp;&amp; npm run preview</code>, o copiar <code class="notranslate">dist/</code> a un pendrive y servirla con <code class="notranslate">python3 -m http.server</code>.</p>
+<p dir="auto">Al hacer push a <code class="notranslate">main</code>, GitHub Actions compila las dos y las publica en la web (<code class="notranslate">.github/workflows/deploy.yml</code>).</p>
+<h3 dir="auto" id="el-spot-10-segundos">El spot "10 SEGUNDOS"</h3>
+<p dir="auto">Está en <code class="notranslate">deck/borrador2/public/img/spot10.mp4</code> (22 s, 1080p) y sale al final del borrador 2. Para regenerarlo, por ejemplo cambiando una frase o la voz, usa <code class="notranslate">deck/borrador2/spot-tools/hacer_spot.sh</code>. Sus requisitos y opciones están en <code class="notranslate">deck/borrador2/README.md</code>.</p>
+<p dir="auto">Cada borrador tiene su propio <code class="notranslate">README.md</code> con el detalle de diapositivas, archivos y efectos.</p>
 <h2 dir="auto" id="equipo">Equipo</h2>
 <p dir="auto">David Bacas Posadas · Ismael Sallami Moreno · Jesús Rodríguez González<br>
 Doble Grado en Ingeniería Informática y ADE · Universidad de Granada · Dirección Estratégica I</p>
