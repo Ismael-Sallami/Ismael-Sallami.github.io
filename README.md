@@ -19,7 +19,7 @@ touching.
 
 | File | Holds |
 | --- | --- |
-| `src/data/projects.js` | the 27 projects, with their Spanish and English copy |
+| `src/data/projects.js` | the 36 projects, with their Spanish and English copy |
 | `src/data/contributions.js` | descriptions of the open source work; the numbers come from the API |
 | `src/data/experience.generated.json` | the roles in the Home timeline, written in a Google Sheet |
 | `src/data/documents.js` | the titles of the CVs and certifications under `docs/` |
@@ -82,6 +82,9 @@ npm run gen:readme           # rewrites the tables below
 
 ### Featured
 
+- **[ASUS TUF A15 · Despiece 3D e inventario Knolling](https://github.com/Ismael-Sallami/asus-tuf-a15-3d)** — 3D · WebGL · Three.js. Desmontaje interactivo en 3D del ASUS TUF Gaming A15 (FA507) construido con Three.js, React 18 y TypeScript. Descomposición paramétrica de 16 subsistemas modulares desde el chasis sellado (0%), pasando por la apertura mecánica por capas explicada en vivo (1–65%), hasta una cuadrícula ortonormalizada Knolling 4 × 4 (100%) con ficha técnica bajo cada pieza y explorador 3D de placa base con 8 bloques funcionales.
+- **[Agent Desktop for Linux (adc) · Escritorio aislado para IA](https://github.com/Ismael-Sallami/agent-desktop-linux-cursor)** — Python · Linux · AI Agents. Entorno de escritorio Linux aislado para agentes de IA con pantalla privada Xephyr, sesión D-Bus restringida, motor propio de accesibilidad AT-SPI (snapshot, click, type, select, wait sobre GTK 3/4, Qt, Chrome y Electron), cursor de agente visible con etiquetas de intención, transferencia segura al usuario para 2FA/captchas y grabación en MP4. Disponible como skill, plugin de Claude Code y edición Pro en Agensi.
+- **[AETHER NOVA PRO · Telemetría acústica 3D](https://github.com/Ismael-Sallami/gaming-headset-3d)** — 3D · WebGL · Audio API. Inspección de ingeniería acústica en 3D de unos auriculares magnéticos planares de 90 mm. Modelado paramétrico de 7 estratos y 28 piezas, cinemática de despiece sincronizada con GSAP ScrollTrigger, propagación holográfica de frentes de onda en tiempo real, modos PBR/Wireframe/Rayos X y analizador FFT interactivo con Web Audio API.
 - **[Laboratorio de infraestructura con Ansible](https://github.com/Ismael-Sallami/ansible-infra-lab)** — DevOps · Ansible. Aprovisionamiento de un laboratorio Rocky Linux: playbooks que crean usuarios y servidores web, Prometheus y Grafana midiéndolos, y un plan de JMeter que los somete a carga. Las claves no viven en el repositorio, las genera un script.
 - **[Algorithms and Patterns](https://github.com/Ismael-Sallami/algorithms-and-patterns)** — Algoritmos · C++. Casi 200 implementaciones organizadas por patrón. Más de 140 son extractos de mi trabajo previo, cada uno con enlace al fichero y las líneas de las que sale; el resto están escritas para el repositorio y se verifican solas al compilar.
 - **[Personal Finance Manager](https://github.com/Ismael-Sallami/personal-finance-manager)** — Full-stack. Servicio de finanzas autoalojado: importa extractos de varios brókeres, calcula rentabilidad en aritmética decimal, agrega los informes y expone un bot de Telegram. FastAPI y PostgreSQL.
@@ -91,15 +94,21 @@ npm run gen:readme           # rewrites the tables below
 
 ### Everything else
 
+- **[PodVanguard · Centro de mando de contenedores y pods](https://github.com/Ismael-Sallami/pod-vanguard)** — Linux · Contenedores · Web
+- **[GitVanguard · Controlador Git TUI en Rust](https://github.com/Ismael-Sallami/git-vanguard)** — Rust · Git · TUI
+- **[Puleva Health · Salud líquida en 3D](https://github.com/Ismael-Sallami/puleva-health)** — Three.js · React · Remotion
+- **[Murmur · Transcripción y notas Cornell con MCP](https://github.com/Ismael-Sallami/murmur)** — Python · Whisper · MCP
+- **[Diffchecker · Comparador y fusión en navegador](https://github.com/Ismael-Sallami/diffchecker)** — JavaScript · Algoritmos
+- **[gittomd · Repositorio a Markdown para contexto LLM](https://github.com/Ismael-Sallami/gittomd)** — CLI · Markdown · LLM
 - **[Concurrencia y sistemas distribuidos](https://github.com/Ismael-Sallami/concurrency-mpi)** — C++ · MPI
 - **[Parchís · IA con adversario](https://github.com/Ismael-Sallami/parchis-ai)** — IA · C++
 - **[Sistema de información sobre Oracle](https://github.com/Ismael-Sallami/oracle-dbms-project)** — Oracle · SQL
-- **[pdf-to-md](https://github.com/Ismael-Sallami/pdf-to-md)** — Python · CLI
+- **[pdf2md](https://github.com/Ismael-Sallami/pdf2md)** — Python · CLI
 - **[Esta web](https://github.com/Ismael-Sallami/Ismael-Sallami.github.io)** — React
 - **[Prácticas de aprendizaje automático](https://github.com/Ismael-Sallami/machine-learning-practices)** — Machine Learning
 - **[3-Partition · Demostración NP-completo](https://github.com/Ismael-Sallami/3-Partition-NP-Completeness)** — Complejidad
 - **[Blog del doble grado Informática + ADE](https://elblogdeismael.github.io/)** — Web
-- **[md2html · Test Generator](https://github.com/Ismael-Sallami/md2html-testGenerator)** — Tooling
+- **[md2html · Test Generator](https://github.com/Ismael-Sallami/md2html)** — Tooling
 - **[Media Manager](https://github.com/Ismael-Sallami/media-manager)** — App
 - **[TDA · Tratamiento de Imagen](https://github.com/Ismael-Sallami/image-adt)** — C++
 - **[Arch Linux · Dotfiles](https://github.com/Ismael-Sallami/Arch_Configuration)** — Linux
