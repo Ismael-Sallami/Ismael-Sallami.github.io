@@ -52,17 +52,19 @@ tools/               the checks the CI runs
 </ul>
 <h2 dir="auto" id="build-and-run">Build and run</h2>
 <p dir="auto"><strong>Credentials come from the environment.</strong> Nothing is written in the code:</p>
-<div class="highlight highlight-source-shell" dir="auto"><pre class="notranslate">pip install -r requirements.txt
+<pre lang="bash" class="notranslate"><code class="notranslate">pip install -r requirements.txt
 
-<span class="pl-k">export</span> ORACLE_USER=your_user
-<span class="pl-k">export</span> ORACLE_PASSWORD=your_password
-<span class="pl-k">export</span> ORACLE_DSN=oracle0.ugr.es:1521/practbd
+export ORACLE_USER=your_user
+export ORACLE_PASSWORD=your_password
+export ORACLE_DSN=oracle0.ugr.es:1521/practbd
 
-python3 src/main.py</pre></div>
+python3 src/main.py
+</code></pre>
 <p dir="auto">To create the schema and load the triggers into a database of your own, and to compile the<br>
 application:</p>
-<div class="highlight highlight-source-shell" dir="auto"><pre class="notranslate">python3 tools/run-against-oracle.py     <span class="pl-c"><span class="pl-c">#</span> the same script the CI runs</span>
-bash tools/check-python.sh</pre></div>
+<pre lang="bash" class="notranslate"><code class="notranslate">python3 tools/run-against-oracle.py     # the same script the CI runs
+bash tools/check-python.sh
+</code></pre>
 <h2 dir="auto" id="results">Results</h2>
 <p dir="auto">What the CI prints on every push, against a real Oracle:</p>
 <pre class="notranslate"><code class="notranslate">database/00_init_tablas.sql: 16 statements
