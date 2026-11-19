@@ -385,7 +385,7 @@
     "language": "HTML",
     "topics": [],
     "homepage": null,
-    "pushedAt": "2026-11-17",
+    "pushedAt": "2026-11-18",
     "hasReadme": true
   },
   {
@@ -652,6 +652,27 @@
     ],
     "homepage": null,
     "pushedAt": "2026-10-05",
+    "hasReadme": true
+  },
+  {
+    "url": "https://github.com/Ismael-Sallami/puleva-health",
+    "slug": "puleva-health",
+    "fullName": "Ismael-Sallami/puleva-health",
+    "name": "puleva-health",
+    "headline": "Puleva Health · Salud que se bebe",
+    "description": "Puleva Health · Salud que se bebe — propuesta del Grupo 6 para el Hackathon UGR × Lactalis Puleva 2026 (web 3D, spot y business case)",
+    "language": "JavaScript",
+    "topics": [
+      "hackathon",
+      "marketing-strategy",
+      "portfolio",
+      "remotion",
+      "threejs",
+      "ugr",
+      "webgl"
+    ],
+    "homepage": "https://ismael-sallami.github.io/puleva-health/",
+    "pushedAt": "2026-11-19",
     "hasReadme": true
   },
   {
