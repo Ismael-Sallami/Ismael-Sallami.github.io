@@ -78,8 +78,7 @@ alive on a free tier, and how a private repository was turned into this public<b
 one without leaking anything.</p>
 <p dir="auto">📄 <strong><a target="_blank" rel="noopener noreferrer" href="https://github.com/Ismael-Sallami/personal-finance-manager/blob/main/informe/informe.pdf">Read the report (PDF)</a></strong> · LaTeX sources in<br>
 <a target="_blank" rel="noopener noreferrer" href="https://github.com/Ismael-Sallami/personal-finance-manager/blob/main/informe/"><code class="notranslate">informe/</code></a></p>
-<pre lang="bash" class="notranslate"><code class="notranslate">cd informe &amp;&amp; make        # rebuild it (needs a LaTeX distribution)
-</code></pre>
+<div class="highlight highlight-source-shell" dir="auto"><pre class="notranslate"><span class="pl-c1">cd</span> informe <span class="pl-k">&amp;&amp;</span> make        <span class="pl-c"><span class="pl-c">#</span> rebuild it (needs a LaTeX distribution)</span></pre></div>
 <hr>
 <h2 dir="auto" id="features">Features</h2>
 <p dir="auto"><strong>Expenses and income</strong></p>
@@ -181,23 +180,20 @@ demand.</li>
 </table></markdown-accessiblity-table>
 <hr>
 <h2 dir="auto" id="quick-start">Quick start</h2>
-<pre lang="bash" class="notranslate"><code class="notranslate">git clone https://github.com/Ismael-Sallami/personal-finance-manager.git
-cd personal-finance-manager
+<div class="highlight highlight-source-shell" dir="auto"><pre class="notranslate">git clone https://github.com/Ismael-Sallami/personal-finance-manager.git
+<span class="pl-c1">cd</span> personal-finance-manager
 
-python3 -m venv .venv &amp;&amp; source .venv/bin/activate
+python3 -m venv .venv <span class="pl-k">&amp;&amp;</span> <span class="pl-c1">source</span> .venv/bin/activate
 pip install -r requirements.txt
 
-cp .env.example .env          # then edit it
-python -c "import secrets; print(secrets.token_hex(32))"   # SECRET_KEY
-</code></pre>
+cp .env.example .env          <span class="pl-c"><span class="pl-c">#</span> then edit it</span>
+python -c <span class="pl-s"><span class="pl-pds">"</span>import secrets; print(secrets.token_hex(32))<span class="pl-pds">"</span></span>   <span class="pl-c"><span class="pl-c">#</span> SECRET_KEY</span></pre></div>
 <p dir="auto">Create the schema and the user:</p>
-<pre lang="bash" class="notranslate"><code class="notranslate">alembic upgrade head          # creates the tables
-python -m scripts.seed        # creates the user from .env
-</code></pre>
+<div class="highlight highlight-source-shell" dir="auto"><pre class="notranslate">alembic upgrade head          <span class="pl-c"><span class="pl-c">#</span> creates the tables</span>
+python -m scripts.seed        <span class="pl-c"><span class="pl-c">#</span> creates the user from .env</span></pre></div>
 <p dir="auto">Run it:</p>
-<pre lang="bash" class="notranslate"><code class="notranslate">uvicorn app.main:app --reload
-# http://localhost:8000  -&gt; sign in with APP_USER_EMAIL / APP_USER_PASSWORD
-</code></pre>
+<div class="highlight highlight-source-shell" dir="auto"><pre class="notranslate">uvicorn app.main:app --reload
+<span class="pl-c"><span class="pl-c">#</span> http://localhost:8000  -&gt; sign in with APP_USER_EMAIL / APP_USER_PASSWORD</span></pre></div>
 <p dir="auto">With <code class="notranslate">DATABASE_URL</code> empty the app uses a local SQLite file (<code class="notranslate">dev.db</code>), which is<br>
 enough to try everything. Set it to a Postgres URL for real use.</p>
 <hr>
@@ -319,11 +315,10 @@ enough to try everything. Set it to a Postgres URL for real use.</p>
 <p dir="auto">Two supported paths, both covered in detail in<br>
 <a target="_blank" rel="noopener noreferrer" href="https://github.com/Ismael-Sallami/personal-finance-manager/blob/main/docs/DEPLOYMENT.md"><code class="notranslate">docs/DEPLOYMENT.md</code></a>.</p>
 <p dir="auto"><strong>Self-hosted with Docker Compose</strong> — the app plus its own Postgres:</p>
-<pre lang="bash" class="notranslate"><code class="notranslate">cp .env.example .env
+<div class="highlight highlight-source-shell" dir="auto"><pre class="notranslate">cp .env.example .env
 docker compose up -d
-docker compose exec app alembic upgrade head
-docker compose exec app python -m scripts.seed
-</code></pre>
+docker compose <span class="pl-c1">exec</span> app alembic upgrade head
+docker compose <span class="pl-c1">exec</span> app python -m scripts.seed</pre></div>
 <p dir="auto"><strong>Managed host plus managed Postgres</strong> — <code class="notranslate">render.yaml</code> and <code class="notranslate">fly.toml</code> are<br>
 included as blueprints. Set the secrets in the provider dashboard, then run<br>
 <code class="notranslate">alembic upgrade head</code> once from the shell.</p>
@@ -417,10 +412,9 @@ the redirect will drop the POST body.</p>
 Telegram chat. That is the point: the copy lives outside the database provider,<br>
 so a paused or deleted project does not take your history with it.</p>
 <p dir="auto">By hand:</p>
-<pre lang="bash" class="notranslate"><code class="notranslate">python -m scripts.backup dump                    # finance_backup_&lt;date&gt;.json.gz
-python -m scripts.backup restore copy.json.gz    # dry run, writes nothing
-python -m scripts.backup restore copy.json.gz --write
-</code></pre>
+<div class="highlight highlight-source-shell" dir="auto"><pre class="notranslate">python -m scripts.backup dump                    <span class="pl-c"><span class="pl-c">#</span> finance_backup_&lt;date&gt;.json.gz</span>
+python -m scripts.backup restore copy.json.gz    <span class="pl-c"><span class="pl-c">#</span> dry run, writes nothing</span>
+python -m scripts.backup restore copy.json.gz --write</pre></div>
 <p dir="auto">Restoring <strong>deletes</strong> the tables present in the file before inserting. The<br>
 backup never contains <code class="notranslate">users.password_hash</code>, so after restoring into an empty<br>
 database recreate the user with <code class="notranslate">python -m scripts.seed</code>.</p>
@@ -530,8 +524,7 @@ attempts.</li>
 </ul>
 <hr>
 <h2 dir="auto" id="tests">Tests</h2>
-<pre lang="bash" class="notranslate"><code class="notranslate">python -m pytest -q
-</code></pre>
+<div class="highlight highlight-source-shell" dir="auto"><pre class="notranslate">python -m pytest -q</pre></div>
 <p dir="auto">They cover the broker parsers, the P&amp;L maths in <code class="notranslate">Decimal</code>, the paste parser,<br>
 aggregation, the bot, the task endpoints, backups and the health contracts.</p>
 <p dir="auto"><code class="notranslate">tests/test_boot_imports.py</code> deserves a note: it asserts that importing<br>
