@@ -43,6 +43,11 @@ export const labels = {
     en: "Certified in Ahrefs' Marketing Platform",
     year: '2026',
   },
+  'hackathon-puleva-primer-premio-2026.pdf': {
+    es: '1.er Premio · IV Hackathon de Innovación Lactalis Puleva - UGR',
+    en: '1st Prize · 4th Lactalis Puleva - UGR Innovation Hackathon',
+    year: '2026',
+  },
   'hackathon-innovacion-puleva-ugr-2026.pdf': {
     es: 'Hackathon de Innovación · Cátedra Lactalis Puleva - UGR',
     en: 'Innovation Hackathon · Lactalis Puleva - UGR Chair',
